@@ -706,19 +706,11 @@ Per hub Versioning discipline:
   reflect 2026-04 state; the category framing survives
   rebrands.
 
-A machine-readable snapshot of the productivity and AI-service
-vendor authorization state lives at
-`references/data/fedramp-snapshot.json`. Ten entries covering the
-corpus's primary managed-service vendors with primary-source
-URLs, DoD IL overlays, CUI-suitability framing, and notes on
-common miscitations. The snapshot is agent-facing reference data,
-not an SSP citation substitute. Contractors building an SSP
-still verify the current Marketplace package at
-marketplace.fedramp.gov and cite with a live-verification date.
-See `references/data/README.md` for the refresh cadence and
-contribution guidance. A future automated refresh against the
-FedRAMP Marketplace JSON endpoint is possible but scoped as a
-separate task.
+No machine-readable FedRAMP product matrix is shipped in this skill
+(see `references/data/README.md`). Contractors building an SSP must
+verify the current Marketplace package at marketplace.fedramp.gov and
+cite with a live-verification date. Dated stamps elsewhere in the
+corpus are starting points only.
 
 Content verified 2026-04-21 against the cited primary sources.
 Next full re-verification at the corpus review cycle or when
