@@ -30,26 +30,34 @@ certification. These are basic cyber hygiene; there is no conditional path.
 
 POA&Ms are permitted under strict conditions:
 
-1. **Minimum score required:** The organization must achieve at least 80%
-   of the total assessment score to be eligible for Conditional Certification
-2. **Only non-critical practices:** Practices that carry a weight of 1 point
-   can be placed on a POA&M. Higher-weighted practices must be fully met.
+1. **Minimum score required:** Assessment score divided by the total number
+   of CMMC Level 2 security requirements must be **≥ 0.8** (80%). With the
+   common 110-point SPRS scaling, that is often discussed as a minimum
+   score of **88** when fully implementing the DoD Assessment Methodology
+   weights—confirm scoring with 32 CFR 170.24 and your assessor.
+2. **Only 1-point practices on the POA&M** (with one exception below).
+   Requirements with a point value greater than 1 may not appear on the
+   POA&M except as specified for SC.L2-3.13.11.
 3. **One exception:** SC.L2-3.13.11 (CUI encryption) can appear on a POA&M
-   if encryption exists but is not FIPS-validated. Per the DoD Assessment
-   Methodology v1.2.1, SC.L2-3.13.11 is a 5-point practice with a partial-
-   credit structure: full implementation is 5 points; encryption present
-   but not FIPS-validated is the 3-point-deduction state that qualifies
-   for this POA&M carve-out. The carve-out exists because FIPS validation
-   procurement timelines can be long.
-4. **180-day closeout deadline:** All POA&M items must be fully remediated
-   within 180 days of receiving Conditional Certification.
-5. **Closeout assessment required:** The C3PAO must conduct a closeout
-   assessment to verify all POA&M items have been remediated.
+   if encryption exists but is not FIPS-validated (treated as a 3-point
+   condition under 32 CFR 170.21(a)(2)(ii)). The carve-out exists because
+   FIPS validation procurement timelines can be long.
+4. **Six practices are never POA&M-eligible at Level 2**, even at 1 point
+   (32 CFR 170.21(a)(2)(iii)): AC.L2-3.1.20, AC.L2-3.1.22, CA.L2-3.12.4,
+   PE.L2-3.10.3, PE.L2-3.10.4, PE.L2-3.10.5. See table below.
+5. **180-day closeout deadline:** All POA&M items must be fully remediated
+   and confirmed by a POA&M closeout assessment within 180 days of the
+   Conditional CMMC Status Date.
+6. **Closeout assessment actor (32 CFR 170.21(b)):**
+   - Level 2 **(Self):** OSA performs the closeout **self-assessment**
+   - Level 2 **(C3PAO):** authorized or accredited **C3PAO**
+   - Level 3 **(DIBCAC):** **DCMA DIBCAC**
 
 ### Level 3
 
-POA&Ms are permitted under the same basic structure as Level 2, but the
-closeout assessment is conducted by DIBCAC (government-led), not a C3PAO.
+POA&Ms are permitted under 32 CFR 170.21(a)(3) (score/total Level 3
+requirements ≥ 0.8, and none of the listed enhanced requirements on the
+POA&M). Closeout is conducted by **DIBCAC**, not a C3PAO.
 
 > Source: 32 CFR 170.21, POA&M Closeout; 32 CFR 170.23, Conditional
 > Certification Requirements
@@ -58,25 +66,35 @@ closeout assessment is conducted by DIBCAC (government-led), not a C3PAO.
 
 ## What Cannot Be on a POA&M
 
-Certain practices are designated as critical and **must be fully implemented
-at the time of assessment.** These cannot be deferred.
+### Level 2 — explicit regulatory bans (32 CFR 170.21(a)(2)(iii))
 
-The general principle: practices that represent fundamental security
-capabilities (the controls without which CUI protection is meaningfully
-compromised) cannot be deferred. The specific list is defined in the
-CMMC Assessment Guide, but the categories include:
+| Practice ID | Regulatory short name |
+|-------------|----------------------|
+| AC.L2-3.1.20 | External Connections (CUI Data) |
+| AC.L2-3.1.22 | Control Public Information (CUI Data) |
+| CA.L2-3.12.4 | System Security Plan |
+| PE.L2-3.10.3 | Escort Visitors (CUI Data) |
+| PE.L2-3.10.4 | Physical Access Logs (CUI Data) |
+| PE.L2-3.10.5 | Manage Physical Access (CUI Data) |
 
-- **Practices with scoring weights greater than 1 point** (with the
-  SC.L2-3.13.11 exception noted above)
-- **Practices that are prerequisites for other controls.** If deferring
-  one practice undermines the effectiveness of others, it cannot be deferred
-- **Practices related to the core confidentiality of CUI.** Encryption
-  at rest and in transit, access controls, authentication mechanisms
+### Level 2 — point-value rule
+
+- **Practices with scoring weights greater than 1 point** cannot be on the
+  POA&M, **except** SC.L2-3.13.11 when encryption is employed but not
+  FIPS-validated (32 CFR 170.21(a)(2)(ii)).
+
+### Level 3 — explicit bans (32 CFR 170.21(a)(3)(ii))
+
+Includes IR.L3-3.6.1e, IR.L3-3.6.2e, RA.L3-3.11.1e, RA.L3-3.11.4e,
+RA.L3-3.11.6e, RA.L3-3.11.7e, and SI.L3-3.14.3e (see regulation for full
+text).
 
 **Practical guidance:** Do not plan your compliance strategy around putting
-things on the POA&M. Plan to meet all 110 practices. Use the POA&M only
-for practices where you have a genuine implementation gap that cannot be
-closed before the assessment date but can be closed within 180 days.
+things on the POA&M. Plan to meet all 110 Level 2 practices (and all
+applicable Level 3 enhanced requirements). Use the POA&M only for practices
+where you have a genuine implementation gap that cannot be closed before
+the assessment date but can be closed within 180 days **and** that are
+POA&M-eligible under 170.21.
 
 ---
 
@@ -93,7 +111,8 @@ Day 1-30: Remediation work begins. Procurement orders placed.
 Day 31-120: Implementation of fixes. Testing and validation.
 Day 121-150: Internal verification. Evidence collection.
 Day 151-170: Closeout assessment preparation.
-Day 171-180: C3PAO closeout assessment.
+Day 171-180: Closeout assessment (OSA self-assessment or C3PAO / DIBCAC
+              depending on path—see 32 CFR 170.21(b)).
 ```
 
 **The math is tight.** If your POA&M items require procurement (new hardware,

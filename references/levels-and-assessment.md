@@ -177,7 +177,10 @@ If an organization achieves at least 80% but does not meet all 110 practices:
    Methodology v1.2.1 partial-credit structure)
 3. All NOT MET items must be documented in a Plan of Action & Milestones (POA&M)
 4. All POA&M items must be closed within **180 days** per 32 CFR 170.21
-5. A closeout assessment by the C3PAO must verify remediation
+5. A POA&M **closeout assessment** must verify remediation—**who** performs it
+   depends on the assessment path (32 CFR 170.21(b)): Level 2 **(Self)** → the
+   OSA performs a closeout self-assessment; Level 2 **(C3PAO)** → an authorized
+   or accredited C3PAO; Level 3 **(DIBCAC)** → DCMA DIBCAC
 
 **If the 180-day deadline is missed:** Conditional status expires. The
 organization loses its certification and must re-assess.
@@ -188,12 +191,24 @@ organization loses its certification and must re-assess.
 
 ### Practices That Cannot Be on a POA&M
 
-Certain practices are designated as critical and must be fully implemented
-at the time of assessment. These cannot be deferred to a POA&M. The specific
-list is defined in the CMMC Assessment Guide, but the general principle is:
-practices that represent fundamental security capabilities (such as those
-protecting the confidentiality of CUI at rest and in transit) must be in
-place before certification.
+**Point-value rule:** Except for the SC.L2-3.13.11 FIPS carve-out above, POA&M
+items may not have a scoring point value greater than 1 (32 CFR 170.21(a)(2)(ii)).
+
+**Explicit L2 bans (even if 1-point):** 32 CFR 170.21(a)(2)(iii) prohibits placing
+any of the following on a Level 2 POA&M:
+
+| Practice | Short name (regulatory) |
+|----------|-------------------------|
+| AC.L2-3.1.20 | External Connections (CUI Data) |
+| AC.L2-3.1.22 | Control Public Information (CUI Data) |
+| CA.L2-3.12.4 | System Security Plan |
+| PE.L2-3.10.3 | Escort Visitors (CUI Data) |
+| PE.L2-3.10.4 | Physical Access Logs (CUI Data) |
+| PE.L2-3.10.5 | Manage Physical Access (CUI Data) |
+
+Level 3 has a separate prohibited list under 32 CFR 170.21(a)(3)(ii) (selected
+800-172 enhanced requirements). Do not plan Conditional Certification around
+deferring these items.
 
 ---
 
@@ -239,21 +254,29 @@ not a checkbox exercise.
 
 ## Phased Rollout Timeline
 
-CMMC implementation follows a four-phase rollout:
+CMMC implementation follows a four-phase rollout defined in **32 CFR 170.3(e)**.
+Phase 1 begins on the effective date of the **48 CFR (DFARS) CMMC acquisition
+rule** (not the 32 CFR program rule alone). The program rule (32 CFR Part 170)
+became effective **December 16, 2024** and established the model and assessment
+framework; contractual phase-in starts with the acquisition rule.
 
 | Phase | Date | What Happens |
 |-------|------|-------------|
-| Phase 1 | December 16, 2024 | CMMC program rule effective. C3PAOs can begin L2 assessments. L1 self-assessments and L2 self-assessments may appear in contracts. |
-| Phase 2 | November 10, 2025 | 48 CFR acquisition rule effective. CMMC requirements begin appearing in new DoD solicitations and contracts. L2 C3PAO assessments required for prioritized CUI. |
-| Phase 3 | November 10, 2026 | L2 C3PAO assessments required more broadly. L3 DIBCAC assessments begin. |
-| Phase 4 | November 10, 2027 | Full CMMC inclusion in all applicable DoD contracts (excluding COTS). |
+| Program rule effective | December 16, 2024 | 32 CFR Part 170 effective. Model, assessments, and C3PAO ecosystem codified. **Not** the start of phased contract implementation under 170.3(e). |
+| Phase 1 | November 10, 2025 | 48 CFR acquisition rule effective. DoD may include CMMC status requirements (often Level 1 (Self) and Level 2 (Self) emphasis in early implementation) in applicable solicitations at program-office discretion (COTS-only awards excepted). |
+| Phase 2 | November 10, 2026 | One year after Phase 1. Broader inclusion of Level 2 **(C3PAO)** certification requirements for applicable CUI contracts, per phased implementation. |
+| Phase 3 | November 10, 2027 | One year after Phase 2. Further expansion, including Level 3 **(DIBCAC)** requirements where designated. |
+| Phase 4 | November 10, 2028 | Full implementation: CMMC requirements in applicable DoD solicitations/contracts (and option periods) where FCI/CUI is processed, stored, or transmitted (COTS-only excepted). See DFARS 204.7504. |
 
-> Source: Secureframe, "CMMC 2.0 Timeline: Key Dates & Deadlines Explained"
-> https://secureframe.com/hub/cmmc/proposed-final-rule
+> Source: 32 CFR 170.3(e); DFARS Case 2019-D041 final rule effective November 10,
+> 2025 (48 CFR Parts 204/212/217/252); DFARS 252.204-7021; DFARS 204.7504.
+> Practitioner summaries: Arnold & Porter / Skadden CMMC DFARS advisories (2025).
 
-**Current status (April 2026):** We are in Phase 2. CMMC requirements are
-actively appearing in new DoD solicitations. Phase 3 enforcement begins
-November 2026.
+**Current status (June 2026):** Phase 1 is underway (started November 10, 2025).
+CMMC clauses and status requirements are appearing in new DoD solicitations
+where program offices include them. Phase 2 (broader Level 2 C3PAO emphasis)
+begins **November 10, 2026**. Always confirm the CMMC level and assessment
+type in the specific solicitation.
 
 ---
 
