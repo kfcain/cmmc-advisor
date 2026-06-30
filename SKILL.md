@@ -64,6 +64,7 @@ from memory alone when a reference exists.
 | Remote work and VDI | `references/modern-it/endpoints/remote-work.md` |
 | Contractor size profiles (small/medium/large), SDVOSB, 8(a), WOSB, HUBZone | `references/contractor-profiles.md` |
 | FedRAMP Marketplace search + curated category short-lists | `references/fedramp-marketplace-guide.md` |
+| Machine-readable FedRAMP vendor snapshot (generate first) | `references/data/fedramp-snapshot.json` via `scripts/build_fedramp_snapshot.py` |
 | Unsure where to look | This file (routing table above) |
 
 If a referenced file does not exist yet, say so honestly. Tell the user

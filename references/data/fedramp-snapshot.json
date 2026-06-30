@@ -1,0 +1,269 @@
+{
+  "schema_version": "1.1",
+  "generated_at": "2026-06-30T20:46:58+00:00",
+  "scope_note": "Curated vendor list for Phase 5 productivity and AI services in the cmmc-advisor corpus. Authorization fields marked marketplace_live are refreshed from the official FedRAMP Marketplace export; DoD IL, CUI suitability, and practitioner notes remain corpus guidance and must still be verified before SSP citation.",
+  "marketplace_data_url": "https://raw.githubusercontent.com/FedRAMP/marketplace-fedramp-gov-data/main/fedramp-products.json",
+  "marketplace_export_timestamp": "2026-06-02T19:28:40.831Z",
+  "marketplace_total_products": 797,
+  "verification_guidance": "marketplace_live fields come from the official FedRAMP Marketplace export at generation time. dod_impact_level, cui_suitability, and notes are corpus practitioner guidance. Re-run this script before SSP citation and confirm package scope at marketplace.fedramp.gov.",
+  "vendors": [
+    {
+      "id": "microsoft-365-gcc",
+      "product": "Microsoft 365 Government Community Cloud (GCC)",
+      "vendor": "Microsoft",
+      "dod_impact_level": [
+        "IL2"
+      ],
+      "cui_suitability": "Limited CUI scenarios with agency agreement",
+      "primary_source": "https://marketplace.fedramp.gov; https://learn.microsoft.com/en-us/compliance/us-government/gov-cmmc",
+      "corpus_references": [
+        "references/modern-it/productivity/microsoft-365-gcc.md"
+      ],
+      "notes": "For typical DFARS 7012 CUI, GCC High is the contractor path.",
+      "authorization_scope": "direct_package",
+      "marketplace_package_id": "MSO365MT",
+      "marketplace_product_name": "Microsoft 365 Government Community Cloud & Supporting Services",
+      "marketplace_vendor_name": "Microsoft",
+      "fedramp_impact_level": "Moderate",
+      "authorization_status": "FedRAMP Authorized",
+      "authorization_type": "Agency (Rev5)",
+      "authorization_date": "2015-08-14T04:00:00.000Z",
+      "status_updated_date": "2015-08-14T04:00:00.000Z",
+      "marketplace_website": "https://www.microsoft.com/"
+    },
+    {
+      "id": "microsoft-365-gcc-high",
+      "product": "Microsoft 365 Government Community Cloud High (GCC High)",
+      "vendor": "Microsoft",
+      "dod_impact_level": [
+        "IL2",
+        "IL4",
+        "IL5"
+      ],
+      "cui_suitability": "Appropriate for CUI under DFARS 7012; sovereign tenancy",
+      "primary_source": "https://marketplace.fedramp.gov; https://learn.microsoft.com/en-us/compliance/us-government/gov-cmmc",
+      "corpus_references": [
+        "references/modern-it/productivity/microsoft-365-gcc.md"
+      ],
+      "notes": "Common DIB contractor path. Physically and logically separated from commercial M365.",
+      "authorization_scope": "direct_package",
+      "marketplace_package_id": "FR1824057433",
+      "marketplace_product_name": "Microsoft 365 Government Community Cloud-High ",
+      "marketplace_vendor_name": "Microsoft",
+      "fedramp_impact_level": "High",
+      "authorization_status": "FedRAMP Authorized",
+      "authorization_type": "Agency (Rev5)",
+      "authorization_date": "2024-12-26T05:00:00.000Z",
+      "status_updated_date": "2024-12-26T05:00:00.000Z",
+      "marketplace_website": "https://www.microsoft.com/microsoft-365/government"
+    },
+    {
+      "id": "google-workspace-assured-controls-plus",
+      "product": "Google Workspace Enterprise Plus with Assured Controls Plus",
+      "vendor": "Google",
+      "dod_impact_level": [
+        "IL4-aligned"
+      ],
+      "cui_suitability": "Appropriate for CUI under DFARS 7012 with Assured Controls Plus overlay",
+      "primary_source": "https://cloud.google.com/security/compliance/cmmc",
+      "corpus_references": [
+        "references/modern-it/productivity/google-workspace.md"
+      ],
+      "notes": "Overlay model (not sovereign tenancy). IL5 is roadmap; use M365 GCC High for IL5 productivity workloads.",
+      "authorization_scope": "direct_package",
+      "marketplace_package_id": "F1206081364",
+      "marketplace_product_name": "Google Workspace",
+      "marketplace_vendor_name": "Google",
+      "fedramp_impact_level": "High",
+      "authorization_status": "FedRAMP Authorized",
+      "authorization_type": "JAB (Rev5)",
+      "authorization_date": "2021-10-28T04:00:00.000Z",
+      "status_updated_date": "2021-10-28T04:00:00.000Z",
+      "marketplace_website": "https://workspace.google.com/"
+    },
+    {
+      "id": "atlassian-government-cloud",
+      "product": "Atlassian Government Cloud (Jira, Jira Service Management, Confluence)",
+      "vendor": "Atlassian",
+      "dod_impact_level": [],
+      "cui_suitability": "CUI scenarios with agency agreement (FedRAMP Moderate ceiling)",
+      "primary_source": "https://www.atlassian.com/trust/compliance/resources/fedramp",
+      "corpus_references": [
+        "references/modern-it/productivity/legacy-dib-tools.md"
+      ],
+      "notes": "Bitbucket Cloud is NOT in scope (per Atlassian trust page). High/IL5 claims on vendor roadmap are not current authorization.",
+      "authorization_scope": "direct_package",
+      "marketplace_package_id": "FR2412062433",
+      "marketplace_product_name": "Atlassian Government Cloud",
+      "marketplace_vendor_name": "Atlassian",
+      "fedramp_impact_level": "Moderate",
+      "authorization_status": "FedRAMP Authorized",
+      "authorization_type": "Agency (Rev5)",
+      "authorization_date": "2025-03-14T04:00:00.000Z",
+      "status_updated_date": "2025-03-14T04:00:00.000Z",
+      "marketplace_website": "https://www.atlassian.com/government"
+    },
+    {
+      "id": "servicenow-gcc",
+      "product": "ServiceNow Government Community Cloud",
+      "vendor": "ServiceNow",
+      "dod_impact_level": [
+        "IL4"
+      ],
+      "cui_suitability": "Appropriate for CUI under DFARS 7012",
+      "primary_source": "https://www.servicenow.com/company/trust/compliance.html",
+      "corpus_references": [
+        "references/modern-it/productivity/legacy-dib-tools.md"
+      ],
+      "notes": "Widely mis-cited as FedRAMP Moderate; verify current impact level on Marketplace before SSP citation.",
+      "authorization_scope": "direct_package",
+      "marketplace_package_id": "F1305072116",
+      "marketplace_product_name": "Government Community Cloud",
+      "marketplace_vendor_name": "ServiceNow",
+      "fedramp_impact_level": "High",
+      "authorization_status": "FedRAMP Authorized",
+      "authorization_type": "JAB (Rev5)",
+      "authorization_date": "2019-08-12T04:00:00.000Z",
+      "status_updated_date": "2019-08-12T04:00:00.000Z",
+      "marketplace_website": "https://www.servicenow.com"
+    },
+    {
+      "id": "github-enterprise-cloud",
+      "product": "GitHub Enterprise Cloud (GHEC)",
+      "vendor": "GitHub (Microsoft)",
+      "dod_impact_level": [],
+      "cui_suitability": "Source-code-only low-risk SaaS; not a general CUI file store",
+      "primary_source": "https://government.github.com/fedramp-faq; https://ghec.github.trust.page",
+      "corpus_references": [
+        "references/modern-it/productivity/legacy-dib-tools.md",
+        "references/modern-it/ai-services/ai-dev-tools.md"
+      ],
+      "notes": "Tailored/LI-SaaS scopes around source code as low-risk data. CUI in issues, PR bodies, and attachments sits outside Tailored design intent.",
+      "authorization_scope": "direct_package",
+      "marketplace_package_id": "FR1812058188",
+      "marketplace_product_name": "GitHub Enterprise Cloud",
+      "marketplace_vendor_name": "GitHub",
+      "fedramp_impact_level": "LI-SaaS",
+      "authorization_status": "FedRAMP Authorized",
+      "authorization_type": "Agency (Rev5)",
+      "authorization_date": "2018-10-04T04:00:00.000Z",
+      "status_updated_date": "2018-10-04T04:00:00.000Z",
+      "marketplace_website": "https://government.github.com"
+    },
+    {
+      "id": "box-for-government",
+      "product": "Box for Government",
+      "vendor": "Box",
+      "dod_impact_level": [],
+      "cui_suitability": "Appropriate for CUI file collaboration under DFARS 7012",
+      "primary_source": "https://www.box.com/industries/government; https://www.box.com/trust",
+      "corpus_references": [
+        "references/modern-it/productivity/legacy-dib-tools.md"
+      ],
+      "notes": "DoD IL framing on vendor pages is indirect; verify Marketplace package scope before SSP citation.",
+      "authorization_scope": "direct_package",
+      "marketplace_package_id": "F1212191840A",
+      "marketplace_product_name": "Box Enterprise Cloud Content Collaboration Platform",
+      "marketplace_vendor_name": "Box Inc.",
+      "fedramp_impact_level": "High",
+      "authorization_status": "FedRAMP Authorized",
+      "authorization_type": "Agency (Rev5)",
+      "authorization_date": "2025-03-25T04:00:00.000Z",
+      "status_updated_date": "2025-03-25T04:00:00.000Z",
+      "marketplace_website": "https://www.box.com/"
+    },
+    {
+      "id": "amazon-bedrock-govcloud",
+      "product": "Amazon Bedrock in AWS GovCloud (US)",
+      "vendor": "AWS",
+      "dod_impact_level": [
+        "IL4",
+        "IL5"
+      ],
+      "cui_suitability": "Appropriate for CUI under DFARS 7012; model-availability subset per AWS GovCloud documentation",
+      "primary_source": "https://aws.amazon.com/compliance/services-in-scope/FedRAMP/amazon-bedrock-models/",
+      "corpus_references": [
+        "references/modern-it/ai-services/fedramp-ai-services.md"
+      ],
+      "notes": "Bedrock is not a standalone Marketplace package; authorization inherits from AWS GovCloud. Verify per-model GovCloud availability in AWS docs before SSP citation.",
+      "authorization_scope": "platform_inheritance",
+      "marketplace_inheritance_package_id": "F1603047866",
+      "marketplace_platform": {
+        "marketplace_package_id": "F1603047866",
+        "marketplace_product_name": "AWS GovCloud",
+        "marketplace_vendor_name": "Amazon",
+        "fedramp_impact_level": "High",
+        "authorization_status": "FedRAMP Authorized",
+        "authorization_type": "JAB (Rev5)",
+        "authorization_date": "2016-06-21T04:00:00.000Z",
+        "status_updated_date": "2016-06-21T04:00:00.000Z",
+        "marketplace_website": "https://aws.amazon.com/"
+      },
+      "fedramp_impact_level": "High",
+      "authorization_status": "FedRAMP Authorized",
+      "authorization_type": "JAB (Rev5)"
+    },
+    {
+      "id": "azure-openai-government",
+      "product": "Azure OpenAI Service in Azure Government",
+      "vendor": "Microsoft",
+      "dod_impact_level": [
+        "IL4",
+        "IL5",
+        "IL6 (Top Secret, out of CMMC L2 scope)"
+      ],
+      "cui_suitability": "Appropriate for CUI under DFARS 7012; IL6 out of CMMC L2 scope",
+      "primary_source": "https://learn.microsoft.com/en-us/azure/ai-foundry/openai/azure-government",
+      "corpus_references": [
+        "references/modern-it/ai-services/fedramp-ai-services.md"
+      ],
+      "notes": "Azure OpenAI is not a standalone Marketplace package; authorization inherits from Azure Government. Verify per-model availability in Azure Government docs.",
+      "authorization_scope": "platform_inheritance",
+      "marketplace_inheritance_package_id": "F1603087869",
+      "marketplace_platform": {
+        "marketplace_package_id": "F1603087869",
+        "marketplace_product_name": "Azure Government (includes Dynamics 365)",
+        "marketplace_vendor_name": "Microsoft",
+        "fedramp_impact_level": "High",
+        "authorization_status": "FedRAMP Authorized",
+        "authorization_type": "JAB (Rev5)",
+        "authorization_date": "2020-04-29T04:00:00.000Z",
+        "status_updated_date": "2020-04-29T04:00:00.000Z",
+        "marketplace_website": "https://azure.microsoft.com/en-us/"
+      },
+      "fedramp_impact_level": "High",
+      "authorization_status": "FedRAMP Authorized",
+      "authorization_type": "JAB (Rev5)"
+    },
+    {
+      "id": "vertex-ai-assured-workloads",
+      "product": "Vertex AI via Google Cloud Assured Workloads (FedRAMP High configuration)",
+      "vendor": "Google",
+      "dod_impact_level": [
+        "IL2"
+      ],
+      "cui_suitability": "Appropriate for CUI under DFARS 7012 at IL2; IL5 is roadmap",
+      "primary_source": "https://cloud.google.com/assured-workloads",
+      "corpus_references": [
+        "references/modern-it/ai-services/fedramp-ai-services.md"
+      ],
+      "notes": "Vertex AI is not a standalone Marketplace package; platform boundary inherits from Google Cloud Platform. Verify per-model Assured Workloads availability before SSP citation.",
+      "authorization_scope": "platform_inheritance",
+      "marketplace_inheritance_package_id": "FR1805751477",
+      "marketplace_platform": {
+        "marketplace_package_id": "FR1805751477",
+        "marketplace_product_name": "Google Services (Google Cloud Platform Products and underlying Infrastructure)",
+        "marketplace_vendor_name": "Google",
+        "fedramp_impact_level": "High",
+        "authorization_status": "FedRAMP Authorized",
+        "authorization_type": "JAB (Rev5)",
+        "authorization_date": "2019-12-04T05:00:00.000Z",
+        "status_updated_date": "2019-12-04T05:00:00.000Z",
+        "marketplace_website": "https://cloud.google.com/"
+      },
+      "fedramp_impact_level": "High",
+      "authorization_status": "FedRAMP Authorized",
+      "authorization_type": "JAB (Rev5)"
+    }
+  ]
+}

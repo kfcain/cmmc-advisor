@@ -170,6 +170,10 @@ compliance documentation and practitioner publications.
 - **URL:** https://marketplace.fedramp.gov
 - **Used in:** fedramp-marketplace-guide as canonical authorization-status source, all modern-IT vendor claims
 
+### FedRAMP Marketplace Data Export (official machine-readable)
+- **URL:** https://github.com/FedRAMP/marketplace-fedramp-gov-data
+- **Used in:** scripts/build_fedramp_snapshot.py and the generated references/data/fedramp-snapshot.json (live authorization status, impact level, auth path/type, dates)
+
 ### AWS GovCloud User Guide
 - **URL:** https://docs.aws.amazon.com/govcloud-us/latest/UserGuide/
 - **Used in:** modern-it/cloud-platforms/aws-govcloud.md, modern-it/ai-services/fedramp-ai-services.md (Bedrock in GovCloud)

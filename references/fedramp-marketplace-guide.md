@@ -706,11 +706,13 @@ Per hub Versioning discipline:
   reflect 2026-04 state; the category framing survives
   rebrands.
 
-No machine-readable FedRAMP product matrix is shipped in this skill
-(see `references/data/README.md`). Contractors building an SSP must
-verify the current Marketplace package at marketplace.fedramp.gov and
-cite with a live-verification date. Dated stamps elsewhere in the
-corpus are starting points only.
+The machine-readable vendor snapshot at `references/data/fedramp-snapshot.json`
+is generated from the official FedRAMP Marketplace export by
+`scripts/build_fedramp_snapshot.py` (see `references/data/README.md`). It is a
+dated snapshot, not live authorization state; re-run the builder to refresh.
+Contractors building an SSP must still verify the current Marketplace package
+at marketplace.fedramp.gov and cite with a live-verification date. Dated stamps
+elsewhere in the corpus are starting points only.
 
 Content verified 2026-04-21 against the cited primary sources.
 Next full re-verification at the corpus review cycle or when

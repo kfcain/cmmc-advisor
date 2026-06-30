@@ -14,3 +14,10 @@ Thumbs.db
 
 # Eval run artifacts (may contain full Claude responses)
 evals/results/
+
+# Local Marketplace download cache for the snapshot builder (not the snapshot itself)
+references/data/.fedramp-products-cache.json
+
+# Python bytecode
+__pycache__/
+*.pyc
