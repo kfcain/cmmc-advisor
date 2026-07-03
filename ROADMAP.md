@@ -58,12 +58,13 @@ view and SPRS submission diff, extended program data schema (collector metadata,
 Also shipped in this pass: platform-specific evidence buckets
 (`evidence/<bucket>/<family>/<req>/`), all 14 collector modules under
 `scripts/collectors/` with Vanta-style env profiles (`env_config.py`,
-`--env-check`), and `scripts/export_sprs.py` (JSON + optional CSV scoresheet
-for SPRS portal entry).
+`--env-check`), `scripts/export_sprs.py` (JSON + optional CSV scoresheet
+for SPRS portal entry), and Meridian GCP bridge (`scripts/import_meridian_run.py`,
+`scripts/validate_evidence.py`, `scripts/export_evidence_package.py`).
 
-Remaining: wire live HTTP clients per collector (or rely on external GRC
+Remaining: wire live HTTP clients per non-GCP collector (or rely on external GRC
 inspector plugins), finer AO-letter mapping in merge_findings, reconciliation
-with cmmc-dfd plugins when reachable.
+with cmmc-dfd plugins when reachable. Live GCP ConMon stays in Meridian.
 
 Early delivery (pre-Phase 5): CMVP validation (`scripts/check_cmvp.py`) and
 diagram capability (`scripts/generate_diagrams.py`).

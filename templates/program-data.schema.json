@@ -49,6 +49,21 @@
         "notes": {"type": "string"}
       }
     },
+    "meridian_import": {
+      "type": "object",
+      "description": "Last Meridian GCP ConMon import metadata (scripts/import_meridian_run.py)",
+      "properties": {
+        "last_run_id": {"type": "string"},
+        "last_imported": {"type": "string", "format": "date"},
+        "evidence_root": {"type": "string"},
+        "manifest_path": {"type": "string"},
+        "manifest_sha256": {"type": "string"},
+        "run_status": {"type": "string"},
+        "requirements_linked": {"type": "number"},
+        "requirements_with_fail": {"type": "number"},
+        "chain_intact": {"type": "boolean"}
+      }
+    },
     "trust_center": {
       "type": "object",
       "description": "Public trust center metadata for scripts/generate_trust_center.py. Never place internal evidence paths here.",

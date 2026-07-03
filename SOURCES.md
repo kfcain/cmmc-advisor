@@ -348,6 +348,14 @@ compliance documentation and practitioner publications.
 - **Used in:** scripts/merge_findings.py, references/grc/evidence-automation.md,
   references/data/evidence-collector-manifest.json (grc_inspector_bridge)
 
+### Meridian GCP ConMon Evidence Engine
+- **Title:** GCP ConMon evidence engine (Assured Workloads, hash-chained store)
+- **Publisher:** kfcain (external dependency)
+- **URL:** https://github.com/kfcain/meridian-d3f03a36
+- **Used in:** scripts/import_meridian_run.py, scripts/meridian_lib.py,
+  references/grc/evidence-automation.md, references/data/evidence-collector-manifest.json
+  (meridian_bridge)
+
 ### Microsoft Graph API
 - **URL:** https://learn.microsoft.com/en-us/graph/api/overview
 - **Used in:** references/modern-it/security-operations/microsoft-graph-evidence.md

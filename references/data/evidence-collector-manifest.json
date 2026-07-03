@@ -22,6 +22,14 @@
       "stale_after_days": 365
     }
   },
+  "meridian_bridge": {
+    "description": "Live GCP ConMon evidence backend (external repo kfcain/meridian-d3f03a36)",
+    "import_script": "scripts/import_meridian_run.py",
+    "validate_script": "scripts/validate_evidence.py",
+    "collector_id": "meridian-gcp-conmon",
+    "covers_collectors": ["gcp-scc-findings"],
+    "freshness_days": 90
+  },
   "grc_inspector_bridge": {
     "finding_schema": "GRCEngClub/claude-grc-engineering schemas/finding.schema.json",
     "cache_default": "~/.cache/claude-grc/findings/<source>/<run_id>.json",
@@ -165,6 +173,7 @@
       "platform": "gcp-assured-workloads",
       "evidence_bucket": "gcp-assured",
       "env_profile": "gcp-assured-workloads",
+      "live_backend": "meridian-gcp-conmon",
       "module": "scripts/collectors/gcp_scc.py",
       "source_system": "Google Security Command Center",
       "refresh_bucket": "machine",

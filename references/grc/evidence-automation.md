@@ -13,8 +13,9 @@ second source of truth.
 Three paths feed evidence:
 
 1. **Registered collectors** (`scripts/collect_evidence.py` + manifest)
-2. **GRC Engineering Club inspectors** (`scripts/merge_findings.py`, external dependency)
-3. **Manual exports** (human drops files under `evidence/` and links them)
+2. **Meridian GCP ConMon** (`scripts/import_meridian_run.py`, external repo for live GCP)
+3. **GRC Engineering Club inspectors** (`scripts/merge_findings.py`, external dependency)
+4. **Manual exports** (human drops files under `evidence/` and links them)
 
 ---
 
@@ -129,6 +130,50 @@ The JSON export includes per-requirement conformity, DoD assessment status
 
 Rescore triggers: infrastructure change, requirement regression, POA&M closeout,
 material vendor change (see continuous-monitoring SPRS section).
+
+Export a C3PAO-oriented bundle with `scripts/export_evidence_package.py`
+(program data + SPRS scoresheet + referenced artifacts + package manifest).
+
+---
+
+## Meridian GCP backend (live GCP ConMon)
+
+For **live GCP Assured Workloads** evidence, use the external
+[Meridian GCP ConMon Evidence Engine](https://github.com/kfcain/meridian-d3f03a36)
+rather than re-implementing gcloud adapters in this skill repo. Meridian provides:
+
+- Fake and live collection modes with pytest coverage
+- SHA-256 manifests and run-to-run hash chains (tamper-evident)
+- WORM GCS bucket terraform (3-year retention)
+- Multi-framework mapping including CMMC L2 (800-171 practice ids)
+- gcp-inspector v1 translation (same contract as GRC merge path)
+
+After a Meridian run, import into program data:
+
+```bash
+# Meridian repo (separate clone): collectors/ — fake mode needs no credentials
+python3 -m gcp_conmon --mode fake --evidence-uri ./evidence_store
+
+# Import latest run into CMMC program data
+python3 scripts/import_meridian_run.py /path/to/meridian/evidence_store program-data.yaml
+python3 scripts/import_meridian_run.py ./evidence_store program.yaml --annotate-gaps
+
+# Validate links + optional Meridian chain
+python3 scripts/validate_evidence.py program.yaml --meridian-store ./evidence_store
+
+# C3PAO package (program + SPRS + artifacts)
+python3 scripts/export_evidence_package.py program.yaml -o exports/c3pao-package
+```
+
+The manifest registers `gcp-scc-findings` with `live_backend: meridian-gcp-conmon`.
+Meridian `cmmc_l2` ids (e.g. `3.4.1`) resolve to full requirement ids
+(`CM.L2-3.4.1`) via `references/data/assessment-objectives.json`. Import writes
+`meridian_import` metadata on the program file and evidence entries with collector
+`meridian-gcp-conmon`.
+
+Honesty rule inherited from Meridian: `ERROR` is never treated as `PASS`. Use
+`--annotate-gaps` to append FAIL/ERROR monitoring notes to objective statements;
+human owners still set conformity in program data.
 
 ---
 

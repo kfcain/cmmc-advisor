@@ -79,7 +79,8 @@ from memory alone when a reference exists.
 | Microsoft Graph / Entra / Intune / Defender / Sentinel evidence | `references/modern-it/security-operations/microsoft-graph-evidence.md` |
 | AWS/GCP/CrowdStrike/Zscaler/Duo/Splunk collector mapping | `references/modern-it/security-operations/cloud-native-inspectors.md` |
 | Evidence automation, freshness buckets, SPRS diff, GRC inspector merge | `references/grc/evidence-automation.md` |
-| Run evidence collectors or merge GRC inspector findings | `scripts/collect_evidence.py`, `scripts/merge_findings.py`, `references/data/evidence-collector-manifest.json` |
+| Run evidence collectors or merge GRC inspector findings | `scripts/collect_evidence.py`, `scripts/merge_findings.py`, `scripts/import_meridian_run.py`, `references/data/evidence-collector-manifest.json` |
+| Validate evidence or export assessor package | `scripts/validate_evidence.py`, `scripts/export_evidence_package.py`, `scripts/export_sprs.py` |
 | macOS fleet compliance | `references/modern-it/endpoints/macos-fleet.md` |
 | Windows endpoint compliance | `references/modern-it/endpoints/windows-fleet.md` |
 | Remote work and VDI | `references/modern-it/endpoints/remote-work.md` |
@@ -203,11 +204,15 @@ and the security-operations hub. List collectors with
 `python3 scripts/collect_evidence.py --list`. Run the pipeline with
 `--dry-run` (sample artifacts into platform buckets under `evidence/`) or
 without `--dry-run` to check env vars (`--env-check`) and emit credential
-status envelopes. Merge GRC Engineering Club Finding JSON (external dependency)
-via `python3 scripts/merge_findings.py`. Export SPRS scoresheets with
-`python3 scripts/export_sprs.py` before portal entry; regenerate the dashboard
-to review the Evidence freshness tab and SPRS diff against `sprs_submission`.
-Never store API secrets in the program data file.
+status envelopes. For live GCP Assured Workloads, run the external Meridian GCP
+ConMon engine and import with `python3 scripts/import_meridian_run.py`. Merge GRC
+Engineering Club Finding JSON (external dependency) via
+`python3 scripts/merge_findings.py`. Validate evidence integrity with
+`python3 scripts/validate_evidence.py`. Export SPRS scoresheets with
+`python3 scripts/export_sprs.py` and C3PAO bundles with
+`python3 scripts/export_evidence_package.py` before assessment; regenerate the
+dashboard to review the Evidence freshness tab and SPRS diff against
+`sprs_submission`. Never store API secrets in the program data file.
 
 **Maintain the program data file.** Treat it as the single source of
 truth: status changes, new evidence, POA&M updates (respect the
