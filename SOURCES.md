@@ -45,7 +45,19 @@ compliance documentation and practitioner publications.
 
 ### NIST CMVP Validated Modules Registry
 - **URL:** https://csrc.nist.gov/projects/cryptographic-module-validation-program
-- **Used in:** FIPS 140 validation references across SC and MP domains, self-hosted-ai.md
+- **Used in:** FIPS 140 validation references across SC and MP domains,
+  self-hosted-ai.md; the authoritative source behind scripts/check_cmvp.py
+
+### NIST-CMVP-API (unofficial static mirror)
+- **Title:** NIST-CMVP-API, weekly auto-updated static JSON mirror of
+  CMVP registry data (validated, historical, and in-process modules)
+- **Publisher:** Ethan Troy (community project; explicitly unofficial,
+  not affiliated with NIST)
+- **URL:** https://github.com/ethanolivertroy/NIST-CMVP-API
+- **Used in:** scripts/check_cmvp.py as the query convenience layer.
+  Every result carries the official csrc.nist.gov certificate URL;
+  re-verify there before citing a certificate in an SSP
+  (mirror reachability verified 2026-07-03)
 
 ### DFARS 252.204-7012
 - **Title:** Safeguarding Covered Defense Information and Cyber Incident Reporting

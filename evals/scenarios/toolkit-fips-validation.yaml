@@ -1,0 +1,52 @@
+id: toolkit-fips-validation
+title: Contractor claims FIPS BitLocker and OpenSSL and wants it provable
+category: program-toolkit
+
+prompt: |
+  Our SSP says we use FIPS-validated cryptography: BitLocker on the
+  laptops and OpenSSL on two Linux servers in the enclave. The consultant
+  says claiming FIPS and proving FIPS are different things. How do we
+  prove it, what breaks the claim over time, and how does this toolkit
+  keep it proven?
+
+required_terms:
+  - CMVP
+  - certificate
+  - SC.L2-3.13.11
+  - FIPS
+  - sunset
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Proving FIPS means CMVP certificates, not product marketing: each
+  cryptographic module in the CUI path needs an active NIST CMVP
+  validation, the module actually running in FIPS mode, and the
+  certificate recorded (number, module, standard, status, sunset date)
+  in the SSP's CMVP table backing SC.L2-3.13.11. OpenSSL is the classic
+  trap: the validation belongs to specific module versions operated per
+  the security policy, not to OpenSSL generally.
+
+  What breaks the claim: certificates move to Historical status or hit
+  their sunset date, patches change the module version away from the
+  validated one, and FIPS mode gets disabled by configuration drift.
+  SC.L2-3.13.11 is one of only two SPRS partial-credit items:
+  encryption without validated modules costs points and, in an
+  assessment, the objective fails.
+
+  The toolkit: cmvp_certificates entries in the program data file, then
+  scripts/check_cmvp.py verify flags missing records, non-Active status,
+  passed or approaching sunset dates, and module-name mismatches, and
+  can write verified fields back with a dated stamp; find mode searches
+  validated modules by keyword to locate candidate certificates. Results
+  cite the official csrc.nist.gov certificate record, which remains the
+  authoritative source to re-verify before SSP submission. Run verify
+  each affirmation cycle and before assessments.
+
+evaluator_notes: |
+  Accuracy essentials: CMVP validation attaches to specific module
+  versions operated per their security policy; Historical status and
+  sunset dates break claims; SC.L2-3.13.11 partial credit; csrc.nist.gov
+  as the authoritative registry. Category B on scoping to FIPS claim
+  substantiation. Enabler: the concrete verify/find workflow and a
+  re-verification cadence, not a lecture on cryptography.

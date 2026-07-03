@@ -78,6 +78,8 @@ from memory alone when a reference exists.
 | Machine-readable FedRAMP vendor snapshot (generate first) | `references/data/fedramp-snapshot.json` via `scripts/build_fedramp_snapshot.py` |
 | Generate or review an SSP, AO-level conformity statements | `templates/ssp-structure.md` + `scripts/generate_ssp.py` |
 | Visual program dashboard, POA&M clocks, SPRS tracking | `templates/program-dashboard.html` + `scripts/generate_dashboard.py` |
+| Network and CUI flow diagrams, boundary drawing, topology | `references/diagram-guide.md` + `scripts/generate_diagrams.py` |
+| FIPS validation, CMVP certificates, sunset dates | `scripts/check_cmvp.py` + `references/assessment-objectives/sc.md` (SC.L2-3.13.11) |
 | CMMC program data file format (statuses, evidence, POA&M, inheritance) | `templates/program-data.schema.json` + `templates/program-data.sample.yaml` |
 | Unsure where to look | This file (routing table above) |
 
@@ -118,6 +120,25 @@ remediation view ordered by points at stake, and an inheritance view
 showing which objectives trace to which provider CRM rows. Regenerate
 after every data file change; the dashboard is a rendering, not a
 second source of truth.
+
+**Generate diagrams.** When the user needs the SSP network or CUI flow
+diagram, build the `topology` section of the program data file (zones,
+nodes with 32 CFR 170.19(c) asset categories, typed flows), then run
+`python3 scripts/generate_diagrams.py <program-data> -o diagrams/` for
+SVG and Mermaid outputs; the dashboard's Diagrams view shows them.
+Follow `references/diagram-guide.md`: topology mirrors the asset
+inventory, and every CUI/FCI/SPD flow appears or the diagram is wrong.
+
+**Validate FIPS claims.** For SC.L2-3.13.11 and any FIPS-validated
+cryptography claim, run
+`python3 scripts/check_cmvp.py verify <program-data>` to check every
+CMVP certificate's status, standard, and sunset date (add `--update` to
+write dated results back), and `check_cmvp.py find "<module>"` to locate
+candidate certificates. The data source is an unofficial weekly mirror
+of the NIST CMVP registry; always cite and re-verify at the official
+csrc.nist.gov certificate record before SSP submission. Run verify
+before every assessment and affirmation cycle; Historical status or a
+passed sunset date on an in-use module is a finding in waiting.
 
 **Maintain the policy register.** When the user provides policies or
 asks what their policies cover, follow

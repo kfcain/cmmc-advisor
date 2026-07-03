@@ -52,10 +52,15 @@ Close the gap between "evidence links" and live proof.
   file's evidence arrays with timestamps; a dashboard freshness view
   (evidence older than its refresh bucket per
   `references/grc/continuous-monitoring.md`).
-- Also: CMVP certificate validation checks for every FIPS claim
-  (SC.L2-3.13.11) against the NIST CMVP registry, and a
-  dashboard-to-SPRS diff that flags when the computed score diverges
-  from the last submitted score.
+- DELIVERED early: CMVP certificate validation for every FIPS claim
+  (scripts/check_cmvp.py verify/find against the NIST-CMVP-API mirror,
+  official registry cited per result) and the diagram capability
+  (topology data model, generate_diagrams.py network + CUI flow DFD
+  outputs, dashboard Diagrams view, references/diagram-guide.md).
+  Remaining here: a dashboard-to-SPRS diff that flags when the computed
+  score diverges from the last submitted score, and reconciliation with
+  the author's cmmc-dfd plugins and the cmmc.kylecain.dev Diagram Hub
+  once reachable.
 
 ## Phase 6: Assessment Operations
 
