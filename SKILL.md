@@ -52,6 +52,8 @@ from memory alone when a reference exists.
 | MSP/MSSP/ESP treatment, FedRAMP equivalency, subcontractor flowdowns | `references/grc/vendor-and-supply-chain.md` |
 | Compliance roles, policy lifecycle, change management, 72-hour incident reporting | `references/grc/program-governance.md` |
 | Specific domain practices (AC, IA, SC, etc.) | `references/domains/{domain}.md` |
+| Assessment objectives for a practice, what the assessor will examine, interview, or test | `references/assessment-objectives/{ac,at,au,ca,cm,ia,ir,ma,mp,pe,ps,ra,sc,si}.md` |
+| SPRS point value of a requirement, partial credit rules | `references/assessment-objectives/{domain}.md` |
 | AWS GovCloud compliance | `references/modern-it/cloud-platforms/aws-govcloud.md` |
 | Azure Government compliance | `references/modern-it/cloud-platforms/azure-government.md` |
 | GCP Assured Workloads compliance | `references/modern-it/cloud-platforms/gcp-assured.md` |

@@ -126,6 +126,16 @@ compliance documentation and practitioner publications.
   categories, XX.L2-3.x.x identifier scheme for all 110 requirements
   (verified 2026-07-03 via URL above)
 
+### DoD NIST SP 800-171 Assessment Methodology v1.2.1
+- **Title:** NIST SP 800-171 DoD Assessment Methodology, Version 1.2.1
+- **Publisher:** Office of the Under Secretary of Defense (A&S)
+- **URL:** https://www.acq.osd.mil/asda/dpc/cp/cyber/docs/safeguarding/NIST-SP-800-171-Assessment-Methodology-Version-1.2.1-6.24.2020.pdf
+- **Used in:** SPRS point values in references/assessment-objectives/ and
+  references/data/assessment-objectives.json (44 five-point, 14
+  three-point, 51 one-point requirements, SSP special rule; partial
+  credit for 3.5.3 and 3.13.11; minimum score -203; distribution
+  cross-checked 2026-07-03)
+
 ### CMMC Assessment Guide — Level 3
 - **Title:** CMMC Assessment Guide Level 3, Version 2.13 (September 2024)
 - **Publisher:** DoD CIO
