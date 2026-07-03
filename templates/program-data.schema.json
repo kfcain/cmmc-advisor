@@ -39,6 +39,31 @@
       "format": "date",
       "description": "CMMC Status Date of a Conditional status, ISO 8601. Drives the 180-day POA&M closeout clocks."
     },
+    "sprs_submission": {
+      "type": "object",
+      "description": "Last SPRS score submitted by the organization; dashboard compares against computed score",
+      "properties": {
+        "score": {"type": "number"},
+        "date": {"type": "string", "format": "date"},
+        "submitted_by": {"type": "string"},
+        "notes": {"type": "string"}
+      }
+    },
+    "meridian_import": {
+      "type": "object",
+      "description": "Last Meridian GCP ConMon import metadata (scripts/import_meridian_run.py)",
+      "properties": {
+        "last_run_id": {"type": "string"},
+        "last_imported": {"type": "string", "format": "date"},
+        "evidence_root": {"type": "string"},
+        "manifest_path": {"type": "string"},
+        "manifest_sha256": {"type": "string"},
+        "run_status": {"type": "string"},
+        "requirements_linked": {"type": "number"},
+        "requirements_with_fail": {"type": "number"},
+        "chain_intact": {"type": "boolean"}
+      }
+    },
     "trust_center": {
       "type": "object",
       "description": "Public trust center metadata for scripts/generate_trust_center.py. Never place internal evidence paths here.",
@@ -242,7 +267,11 @@
                     "properties": {
                       "name": {"type": "string"},
                       "link": {"type": "string", "description": "URL or repository path to the artifact"},
-                      "collected": {"type": "string", "format": "date"}
+                      "collected": {"type": "string", "format": "date"},
+                      "collector": {"type": "string", "description": "Collector id from evidence-collector-manifest.json"},
+                      "source_system": {"type": "string"},
+                      "refresh_bucket": {"type": "string", "enum": ["machine", "periodic", "document"]},
+                      "sha256": {"type": "string", "description": "SHA-256 of artifact file for integrity tracking"}
                     }
                   }
                 },

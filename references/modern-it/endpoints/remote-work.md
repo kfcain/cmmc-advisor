@@ -257,6 +257,20 @@ access).
   be a fully-managed CUI endpoint (see `macos-fleet.md` or
   `windows-fleet.md`).
 
+### Evidence automation (ZTNA / VPN)
+
+Collectors in `references/data/evidence-collector-manifest.json` cover
+SASE policy exports (`zscaler-policy`, `prisma-access-rules`) mapped to
+**SC.L2-3.13.1** and **AC.L2-3.1.3**. Session-level audit proof for remote
+access still requires SIEM forwarded logs (`sentinel-health` or
+`splunk-ingest-health`). Run:
+
+```bash
+python3 scripts/collect_evidence.py program-data.yaml --dry-run --collectors zscaler-policy
+```
+
+See `references/modern-it/security-operations/cloud-native-inspectors.md`.
+
 ---
 
 ## Home office physical posture

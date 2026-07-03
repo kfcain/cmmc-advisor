@@ -1,0 +1,43 @@
+id: toolkit-meridian-gcp-import
+title: ISSM ran Meridian GCP ConMon and wants it in the CMMC program file
+category: program-toolkit
+
+prompt: |
+  We run the Meridian GCP ConMon evidence engine against our Assured Workloads
+  org on a schedule. The store has hash-chained manifests under evidence_store/.
+  How do we pull that into our CMMC program data file, validate integrity, and
+  export an assessor package without duplicating GCP collectors inside cmmc-advisor?
+
+required_terms:
+  - Meridian
+  - import
+  - evidence
+  - program data
+  - hash
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Use the Meridian bridge, not a second GCP collector stack. Meridian
+  (kfcain/meridian-d3f03a36) is the live GCP backend: Assured Workloads, CAI,
+  SCC, org-policy, and gcp-inspector v1 translation with SHA-256 manifests and
+  run-to-run hash chains.
+
+  After a Meridian run, import the latest (or a specific) run into program data:
+  python3 scripts/import_meridian_run.py /path/to/evidence_store program.yaml
+  Optional --annotate-gaps appends FAIL/ERROR monitoring notes to objective
+  statements. Meridian cmmc_l2 ids map to full requirement ids via
+  assessment-objectives.json. Evidence entries use collector meridian-gcp-conmon;
+  meridian_import metadata records run_id and chain status.
+
+  Validate with python3 scripts/validate_evidence.py program.yaml
+  --meridian-store /path/to/evidence_store. Export assessor bundle with
+  scripts/export_evidence_package.py and SPRS with export_sprs.py. The manifest
+  marks gcp-scc-findings live_backend as meridian-gcp-conmon. Other platforms
+  still use GRC inspector merge or collect_evidence --dry-run stubs.
+
+evaluator_notes: |
+  Must route to evidence-automation.md Meridian section, cite import_meridian_run,
+  validate_evidence, export_evidence_package. Enabler posture: Meridian is
+  external; do not promise live GCP inside cmmc-advisor collectors. Mention
+  ERROR is never PASS and 90-day freshness alignment.

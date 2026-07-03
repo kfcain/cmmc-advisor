@@ -43,35 +43,48 @@ content rules), `trust_center` schema section, SKILL.md routing and toolkit
 workflow rows, CI FRMR snapshot integrity check, and the
 `fedramp-20x-ksi-due-diligence` eval scenario.
 
-## Phase 5: Evidence Automation
+## Phase 5: Evidence Automation — DELIVERED
 
-Close the gap between "evidence links" and live proof.
+Shipped: `references/data/evidence-collector-manifest.json` (14 collectors
+across Microsoft Graph/GCC High, AWS GovCloud, GCP SCC, CrowdStrike, Zscaler,
+Prisma Access, Duo, Splunk), `scripts/collect_evidence.py` (orchestrator with
+`--dry-run` pipeline), `scripts/merge_findings.py` (GRC Engineering Club
+Finding bridge via 800-53 crosswalk), `scripts/evidence_lib.py`,
+`references/grc/evidence-automation.md`, `references/modern-it/security-operations/`
+(hub, Microsoft Graph, cloud-native inspectors), dashboard Evidence freshness
+view and SPRS submission diff, extended program data schema (collector metadata,
+`sprs_submission`), eval scenario `toolkit-evidence-collectors.yaml`.
 
-- New: guidance for collecting evidence from Microsoft Graph API and
-  cloud-native inspectors (Entra ID, Intune, Defender, Sentinel) mapped
-  to assessment objectives; collectors write into the program data
-  file's evidence arrays with timestamps; a dashboard freshness view
-  (evidence older than its refresh bucket per
-  `references/grc/continuous-monitoring.md`).
-- DELIVERED early: CMVP certificate validation for every FIPS claim
-  (scripts/check_cmvp.py verify/find against the NIST-CMVP-API mirror,
-  official registry cited per result) and the diagram capability
-  (topology data model, generate_diagrams.py network + CUI flow DFD
-  outputs, dashboard Diagrams view, references/diagram-guide.md).
-  Remaining here: a dashboard-to-SPRS diff that flags when the computed
-  score diverges from the last submitted score, and reconciliation with
-  the author's cmmc-dfd plugins and the cmmc.kylecain.dev Diagram Hub
-  once reachable.
+Also shipped in this pass: platform-specific evidence buckets
+(`evidence/<bucket>/<family>/<req>/`), all 14 collector modules under
+`scripts/collectors/` with Vanta-style env profiles (`env_config.py`,
+`--env-check`), `scripts/export_sprs.py` (JSON + optional CSV scoresheet
+for SPRS portal entry), and Meridian GCP bridge (`scripts/import_meridian_run.py`,
+`scripts/validate_evidence.py`, `scripts/export_evidence_package.py`).
+
+Remaining: wire live HTTP clients per non-GCP collector (or rely on external GRC
+inspector plugins), finer AO-letter mapping in merge_findings, reconciliation
+with cmmc-dfd plugins when reachable. Live GCP ConMon stays in Meridian.
+
+Early delivery (pre-Phase 5): CMVP validation (`scripts/check_cmvp.py`) and
+diagram capability (`scripts/generate_diagrams.py`).
 
 ## Phase 6: Assessment Operations
 
-- Mock-assessment mode: generate interview scripts and evidence
-  requests per family from the examine/interview/test data, then score
-  answers at the objective level.
-- POA&M lifecycle automation: closeout evidence packets assembled from
-  the program data file.
+Delivered (Phase 6a):
+
+- Mock-assessment mode: `scripts/generate_mock_assessment.py` generates interview
+  scripts and evidence requests per family from examine/interview/test data, with
+  objective-level scoring templates.
+- POA&M lifecycle automation: `scripts/validate_poam.py` (32 CFR 170.21 rules),
+  `scripts/generate_closeout_packet.py` (closeout evidence from program data).
+- Assessment operations hub: `references/grc/assessment-operations.md`.
+- Eval scenarios: `toolkit-validate-poam`, `toolkit-mock-assessment`.
+
+Remaining:
+
 - Reconciliation with the author's wider portfolio (cmmc-l2-master,
-  policy-mapper, jumpstart-generator, remediation-tracker skills;
+  policy-mapper, remediation-tracker skills; cmmc-dfd, cmmc-raci,
   myctrl.tools and grclanker interop) as those sources become reachable
   from the working environment.
 

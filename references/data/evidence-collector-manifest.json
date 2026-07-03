@@ -1,0 +1,260 @@
+{
+  "schema_version": "1.0",
+  "verified": "2026-07-03: collector registry aligned with references/modern-it/security-operations/ and GRC Engineering Club finding bridge",
+  "evidence_layout": {
+    "description": "Collector artifacts land in platform-specific buckets: evidence/<bucket>/<family>/<req>/<slug>.json. Manual uploads may use evidence/<family>/<req>/ without a bucket prefix.",
+    "default_root": "evidence"
+  },
+  "refresh_buckets": {
+    "machine": {
+      "description": "Machine-generated telemetry (AU, CM baselines, MFA enforcement)",
+      "verify_cadence": "quarterly",
+      "stale_after_days": 90
+    },
+    "periodic": {
+      "description": "Periodic artifacts (access reviews, scan records)",
+      "verify_cadence": "quarterly owner confirmation",
+      "stale_after_days": 365
+    },
+    "document": {
+      "description": "Slow-moving policies and diagrams",
+      "verify_cadence": "annual",
+      "stale_after_days": 365
+    }
+  },
+  "meridian_bridge": {
+    "description": "Live GCP ConMon evidence backend (external repo kfcain/meridian-d3f03a36)",
+    "import_script": "scripts/import_meridian_run.py",
+    "validate_script": "scripts/validate_evidence.py",
+    "collector_id": "meridian-gcp-conmon",
+    "covers_collectors": ["gcp-scc-findings"],
+    "freshness_days": 90
+  },
+  "grc_inspector_bridge": {
+    "finding_schema": "GRCEngClub/claude-grc-engineering schemas/finding.schema.json",
+    "cache_default": "~/.cache/claude-grc/findings/<source>/<run_id>.json",
+    "merge_script": "scripts/merge_findings.py",
+    "connectors": [
+      "aws-inspector",
+      "azure-inspector",
+      "gcp-inspector",
+      "github-inspector",
+      "okta-inspector",
+      "crowdstrike-inspector",
+      "splunk-inspector",
+      "datadog-inspector"
+    ]
+  },
+  "collectors": [
+    {
+      "id": "entra-signins",
+      "platform": "microsoft-graph-gcch",
+      "evidence_bucket": "m365-gcch",
+      "env_profile": "microsoft-graph-gcch",
+      "module": "scripts/collectors/entra_signins.py",
+      "source_system": "Microsoft Entra ID (GCC High)",
+      "refresh_bucket": "machine",
+      "permissions": ["AuditLog.Read.All", "Policy.Read.ConditionalAccess"],
+      "endpoint": "GET https://graph.microsoft.us/v1.0/auditLogs/signIns",
+      "mappings": [
+        {"requirement_id": "IA.L2-3.5.3", "objectives": ["a", "b"], "artifact_name": "Entra sign-in MFA sample"},
+        {"requirement_id": "AU.L2-3.3.2", "objectives": ["a", "b"], "artifact_name": "Entra sign-in user traceability sample"},
+        {"requirement_id": "AU.L2-3.3.1", "objectives": ["c", "d"], "artifact_name": "Entra sign-in audit creation sample"}
+      ]
+    },
+    {
+      "id": "entra-conditional-access",
+      "platform": "microsoft-graph-gcch",
+      "evidence_bucket": "m365-gcch",
+      "env_profile": "microsoft-graph-gcch",
+      "module": "scripts/collectors/entra_conditional_access.py",
+      "source_system": "Microsoft Entra Conditional Access",
+      "refresh_bucket": "machine",
+      "permissions": ["Policy.Read.ConditionalAccess"],
+      "endpoint": "GET https://graph.microsoft.us/v1.0/identity/conditionalAccess/policies",
+      "mappings": [
+        {"requirement_id": "IA.L2-3.5.3", "objectives": ["a", "b"], "artifact_name": "Conditional Access policy export"},
+        {"requirement_id": "AC.L2-3.1.2", "objectives": ["a", "b"], "artifact_name": "Conditional Access transaction controls"}
+      ]
+    },
+    {
+      "id": "intune-compliance",
+      "platform": "microsoft-graph-gcch",
+      "evidence_bucket": "m365-gcch",
+      "env_profile": "microsoft-graph-gcch",
+      "module": "scripts/collectors/intune_compliance.py",
+      "source_system": "Microsoft Intune",
+      "refresh_bucket": "machine",
+      "permissions": ["DeviceManagementManagedDevices.Read.All", "DeviceManagementConfiguration.Read.All"],
+      "endpoint": "GET https://graph.microsoft.us/v1.0/deviceManagement/managedDevices",
+      "mappings": [
+        {"requirement_id": "AC.L2-3.1.18", "objectives": ["a", "b"], "artifact_name": "Intune managed device compliance export"},
+        {"requirement_id": "CM.L2-3.4.1", "objectives": ["a", "b"], "artifact_name": "Intune baseline compliance report"},
+        {"requirement_id": "SC.L2-3.13.11", "objectives": ["a"], "artifact_name": "Intune FIPS/encryption compliance sample"}
+      ]
+    },
+    {
+      "id": "defender-endpoint",
+      "platform": "microsoft-defender-gcch",
+      "evidence_bucket": "m365-defender-gcch",
+      "env_profile": "microsoft-defender-gcch",
+      "module": "scripts/collectors/defender_endpoint.py",
+      "source_system": "Microsoft Defender for Endpoint",
+      "refresh_bucket": "machine",
+      "permissions": ["Machine.Read.All", "Alert.Read.All"],
+      "endpoint": "GET https://api-gov.securitycenter.microsoft.us/api/machines",
+      "mappings": [
+        {"requirement_id": "SI.L2-3.14.2", "objectives": ["a", "b"], "artifact_name": "MDE onboarding and AV status"},
+        {"requirement_id": "SI.L2-3.14.6", "objectives": ["a", "d"], "artifact_name": "MDE alert summary"},
+        {"requirement_id": "AU.L2-3.3.1", "objectives": ["c"], "artifact_name": "MDE security event sample"}
+      ]
+    },
+    {
+      "id": "sentinel-health",
+      "platform": "azure-sentinel-gov",
+      "evidence_bucket": "azure-sentinel-gov",
+      "env_profile": "azure-sentinel-gov",
+      "module": "scripts/collectors/sentinel_health.py",
+      "source_system": "Microsoft Sentinel",
+      "refresh_bucket": "machine",
+      "permissions": ["Microsoft.SecurityInsights/incidents/read", "Microsoft.OperationalInsights/workspaces/query/read"],
+      "endpoint": "ARM + Log Analytics query",
+      "mappings": [
+        {"requirement_id": "AU.L2-3.3.5", "objectives": ["a", "b"], "artifact_name": "Sentinel correlation rules export"},
+        {"requirement_id": "SI.L2-3.14.6", "objectives": ["d"], "artifact_name": "Sentinel incident roll-up"},
+        {"requirement_id": "AU.L2-3.3.1", "objectives": ["a", "b"], "artifact_name": "Sentinel connector health"}
+      ]
+    },
+    {
+      "id": "aws-config-compliance",
+      "platform": "aws-govcloud",
+      "evidence_bucket": "aws-govcloud",
+      "env_profile": "aws-govcloud",
+      "module": "scripts/collectors/aws_config.py",
+      "source_system": "AWS Config",
+      "refresh_bucket": "machine",
+      "permissions": ["config:GetComplianceSummaryByConfigRule", "config:SelectResourceConfig"],
+      "mappings": [
+        {"requirement_id": "CM.L2-3.4.1", "objectives": ["a", "b"], "artifact_name": "AWS Config rule compliance summary"},
+        {"requirement_id": "SC.L2-3.13.8", "objectives": ["a", "d"], "artifact_name": "AWS encryption-in-transit Config evidence"},
+        {"requirement_id": "SC.L2-3.13.11", "objectives": ["a"], "artifact_name": "AWS KMS/FIPS Config evidence"}
+      ]
+    },
+    {
+      "id": "aws-cloudtrail",
+      "platform": "aws-govcloud",
+      "evidence_bucket": "aws-govcloud",
+      "env_profile": "aws-govcloud",
+      "module": "scripts/collectors/aws_cloudtrail.py",
+      "source_system": "AWS CloudTrail",
+      "refresh_bucket": "machine",
+      "permissions": ["cloudtrail:LookupEvents"],
+      "mappings": [
+        {"requirement_id": "AU.L2-3.3.1", "objectives": ["c", "d"], "artifact_name": "CloudTrail privileged action sample"},
+        {"requirement_id": "AU.L2-3.3.2", "objectives": ["a", "b"], "artifact_name": "CloudTrail user traceability sample"}
+      ]
+    },
+    {
+      "id": "aws-security-hub",
+      "platform": "aws-govcloud",
+      "evidence_bucket": "aws-govcloud",
+      "env_profile": "aws-govcloud",
+      "module": "scripts/collectors/aws_security_hub.py",
+      "source_system": "AWS Security Hub",
+      "refresh_bucket": "machine",
+      "permissions": ["securityhub:GetFindings", "securityhub:DescribeStandardsControls"],
+      "mappings": [
+        {"requirement_id": "SI.L2-3.14.1", "objectives": ["b", "d"], "artifact_name": "Security Hub findings summary"},
+        {"requirement_id": "CA.L2-3.12.3", "objectives": ["a", "b"], "artifact_name": "Security Hub continuous monitoring posture"}
+      ]
+    },
+    {
+      "id": "gcp-scc-findings",
+      "platform": "gcp-assured-workloads",
+      "evidence_bucket": "gcp-assured",
+      "env_profile": "gcp-assured-workloads",
+      "live_backend": "meridian-gcp-conmon",
+      "module": "scripts/collectors/gcp_scc.py",
+      "source_system": "Google Security Command Center",
+      "refresh_bucket": "machine",
+      "permissions": ["roles/securitycenter.findingsViewer"],
+      "endpoint": "GET /v2/organizations/{org}/sources/-/findings",
+      "mappings": [
+        {"requirement_id": "SI.L2-3.14.6", "objectives": ["a", "d"], "artifact_name": "SCC high-severity findings"},
+        {"requirement_id": "SI.L2-3.14.1", "objectives": ["b"], "artifact_name": "SCC vulnerability findings sample"}
+      ]
+    },
+    {
+      "id": "crowdstrike-hosts",
+      "platform": "crowdstrike-falcon",
+      "evidence_bucket": "crowdstrike",
+      "env_profile": "crowdstrike-falcon",
+      "module": "scripts/collectors/crowdstrike_hosts.py",
+      "source_system": "CrowdStrike Falcon",
+      "refresh_bucket": "machine",
+      "permissions": ["Hosts:read"],
+      "endpoint": "GET /devices/queries/devices/v1",
+      "mappings": [
+        {"requirement_id": "SI.L2-3.14.2", "objectives": ["a", "b"], "artifact_name": "Falcon host sensor coverage"},
+        {"requirement_id": "SI.L2-3.14.6", "objectives": ["a", "d"], "artifact_name": "Falcon detection summary"}
+      ]
+    },
+    {
+      "id": "zscaler-policy",
+      "platform": "zscaler-zia",
+      "evidence_bucket": "zscaler",
+      "env_profile": "zscaler-zia",
+      "module": "scripts/collectors/zscaler_policy.py",
+      "source_system": "Zscaler Internet Access",
+      "refresh_bucket": "machine",
+      "permissions": ["OneAPI OAuth2 read"],
+      "mappings": [
+        {"requirement_id": "SC.L2-3.13.1", "objectives": ["c", "e"], "artifact_name": "ZIA firewall policy export"},
+        {"requirement_id": "AC.L2-3.1.3", "objectives": ["b", "e"], "artifact_name": "ZIA URL filtering policy export"}
+      ]
+    },
+    {
+      "id": "prisma-access-rules",
+      "platform": "palo-alto-prisma-access",
+      "evidence_bucket": "prisma-access",
+      "env_profile": "palo-alto-prisma-access",
+      "module": "scripts/collectors/prisma_access.py",
+      "source_system": "Palo Alto Strata Cloud Manager",
+      "refresh_bucket": "machine",
+      "permissions": ["tsg-scoped OAuth2"],
+      "mappings": [
+        {"requirement_id": "SC.L2-3.13.1", "objectives": ["c", "h"], "artifact_name": "Prisma Access security rules export"},
+        {"requirement_id": "SC.L2-3.13.6", "objectives": ["a", "d"], "artifact_name": "Prisma remote access boundary rules"}
+      ]
+    },
+    {
+      "id": "duo-auth-logs",
+      "platform": "duo-mfa",
+      "evidence_bucket": "duo",
+      "env_profile": "duo-mfa",
+      "module": "scripts/collectors/duo_auth.py",
+      "source_system": "Cisco Duo",
+      "refresh_bucket": "machine",
+      "permissions": ["Admin API signed requests"],
+      "endpoint": "GET /admin/v2/logs/authentication",
+      "mappings": [
+        {"requirement_id": "IA.L2-3.5.3", "objectives": ["a", "b"], "artifact_name": "Duo authentication log sample"},
+        {"requirement_id": "IA.L2-3.5.2", "objectives": ["a"], "artifact_name": "Duo MFA verification trail"}
+      ]
+    },
+    {
+      "id": "splunk-ingest-health",
+      "platform": "splunk-enterprise",
+      "evidence_bucket": "splunk",
+      "env_profile": "splunk-enterprise",
+      "module": "scripts/collectors/splunk_health.py",
+      "source_system": "Splunk Enterprise",
+      "refresh_bucket": "machine",
+      "permissions": ["search REST export"],
+      "mappings": [
+        {"requirement_id": "AU.L2-3.3.1", "objectives": ["a", "b"], "artifact_name": "Splunk source/input health"},
+        {"requirement_id": "AU.L2-3.3.5", "objectives": ["a", "b"], "artifact_name": "Splunk correlated search export"}
+      ]
+    }
+  ]
+}

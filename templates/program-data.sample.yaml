@@ -39,6 +39,12 @@ assessment:
 
 conditional_status_date: null
 
+sprs_submission:
+  score: 95
+  date: "2026-06-01"
+  submitted_by: ISSM
+  notes: Pre-assessment self-score; dashboard computed score may differ as objectives are updated
+
 trust_center:
   published: true
   last_reviewed: "2026-07-01"
@@ -242,6 +248,7 @@ requirements:
         - Backfill 90 days of review evidence before assessment
     remediation_plan: >
       Sentinel workspace exists and ingests all enclave sources. Remaining
-      work is detection content and the operating rhythm, tracked on the
-      POA&M above; 1-point requirement, POA&M-eligible under
-      32 CFR 170.21(a)(2).
+      work is detection content and the operating rhythm. Note: AU.L2-3.3.5
+      carries 5 SPRS points and is not POA&M-eligible under 32 CFR
+      170.21(a)(2)(ii); close this gap before assessment or accept the
+      score deduction.

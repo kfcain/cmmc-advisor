@@ -75,6 +75,15 @@ from memory alone when a reference exists.
 | Self-hosted AI (Coder, on-prem LLM, air-gapped) | `references/modern-it/ai-services/self-hosted-ai.md` |
 | AI developer tools (Claude Code, Copilot, Cursor, Windsurf, Continue) | `references/modern-it/ai-services/ai-dev-tools.md` |
 | Endpoint fleet overview, capability vs product, practice crosswalk | `references/modern-it/endpoints/README.md` |
+| EDR/XDR, SASE/ZTNA, MFA, SIEM evidence collectors and API mapping | `references/modern-it/security-operations/README.md` |
+| Microsoft Graph / Entra / Intune / Defender / Sentinel evidence | `references/modern-it/security-operations/microsoft-graph-evidence.md` |
+| AWS/GCP/CrowdStrike/Zscaler/Duo/Splunk collector mapping | `references/modern-it/security-operations/cloud-native-inspectors.md` |
+| Evidence automation, freshness buckets, SPRS diff, GRC inspector merge | `references/grc/evidence-automation.md` |
+| Mock assessment prep, POA&M validation, closeout packets | `references/grc/assessment-operations.md` |
+| Run evidence collectors or merge GRC inspector findings | `scripts/collect_evidence.py`, `scripts/merge_findings.py`, `scripts/import_meridian_run.py`, `references/data/evidence-collector-manifest.json` |
+| Validate evidence or export assessor package | `scripts/validate_evidence.py`, `scripts/export_evidence_package.py`, `scripts/export_sprs.py` |
+| Validate POA&M eligibility or export closeout packet | `scripts/validate_poam.py`, `scripts/generate_closeout_packet.py` |
+| Generate mock-assessment interview and evidence prep | `scripts/generate_mock_assessment.py` |
 | macOS fleet compliance | `references/modern-it/endpoints/macos-fleet.md` |
 | Windows endpoint compliance | `references/modern-it/endpoints/windows-fleet.md` |
 | Remote work and VDI | `references/modern-it/endpoints/remote-work.md` |
@@ -191,6 +200,30 @@ trust centers, or FRMR artifacts during vendor due diligence, read
 `scripts/build_frmr_snapshot.py` when fresh KSI counts matter, and cross-
 walk CRM 800-53 rows through `references/data/800-53-crosswalk.json`.
 Name gaps honestly when a vendor's public certification data is immature.
+
+**Collect evidence automatically.** When the user wants live or scheduled
+proof from security platforms, read `references/grc/evidence-automation.md`
+and the security-operations hub. List collectors with
+`python3 scripts/collect_evidence.py --list`. Run the pipeline with
+`--dry-run` (sample artifacts into platform buckets under `evidence/`) or
+without `--dry-run` to check env vars (`--env-check`) and emit credential
+status envelopes. For live GCP Assured Workloads, run the external Meridian GCP
+ConMon engine and import with `python3 scripts/import_meridian_run.py`. Merge GRC
+Engineering Club Finding JSON (external dependency) via
+`python3 scripts/merge_findings.py`. Validate evidence integrity with
+`python3 scripts/validate_evidence.py`. Export SPRS scoresheets with
+`python3 scripts/export_sprs.py` and C3PAO bundles with
+`python3 scripts/export_evidence_package.py` before assessment; regenerate the
+dashboard to review the Evidence freshness tab and SPRS diff against
+`sprs_submission`. Never store API secrets in the program data file.
+
+**Prepare for assessment and POA&M closeout.** Generate mock-assessment packs
+with `python3 scripts/generate_mock_assessment.py` (examine/interview/test lists
+and objective-level prompts from `references/data/assessment-objectives.json`).
+Validate POA&M entries against 32 CFR 170.21 with
+`python3 scripts/validate_poam.py` before accepting Conditional status. Export
+closeout bundles with `python3 scripts/generate_closeout_packet.py` when open
+POA&M items near remediation. See `references/grc/assessment-operations.md`.
 
 **Maintain the program data file.** Treat it as the single source of
 truth: status changes, new evidence, POA&M updates (respect the
