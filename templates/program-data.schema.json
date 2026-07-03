@@ -95,6 +95,53 @@
         }
       }
     },
+    "topology": {
+      "type": "object",
+      "description": "Diagram source of truth; scripts/generate_diagrams.py renders the SSP network and CUI flow diagrams from it. See references/diagram-guide.md",
+      "properties": {
+        "zones": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "label"],
+            "properties": {
+              "id": {"type": "string"},
+              "label": {"type": "string"},
+              "kind": {"type": "string", "enum": ["enclave", "corporate", "external", "csp"]},
+              "boundary": {"type": "string", "enum": ["cmmc-scope", "fedramp", "none"], "description": "cmmc-scope zones are wrapped by the dashed CMMC Assessment Scope boundary"}
+            }
+          }
+        },
+        "nodes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "label", "zone"],
+            "properties": {
+              "id": {"type": "string"},
+              "label": {"type": "string"},
+              "zone": {"type": "string", "description": "id of a zones entry"},
+              "category": {"type": "string", "enum": ["cui", "security-protection", "contractor-risk-managed", "specialized", "out-of-scope"], "description": "32 CFR 170.19(c) asset category; keep consistent with the assets inventory"},
+              "role": {"type": "string", "enum": ["entity", "process", "store"], "description": "DFD shape for the CUI flow diagram; default process"}
+            }
+          }
+        },
+        "flows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["from", "to"],
+            "properties": {
+              "from": {"type": "string"},
+              "to": {"type": "string"},
+              "data": {"type": "string", "enum": ["cui", "fci", "spd", "other"], "description": "cui/fci flows are emphasized; cui/fci/spd flows appear on the CUI flow diagram"},
+              "label": {"type": "string", "description": "protocol/port or description, e.g. HTTPS 443"},
+              "bidirectional": {"type": "boolean"}
+            }
+          }
+        }
+      }
+    },
     "policies": {
       "type": "array",
       "description": "Policy-to-control mapping register (PCMR); see references/grc/policy-mapping.md",

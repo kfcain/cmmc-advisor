@@ -235,7 +235,7 @@
         <div class="s">${esc((program.assessment && (program.assessment.path || "").toUpperCase()) || "")} ${esc((program.assessment && program.assessment.target_date) || "")}</div></div>`;
   }
 
-  const TABS = [["objectives", "Objectives"], ["poam", "POA&M"], ["gaps", "Gap remediation"], ["inheritance", "Inheritance"], ["policies", "Policies"]];
+  const TABS = [["objectives", "Objectives"], ["poam", "POA&M"], ["gaps", "Gap remediation"], ["inheritance", "Inheritance"], ["policies", "Policies"], ["diagrams", "Diagrams"]];
   let active = "objectives", famFilter = "", query = "";
 
   function renderTabs() {
@@ -400,12 +400,25 @@
       <p class="note">Method and gap types: references/grc/policy-mapping.md. Policies without linked procedures are anti-pattern 1 territory.</p>`;
   }
 
+  function renderDiagrams(view) {
+    const d = program._diagrams;
+    if (!d) { view.innerHTML = '<div class="empty">No topology recorded. Add a topology section to the program data file and regenerate; see references/diagram-guide.md.</div>'; return; }
+    // SVGs are produced by scripts/generate_diagrams.py at build time from the same program data
+    view.innerHTML = `
+      <h3 style="margin:4px 0 8px">Network diagram</h3>
+      <div style="overflow-x:auto;background:#fcfcfb;border:1px solid var(--grid);border-radius:8px;padding:8px">${d.network}</div>
+      <h3 style="margin:16px 0 8px">CUI flow diagram</h3>
+      <div style="overflow-x:auto;background:#fcfcfb;border:1px solid var(--grid);border-radius:8px;padding:8px">${d.cui_flow}</div>
+      <p class="note">Generated from the topology section; regenerate the dashboard after topology changes. Method: references/diagram-guide.md.</p>`;
+  }
+
   function renderView() {
     const view = $("#view");
     if (active === "objectives") renderObjectives(view);
     else if (active === "poam") renderPoam(view);
     else if (active === "gaps") renderGaps(view);
     else if (active === "policies") renderPolicies(view);
+    else if (active === "diagrams") renderDiagrams(view);
     else renderInheritance(view);
     renderTiles(); renderTabs();
   }
