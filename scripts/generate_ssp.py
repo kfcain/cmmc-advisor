@@ -65,7 +65,7 @@ ASSET_SECTIONS = [
 
 
 def load_program(path: Path) -> dict:
-    text = path.read_text()
+    text = path.read_text(encoding="utf-8")
     if path.suffix.lower() in (".yaml", ".yml"):
         try:
             import yaml
@@ -286,15 +286,17 @@ def main() -> int:
 
     if not AO_DATASET.exists():
         sys.exit(f"AO dataset not found: {AO_DATASET}")
-    dataset = json.loads(AO_DATASET.read_text())
+    dataset = json.loads(AO_DATASET.read_text(encoding="utf-8"))
     program = load_program(args.program_data)
+    if not isinstance(program, dict):
+        sys.exit("program data must parse to a mapping (YAML or JSON object)")
 
     unknown = [k for k in (program.get("requirements") or {}) if k not in {r["id"] for r in dataset["requirements"]}]
     if unknown:
         sys.exit(f"unknown requirement ids in program data: {unknown}")
 
     md = build_markdown(program, dataset)
-    args.out.write_text(md)
+    args.out.write_text(md, encoding="utf-8")
     n_reqs = len(dataset["requirements"])
     n_aos = sum(len(r["assessment_objectives"]) for r in dataset["requirements"])
     print(f"wrote {args.out} ({n_reqs} requirements, {n_aos} assessment objectives)")

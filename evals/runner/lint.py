@@ -44,7 +44,7 @@ def iter_files():
 def lint_file(path: Path) -> list[str]:
     findings = []
     rel = path.relative_to(REPO_ROOT).as_posix()
-    lines = path.read_text().split("\n")
+    lines = path.read_text(encoding="utf-8").split("\n")
     in_fence = False
     for i, line in enumerate(lines, 1):
         if line.lstrip().startswith("```"):

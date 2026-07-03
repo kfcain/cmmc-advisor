@@ -70,13 +70,13 @@ def _load_scenario(path: Path) -> dict:
 
 
 def _load_rubric(path: Path) -> str:
-    return path.read_text()
+    return path.read_text(encoding="utf-8")
 
 
 def _load_skill_system_prompt() -> str:
     """The real SKILL.md body, frontmatter stripped, so the subject runs
     exactly what production users install."""
-    text = (REPO_ROOT / "SKILL.md").read_text()
+    text = (REPO_ROOT / "SKILL.md").read_text(encoding="utf-8")
     if text.startswith("---"):
         end = text.find("\n---", 3)
         if end != -1:

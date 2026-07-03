@@ -26,7 +26,7 @@ AO_DATASET = REPO_ROOT / "references" / "data" / "assessment-objectives.json"
 
 
 def load_program(path: Path) -> dict:
-    text = path.read_text()
+    text = path.read_text(encoding="utf-8")
     if path.suffix.lower() in (".yaml", ".yml"):
         try:
             import yaml
@@ -48,16 +48,18 @@ def main() -> int:
     args = ap.parse_args()
 
     program = load_program(args.program_data)
-    dataset = json.loads(AO_DATASET.read_text())
+    if not isinstance(program, dict):
+        sys.exit("program data must parse to a mapping (YAML or JSON object)")
+    dataset = json.loads(AO_DATASET.read_text(encoding="utf-8"))
     known = {r["id"] for r in dataset["requirements"]}
     unknown = [k for k in (program.get("requirements") or {}) if k not in known]
     if unknown:
         sys.exit(f"unknown requirement ids in program data: {unknown}")
 
-    html = TEMPLATE.read_text()
+    html = TEMPLATE.read_text(encoding="utf-8")
     html = html.replace("__PROGRAM_DATA__", embed(program))
     html = html.replace("__AO_DATASET__", embed(dataset))
-    args.out.write_text(html)
+    args.out.write_text(html, encoding="utf-8")
     print(f"wrote {args.out} ({args.out.stat().st_size} bytes, self-contained)")
     return 0
 
