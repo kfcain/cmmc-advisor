@@ -86,7 +86,7 @@ Assessors want to know who is accountable, not what the org chart looks like.
 
 For each of the 110 Level 2 practices, document:
 
-- **Practice ID and title** (e.g., AC.L2-3.1.1 — Authorized Access Control)
+- **Practice ID and title** (e.g., AC.L2-3.1.1, Authorized Access Control)
 - **Implementation status:** Implemented, Partially Implemented, Planned, Not Applicable
 - **Implementation description:** How your organization satisfies this
   practice in your specific environment. This is the core of the SSP.

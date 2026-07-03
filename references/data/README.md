@@ -44,7 +44,7 @@ The builder pulls from the official FedRAMP repository:
 Live fields merged into each vendor entry include Marketplace impact level,
 authorization status, auth path/type, and status dates. **DoD Impact Level,
 CUI suitability, and practitioner notes** stay in the manifest as corpus
-guidance—they are not authoritative Marketplace facts.
+guidance; they are not authoritative Marketplace facts.
 
 ### When agents should use it
 

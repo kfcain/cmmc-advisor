@@ -164,11 +164,14 @@ covers everything Level 1 protects, and more.
 
 Each of the 110 Level 2 practices is assessed as either **MET** or **NOT MET**.
 
-The scoring system assigns point values to each practice. The maximum score
-is 110 points (one point per practice in the simplest case). However, some
-practices carry higher point values when they have multiple assessment
-objectives, so a practice that is partially implemented may lose more than
-one point.
+The scoring system assigns point values to each practice per the DoD
+Assessment Methodology: 44 practices weigh 5 points, 14 weigh 3 points,
+51 weigh 1 point, and the SSP (CA.L2-3.12.4) is special (without one the
+assessment cannot be conducted). The maximum score is 110 and the floor
+is -203. Only two practices carry partial credit: IA.L2-3.5.3 and
+SC.L2-3.13.11. Per-practice values live in
+`assessment-objectives/{domain}.md` and
+`data/assessment-objectives.json`.
 
 **SPRS scoring:** Organizations calculate their SPRS (Supplier Performance
 Risk System) score by starting at 110 and subtracting points for practices
@@ -192,7 +195,7 @@ If an organization achieves at least 80% but does not meet all 110 practices:
    Methodology v1.2.1 partial-credit structure)
 3. All NOT MET items must be documented in a Plan of Action & Milestones (POA&M)
 4. All POA&M items must be closed within **180 days** per 32 CFR 170.21
-5. A POA&M **closeout assessment** must verify remediation—**who** performs it
+5. A POA&M **closeout assessment** must verify remediation. **Who** performs it
    depends on the assessment path (32 CFR 170.21(b)): Level 2 **(Self)** → the
    OSA performs a closeout self-assessment; Level 2 **(C3PAO)** → an authorized
    or accredited C3PAO; Level 3 **(DIBCAC)** → DCMA DIBCAC

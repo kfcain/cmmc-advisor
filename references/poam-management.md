@@ -35,7 +35,7 @@ POA&Ms are permitted under strict conditions:
    of CMMC Level 2 security requirements must be **≥ 0.8** (80%). With the
    common 110-point SPRS scaling, that is often discussed as a minimum
    score of **88** when fully implementing the DoD Assessment Methodology
-   weights—confirm scoring with 32 CFR 170.24 and your assessor.
+   weights. Confirm scoring with 32 CFR 170.24 and your assessor.
 2. **Only 1-point practices on the POA&M** (with one exception below).
    Requirements with a point value greater than 1 may not appear on the
    POA&M except as specified for SC.L2-3.13.11.
@@ -162,7 +162,7 @@ Each POA&M entry should contain:
 > Practice AC.L2-3.1.5: "Too many users have admin access. Will fix soon."
 
 **Good:**
-> Practice AC.L2-3.1.5 — Least Privilege
+> Practice AC.L2-3.1.5 (Least Privilege)
 >
 > **Weakness:** Three service accounts have broader permissions than required
 > for their function. Accounts SVC-BACKUP, SVC-MONITOR, and SVC-DEPLOY

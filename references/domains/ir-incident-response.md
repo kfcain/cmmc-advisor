@@ -372,5 +372,5 @@ should start early because the medallion certificate has lead time.
   hours per DFARS 252.204-7012(c)(1)(ii), with malware samples to DC3
   under (d) and 90-day media preservation under (e). A joint incident
   runs both tracks. See `references/fedramp-gap.md` "Incident
-  reporting cadence" and "DFARS 252.204-7012 — the safeguarding clause
+  reporting cadence" and "DFARS 252.204-7012, the safeguarding clause
   in full"
