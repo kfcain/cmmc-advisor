@@ -28,16 +28,25 @@ requirements."
 | Attribute | Detail |
 |-----------|--------|
 | **Information type** | Federal Contract Information (FCI) |
-| **Practice count** | 17 practices |
-| **Source standard** | FAR 52.204-21 (Basic Safeguarding) |
+| **Requirement count** | 15 security requirements |
+| **Source standard** | FAR 52.204-21(b)(1) (Basic Safeguarding) |
 | **Assessment type** | Annual self-assessment |
 | **Assessment body** | Organization itself |
 | **Applies to** | All DoD contractors handling FCI |
 
-Level 1 represents basic cyber hygiene. These 17 practices are the minimum
-safeguards that any organization handling federal contract information should
-have in place. Examples include using passwords, limiting physical access
-to systems, and updating software.
+Level 1 represents basic cyber hygiene. These 15 requirements, taken directly
+from FAR 52.204-21, are the minimum safeguards that any organization handling
+federal contract information should have in place. Examples include using
+passwords, limiting physical access to systems, and updating software.
+
+Under the CMMC final rule, Level 1 requirements carry identifiers keyed to the
+FAR clause paragraphs: AC.L1-b.1.i through SI.L1-b.1.xv (see the CMMC
+Assessment Guide Level 1, version 2.13). The pre-rule CMMC Model v2.0
+described Level 1 as 17 practices with 800-171-style identifiers such as
+AC.L1-3.1.1; the final rule consolidated the physical-protection items and
+retired that numbering. If you see a 17-practice Level 1 list, it is the
+deprecated model, not the rule. See `references/level-1-quickstart.md` for
+the full 15-requirement mapping.
 
 **Key point for contractors:** If your contract involves only FCI (not CUI),
 Level 1 is sufficient. Self-assessment means no third-party audit. You
@@ -118,28 +127,32 @@ programs.
 All 110 Level 2 practices are organized into 14 domains. Each domain
 corresponds to a requirement family in NIST SP 800-171 Rev 2:
 
-| Domain | ID | L1 Practices | L2 Practices | Total |
-|--------|----|-------------|-------------|-------|
-| Access Control | AC | 4 | 18 | 22 |
-| Awareness and Training | AT | 0 | 3 | 3 |
-| Audit and Accountability | AU | 0 | 9 | 9 |
-| Configuration Management | CM | 0 | 9 | 9 |
-| Identification and Authentication | IA | 2 | 9 | 11 |
-| Incident Response | IR | 0 | 3 | 3 |
-| Maintenance | MA | 0 | 6 | 6 |
-| Media Protection | MP | 1 | 8 | 9 |
-| Personnel Security | PS | 0 | 2 | 2 |
-| Physical Protection | PE | 4 | 2 | 6 |
-| Risk Assessment | RA | 0 | 3 | 3 |
-| Security Assessment | CA | 0 | 4 | 4 |
-| System and Communications Protection | SC | 2 | 14 | 16 |
-| System and Information Integrity | SI | 4 | 3 | 7 |
-| **Total** | | **17** | **93** | **110** |
+| Domain | ID | L2 Practices | L1 Requirements (FAR 52.204-21) |
+|--------|----|-------------|--------------------------------|
+| Access Control | AC | 22 | 4 |
+| Awareness and Training | AT | 3 | 0 |
+| Audit and Accountability | AU | 9 | 0 |
+| Configuration Management | CM | 9 | 0 |
+| Identification and Authentication | IA | 11 | 2 |
+| Incident Response | IR | 3 | 0 |
+| Maintenance | MA | 6 | 0 |
+| Media Protection | MP | 9 | 1 |
+| Personnel Security | PS | 2 | 0 |
+| Physical Protection | PE | 6 | 2 |
+| Risk Assessment | RA | 3 | 0 |
+| Security Assessment | CA | 4 | 0 |
+| System and Communications Protection | SC | 16 | 2 |
+| System and Information Integrity | SI | 7 | 4 |
+| **Total** | | **110** | **15** |
 
-> Source: CMMC Model Overview v2.0, dodcio.defense.gov
+> Source: CMMC Assessment Guide Level 2 v2.13 and CMMC Assessment Guide
+> Level 1 v2.13, dodcio.defense.gov
 
-**Note:** The 17 Level 1 practices are a subset of the 110 Level 2 practices.
-A Level 2 certification covers all Level 1 requirements automatically.
+**Note:** All 110 requirements are assessed at Level 2 under XX.L2-3.x.x
+identifiers. The 15 Level 1 requirements are FAR 52.204-21 counterparts of
+a subset of them (PE.L1-b.1.ix alone corresponds to three Level 2
+requirements: PE.L2-3.10.3, 3.10.4, and 3.10.5). A Level 2 certification
+covers everything Level 1 protects, and more.
 
 ---
 
@@ -216,8 +229,10 @@ deferring these items.
 
 ### Level 1 Self-Assessment
 
-1. Organization reviews all 17 Level 1 practices
-2. Assesses each practice as MET or NOT MET
+1. Organization reviews all 15 Level 1 requirements (AC.L1-b.1.i through
+   SI.L1-b.1.xv)
+2. Assesses each requirement as MET, NOT MET, or NOT APPLICABLE per
+   32 CFR 170.24
 3. Documents results
 4. Submits SPRS score
 5. Senior official affirms the assessment with a signed affirmation

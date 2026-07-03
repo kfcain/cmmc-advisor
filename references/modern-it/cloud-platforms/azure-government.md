@@ -248,8 +248,8 @@ Entra ID P1 and P2 license tiers gate specific features;
 Azure Government licensing is sold separately from Azure
 Commercial licensing.
 
-**CMMC practices implemented.** IA.L1-3.5.1 (user
-identification), IA.L1-3.5.2 (user authentication),
+**CMMC practices implemented.** IA.L2-3.5.1 (user
+identification), IA.L2-3.5.2 (user authentication),
 IA.L2-3.5.3 (MFA), IA.L2-3.5.4 (replay-resistant
 authentication), AC.L2-3.1.1 (account management),
 AC.L2-3.1.5 (least privilege), AC.L2-3.1.7 (privileged
@@ -509,8 +509,8 @@ Azure Web Application Firewall (WAF) protect public-facing
 applications. Azure Bastion provides RDP and SSH access to
 VMs without public IP addresses.
 
-**CMMC practices implemented.** SC.L1-3.13.1 (boundary
-protection), SC.L1-3.13.5 (public access system separation),
+**CMMC practices implemented.** SC.L2-3.13.1 (boundary
+protection), SC.L2-3.13.5 (public access system separation),
 SC.L2-3.13.6 (deny by default), SC.L2-3.13.7 (split-tunneling
 prevention where endpoint VPNs or ExpressRoute are in use),
 SC.L2-3.13.2 (architectural design for security), and
@@ -840,7 +840,7 @@ named.
 | Cryptographic key management (SC.L2-3.13.10) | Azure Key Vault Premium, Azure Managed HSM |
 | Data at rest encryption (SC.L2-3.13.11, SC.L2-3.13.16) | Storage Service Encryption, Disk Encryption with CMK, SQL TDE with CMK |
 | Data in transit (SC.L2-3.13.8) | Private Link, Private Endpoints, ExpressRoute Government, TLS via Key Vault certificates |
-| Network boundary protection (SC.L1-3.13.1, SC.L2-3.13.6) | VNet, NSGs, Azure Firewall Premium, WAF, Azure Bastion |
+| Network boundary protection (SC.L2-3.13.1, SC.L2-3.13.6) | VNet, NSGs, Azure Firewall Premium, WAF, Azure Bastion |
 | Audit and logging (AU family) | Azure Monitor, Log Analytics, Activity Log, Diagnostic Settings, Microsoft Sentinel |
 | Continuous monitoring and threat detection (SI.L2-3.14.6, SI.L2-3.14.7) | Microsoft Defender for Cloud, Defender plans (Servers, Storage, Containers, Key Vault, SQL), Microsoft Sentinel |
 | Configuration management (CM family) | Azure Policy, Azure Blueprints, Management Groups, Defender for Cloud posture benchmarks |

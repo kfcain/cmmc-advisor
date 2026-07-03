@@ -275,8 +275,8 @@ are assigned through the Admin Console with predefined roles
 (Super Admin, User Management Admin, Groups Admin, and others)
 plus custom roles for fine-grained permissions.
 
-**CMMC practices implemented.** IA.L1-3.5.1 (user
-identification), IA.L1-3.5.2 (user authentication), IA.L2-3.5.3
+**CMMC practices implemented.** IA.L2-3.5.1 (user
+identification), IA.L2-3.5.2 (user authentication), IA.L2-3.5.3
 (MFA), AC.L2-3.1.1 (account management), AC.L2-3.1.5 (least
 privilege through admin-role assignment), and AC.L2-3.1.8
 (unsuccessful logon attempts through 2-Step Verification

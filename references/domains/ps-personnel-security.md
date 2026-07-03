@@ -18,7 +18,7 @@ Key cross-domain relationships: Access Control (AC) governs how
 authorized personnel use systems and revokes logical access when
 PS.L2-3.9.2 fires; Identification and Authentication (IA) issues and
 revokes credentials on the PS schedule; Physical Protection (PE)
-revokes badges under PE.L1-3.10.5, triggered by PS.L2-3.9.2 events;
+revokes badges under PE.L2-3.10.5, triggered by PS.L2-3.9.2 events;
 Awareness and Training (AT) assigns role-based training that keys off
 PS screening tier and role; Incident Response (IR) handles
 insider-threat cases that reference PS screening baselines and
@@ -111,7 +111,7 @@ protected during and after personnel actions such as terminations and
 transfers.
 
 **Why it matters:** Separation and transfer are the two highest-risk
-transitions in the personnel lifecycle. PE.L1-3.10.5 badge revocation
+transitions in the personnel lifecycle. PE.L2-3.10.5 badge revocation
 timing depends on this practice firing correctly; without it, former
 employees retain logical access, physical access, or both for days
 after they should have been cut off.
@@ -119,7 +119,7 @@ after they should have been cut off.
 **Implementation guidance:**
 - Separation workflow: HR initiates a personnel action ticket that
   triggers parallel revocation actions. Access Control disables logical
-  accounts, Physical Protection (PE.L1-3.10.5) deactivates badges
+  accounts, Physical Protection (PE.L2-3.10.5) deactivates badges
   within the defined SLA (same-day for hostile terminations, one
   business day for routine separations). Media Protection handles
   credential and CUI artifact return: issued laptops, tokens, hardcopy
@@ -160,7 +160,7 @@ after they should have been cut off.
 - Personnel action workflow documentation covering separation,
   transfer, and termination paths
 - Sample separation records showing HR trigger timestamp and
-  downstream revocation timestamps in AC and PE.L1-3.10.5 systems
+  downstream revocation timestamps in AC and PE.L2-3.10.5 systems
 - Exit interview records with security briefing attestation signed by
   the departing employee
 - Transfer records showing access review against the new role and
@@ -173,7 +173,7 @@ after they should have been cut off.
 - Access Control account left active past termination date; the IT
   tickets existed but no one closed them on schedule
 - Badge revocation delayed past the same-day SLA; the same miss shows
-  up as a PE.L1-3.10.5 finding because the two practices share the
+  up as a PE.L2-3.10.5 finding because the two practices share the
   same failure mode
 - Transfer treated as "same person, more access" rather than "same
   person, new role, fresh authorization required"
@@ -205,11 +205,11 @@ actions).
 **Key relationships:**
 - Access Control (AC) revokes logical access in response to
   PS.L2-3.9.2 personnel actions; AC account disable is the logical
-  counterpart to PE.L1-3.10.5 badge revocation
+  counterpart to PE.L2-3.10.5 badge revocation
 - Identification and Authentication (IA) issues and revokes
   credentials on the PS schedule. Pre-access screening under
   PS.L2-3.9.1 is the gate for IA account issuance
-- Physical Protection (PE) revokes badges under PE.L1-3.10.5 triggered
+- Physical Protection (PE) revokes badges under PE.L2-3.10.5 triggered
   by PS.L2-3.9.2 events. The same-day hostile-termination SLA lives
   across both domains and either side's failure is visible in the
   other

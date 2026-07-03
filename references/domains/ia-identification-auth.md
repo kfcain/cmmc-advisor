@@ -14,9 +14,18 @@ enforced because you cannot verify who is requesting access.
 
 ---
 
-## Level 1 Practices
+## Practices with Level 1 Counterparts
 
-### IA.L1-3.5.1 — Identification
+The CUI requirements in this section are assessed at Level 2 under their
+XX.L2-3.x.x identifiers. Each also protects FCI at Level 1 through a
+counterpart requirement in FAR 52.204-21, identified as XX.L1-b.1.i through
+XX.L1-b.1.xv in 32 CFR 170.15 and the CMMC Assessment Guide Level 1. FCI-only
+organizations self-assess the Level 1 counterparts; see
+`references/level-1-quickstart.md`.
+
+### IA.L2-3.5.1 — Identification
+
+*Level 1 counterpart: IA.L1-b.1.v (FAR 52.204-21)*
 
 **Requirement:** Identify system users, processes acting on behalf
 of users, and devices.
@@ -45,7 +54,9 @@ individuals, which undermines accountability and audit.
 
 ---
 
-### IA.L1-3.5.2 — Authentication
+### IA.L2-3.5.2 — Authentication
+
+*Level 1 counterpart: IA.L1-b.1.vi (FAR 52.204-21)*
 
 **Requirement:** Authenticate (or verify) the identities of users,
 processes, or devices, as a prerequisite to allowing access to
@@ -358,9 +369,9 @@ It protects against the most common attack vectors and assessors will look
 for it early.
 
 **Key relationships:**
-- IA.L1-3.5.1 (identify users) and IA.L1-3.5.2 (authenticate users)
+- IA.L2-3.5.1 (identify users) and IA.L2-3.5.2 (authenticate users)
   provide the authentication that Access Control (AC) depends on,
-  specifically AC.L1-3.1.1 (system access) and AC.L1-3.1.2
+  specifically AC.L2-3.1.1 (system access) and AC.L2-3.1.2
   (transaction and function control)
 - IA.L2-3.5.3 (MFA) and related practices generate events that
   Audit and Accountability (AU) captures under AU.L2-3.3.2 (user

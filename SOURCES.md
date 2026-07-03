@@ -83,11 +83,21 @@ compliance documentation and practitioner publications.
 - **URL:** https://www.federalregister.gov/documents/2023/12/26/2023-27280/cybersecurity-maturity-model-certification-cmmc-program
 - **Used in:** Cost projections in contractor-profiles, fedramp-marketplace-guide
 
+### CMMC Assessment Guide — Level 1
+- **Title:** CMMC Assessment Guide Level 1, Version 2.13 (September 2024)
+- **Publisher:** DoD CIO
+- **URL:** https://dodcio.defense.gov/Portals/0/Documents/CMMC/AssessmentGuideL1.pdf
+- **Used in:** Level 1 requirement count (15) and identifiers (AC.L1-b.1.i
+  through SI.L1-b.1.xv), level-1-quickstart, levels-and-assessment
+  (verified 2026-07-03 via URL above)
+
 ### CMMC Assessment Guide — Level 2
-- **Title:** CMMC Assessment Guide Level 2
+- **Title:** CMMC Assessment Guide Level 2, Version 2.13 (September 2024)
 - **Publisher:** DoD CIO
 - **URL:** https://dodcio.defense.gov/Portals/0/Documents/CMMC/AssessmentGuideL2.pdf
-- **Used in:** Assessment process, practice-level guidance, scoping categories
+- **Used in:** Assessment process, practice-level guidance, scoping
+  categories, XX.L2-3.x.x identifier scheme for all 110 requirements
+  (verified 2026-07-03 via URL above)
 
 ### CMMC Model Overview v2.0
 - **Title:** CMMC Model Overview Version 2.0

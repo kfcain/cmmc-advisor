@@ -270,8 +270,8 @@ to remote work locations that CUI is not exposed through the
 physical dimension.
 
 **CMMC practices implemented.** PE.L2-3.10.6 (alternate work
-site CUI safeguards) is the primary anchor. Related: PE.L1-3.10.1
-(limit physical access) and PE.L1-3.10.5 (control physical
+site CUI safeguards) is the primary anchor. Related: PE.L2-3.10.1
+(limit physical access) and PE.L2-3.10.5 (control physical
 access devices) apply at the home office for CUI-bearing
 devices; these practices are implemented through policy and
 training at the alternate work site rather than through the
@@ -289,7 +289,7 @@ primary facility's access control system.
   primary facility would carry through badge readers and CCTV.
 - Physical access to the endpoint itself (device theft scenario)
   is handled by full-disk encryption and remote-wipe capability
-  through the MDM. PE.L1-3.10.5 physical access device control
+  through the MDM. PE.L2-3.10.5 physical access device control
   applies: the laptop is a CUI-bearing device and must be
   controlled by the employee assigned to it.
 - Paper CUI should not routinely be at an alternate work site.
@@ -345,8 +345,8 @@ more operational effort than issuing devices.
 **If BYOD is allowed for CUI, the contractor accepts the
 following obligations.**
 
-**CMMC practices implemented (or that must be).** AC.L1-3.1.20
-(external system connection), AC.L1-3.1.22 (publicly accessible
+**CMMC practices implemented (or that must be).** AC.L2-3.1.20
+(external system connection), AC.L2-3.1.22 (publicly accessible
 content, by extension when the personal device is multi-purpose),
 CM.L2-3.4.1 and CM.L2-3.4.2 (baseline configuration and
 enforcement on the personal device), SC.L2-3.13.11 (FIPS-
@@ -484,7 +484,7 @@ AC.L2-3.1.10 (session lock for mobile screen lock).
   would otherwise be available.
 - Allowing Android devices from vendors that ship delayed or no
   security updates. A device that will not receive patches
-  within SI.L1-3.14.1 flaw remediation timeframes is a failing
+  within SI.L2-3.14.1 flaw remediation timeframes is a failing
   device.
 - Relying on a mobile device's lock screen as the only
   authentication. CUI applications on the device should
@@ -505,7 +505,7 @@ territories.
 
 **CMMC practices implemented.** PE.L2-3.10.6 (alternate work
 site safeguards apply to the temporary work location),
-AC.L1-3.1.20 (external system connections, when using hotel or
+AC.L2-3.1.20 (external system connections, when using hotel or
 conference Wi-Fi), AC.L2-3.1.12 (remote access monitoring, for
 the sessions initiated during travel), SC.L2-3.13.7 (split
 tunneling prevention on travel-network connections), and
@@ -584,10 +584,10 @@ Remote-work guidance composes with the domain practice files for
 assessor-facing requirement text and evidence lists:
 
 - Physical Protection (PE).
-  `references/domains/pe-physical-protection.md` for PE.L1-3.10.1
-  through PE.L1-3.10.5 and PE.L2-3.10.6.
+  `references/domains/pe-physical-protection.md` for PE.L2-3.10.1
+  through PE.L2-3.10.5 and PE.L2-3.10.6.
 - Access Control (AC). `references/domains/ac-access-control.md`
-  for AC.L1-3.1.20, AC.L2-3.1.12 through AC.L2-3.1.15, AC.L2-3.1.18,
+  for AC.L2-3.1.20, AC.L2-3.1.12 through AC.L2-3.1.15, AC.L2-3.1.18,
   and AC.L2-3.1.19.
 - System and Communications Protection (SC).
   `references/domains/sc-system-comms.md` for SC.L2-3.13.7

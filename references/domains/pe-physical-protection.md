@@ -21,7 +21,7 @@ receive a badge in the first place, Identification and Authentication
 covers the physical handling of CUI artifacts moving between sites,
 Incident Response (IR) handles physical-incident response with evidence
 preservation, and System and Communications Protection (SC) frames the
-physical component of boundary protection. Scope signals: PE.L1-3.10.1
+physical component of boundary protection. Scope signals: PE.L2-3.10.1
 is the locus of cloud shared-responsibility framing for contractors
 who run CUI on cloud platforms authorized under FedRAMP (the Federal
 Risk and Authorization Management Program). PE.L2-3.10.6 is the
@@ -31,9 +31,18 @@ practice and demonstrate enforcement.
 
 ---
 
-## Level 1 Practices
+## Practices with Level 1 Counterparts
 
-### PE.L1-3.10.1 — Limit Physical Access
+The CUI requirements in this section are assessed at Level 2 under their
+XX.L2-3.x.x identifiers. Each also protects FCI at Level 1 through a
+counterpart requirement in FAR 52.204-21, identified as XX.L1-b.1.i through
+XX.L1-b.1.xv in 32 CFR 170.15 and the CMMC Assessment Guide Level 1. FCI-only
+organizations self-assess the Level 1 counterparts; see
+`references/level-1-quickstart.md`.
+
+### PE.L2-3.10.1 — Limit Physical Access
+
+*Level 1 counterpart: PE.L1-b.1.viii (FAR 52.204-21)*
 
 **Requirement:** Limit physical access to organizational systems,
 equipment, and the respective operating environments to authorized
@@ -89,7 +98,9 @@ network jack can bypass most logical controls.
 
 ---
 
-### PE.L1-3.10.3 — Escort Visitors
+### PE.L2-3.10.3 — Escort Visitors
+
+*Level 1 counterpart: PE.L1-b.1.ix (FAR 52.204-21)*
 
 **Requirement:** Escort visitors and monitor visitor activity.
 
@@ -130,7 +141,9 @@ produce both physical and logical incident exposure.
 
 ---
 
-### PE.L1-3.10.4 — Maintain Audit Logs of Physical Access
+### PE.L2-3.10.4 — Maintain Audit Logs of Physical Access
+
+*Level 1 counterpart: PE.L1-b.1.ix (FAR 52.204-21)*
 
 **Requirement:** Maintain audit logs of physical access.
 
@@ -172,7 +185,9 @@ to verify the other PE practices are real.
 
 ---
 
-### PE.L1-3.10.5 — Control Physical Access Devices
+### PE.L2-3.10.5 — Control Physical Access Devices
+
+*Level 1 counterpart: PE.L1-b.1.ix (FAR 52.204-21)*
 
 **Requirement:** Control and manage physical access devices.
 
@@ -240,7 +255,7 @@ direct compromise, often with less attacker sophistication.
 - Intrusion detection and after-hours alarm monitoring for the primary
   facility and any secondary sites housing CUI systems
 - CCTV coverage of facility perimeter and sensitive interior spaces,
-  integrated with the physical access logs under PE.L1-3.10.4
+  integrated with the physical access logs under PE.L2-3.10.4
 - Support-infrastructure hardening: locked electrical rooms, protected
   network distribution closets, UPS and generator coverage for
   critical loads, fire suppression sized for equipment (clean agent or
@@ -352,9 +367,9 @@ because the organization usually cannot inspect them.
 |-----------|---------|---------|-------|
 | Count | 4 | 2 | 6 |
 
-**Assessment priority:** Start with PE.L1-3.10.1 and PE.L1-3.10.5.
-PE.L1-3.10.1 is the authorization gate; without it, the other access
-practices cannot be shown to be selective. PE.L1-3.10.5 (access device
+**Assessment priority:** Start with PE.L2-3.10.1 and PE.L2-3.10.5.
+PE.L2-3.10.1 is the authorization gate; without it, the other access
+practices cannot be shown to be selective. PE.L2-3.10.5 (access device
 management) is the most common finding source because badge lifecycle
 is where personnel actions and physical access diverge in practice.
 PE.L2-3.10.6 is the practice most likely to fail in the real world
@@ -366,7 +381,7 @@ is invisible without attestation and refresh.
   together form the end-to-end access boundary and must be reconciled
   during assessment
 - Personnel Security (PS) governs who is eligible to receive a badge;
-  PE.L1-3.10.5 revocation triggers come from PS personnel actions
+  PE.L2-3.10.5 revocation triggers come from PS personnel actions
 - Identification and Authentication (IA) connects the physical badge
   to the logical identity for attribution
 - Media Protection (MP) covers the physical handling of CUI documents

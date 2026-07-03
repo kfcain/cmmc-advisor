@@ -72,7 +72,7 @@ their actions.
 
 **Why it matters:** If you cannot attribute an action to a specific person,
 you cannot hold anyone accountable. This requires unique user IDs (ties
-to IA.L1-3.5.1) and audit logs that capture the user identity with each
+to IA.L2-3.5.1) and audit logs that capture the user identity with each
 event.
 
 **Implementation guidance:**

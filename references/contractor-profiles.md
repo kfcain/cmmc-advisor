@@ -501,7 +501,7 @@ compress the sequence as assessment deadlines dictate.
 
 1. Scope CUI accurately. Wrong scope dominates cost risk at
    small scale.
-2. Deploy MFA everywhere (IA.L1-3.5.1, IA.L1-3.5.2, IA.L2-3.5.3).
+2. Deploy MFA everywhere (IA.L2-3.5.1, IA.L2-3.5.2, IA.L2-3.5.3).
    Cheap, high coverage, easy-to-evidence.
 3. Stand up audit logging (AU.L2-3.3.1) with SIEM or log
    aggregation service.

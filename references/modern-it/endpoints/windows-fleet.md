@@ -166,7 +166,7 @@ domain-joined devices), or the MDM service.
 
 **CMMC practices implemented.** SC.L2-3.13.11 (FIPS-validated
 cryptography for CUI), SC.L2-3.13.16 (data at rest encryption),
-MP.L2-3.8.1 (physical media protection), and MP.L1-3.8.3
+MP.L2-3.8.1 (physical media protection), and MP.L2-3.8.3
 (sanitization before reuse or disposal, through cryptographic
 erasure).
 
@@ -189,7 +189,7 @@ erasure).
   elevated (OCONUS travel, high-value engineering laptops).
 - Cryptographic erasure (destroying the FVEK) is the standard
   sanitization path for BitLocker-enabled devices going through
-  the MP.L1-3.8.3 flow. `manage-bde -forcerecovery` and a factory
+  the MP.L2-3.8.3 flow. `manage-bde -forcerecovery` and a factory
   reset effectively render the previous contents unrecoverable.
 
 **Evidence to collect.**
@@ -229,9 +229,9 @@ integrated with the Defender portal. Third-party EDR products
 (CrowdStrike, SentinelOne, and others) replace or supplement MDE
 and ingest telemetry into their own consoles.
 
-**CMMC practices implemented.** SI.L1-3.14.2 (malicious code
-protection), SI.L1-3.14.4 (update malicious code mechanisms),
-SI.L1-3.14.5 (periodic and real-time scanning), SI.L2-3.14.3
+**CMMC practices implemented.** SI.L2-3.14.2 (malicious code
+protection), SI.L2-3.14.4 (update malicious code mechanisms),
+SI.L2-3.14.5 (periodic and real-time scanning), SI.L2-3.14.3
 (security alerts and advisories), SI.L2-3.14.6 (system
 monitoring), SI.L2-3.14.7 (unauthorized use detection), and
 AU.L2-3.3.1 (endpoint audit event generation).
@@ -246,7 +246,7 @@ AU.L2-3.3.1 (endpoint audit event generation).
   MDE in GCC High is a separate service instance from MDE
   commercial; crossing tenancies is not a supported
   configuration.
-- CMMC L1 anti-malware practices (SI.L1-3.14.2, 14.4, 14.5) are
+- CMMC L1 anti-malware practices (SI.L2-3.14.2, 14.4, 14.5) are
   satisfied by Defender Antivirus alone. The CMMC L2 monitoring
   and unauthorized-use-detection practices (SI.L2-3.14.6, 14.7)
   require the EDR telemetry and response surface; Defender for
@@ -347,7 +347,7 @@ fleets not yet migrated to WUfB. Windows Update for Business
 reports into Intune compliance for assessor-facing patch posture
 reporting.
 
-**CMMC practices implemented.** SI.L1-3.14.1 (flaw remediation)
+**CMMC practices implemented.** SI.L2-3.14.1 (flaw remediation)
 and CM.L2-3.4.9 (user-installed software, as third-party
 applications update alongside the OS).
 
@@ -366,7 +366,7 @@ applications update alongside the OS).
 - Third-party applications update through their own mechanisms,
   through Intune app deployment (Microsoft Store for Business or
   Win32 app packaging), or through SCCM application deployment.
-  SI.L1-3.14.1 covers these alongside OS updates.
+  SI.L2-3.14.1 covers these alongside OS updates.
 - WSUS-only fleets are compliant but are missing the cloud
   reporting surface; patch posture reporting is a separate build
   effort on WSUS.
@@ -459,7 +459,7 @@ outbound filtering. Intune Endpoint Security firewall profiles
 and GPO firewall policies configure rules and state across the
 fleet.
 
-**CMMC practices implemented.** SC.L1-3.13.1 (boundary protection,
+**CMMC practices implemented.** SC.L2-3.13.1 (boundary protection,
 at the host edge) and SC.L2-3.13.6 (deny by default, allow by
 exception).
 

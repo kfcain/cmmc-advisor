@@ -332,7 +332,7 @@ because reducing attack surface has immediate security impact.
   entries captured under AU.L2-3.3.1 (audit log creation)
 - CM software restrictions (CM.L2-3.4.8, CM.L2-3.4.9) relate to
   System and Information Integrity (SI) malicious code protection
-  at SI.L1-3.14.2 (malicious code protection) and SI.L1-3.14.5
+  at SI.L2-3.14.2 (malicious code protection) and SI.L2-3.14.5
   (periodic and real-time scanning)
 - CM configuration enforcement (CM.L2-3.4.2) supports all other
   domains by ensuring systems are in a known-good state

@@ -292,8 +292,8 @@ workflows), multi-factor authentication enforcement, external
 identity federation (SAML, OIDC, SCIM), and hybrid identity
 through Entra Connect from on-premises Active Directory.
 
-**CMMC practices implemented.** IA.L1-3.5.1 (user
-identification), IA.L1-3.5.2 (user authentication),
+**CMMC practices implemented.** IA.L2-3.5.1 (user
+identification), IA.L2-3.5.2 (user authentication),
 IA.L2-3.5.3 (MFA), IA.L2-3.5.4 (replay-resistant
 authentication), AC.L2-3.1.1 (account management),
 AC.L2-3.1.5 (least privilege), AC.L2-3.1.7 (privileged
@@ -327,7 +327,7 @@ Access lockout).
   replication traffic) into CMMC scope for AC, AU, IA, and
   SC practice evidence; the on-prem AD must be documented as
   a CUI-adjacent asset in the SSP and hardened accordingly
-  (domain controller patching under SI.L1-3.14.1, AD audit
+  (domain controller patching under SI.L2-3.14.1, AD audit
   logging under AU.L2-3.3.1, privileged group monitoring).
 - Entra External ID Government handles B2B guest access to
   CUI resources. Guest users require the same MFA and
@@ -585,9 +585,9 @@ endpoints. Both ship in GCC High as separate service
 instances from commercial Defender; cross-tenancy data is not
 supported.
 
-**CMMC practices implemented.** SI.L1-3.14.2 (malicious code
-protection), SI.L1-3.14.4 (update malicious code mechanisms),
-SI.L1-3.14.5 (periodic and real-time scanning), SI.L2-3.14.3
+**CMMC practices implemented.** SI.L2-3.14.2 (malicious code
+protection), SI.L2-3.14.4 (update malicious code mechanisms),
+SI.L2-3.14.5 (periodic and real-time scanning), SI.L2-3.14.3
 (security alerts and advisories), SI.L2-3.14.6 (system
 monitoring), and SI.L2-3.14.7 (unauthorized use detection).
 
