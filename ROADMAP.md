@@ -71,13 +71,20 @@ diagram capability (`scripts/generate_diagrams.py`).
 
 ## Phase 6: Assessment Operations
 
-- Mock-assessment mode: generate interview scripts and evidence
-  requests per family from the examine/interview/test data, then score
-  answers at the objective level.
-- POA&M lifecycle automation: closeout evidence packets assembled from
-  the program data file.
+Delivered (Phase 6a):
+
+- Mock-assessment mode: `scripts/generate_mock_assessment.py` generates interview
+  scripts and evidence requests per family from examine/interview/test data, with
+  objective-level scoring templates.
+- POA&M lifecycle automation: `scripts/validate_poam.py` (32 CFR 170.21 rules),
+  `scripts/generate_closeout_packet.py` (closeout evidence from program data).
+- Assessment operations hub: `references/grc/assessment-operations.md`.
+- Eval scenarios: `toolkit-validate-poam`, `toolkit-mock-assessment`.
+
+Remaining:
+
 - Reconciliation with the author's wider portfolio (cmmc-l2-master,
-  policy-mapper, jumpstart-generator, remediation-tracker skills;
+  policy-mapper, remediation-tracker skills; cmmc-dfd, cmmc-raci,
   myctrl.tools and grclanker interop) as those sources become reachable
   from the working environment.
 
