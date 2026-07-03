@@ -385,6 +385,24 @@ compliance documentation and practitioner publications.
 - **URL:** https://csrc.nist.gov/projects/ssdf
 - **Used in:** references/modern-it/asset-baselines/development-sdlc.md
 
+### AWS Prescriptive Guidance — CMMC Level 2 on AWS
+- **Title:** Preparation guide for CMMC Level 2 on AWS
+- **Publisher:** Amazon Web Services
+- **URL:** https://docs.aws.amazon.com/prescriptive-guidance/latest/cmmc-level-2-compliance-on-aws/introduction.html
+- **Used in:** references/modern-it/cloud-platforms/aws-govcloud.md, remote-access-scope.md
+
+### DoD CIO CMMC FAQ (Level 2 scoping)
+- **Title:** CMMC Frequently Asked Questions (Level 2 scoping entries B-Q8, E-Q2, F-Q3, F-Q4 cited in asset baseline guides)
+- **URL:** https://dodcio.defense.gov/CMMC/Documentation/
+- **Used in:** references/modern-it/asset-baselines/network-firewall-wlan.md, remote-access-scope.md, scoping-and-cui.md
+
+### DEFCERT — Not Every Device Needs to Be FIPS Validated (interpretive)
+- **Title:** CMMC and NIST 800-171 - Not every device on your network needs to be FIPS Validated
+- **Publisher:** DEFCERT (interpretive guidance citing DoD CMMC FAQ and NIST 800-171)
+- **URL:** https://www.defcert.com/blog/not-every-device-neds-to-be-fips-validated
+- **Used in:** references/modern-it/asset-baselines/network-firewall-wlan.md, remote-access-scope.md
+- **Note:** Interpretive practitioner paper; factual claims trace to DoD FAQ and NIST. Verify against current authoritative FAQ before assessment.
+
 ### AWS GovCloud User Guide
 - **URL:** https://docs.aws.amazon.com/govcloud-us/latest/UserGuide/
 - **Used in:** modern-it/cloud-platforms/aws-govcloud.md, modern-it/ai-services/fedramp-ai-services.md (Bedrock in GovCloud)

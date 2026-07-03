@@ -89,6 +89,9 @@ from memory alone when a reference exists.
 | Windows endpoint compliance | `references/modern-it/endpoints/windows-fleet.md` |
 | Remote work and VDI | `references/modern-it/endpoints/remote-work.md` |
 | Asset baselines (printers, WLAN, firewalls, PACS, OT, SDLC, IGEL) | `references/modern-it/asset-baselines/README.md` |
+| SASE, VPN, Tailscale, bastion, remote path scoping | `references/modern-it/asset-baselines/remote-access-scope.md` |
+| AWS CMMC Level 2 prescriptive architecture on AWS | AWS Prescriptive Guidance (see SOURCES.md) + `references/modern-it/cloud-platforms/aws-govcloud.md` |
+| FIPS scoping (pass-through vs crypto endpoint) | `references/modern-it/asset-baselines/network-firewall-wlan.md`, DoD CMMC FAQ |
 | Internal RACI / responsibility matrix | `references/grc/responsibility-matrix.md` + `scripts/generate_responsibility_matrix.py` |
 | Validate asset baseline checklists | `scripts/validate_asset_baselines.py` + `references/data/asset-baseline-manifest.json` |
 | On-prem firewall, WLAN, PACS evidence collectors | `references/modern-it/security-operations/on-prem-inspectors.md` |

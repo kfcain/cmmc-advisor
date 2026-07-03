@@ -26,6 +26,12 @@ decision tree). Structural content here names AWS GovCloud
 capabilities; product names outside AWS appear only in the
 dated Examples sidebar.
 
+**CMMC on AWS (Prescriptive Guidance, June 2026).** AWS publishes a multi-account
+reference architecture, CUI boundary patterns, automated evidence collection, and
+continuous monitoring for CMMC Level 2 on GovCloud and commercial Regions (FIPS
+endpoints). See SOURCES.md and `../asset-baselines/remote-access-scope.md` for
+VPN/SASE/bastion scoping alongside the AWS architecture.
+
 **FedRAMP authorization summary (verified 2026-04-21).** AWS
 GovCloud (US) holds a
 JAB Provisional Authority to Operate (P-ATO) at the FedRAMP

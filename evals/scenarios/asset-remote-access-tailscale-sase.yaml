@@ -1,0 +1,45 @@
+id: asset-remote-access-tailscale-sase
+title: Tailscale for admin access and SASE for remote users, what is in scope
+category: scoping
+
+prompt: |
+  We use Zscaler for most remote users and Tailscale for a few engineers to
+  reach a jump box in AWS. Our perimeter FortiGate does segmentation but we
+  were told every network device needs FIPS mode. Do Tailscale, the bastion,
+  and the firewall all sit in CMMC scope, and where does FIPS actually apply?
+
+required_terms:
+  - security protection
+  - SC.L2-3.13.11
+  - remote access
+  - SASE
+  - logical separation
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Route to references/modern-it/asset-baselines/remote-access-scope.md and
+  network-firewall-wlan.md. Scoping is function-based:
+
+  Zscaler (SASE/ZTNA): typically security protection; evidence via zscaler-policy
+  collector; FedRAMP CRM; AC.L2-3.1.12 through 3.1.15 and SC.L2-3.13.7/8.
+
+  Tailscale: in scope if it carries admin or CUI paths (subnet router to CUI VLAN
+  = SPA at minimum). Export ACLs and document whether CUI uses the tailnet. MFA
+  on Tailscale admin.
+
+  Jump/bastion in AWS: security protection or CUI asset if RDP sessions handle
+  CUI; session logging, no direct internet RDP. AWS CMMC prescriptive guide for
+  multi-account boundary patterns.
+
+  FortiGate segmentation-only (no SSL inspect, no VPN terminate of CUI plaintext):
+  security protection asset assessed on SC.L2-3.13.1/6, not automatic SC.L2-3.13.11
+  FIPS-cc on appliance. FIPS applies where crypto protects CUI (endpoints, TLS
+  to GCC High, VPN/SASE termination). Cite DoD FAQ F-Q4/B-Q8 for pass-through
+  transit; DoD FAQ F-Q3 for logical separation beyond encryption alone.
+
+  Enabler: document data flows in SSP; do not FIPS-toggle every router by reflex.
+
+evaluator_notes: |
+  Must distinguish SPA vs CUI vs out-of-scope pass-through. Tailscale and bastion
+  must appear. Reject "all devices FIPS" without nuance. remote-access-scope.md.

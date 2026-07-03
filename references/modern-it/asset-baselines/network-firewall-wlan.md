@@ -19,20 +19,34 @@ Security protection assets. Document in SSP with enclave boundary diagram.
 
 ### FIPS 140 / FIPS-cc validated cryptography
 
-SC.L2-3.13.11 requires **FIPS-validated modules** where cryptography protects
-CUI. For firewalls:
+SC.L2-3.13.11 requires **FIPS-validated modules** where cryptography **protects
+CUI confidentiality**, not on every device that forwards already-encrypted traffic.
+DoD CIO CMMC FAQ **B-Q8** accepts encrypted CUI transiting common-carrier-style
+paths; **F-Q4** allows enterprise networking outside a logically separated enclave
+to stay out of scope when CUI is properly encrypted and those devices provide no
+SSP-described security function. Interpretive walkthrough:
+`remote-access-scope.md` and DoD FAQ v2.3.
 
-1. Identify the **CMVP certificate** for the appliance model and OS version
-   (vendor security data sheet or CMVP search).
-2. Distinguish **FIPS-cc mode** (validated crypto module active) from generic
-   "AES enabled" in IPsec/SSL-VPN settings.
-3. Export `show system info` / `get system status` / equivalent showing FIPS mode
-   when the vendor supports an explicit toggle (FortiGate FIPS-CC, Palo Alto FIPS
-   mode where applicable).
-4. Record certificate number in `cmvp_certificates` table when the appliance
-   module is in scope for CUI VPN or TLS inspection.
+**Three firewall categories (function, not brand):**
 
-Windows endpoint FIPS: `../endpoints/windows-fleet.md`. Cloud edge: Zscaler/Prisma
+| Role | Category | SC.L2-3.13.11 |
+|------|----------|---------------|
+| Terminates VPN/SSL inspect, sees plaintext CUI | CUI asset | **Yes** on that function |
+| Perimeter/segmentation cited in SSP, no decrypt | Security protection | **No** (assess segmentation, ACLs) |
+| Pass-through outside enclave, four F-Q4 conditions | Out of scope | **No** (not in SSP inventory) |
+
+When FIPS **does** apply on an in-scope appliance (VPN terminate, TLS inspect):
+
+1. Identify the **CMVP certificate** for the appliance model and OS version.
+2. Distinguish **FIPS-cc mode** from generic "AES enabled" in IPsec/SSL-VPN settings.
+3. Export system status showing FIPS mode when the vendor supports an explicit toggle.
+4. Record certificate number in `cmvp_certificates` when the module protects CUI.
+
+Do **not** enable FIPS-cc fleet-wide on segmentation-only firewalls by reflex; that
+is a common scoping error. See DEFCERT interpretive paper (SOURCES.md) citing the
+same FAQ principles.
+
+Windows endpoint FIPS: `../endpoints/windows-fleet.md`. Cloud/SASE edge: Zscaler/Prisma
 collectors in evidence manifest.
 
 ### Evidence automation

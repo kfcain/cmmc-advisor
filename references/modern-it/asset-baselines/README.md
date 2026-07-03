@@ -30,6 +30,7 @@ at `references/data/asset-baseline-manifest.json`.
 | `physical-access-pacs` | Badges, readers, keys, visitor logs | `physical-access.md` |
 | `specialized-ot` | OT, GFE, IoT, test equipment | `specialized-ot.md` |
 | `development-sdlc` | Dev/test pipelines touching CUI (3.13.2) | `development-sdlc.md` |
+| `remote-access-scope` | SASE, VPN, Tailscale, bastion, jump paths | `remote-access-scope.md` |
 
 Assign `baseline_profile` on each asset row in program data. Run:
 

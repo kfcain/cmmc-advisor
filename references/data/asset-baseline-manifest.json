@@ -62,6 +62,14 @@
       "scoping_categories": ["cui", "security-protection"],
       "primary_practices": ["SC.L2-3.13.2", "CM.L2-3.4.2", "SI.L2-3.14.1", "AC.L2-3.1.22"],
       "validation_script": "scripts/validate_asset_baselines.py"
+    },
+    {
+      "id": "remote-access-scope",
+      "title": "Remote access, SASE, VPN, bastion scoping",
+      "reference": "references/modern-it/asset-baselines/remote-access-scope.md",
+      "scoping_categories": ["security-protection", "contractor-risk-managed", "cui"],
+      "primary_practices": ["AC.L2-3.1.12", "AC.L2-3.1.13", "AC.L2-3.1.14", "SC.L2-3.13.7", "SC.L2-3.13.8"],
+      "validation_script": "scripts/validate_asset_baselines.py"
     }
   ]
 }
