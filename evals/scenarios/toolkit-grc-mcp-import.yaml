@@ -1,0 +1,31 @@
+id: toolkit-grc-mcp-import
+title: Import GRC platform snapshot via MCP bridge workflow
+category: platform-distribution
+
+prompt: |
+  We use Vanta for continuous monitoring and keep our CMMC program in
+  program-data.yaml. Walk through how to connect Vanta MCP and the
+  cmmc-advisor MCP together, import failing IA-5 tests into program data,
+  and what we must still do manually before claiming an objective is MET.
+
+required_terms:
+  - program-data
+  - import_grc_snapshot
+  - grc-platform-mcp-bridge
+  - 800-53
+  - grc_monitoring
+  - conformity
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Connect Vanta hosted MCP (OAuth) and local cmmc-advisor MCP with
+  CMMC_PROGRAM_DATA pointing at program-data.yaml. Query Vanta for failing
+  tests, normalize to grc-snapshot JSON, run import_grc_snapshot to map
+  IA-5 to CMMC requirements via 800-53 crosswalk. Import adds evidence
+  links and grc_monitoring status but does NOT auto-set conformity MET;
+  ISSM reviews narratives and POA&M. Regenerate dashboard/SSP after review.
+
+evaluator_notes: |
+  Must distinguish vendor MCP (read their SaaS) from cmmc-advisor MCP
+  (CMMC program file). Must not claim platform pass equals assessment MET.

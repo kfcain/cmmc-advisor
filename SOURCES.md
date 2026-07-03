@@ -348,6 +348,26 @@ compliance documentation and practitioner publications.
 - **Used in:** scripts/merge_findings.py, references/grc/evidence-automation.md,
   references/data/evidence-collector-manifest.json (grc_inspector_bridge)
 
+### Vanta MCP Server
+- **Publisher:** Vanta
+- **URL:** https://developer.vanta.com/docs/vanta-mcp
+- **Used in:** references/data/grc-platform-mcp-manifest.json, references/grc/grc-platform-mcp-bridge.md
+
+### Drata MCP Server
+- **Publisher:** Drata
+- **URL:** https://developers.drata.com/developer-portal/v2/recipes/mcp-oauth-setup/
+- **Used in:** references/data/grc-platform-mcp-manifest.json, references/grc/grc-platform-mcp-bridge.md
+
+### Secureframe MCP Server
+- **Publisher:** Secureframe
+- **URL:** https://github.com/secureframe/secureframe-mcp-server
+- **Used in:** references/data/grc-platform-mcp-manifest.json, references/grc/grc-platform-mcp-bridge.md
+
+### Paramify MCP / Plugin
+- **Publisher:** Paramify
+- **URL:** https://github.com/paramify/paramify-plugin
+- **Used in:** references/data/grc-platform-mcp-manifest.json, references/grc/grc-platform-mcp-bridge.md
+
 ### Meridian GCP ConMon Evidence Engine
 - **Title:** GCP ConMon evidence engine (Assured Workloads, hash-chained store)
 - **Publisher:** kfcain (external dependency)

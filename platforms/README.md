@@ -9,6 +9,7 @@ adapters only. Do not fork factual content per platform.
 | Claude Code | `platforms/claude/` | Copy or submodule the whole repo into `~/.claude/skills/cmmc-advisor` or `.claude/skills/cmmc-advisor` |
 | Cursor | `platforms/cursor/` | Symlink the whole repo into `.cursor/skills/cmmc-advisor`, symlink the rule into `.cursor/rules/`, or install the local plugin stub |
 | Codex / OpenAI agents | `platforms/codex/` | Submodule the repo and merge `platforms/codex/AGENTS.md` into your project `AGENTS.md` |
+| GRC MCP bridge | `platforms/toolkit/` | Combined `mcp.json` + local cmmc-advisor MCP alongside Vanta/Drata/Secureframe |
 
 Recommended consumer layout (any platform):
 

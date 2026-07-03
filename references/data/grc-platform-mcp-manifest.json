@@ -1,0 +1,85 @@
+{
+  "verified": "2026-07-03",
+  "description": "GRC platforms with MCP or MCP-compatible agent access. CMMC Advisor does not host vendor servers; users connect OAuth/API credentials in their MCP client. Use scripts/import_grc_snapshot.py or the cmmc-advisor MCP server to merge platform data into program-data.yaml.",
+  "platforms": [
+    {
+      "id": "vanta",
+      "name": "Vanta",
+      "mcp_transport": "remote_oauth",
+      "mcp_urls": {
+        "us": "https://mcp.vanta.com/mcp",
+        "eu": "https://mcp.eu.vanta.com/mcp",
+        "aus": "https://mcp.aus.vanta.com/mcp"
+      },
+      "docs_url": "https://developer.vanta.com/docs/vanta-mcp",
+      "auth_notes": "Vanta Admin required. OAuth in MCP client.",
+      "read_capabilities": ["controls", "tests", "frameworks", "vendors", "vulnerabilities", "policies"],
+      "write_capabilities": ["remediate_tests", "upload_policies"],
+      "cmmc_mapping": "800-53-crosswalk",
+      "snapshot_export_hint": "Export failing tests and control mappings via Vanta MCP; normalize to templates/grc-snapshot.sample.json and import with import_grc_snapshot.py"
+    },
+    {
+      "id": "drata",
+      "name": "Drata",
+      "mcp_transport": "remote_oauth",
+      "mcp_urls": {
+        "us": "https://mcp.drata.com/mcp/",
+        "eu": "https://mcp-euc1.drata.com/mcp/",
+        "apac": "https://mcp-apse2.drata.com/mcp/"
+      },
+      "docs_url": "https://developers.drata.com/developer-portal/v2/recipes/mcp-oauth-setup/",
+      "auth_notes": "Configure OAuth scopes in Drata Settings → MCP Configuration.",
+      "read_capabilities": ["controls", "monitor_tests", "policies", "risks", "workspaces"],
+      "write_capabilities": [],
+      "cmmc_mapping": "800-53-crosswalk",
+      "snapshot_export_hint": "Query monitor tests and controls via Drata MCP; map control identifiers through map_controls_to_cmmc before import."
+    },
+    {
+      "id": "secureframe",
+      "name": "Secureframe",
+      "mcp_transport": "local_stdio",
+      "mcp_package": "secureframe-mcp-server",
+      "docs_url": "https://github.com/secureframe/secureframe-mcp-server",
+      "auth_notes": "SECUREFRAME_API_KEY and SECUREFRAME_API_SECRET in MCP client env. Read-only beta.",
+      "read_capabilities": ["controls", "tests", "users", "devices", "vendors", "frameworks", "repositories"],
+      "write_capabilities": [],
+      "cmmc_mapping": "800-53-crosswalk",
+      "frameworks_include_cmmc": true,
+      "snapshot_export_hint": "list_controls and list_tests via Secureframe MCP; CMMC framework may appear natively—still verify AO-level mapping in program data."
+    },
+    {
+      "id": "paramify",
+      "name": "Paramify",
+      "mcp_transport": "remote_workspace",
+      "docs_url": "https://github.com/paramify/paramify-plugin",
+      "auth_notes": "Workspace-specific MCP server URL (Settings → Licensing → MCP) plus API key with read/write scopes as needed.",
+      "read_capabilities": ["programs", "elements", "control_implementations", "evidence"],
+      "write_capabilities": ["import_ssp", "update_narratives", "create_program"],
+      "cmmc_mapping": "native-fedramp-cmmc",
+      "bidirectional": true,
+      "export_to_paramify": "scripts/generate_oscal_ssp.py and Paramify MCP SSP import workflow in references/grc/grc-platform-mcp-bridge.md",
+      "snapshot_export_hint": "Paramify is often the write target for SSP narratives; pull FROM Paramify when it is system of record, push TO Paramify from program-data.yaml via OSCAL or Paramify MCP import tools."
+    },
+    {
+      "id": "hyperproof",
+      "name": "Hyperproof",
+      "mcp_transport": "third_party_gateway",
+      "docs_url": "https://docs.withwillow.ai/docs/mcp-servers/built-in/hyperproof",
+      "auth_notes": "No first-party hosted MCP URL in public docs; use Hyperproof OAuth via Willow, ChatBotKit, Pinkfish, or Zapier MCP gateways. Register OAuth client with Hyperproof.",
+      "read_capabilities": ["controls", "programs", "proof", "tasks", "risks", "vendors"],
+      "write_capabilities": ["upload_proof", "update_controls"],
+      "cmmc_mapping": "800-53-crosswalk",
+      "snapshot_export_hint": "Export control/proof metadata from gateway MCP; import via grc snapshot."
+    },
+    {
+      "id": "grc-engineering-club",
+      "name": "GRC Engineering Club (inspectors)",
+      "mcp_transport": "claude_plugin",
+      "docs_url": "https://github.com/GRCEngClub/claude-grc-engineering",
+      "auth_notes": "Claude Code plugin; findings JSON merged via scripts/merge_findings.py (preferred path for cloud inspectors).",
+      "read_capabilities": ["inspector_findings"],
+      "write_capabilities": [],
+      "cmmc_mapping": "800-53-crosswalk",
+      "preferred_merge_script": "scripts/merge_findings.py"
+    }
+  ]

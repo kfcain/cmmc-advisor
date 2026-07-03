@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GRC platform snapshot for CMMC import",
+  "description": "Normalized export from Vanta, Drata, Secureframe, Hyperproof, or other GRC MCP/API queries. Consumed by scripts/import_grc_snapshot.py.",
+  "type": "object",
+  "required": ["source_system", "collected_at"],
+  "properties": {
+    "source_system": {
+      "type": "string",
+      "description": "Platform id matching references/data/grc-platform-mcp-manifest.json (e.g. vanta, drata)"
+    },
+    "collected_at": {
+      "type": "string",
+      "format": "date",
+      "description": "ISO date when snapshot was collected"
+    },
+    "workspace_id": {"type": "string"},
+    "controls": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "control_id": {"type": "string", "description": "NIST 800-53 control id (e.g. AC-2)"},
+          "cmmc_id": {"type": "string", "description": "CMMC requirement id if platform exposes it"},
+          "name": {"type": "string"},
+          "status": {"type": "string"},
+          "external_id": {"type": "string"},
+          "evidence_refs": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "URLs or repo-relative evidence paths"
+          }
+        }
+      }
+    },
+    "tests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "test_name": {"type": "string"},
+          "control_id": {"type": "string"},
+          "status": {"type": "string"},
+          "external_id": {"type": "string"},
+          "evidence_refs": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "cmmc_id": {"type": "string"},
+          "requirement_id": {"type": "string"},
+          "status": {"type": "string"},
+          "evidence_refs": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    }
+  }
+}

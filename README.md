@@ -67,6 +67,14 @@ Add the CMMC Advisor submodule, then merge the bootstrap block from
 
 Details: [platforms/codex/README.md](platforms/codex/README.md)
 
+### GRC platforms (Vanta, Drata, Secureframe, Paramify)
+
+Connect vendor MCP servers **and** the local cmmc-advisor MCP in your compliance
+program repo. Import platform monitor data into `program-data.yaml`; regenerate
+SSP/dashboard/SPRS from the same file.
+
+Details: [references/grc/grc-platform-mcp-bridge.md](references/grc/grc-platform-mcp-bridge.md) and [platforms/toolkit/mcp.json](platforms/toolkit/mcp.json)
+
 ## Usage Examples
 
 ```

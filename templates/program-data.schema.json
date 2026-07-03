@@ -64,6 +64,20 @@
         "chain_intact": {"type": "boolean"}
       }
     },
+    "grc_integrations": {
+      "type": "object",
+      "description": "Last sync metadata per GRC platform (Vanta, Drata, etc.); see references/grc/grc-platform-mcp-bridge.md",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "last_sync": {"type": "string", "format": "date"},
+          "last_snapshot": {"type": "string", "description": "Repo-relative path to evidence/imports snapshot JSON"},
+          "requirements_linked": {"type": "number"},
+          "unmapped_count": {"type": "number"},
+          "workspace_id": {"type": "string"}
+        }
+      }
+    },
     "trust_center": {
       "type": "object",
       "description": "Public trust center metadata for scripts/generate_trust_center.py. Never place internal evidence paths here.",
@@ -324,6 +338,20 @@
               "owner": {"type": "string"},
               "actions": {"type": "array", "items": {"type": "string"}},
               "status": {"type": "string", "enum": ["open", "in-progress", "closed"]}
+            }
+          },
+          "grc_monitoring": {
+            "type": "array",
+            "description": "External GRC platform monitor status (import only; does not set conformity)",
+            "items": {
+              "type": "object",
+              "properties": {
+                "source": {"type": "string"},
+                "collector": {"type": "string"},
+                "external_id": {"type": "string"},
+                "status": {"type": "string"},
+                "collected": {"type": "string", "format": "date"}
+              }
             }
           },
           "remediation_plan": {"type": "string", "description": "Gap remediation narrative for not-met or partially-met requirements"}

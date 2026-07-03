@@ -1,0 +1,29 @@
+{
+  "source_system": "vanta",
+  "collected_at": "2026-07-03",
+  "workspace_id": "example-workspace",
+  "controls": [
+    {
+      "control_id": "AC-2",
+      "name": "Account Management",
+      "status": "pass",
+      "external_id": "vanta-control-ac2",
+      "evidence_refs": ["https://app.vanta.com/example/evidence/ac2-export"]
+    },
+    {
+      "control_id": "IA-5",
+      "name": "Authenticator Management",
+      "status": "fail",
+      "external_id": "vanta-control-ia5",
+      "evidence_refs": ["https://app.vanta.com/example/evidence/ia5-export"]
+    }
+  ],
+  "tests": [
+    {
+      "test_name": "MFA enforced for admin accounts",
+      "control_id": "IA-5",
+      "status": "fail",
+      "external_id": "vanta-test-mfa-admins"
+    }
+  ]
+}

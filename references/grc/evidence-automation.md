@@ -15,7 +15,8 @@ Three paths feed evidence:
 1. **Registered collectors** (`scripts/collect_evidence.py` + manifest)
 2. **Meridian GCP ConMon** (`scripts/import_meridian_run.py`, external repo for live GCP)
 3. **GRC Engineering Club inspectors** (`scripts/merge_findings.py`, external dependency)
-4. **Manual exports** (human drops files under `evidence/` and links them)
+4. **GRC platform MCP import** (`scripts/import_grc_snapshot.py`, Vanta/Drata/Secureframe/Paramify via multi-MCP workflow; see `grc-platform-mcp-bridge.md`)
+5. **Manual exports** (human drops files under `evidence/` and links them)
 
 ---
 

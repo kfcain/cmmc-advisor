@@ -1,0 +1,26 @@
+{
+  "mcpServers": {
+    "cmmc-advisor": {
+      "command": "python3",
+      "args": ["scripts/mcp/cmmc_advisor_server.py"],
+      "cwd": "${workspaceFolder}/.cmmc-advisor",
+      "env": {
+        "CMMC_PROGRAM_DATA": "${workspaceFolder}/program-data.yaml"
+      }
+    },
+    "vanta": {
+      "url": "https://mcp.vanta.com/mcp"
+    },
+    "drata": {
+      "url": "https://mcp.drata.com/mcp/"
+    },
+    "secureframe": {
+      "command": "npx",
+      "args": ["-y", "secureframe-mcp-server"],
+      "env": {
+        "SECUREFRAME_API_KEY": "${env:SECUREFRAME_API_KEY}",
+        "SECUREFRAME_API_SECRET": "${env:SECUREFRAME_API_SECRET}"
+      }
+    }
+  }
+}

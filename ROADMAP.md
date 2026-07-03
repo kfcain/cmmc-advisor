@@ -122,11 +122,29 @@ Shipped:
 
 Remaining (optional follow-on, not blocking Phase 8):
 
-- MCP or slash-command toolkit plugin wrapping high-value `scripts/*`
 - Harness-repo multi-agent specialists (scoping, evidence, POA&M, assessment prep)
   consuming this repo as submodule; out of scope for this distribution per
   `CLAUDE.md`
 - Cursor Marketplace submission after local plugin testing
+
+## Phase 9: GRC Platform MCP Bridge — DELIVERED
+
+Shipped:
+
+- `references/grc/grc-platform-mcp-bridge.md` (multi-MCP workflow, security, per-platform notes)
+- `references/data/grc-platform-mcp-manifest.json` (Vanta, Drata, Secureframe, Paramify, Hyperproof, GRC Engineering Club)
+- `scripts/grc_platform_lib.py`, `scripts/import_grc_snapshot.py`
+- `scripts/mcp/cmmc_advisor_server.py` (local MCP: map, import, validate POA&M, export SPRS)
+- `platforms/toolkit/mcp.json` (combined vendor + cmmc-advisor MCP template)
+- `templates/grc-snapshot.schema.json`, `templates/grc-snapshot.sample.json`
+- Program schema: `grc_integrations`, per-requirement `grc_monitoring`
+- Eval scenario `toolkit-grc-mcp-import`
+
+Remaining:
+
+- Direct REST adapters per vendor (prefer vendor MCP + snapshot import)
+- Automated scheduled sync jobs (org-specific cron/CI)
+- Paramify OSCAL push automation beyond documented workflow
 
 ## Not Planned
 

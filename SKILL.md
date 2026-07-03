@@ -81,6 +81,9 @@ from memory alone when a reference exists.
 | AWS/GCP/CrowdStrike/Zscaler/Duo/Splunk collector mapping | `references/modern-it/security-operations/cloud-native-inspectors.md` |
 | On-prem NGFW, WLAN, physical access API collectors | `references/modern-it/security-operations/on-prem-inspectors.md` |
 | Evidence automation, freshness buckets, SPRS diff, GRC inspector merge | `references/grc/evidence-automation.md` |
+| Vanta / Drata / Secureframe / Paramify MCP + program-data sync | `references/grc/grc-platform-mcp-bridge.md` + `references/data/grc-platform-mcp-manifest.json` |
+| Import normalized GRC platform snapshot into program data | `scripts/import_grc_snapshot.py` + `templates/grc-snapshot.sample.json` |
+| CMMC Advisor MCP server (program-data tools alongside vendor MCP) | `scripts/mcp/cmmc_advisor_server.py` + `platforms/toolkit/mcp.json` |
 | Mock assessment prep, POA&M validation, closeout packets | `references/grc/assessment-operations.md` |
 | Run evidence collectors or merge GRC inspector findings | `scripts/collect_evidence.py`, `scripts/merge_findings.py`, `scripts/import_meridian_run.py`, `references/data/evidence-collector-manifest.json` |
 | Validate evidence or export assessor package | `scripts/validate_evidence.py`, `scripts/export_evidence_package.py`, `scripts/export_sprs.py` |
