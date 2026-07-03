@@ -47,6 +47,9 @@ from memory alone when a reference exists.
 | NIST 800-171 Rev 3 transition timeline | `references/rev3-transition.md` |
 | How a specific Rev 2 requirement maps to Rev 3, new Rev 3 requirements | `references/rev2-rev3-crosswalk.md` |
 | FedRAMP vs CMMC, 7012 CSP requirements | `references/fedramp-gap.md` |
+| FedRAMP 20x, KSI packages, FRMR due diligence on vendors | `references/fedramp-20x-ksi-due-diligence.md` |
+| Machine-readable FRMR/KSI snapshot (generate first) | `references/data/frmr-snapshot.json` via `scripts/build_frmr_snapshot.py` |
+| Public trust center page from program data | `references/grc/trust-center.md` + `scripts/generate_trust_center.py` |
 | CMMC requirement to NIST 800-53 / FedRAMP Moderate / ISO 27001 crosswalk | `references/multi-framework-crosswalk.md` + `references/data/800-53-crosswalk.json` |
 | Which 800-53 controls a CMMC practice maps to, CRM row lookup | `references/data/800-53-crosswalk.json` (control_index) |
 | Common mistakes, compliance theater | `references/anti-patterns.md` |
@@ -172,6 +175,22 @@ components for inheritance sources, and preserves objective-level detail
 in back-matter. Validate with compliance-trestle or FedRAMP OSCAL rules
 before treating the file as submission-ready; it is a CMMC-informed
 starting point, not a complete FedRAMP authorization package.
+
+**Build a public trust center.** When the user needs an outward-facing
+security page for customers or primes, populate the `trust_center` section
+of the program data file (attestations, public document URLs, security
+contact), then run
+`python3 scripts/generate_trust_center.py <program-data> -o trust-center.html`.
+Follow `references/grc/trust-center.md`: the generator applies deny-by-
+default redaction (no POA&M, evidence paths, SPRS, or requirement
+narratives). Regenerate after posture changes; never hand-edit the HTML.
+
+**Evaluate FedRAMP 20x vendors.** When the user asks about KSI packages,
+trust centers, or FRMR artifacts during vendor due diligence, read
+`references/fedramp-20x-ksi-due-diligence.md`, regenerate
+`scripts/build_frmr_snapshot.py` when fresh KSI counts matter, and cross-
+walk CRM 800-53 rows through `references/data/800-53-crosswalk.json`.
+Name gaps honestly when a vendor's public certification data is immature.
 
 **Maintain the program data file.** Treat it as the single source of
 truth: status changes, new evidence, POA&M updates (respect the

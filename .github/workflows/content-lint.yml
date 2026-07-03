@@ -53,3 +53,19 @@ jobs:
           assert len(cw["control_index"]) >= 120
           print("800-53 crosswalk ok")
           EOF
+      - name: FRMR snapshot integrity
+        run: |
+          python3 - <<'EOF'
+          import json
+          from pathlib import Path
+          p = Path("references/data/frmr-snapshot.json")
+          if not p.exists():
+              print("frmr-snapshot.json missing; run scripts/build_frmr_snapshot.py")
+              raise SystemExit(1)
+          snap = json.load(p.open())
+          ksi = snap["ksi_catalog"]
+          assert ksi["indicator_count"] >= 40
+          assert ksi["theme_count"] >= 8
+          assert len(snap["vendors"]) >= 1
+          print("FRMR snapshot ok")
+          EOF

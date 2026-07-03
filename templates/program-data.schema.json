@@ -39,6 +39,43 @@
       "format": "date",
       "description": "CMMC Status Date of a Conditional status, ISO 8601. Drives the 180-day POA&M closeout clocks."
     },
+    "trust_center": {
+      "type": "object",
+      "description": "Public trust center metadata for scripts/generate_trust_center.py. Never place internal evidence paths here.",
+      "properties": {
+        "published": {"type": "boolean", "description": "When false, generate_trust_center.py exits unless --force"},
+        "last_reviewed": {"type": "string", "format": "date"},
+        "security_contact": {"type": "string", "description": "Public security contact, e.g. security@company.com"},
+        "disclaimer": {"type": "string"},
+        "attestations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "framework": {"type": "string"},
+              "level": {"type": "string"},
+              "status": {"type": "string"},
+              "status_date": {"type": "string", "format": "date"},
+              "affirmation_current": {"type": "boolean"},
+              "affirmation_date": {"type": "string", "format": "date"}
+            }
+          }
+        },
+        "public_documents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["title", "url"],
+            "properties": {
+              "title": {"type": "string"},
+              "type": {"type": "string"},
+              "url": {"type": "string", "format": "uri"},
+              "updated": {"type": "string", "format": "date"}
+            }
+          }
+        }
+      }
+    },
     "assessment": {
       "type": "object",
       "properties": {

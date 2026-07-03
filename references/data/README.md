@@ -61,6 +61,23 @@ Government, Vertex on GCP) are **not** standalone Marketplace packages. The
 manifest links them to their platform package and keeps service-specific notes
 in the corpus files.
 
+## FRMR / KSI snapshot (generated)
+
+FedRAMP 20x machine-readable rules and KSI catalog for vendor due diligence.
+
+| File | In git? | Purpose |
+|------|---------|---------|
+| `frmr-snapshot.manifest.json` | Yes | Curated vendors with trust-center URLs and KSI checklist steps |
+| `../scripts/build_frmr_snapshot.py` | Yes | Fetches Consolidated Rules JSON + Marketplace merge |
+| `frmr-snapshot.json` | Yes | Generated output; re-run builder to refresh KSI counts |
+
+```bash
+python3 scripts/build_frmr_snapshot.py
+```
+
+See `references/fedramp-20x-ksi-due-diligence.md` for how contractors use the
+snapshot during vendor evaluation.
+
 ## Assessment objectives dataset
 
 `assessment-objectives.json` is the machine-readable backbone for the

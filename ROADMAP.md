@@ -30,16 +30,18 @@ routing and toolkit workflow rows, CI crosswalk integrity check, and the
 `toolkit-oscal-crosswalk` eval scenario. Narrative depth remains in
 `references/fedramp-gap.md`; the dataset is the machine-readable layer.
 
-## Phase 4: FedRAMP 20x and Trust Center Interop
+## Phase 4: FedRAMP 20x and Trust Center Interop — DELIVERED
 
-Track FedRAMP's machine-readable direction (FRMR artifacts, Key
-Security Indicators) alongside the Rev 5 baselines.
-
-- New: FRMR snapshot support next to
-  `scripts/build_fedramp_snapshot.py`; guidance for reading KSI-based
-  packages during vendor due diligence; a portable public trust-center
-  page generated from the program data file (the outward-facing twin of
-  the internal dashboard).
+Shipped: `scripts/build_frmr_snapshot.py` and
+`references/data/frmr-snapshot.manifest.json` (KSI catalog from FedRAMP
+Consolidated Rules JSON merged with Marketplace vendor fields),
+`references/fedramp-20x-ksi-due-diligence.md` (FRMR/KSI/trust-center due
+diligence method), `scripts/generate_trust_center.py` and
+`templates/program-trust-center.html` (deny-by-default public page from
+program data), `references/grc/trust-center.md` (public vs internal
+content rules), `trust_center` schema section, SKILL.md routing and toolkit
+workflow rows, CI FRMR snapshot integrity check, and the
+`fedramp-20x-ksi-due-diligence` eval scenario.
 
 ## Phase 5: Evidence Automation
 

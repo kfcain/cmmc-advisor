@@ -318,6 +318,29 @@ compliance documentation and practitioner publications.
 - **URL:** https://github.com/FedRAMP/marketplace-fedramp-gov-data
 - **Used in:** scripts/build_fedramp_snapshot.py and the generated references/data/fedramp-snapshot.json (live authorization status, impact level, auth path/type, dates)
 
+### FedRAMP Consolidated Rules 2026 (machine-readable)
+- **Title:** FedRAMP Consolidated Rules JSON (FRD, FRR, KSI, CTL)
+- **Publisher:** FedRAMP Program Management Office
+- **URL:** https://github.com/FedRAMP/rules (fedramp-consolidated-rules.json)
+- **Used in:** scripts/build_frmr_snapshot.py, references/fedramp-20x-ksi-due-diligence.md
+  (KSI catalog; verified 2026-07-03: 46 indicators across 10 themes in public preview)
+
+### FedRAMP 20x Program
+- **URL:** https://www.fedramp.gov/20x/
+- **Used in:** references/fedramp-20x-ksi-due-diligence.md (Classes A/B/C/D, KSI direction)
+
+### FedRAMP RFC-0006 — Key Security Indicators
+- **URL:** https://www.fedramp.gov/rfcs/0006/
+- **Used in:** references/fedramp-20x-ksi-due-diligence.md (KSI rationale, Phase One themes)
+
+### FedRAMP RFC-0022 — Leveraging External Frameworks
+- **URL:** https://www.fedramp.gov/rfcs/0022/
+- **Used in:** references/fedramp-20x-ksi-due-diligence.md (external framework to KSI mapping)
+
+### FedRAMP RFC-0024 — Rev 5 Machine-Readable Packages
+- **URL:** https://www.fedramp.gov/rfcs/0024/
+- **Used in:** references/fedramp-20x-ksi-due-diligence.md (OSCAL/machine-readable package direction)
+
 ### AWS GovCloud User Guide
 - **URL:** https://docs.aws.amazon.com/govcloud-us/latest/UserGuide/
 - **Used in:** modern-it/cloud-platforms/aws-govcloud.md, modern-it/ai-services/fedramp-ai-services.md (Bedrock in GovCloud)
