@@ -58,7 +58,10 @@ POA&Ms are permitted under strict conditions:
 
 POA&Ms are permitted under 32 CFR 170.21(a)(3) (score/total Level 3
 requirements ≥ 0.8, and none of the listed enhanced requirements on the
-POA&M). Closeout is conducted by **DIBCAC**, not a C3PAO.
+POA&M). Seven requirements are never POA&M-eligible at Level 3:
+IR.L3-3.6.1e, IR.L3-3.6.2e, RA.L3-3.11.1e, RA.L3-3.11.4e, RA.L3-3.11.6e,
+RA.L3-3.11.7e, and SI.L3-3.14.3e. Closeout is conducted by **DIBCAC**,
+not a C3PAO, within 180 days. See `level-3-expert.md`.
 
 > Source: 32 CFR 170.21, POA&M Closeout; 32 CFR 170.23, Conditional
 > Certification Requirements

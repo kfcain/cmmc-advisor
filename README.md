@@ -10,7 +10,7 @@ When a compliant path exists, the skill maps it clearly. When no compliant optio
 
 ## What This Covers
 
-All three CMMC levels: Level 1 (Foundational), Level 2 (Advanced), Level 3 (Expert). 14 domains, 110 practices with full implementation guidance mapped from NIST SP 800-171 Rev 2, plus a dedicated Level 1 quickstart for FCI-only shops (the 15 FAR 52.204-21 requirements, annual self-assessment, SPRS affirmation). Assessment preparation for self-assessment, C3PAO, and DIBCAC paths. CUI scoping covering boundary definition, FCI vs CUI, and enclave strategies. SSP guidance and POA&M management.
+All three CMMC levels: Level 1 (Foundational), Level 2 (Advanced), Level 3 (Expert). 14 domains, 110 practices with full implementation guidance mapped from NIST SP 800-171 Rev 2, plus a dedicated Level 1 quickstart for FCI-only shops (the 15 FAR 52.204-21 requirements, annual self-assessment, SPRS affirmation) and a full Level 3 reference covering all 24 NIST SP 800-172 enhanced requirements with DoD-assigned ODPs, DIBCAC assessment process, Level 3 scoping, and POA&M limits. Assessment preparation for self-assessment, C3PAO, and DIBCAC paths. CUI scoping covering boundary definition, FCI vs CUI, and enclave strategies. SSP guidance and POA&M management.
 
 Modern IT compliance mapping for real-world stacks:
 

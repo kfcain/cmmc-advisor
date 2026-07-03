@@ -99,6 +99,35 @@ compliance documentation and practitioner publications.
   categories, XX.L2-3.x.x identifier scheme for all 110 requirements
   (verified 2026-07-03 via URL above)
 
+### CMMC Assessment Guide — Level 3
+- **Title:** CMMC Assessment Guide Level 3, Version 2.13 (September 2024)
+- **Publisher:** DoD CIO
+- **URL:** https://dodcio.defense.gov/Portals/0/Documents/CMMC/AssessmentGuideL3.pdf
+- **Used in:** Level 3 requirement identifiers and names (XX.L3-3.x.xe),
+  level-3-expert (verified 2026-07-03 via URL above)
+
+### CMMC Scoping Guide — Level 1
+- **Title:** CMMC Scoping Guide Level 1, Version 2.13 (September 2024)
+- **Publisher:** DoD CIO
+- **URL:** https://dodcio.defense.gov/Portals/0/Documents/CMMC/ScopingGuideL1.pdf
+- **Used in:** Level 1 scoping rules and Specialized Asset exclusion,
+  level-1-quickstart (verified 2026-07-03 via URL above)
+
+### CMMC Scoping Guide — Level 3
+- **Title:** CMMC Scoping Guide Level 3, Version 2.13 (September 2024)
+- **Publisher:** DoD CIO
+- **URL:** https://dodcio.defense.gov/Portals/0/Documents/CMMC/ScopingGuideL3.pdf
+- **Used in:** Level 3 asset categories, CRMA and Specialized Asset
+  treatment, Level 2 prerequisite scope rules, level-3-expert
+  (verified 2026-07-03 via URL above)
+
+### NIST SP 800-172A — Assessing Enhanced Security Requirements
+- **Title:** NIST SP 800-172A, Assessing Enhanced Security Requirements
+  for Controlled Unclassified Information
+- **Publisher:** NIST
+- **URL:** https://csrc.nist.gov/pubs/sp/800/172/a/final
+- **Used in:** Level 3 assessment methodology references in level-3-expert
+
 ### CMMC Model Overview v2.0
 - **Title:** CMMC Model Overview Version 2.0
 - **Publisher:** DoD CIO

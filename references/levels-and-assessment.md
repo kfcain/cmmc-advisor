@@ -116,9 +116,11 @@ monitoring.
 **Key point:** Level 3 is government-assessed. There is no self-assessment
 or third-party option. DIBCAC conducts the assessment directly. This level
 applies to a small subset of DIB contractors working on the most sensitive
-programs.
+programs. A Final Level 2 (C3PAO) status on the same scope is a
+prerequisite. See `level-3-expert.md` for all 24 enhanced requirements,
+DoD-assigned ODPs, Level 3 scoping, and the DIBCAC process.
 
-> Source: 32 CFR 170.16, Level 3 Certification Assessment
+> Source: 32 CFR 170.18, Level 3 Certification Assessment
 
 ---
 

@@ -38,6 +38,7 @@ from memory alone when a reference exists.
 |---------------|------------|
 | Which CMMC level do I need? | `references/levels-and-assessment.md` |
 | Level 1, FCI-only shops, annual self-assessment, affirmation | `references/level-1-quickstart.md` |
+| Level 3, NIST SP 800-172 enhanced requirements, DIBCAC assessment | `references/level-3-expert.md` |
 | Scoring, passing, conditional certification | `references/levels-and-assessment.md` |
 | CUI vs FCI, boundary definition, enclaves | `references/scoping-and-cui.md` |
 | System Security Plan structure or gaps | `references/ssp-guidance.md` |
