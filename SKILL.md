@@ -74,6 +74,7 @@ from memory alone when a reference exists.
 | FedRAMP Marketplace search + curated category short-lists | `references/fedramp-marketplace-guide.md` |
 | Machine-readable FedRAMP vendor snapshot (generate first) | `references/data/fedramp-snapshot.json` via `scripts/build_fedramp_snapshot.py` |
 | Generate or review an SSP, AO-level conformity statements | `templates/ssp-structure.md` + `scripts/generate_ssp.py` |
+| Visual program dashboard, POA&M clocks, SPRS tracking | `templates/program-dashboard.html` + `scripts/generate_dashboard.py` |
 | CMMC program data file format (statuses, evidence, POA&M, inheritance) | `templates/program-data.schema.json` + `templates/program-data.sample.yaml` |
 | Unsure where to look | This file (routing table above) |
 
@@ -100,6 +101,20 @@ To gather the inputs, interview the user section by section following
 `templates/ssp-structure.md`; write conformity statements that name the
 mechanism and policy in their environment, never generic intent. Flag
 every objective left at not-assessed.
+
+**Build the program dashboard.** When the user wants a visual view of
+their CMMC journey, run
+`python3 scripts/generate_dashboard.py <program-data> -o dashboard.html`.
+The output is one self-contained HTML file (no external requests, light
+and dark themes): family progress, per-objective statuses with
+narratives and evidence links, a live SPRS score implementing the DoD
+Assessment Methodology (partial credit for IA.L2-3.5.3 and
+SC.L2-3.13.11, the -203 floor, and the missing-SSP rule), a POA&M view
+with 180-day closeout clocks from the Conditional Status Date, a gap
+remediation view ordered by points at stake, and an inheritance view
+showing which objectives trace to which provider CRM rows. Regenerate
+after every data file change; the dashboard is a rendering, not a
+second source of truth.
 
 **Maintain the program data file.** Treat it as the single source of
 truth: status changes, new evidence, POA&M updates (respect the
