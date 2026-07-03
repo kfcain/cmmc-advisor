@@ -1,0 +1,36 @@
+id: toolkit-responsibility-matrix
+title: CEO wants a RACI showing who owns each CMMC family before assessment
+category: program-toolkit
+
+prompt: |
+  We have an ISSM, a system owner, and an MSP that runs part of our stack.
+  Assessors always ask who owns physical access vs access control vs
+  encryption. Can we maintain an internal responsibility matrix in the
+  program data file and export it for the SSP appendix? How is that
+  different from our GCC High CRM?
+
+required_terms:
+  - RACI
+  - responsibility
+  - control owner
+  - CRM
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Yes. Store responsibility_matrix in program data (accountable, responsible,
+  consulted, informed role slugs referencing organization.roles). Export with
+  python3 scripts/generate_responsibility_matrix.py to JSON and Markdown for
+  the SSP appendix.
+
+  Internal RACI is documented in references/grc/responsibility-matrix.md.
+  FedRAMP Customer Responsibility Matrix (CRM) rows for GCC High live under
+  inheritance_sources and inherited-controls-mapping.md; CRM maps CSP vs
+  customer for cloud controls, not your internal ISSM/MSP split.
+
+  Align with control owners in continuous-monitoring.md and MSP duties in
+  vendor-and-supply-chain.md. Review matrix when assets or MSP scope changes.
+
+evaluator_notes: |
+  Must cite generate_responsibility_matrix.py, responsibility-matrix.md,
+  CRM distinction, program data schema. No certification decisions.

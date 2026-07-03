@@ -82,11 +82,19 @@ See `references/data/README.md` for the assessment objectives dataset and FRMR s
 
 ### Evidence collector manifest
 
-`evidence-collector-manifest.json` registers 14 platform collectors (Microsoft Graph,
-AWS GovCloud, GCP SCC, EDR, SASE, MFA, SIEM) with objective mappings and
-platform-specific evidence buckets. Run `python3 scripts/collect_evidence.py --list`.
+`evidence-collector-manifest.json` registers 18 collectors (14 cloud/SaaS plus
+4 on-prem network/physical stubs) with objective mappings and platform-specific
+evidence buckets. Run `python3 scripts/collect_evidence.py --list`.
 Env profiles: `scripts/collectors/env_config.py`. SPRS export:
 `scripts/export_sprs.py`.
+
+### Asset baseline manifest
+
+`asset-baseline-manifest.json` lists baseline profile ids for printers, VDI/thin
+clients, firewalls, WLAN, physical access, OT, and SDLC environments. Assign
+`baseline_profile` on assets in program data; validate with
+`scripts/validate_asset_baselines.py`. Guides:
+`references/modern-it/asset-baselines/`.
 
 ## Assessment objectives dataset
 

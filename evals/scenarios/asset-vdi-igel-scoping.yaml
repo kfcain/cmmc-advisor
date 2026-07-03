@@ -1,0 +1,38 @@
+id: asset-vdi-igel-scoping
+title: Can IGEL thin clients be out of scope if we use Azure Virtual Desktop
+category: scoping
+
+prompt: |
+  Engineering uses IGEL UD3 devices at home to reach Azure Virtual Desktop in
+  Azure Government. We disabled clipboard, USB storage, and printer redirection.
+  Can we list the IGEL endpoints as out of scope and what evidence do we need
+  if the C3PAO pushes back?
+
+required_terms:
+  - out of scope
+  - IGEL
+  - clipboard
+  - PE.L2-3.10.6
+  - SC.L2-3.13.4
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Possibly, if the thin client is a true terminal: CUI stays in the FedRAMP-
+  authorized AVD session and never persists locally. Use the IGEL out-of-scope
+  checklist in references/modern-it/asset-baselines/vdi-thin-client.md: block
+  clipboard both ways, printer redirection, USB mass storage, local drive
+  mapping, and document session cleanup (SC.L2-3.13.4).
+
+  Record baseline_profile vdi-thin-client-igel and baseline_validation with
+  checklist_id igel-out-of-scope in program data; run validate_asset_baselines.py.
+  PE.L2-3.10.6 still applies for alternate work site safeguards at home.
+
+  Assessor tests: attempt copy/print during session, review UMS policy exports.
+  If any path allows CUI on the local device, reclassify as contractor risk
+  managed or CUI and apply endpoint baselines. remote-work.md covers capability
+  patterns; asset-baselines file is the validation checklist.
+
+evaluator_notes: |
+  Enabler posture: conditions for out-of-scope, not blanket approval. Must
+  name checklist, PE alternate site, assessor tests, validate script.

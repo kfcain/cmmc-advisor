@@ -368,6 +368,23 @@ compliance documentation and practitioner publications.
 - **URL:** https://developer.crowdstrike.com/
 - **Used in:** references/modern-it/security-operations/cloud-native-inspectors.md
 
+### Fortinet FortiOS REST API
+- **URL:** https://docs.fortinet.com/document/fortigate/latest/rest-api
+- **Used in:** on-prem-inspectors.md, fortinet-firewall collector, asset-baselines/network-firewall-wlan.md
+
+### Palo Alto PAN-OS API
+- **URL:** https://docs.paloaltonetworks.com/pan-os/11-1/pan-os-panorama-api
+- **Used in:** on-prem-inspectors.md, palo-alto-ngfw-onprem collector, asset-baselines/network-firewall-wlan.md
+
+### IGEL Community Documentation
+- **URL:** https://igel.com/community/
+- **Used in:** references/modern-it/asset-baselines/vdi-thin-client.md
+
+### NIST SSDF (SP 800-218)
+- **Title:** Secure Software Development Framework
+- **URL:** https://csrc.nist.gov/projects/ssdf
+- **Used in:** references/modern-it/asset-baselines/development-sdlc.md
+
 ### AWS GovCloud User Guide
 - **URL:** https://docs.aws.amazon.com/govcloud-us/latest/UserGuide/
 - **Used in:** modern-it/cloud-platforms/aws-govcloud.md, modern-it/ai-services/fedramp-ai-services.md (Bedrock in GovCloud)

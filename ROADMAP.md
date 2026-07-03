@@ -88,6 +88,24 @@ Remaining:
   myctrl.tools and grclanker interop) as those sources become reachable
   from the working environment.
 
+## Phase 7: Asset Baselines and On-Prem Evidence — DELIVERED
+
+Shipped:
+
+- `references/modern-it/asset-baselines/` hub and six class guides (VDI/IGEL,
+  printers, network/WLAN/FIPS-cc, physical access, specialized OT, development SDLC)
+- `references/data/asset-baseline-manifest.json` (machine-readable profiles)
+- Program schema: `baseline_profile`, `baseline_validation`, `responsibility_matrix`
+- `scripts/validate_asset_baselines.py`, `scripts/generate_responsibility_matrix.py`
+- `references/grc/responsibility-matrix.md` (internal RACI, distinct from CRM)
+- On-prem collector stubs: FortiGate, PAN-OS, WLAN controller, PACS
+  (`on-prem-inspectors.md`, four new manifest entries)
+- Eval scenarios: `toolkit-asset-baselines`, `toolkit-responsibility-matrix`,
+  `asset-vdi-igel-scoping`
+
+Remaining: live HTTP wiring per on-prem vendor API; printer-specific collector;
+deeper cmmc-raci interop when portfolio repo is reachable.
+
 ## Not Planned
 
 Anything requiring nonpublic sources, paid feeds, or assessment

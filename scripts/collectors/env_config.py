@@ -114,6 +114,46 @@ ENV_PROFILES: dict[str, dict[str, Any]] = {
             "CMMC_SPLUNK_PORT": "8089",
         },
     },
+    "fortinet-fortigate": {
+        "description": "FortiGate REST API (on-premises enclave edge)",
+        "required": [
+            "CMMC_FORTINET_HOST",
+            "CMMC_FORTINET_API_TOKEN",
+        ],
+        "optional": {
+            "CMMC_FORTINET_VDOM": "root",
+        },
+    },
+    "pan-os-onprem": {
+        "description": "Palo Alto PAN-OS XML/API (on-premises NGFW)",
+        "required": [
+            "CMMC_PAN_HOST",
+            "CMMC_PAN_API_KEY",
+        ],
+        "optional": {
+            "CMMC_PAN_VSYS": "vsys1",
+        },
+    },
+    "wlan-controller": {
+        "description": "WLAN controller REST API (Aruba, Cisco, Mist-class)",
+        "required": [
+            "CMMC_WLAN_HOST",
+            "CMMC_WLAN_API_TOKEN",
+        ],
+        "optional": {
+            "CMMC_WLAN_VENDOR": "aruba",
+        },
+    },
+    "physical-access-pacs": {
+        "description": "Physical access control system API (Lenel, CCURE-class)",
+        "required": [
+            "CMMC_PACS_HOST",
+            "CMMC_PACS_API_TOKEN",
+        ],
+        "optional": {
+            "CMMC_PACS_VENDOR": "lenel",
+        },
+    },
 }
 
 

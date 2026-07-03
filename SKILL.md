@@ -78,6 +78,7 @@ from memory alone when a reference exists.
 | EDR/XDR, SASE/ZTNA, MFA, SIEM evidence collectors and API mapping | `references/modern-it/security-operations/README.md` |
 | Microsoft Graph / Entra / Intune / Defender / Sentinel evidence | `references/modern-it/security-operations/microsoft-graph-evidence.md` |
 | AWS/GCP/CrowdStrike/Zscaler/Duo/Splunk collector mapping | `references/modern-it/security-operations/cloud-native-inspectors.md` |
+| On-prem NGFW, WLAN, physical access API collectors | `references/modern-it/security-operations/on-prem-inspectors.md` |
 | Evidence automation, freshness buckets, SPRS diff, GRC inspector merge | `references/grc/evidence-automation.md` |
 | Mock assessment prep, POA&M validation, closeout packets | `references/grc/assessment-operations.md` |
 | Run evidence collectors or merge GRC inspector findings | `scripts/collect_evidence.py`, `scripts/merge_findings.py`, `scripts/import_meridian_run.py`, `references/data/evidence-collector-manifest.json` |
@@ -87,6 +88,10 @@ from memory alone when a reference exists.
 | macOS fleet compliance | `references/modern-it/endpoints/macos-fleet.md` |
 | Windows endpoint compliance | `references/modern-it/endpoints/windows-fleet.md` |
 | Remote work and VDI | `references/modern-it/endpoints/remote-work.md` |
+| Asset baselines (printers, WLAN, firewalls, PACS, OT, SDLC, IGEL) | `references/modern-it/asset-baselines/README.md` |
+| Internal RACI / responsibility matrix | `references/grc/responsibility-matrix.md` + `scripts/generate_responsibility_matrix.py` |
+| Validate asset baseline checklists | `scripts/validate_asset_baselines.py` + `references/data/asset-baseline-manifest.json` |
+| On-prem firewall, WLAN, PACS evidence collectors | `references/modern-it/security-operations/on-prem-inspectors.md` |
 | Contractor size profiles (small/medium/large), SDVOSB, 8(a), WOSB, HUBZone | `references/contractor-profiles.md` |
 | FedRAMP Marketplace search + curated category short-lists | `references/fedramp-marketplace-guide.md` |
 | Machine-readable FedRAMP vendor snapshot (generate first) | `references/data/fedramp-snapshot.json` via `scripts/build_fedramp_snapshot.py` |
@@ -224,6 +229,16 @@ Validate POA&M entries against 32 CFR 170.21 with
 `python3 scripts/validate_poam.py` before accepting Conditional status. Export
 closeout bundles with `python3 scripts/generate_closeout_packet.py` when open
 POA&M items near remediation. See `references/grc/assessment-operations.md`.
+
+**Asset baselines and RACI.** Assign `baseline_profile` on assets in program
+data using `references/data/asset-baseline-manifest.json` and the guides under
+`references/modern-it/asset-baselines/` (printers, IGEL/VDI, firewalls,
+WLAN, badges, OT, SDLC). Validate checklists with
+`python3 scripts/validate_asset_baselines.py`. Maintain internal RACI in
+`responsibility_matrix` and export with
+`python3 scripts/generate_responsibility_matrix.py`. On-prem collectors:
+`fortinet-firewall`, `palo-alto-ngfw-onprem`, `wlan-controller`,
+`physical-access-pacs` (see `on-prem-inspectors.md`).
 
 **Maintain the program data file.** Treat it as the single source of
 truth: status changes, new evidence, POA&M updates (respect the

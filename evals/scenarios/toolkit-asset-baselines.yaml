@@ -1,0 +1,43 @@
+id: toolkit-asset-baselines
+title: ISSM needs baselines for printers, firewalls, IGEL thin clients, and badges
+category: program-toolkit
+
+prompt: |
+  Our enclave has IGEL thin clients, a FortiGate edge firewall, floor
+  printers on an adjacent VLAN, and Lenel badge readers. Can the toolkit
+  define baseline expectations per asset type, validate our scoping claims,
+  and pull on-prem evidence via API collectors?
+
+required_terms:
+  - baseline
+  - asset
+  - IGEL
+  - FIPS
+  - collector
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Yes. Use references/modern-it/asset-baselines/ (hub plus guides for
+  VDI/IGEL, printers, network/WLAN/FIPS-cc, physical access, OT, SDLC).
+  Assign baseline_profile on each asset in program data per
+  references/data/asset-baseline-manifest.json.
+
+  Validate IGEL out-of-scope claims with the igel-out-of-scope checklist via
+  python3 scripts/validate_asset_baselines.py (clipboard, print, USB, no local
+  CUI storage, validated date).
+
+  On-prem collectors in evidence-collector-manifest.json: fortinet-firewall,
+  palo-alto-ngfw-onprem, wlan-controller, physical-access-pacs. Documented in
+  on-prem-inspectors.md with CMMC_FORTINET_*, CMMC_PAN_*, CMMC_WLAN_*,
+  CMMC_PACS_* env vars. Run collect_evidence.py --dry-run into
+  evidence/onprem-network/ and evidence/onprem-physical/ buckets.
+
+  Pair firewall FIPS-cc exports with CMVP certificate numbers. Printers remain
+  document-bucket evidence (secure release, VLAN ACLs). Enabler: if IGEL
+  checklist fails, move asset to contractor-risk-managed and apply endpoint
+  baselines.
+
+evaluator_notes: |
+  Must route asset-baselines hub, validate_asset_baselines.py, on-prem
+  collectors, FIPS-cc + CMVP, IGEL checklist. Distinguish from FedRAMP CRM.

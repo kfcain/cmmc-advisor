@@ -62,6 +62,9 @@ Files currently planned in `references/modern-it/endpoints/`:
   Outside Continental United States (OCONUS) posture mapped to
   CMMC.
 
+Asset-class baselines (printers, firewalls, WLAN, PACS, OT, SDLC,
+IGEL checklist): `../asset-baselines/README.md`.
+
 Out of scope for this directory:
 
 - Server hardening. Server-side baselining and patch management live

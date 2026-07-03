@@ -110,6 +110,31 @@
         "c3pao": {"type": "string"}
       }
     },
+    "responsibility_matrix": {
+      "type": "object",
+      "description": "Internal RACI (not FedRAMP CRM). Export with scripts/generate_responsibility_matrix.py",
+      "properties": {
+        "updated": {"type": "string", "format": "date"},
+        "notes": {"type": "string"},
+        "entries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["scope", "accountable"],
+            "properties": {
+              "scope": {"type": "string", "description": "Requirement id (AC.L2-3.1.1) or family code (AC, PE, SC)"},
+              "scope_label": {"type": "string"},
+              "accountable": {"type": "string", "description": "Role slug from organization.roles"},
+              "responsible": {"type": "array", "items": {"type": "string"}},
+              "consulted": {"type": "array", "items": {"type": "string"}},
+              "informed": {"type": "array", "items": {"type": "string"}},
+              "evidence_owner": {"type": "string"},
+              "notes": {"type": "string"}
+            }
+          }
+        }
+      }
+    },
     "assets": {
       "type": "object",
       "description": "Asset inventory by CMMC Level 2 scoping category (32 CFR 170.19(c))",
@@ -316,7 +341,27 @@
           "name": {"type": "string"},
           "description": {"type": "string"},
           "vendor": {"type": "string"},
-          "location": {"type": "string"}
+          "location": {"type": "string"},
+          "baseline_profile": {
+            "type": "string",
+            "description": "Profile id from references/data/asset-baseline-manifest.json"
+          },
+          "baseline_validation": {
+            "type": "object",
+            "description": "Dated attestation and checklist answers; see references/modern-it/asset-baselines/",
+            "properties": {
+              "validated": {"type": "string", "format": "date"},
+              "checklist_id": {"type": "string"},
+              "clipboard_blocked": {"type": "boolean"},
+              "printing_blocked": {"type": "boolean"},
+              "usb_storage_blocked": {"type": "boolean"},
+              "no_local_cui_storage": {"type": "boolean"},
+              "fips_cc_mode": {"type": "boolean"},
+              "cmvp_certificate": {"type": "string"},
+              "controls": {"type": "array", "items": {"type": "string"}},
+              "notes": {"type": "string"}
+            }
+          }
         }
       }
     }

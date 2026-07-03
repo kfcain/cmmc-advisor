@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "verified": "2026-07-03: collector registry aligned with references/modern-it/security-operations/ and GRC Engineering Club finding bridge",
+  "verified": "2026-07-03: 18 collectors (14 cloud/SaaS + 4 on-prem network/physical stubs)",
   "evidence_layout": {
     "description": "Collector artifacts land in platform-specific buckets: evidence/<bucket>/<family>/<req>/<slug>.json. Manual uploads may use evidence/<family>/<req>/ without a bucket prefix.",
     "default_root": "evidence"
@@ -254,6 +254,70 @@
       "mappings": [
         {"requirement_id": "AU.L2-3.3.1", "objectives": ["a", "b"], "artifact_name": "Splunk source/input health"},
         {"requirement_id": "AU.L2-3.3.5", "objectives": ["a", "b"], "artifact_name": "Splunk correlated search export"}
+      ]
+    },
+    {
+      "id": "fortinet-firewall",
+      "platform": "fortinet-fortigate-onprem",
+      "evidence_bucket": "onprem-network",
+      "env_profile": "fortinet-fortigate",
+      "module": "scripts/collectors/fortinet_firewall.py",
+      "source_system": "FortiGate (on-premises)",
+      "refresh_bucket": "machine",
+      "permissions": ["REST API read on firewall policies and system status"],
+      "endpoint": "GET /api/v2/monitor/system/status; GET /api/v2/cmdb/firewall/policy",
+      "mappings": [
+        {"requirement_id": "SC.L2-3.13.1", "objectives": ["c", "e"], "artifact_name": "FortiGate boundary policy export"},
+        {"requirement_id": "SC.L2-3.13.11", "objectives": ["a"], "artifact_name": "FortiGate FIPS-CC / crypto mode status"},
+        {"requirement_id": "SC.L2-3.13.6", "objectives": ["a", "d"], "artifact_name": "FortiGate deny-by-default rule sample"}
+      ]
+    },
+    {
+      "id": "palo-alto-ngfw-onprem",
+      "platform": "pan-os-onprem",
+      "evidence_bucket": "onprem-network",
+      "env_profile": "pan-os-onprem",
+      "module": "scripts/collectors/palo_alto_ngfw_onprem.py",
+      "source_system": "Palo Alto PAN-OS (on-premises)",
+      "refresh_bucket": "machine",
+      "permissions": ["XML/API read for security rules and system info"],
+      "endpoint": "GET /restapi/v10.2/Policies/SecurityRules; operational system info",
+      "mappings": [
+        {"requirement_id": "SC.L2-3.13.1", "objectives": ["c", "h"], "artifact_name": "PAN-OS security rule export"},
+        {"requirement_id": "SC.L2-3.13.11", "objectives": ["a"], "artifact_name": "PAN-OS FIPS mode / crypto status"},
+        {"requirement_id": "AC.L2-3.1.3", "objectives": ["b", "e"], "artifact_name": "PAN-OS application control policy sample"}
+      ]
+    },
+    {
+      "id": "wlan-controller",
+      "platform": "wlan-controller-onprem",
+      "evidence_bucket": "onprem-network",
+      "env_profile": "wlan-controller",
+      "module": "scripts/collectors/wlan_controller.py",
+      "source_system": "WLAN controller (on-premises)",
+      "refresh_bucket": "machine",
+      "permissions": ["REST read for SSID and security profiles"],
+      "endpoint": "Vendor-specific SSID / WLAN profile export",
+      "mappings": [
+        {"requirement_id": "AC.L2-3.1.16", "objectives": ["a", "b"], "artifact_name": "Authorized SSID and AP inventory export"},
+        {"requirement_id": "AC.L2-3.1.17", "objectives": ["a", "b"], "artifact_name": "WPA-Enterprise / encryption profile export"},
+        {"requirement_id": "SC.L2-3.13.1", "objectives": ["c"], "artifact_name": "Guest vs CUI WLAN segmentation mapping"}
+      ]
+    },
+    {
+      "id": "physical-access-pacs",
+      "platform": "physical-access-pacs",
+      "evidence_bucket": "onprem-physical",
+      "env_profile": "physical-access-pacs",
+      "module": "scripts/collectors/physical_access_pacs.py",
+      "source_system": "Physical access control system",
+      "refresh_bucket": "periodic",
+      "permissions": ["API read for door/reader inventory and event samples"],
+      "endpoint": "Vendor-specific door and badge event export",
+      "mappings": [
+        {"requirement_id": "PE.L2-3.10.1", "objectives": ["a", "b"], "artifact_name": "CUI door and reader inventory"},
+        {"requirement_id": "PE.L2-3.10.4", "objectives": ["a", "b"], "artifact_name": "Badge read event sample (redacted)"},
+        {"requirement_id": "PE.L2-3.10.5", "objectives": ["a", "b"], "artifact_name": "Active credential / badge count export"}
       ]
     }
   ]

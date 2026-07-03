@@ -32,6 +32,29 @@ organization:
       responsibilities:
         - Maintain this SSP, the POA&M, and the risk register
 
+responsibility_matrix:
+  updated: "2026-07-01"
+  notes: Internal RACI; FedRAMP CRM rows live under inheritance_sources for GCC High
+  entries:
+    - scope: AC
+      scope_label: Access Control (family)
+      accountable: issm
+      responsible: [issm]
+      informed: [affirming_official]
+      evidence_owner: issm
+    - scope: PE
+      scope_label: Physical Protection (family)
+      accountable: issm
+      responsible: [issm, system_owner]
+      evidence_owner: issm
+      notes: Badge exports via physical-access-pacs collector
+    - scope: SC.L2-3.13.11
+      scope_label: FIPS-validated cryptography
+      accountable: issm
+      responsible: [issm]
+      evidence_owner: issm
+      notes: Windows endpoints + FortiGate FIPS-cc; CMVP table in program data
+
 assessment:
   level: "2"
   path: c3pao
@@ -75,9 +98,40 @@ assets:
     - name: Microsoft Sentinel (Azure Government)
       vendor: Microsoft
       description: SIEM ingesting enclave logs
+    - name: FortiGate 100F enclave edge
+      vendor: Fortinet
+      location: Building A MDF
+      baseline_profile: network-firewall-onprem
+      baseline_validation:
+        validated: "2026-06-20"
+        fips_cc_mode: true
+        cmvp_certificate: "see vendor datasheet for deployed firmware"
+  contractor_risk_managed:
+    - name: HP MFP Floor-2
+      location: Building A, adjacent to CUI floor
+      baseline_profile: printer-mfp
+      baseline_validation:
+        validated: "2026-06-15"
+        controls: [vlan_acl, admin_mfa, no_cui_print]
+  out_of_scope:
+    - name: IGEL UD3 thin clients (8)
+      vendor: IGEL
+      description: VDI terminals; CUI session only in Azure Virtual Desktop
+      baseline_profile: vdi-thin-client-igel
+      baseline_validation:
+        validated: "2026-06-28"
+        checklist_id: igel-out-of-scope
+        clipboard_blocked: true
+        printing_blocked: true
+        usb_storage_blocked: true
+        no_local_cui_storage: true
   specialized:
     - name: CNC-07 controller
       description: OT device on isolated VLAN, documented in SSP
+      baseline_profile: specialized-ot
+      baseline_validation:
+        validated: "2026-06-10"
+        notes: Isolated VLAN; no CUI storage on HMI
 
 diagrams:
   network: diagrams/eds-network-2026-06.pdf

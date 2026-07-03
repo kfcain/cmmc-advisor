@@ -30,9 +30,16 @@ evidence/
   m365-defender-gcch/si/3.14.2/defender_endpoint.json
   aws-govcloud/au/3.3.1/aws_cloudtrail.json
   crowdstrike/si/3.14.2/crowdstrike_hosts.json
+  onprem-network/sc/3.13.1/fortigate_policy.json
+  onprem-physical/pe/3.10.4/pacs_event_sample.json
   ...
   collect-run.json
 ```
+
+On-premises NGFW, WLAN, and physical access collectors:
+`references/modern-it/security-operations/on-prem-inspectors.md`.
+Asset baseline expectations before scoping claims:
+`references/modern-it/asset-baselines/`.
 
 Manual uploads (policies, attestation PDFs, access review exports) may stay at
 `evidence/<family>/<req>/` without a platform bucket prefix. Program data
