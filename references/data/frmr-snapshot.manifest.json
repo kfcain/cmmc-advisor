@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0",
+  "scope_note": "Curated vendor list for FedRAMP 20x / KSI due diligence in the cmmc-advisor corpus. KSI catalog fields refresh from the public FedRAMP Consolidated Rules JSON; Marketplace authorization fields refresh from the official export; public_trust_center_url and ksi_due_diligence are practitioner checklist items for publicly verifiable checks only.",
+  "consolidated_rules_url": "https://raw.githubusercontent.com/FedRAMP/rules/main/fedramp-consolidated-rules.json",
+  "marketplace_data_url": "https://raw.githubusercontent.com/FedRAMP/marketplace-fedramp-gov-data/main/fedramp-products.json",
+  "vendors": [
+    {
+      "id": "microsoft-365-gcc-high",
+      "product": "Microsoft 365 Government Community Cloud High (GCC High)",
+      "vendor": "Microsoft",
+      "marketplace_package_id": "FR1824057433",
+      "authorization_path_hint": "rev5_agency",
+      "public_trust_center_url": "https://learn.microsoft.com/en-us/compliance/us-government/gov-cmmc",
+      "dod_impact_level": ["IL2", "IL4", "IL5"],
+      "cui_suitability": "Appropriate for CUI under DFARS 7012; sovereign tenancy",
+      "primary_source": "https://marketplace.fedramp.gov",
+      "corpus_references": ["references/modern-it/productivity/microsoft-365-gcc.md"],
+      "ksi_due_diligence": [
+        "Confirm Marketplace package FR1824057433 authorization status is Active",
+        "Obtain CRM Appendix J for tenant-specific inherited controls",
+        "Verify trust-center or compliance page documents FedRAMP authorization scope",
+        "Map CRM 800-53 rows to CMMC requirements via references/data/800-53-crosswalk.json"
+      ],
+      "notes": "Rev5 agency path. FedRAMP 20x Class packages are emerging; verify path on Marketplace before SSP citation."
+    },
+    {
+      "id": "github-enterprise-cloud",
+      "product": "GitHub Enterprise Cloud (GHEC)",
+      "vendor": "GitHub (Microsoft)",
+      "marketplace_package_id": "FR1812058188",
+      "authorization_path_hint": "rev5_agency",
+      "public_trust_center_url": "https://ghec.github.trust.page",
+      "dod_impact_level": [],
+      "cui_suitability": "Source-code-only low-risk SaaS; not a general CUI file store",
+      "primary_source": "https://government.github.com/fedramp-faq",
+      "corpus_references": [
+        "references/modern-it/productivity/legacy-dib-tools.md",
+        "references/modern-it/ai-services/ai-dev-tools.md"
+      ],
+      "ksi_due_diligence": [
+        "Confirm Tailored/LI-SaaS scope matches source-code-only use",
+        "Review public trust page for certification data API or programmatic access docs",
+        "Verify no CUI in issues, PR bodies, or attachments outside design intent"
+      ],
+      "notes": "Public trust page is a model for FedRAMP 20x certification data sharing expectations."
+    },
+    {
+      "id": "amazon-bedrock-govcloud",
+      "product": "Amazon Bedrock in AWS GovCloud (US)",
+      "vendor": "AWS",
+      "marketplace_inheritance_package_id": "F1603047866",
+      "authorization_path_hint": "rev5_agency",
+      "public_trust_center_url": "https://aws.amazon.com/compliance/services-in-scope/FedRAMP/",
+      "dod_impact_level": ["IL4", "IL5"],
+      "cui_suitability": "Appropriate for CUI under DFARS 7012; per-model GovCloud availability",
+      "primary_source": "https://aws.amazon.com/compliance/services-in-scope/FedRAMP/amazon-bedrock-models/",
+      "corpus_references": ["references/modern-it/ai-services/fedramp-ai-services.md"],
+      "ksi_due_diligence": [
+        "Confirm platform package F1603047866 authorization on Marketplace",
+        "Verify per-model Bedrock availability in GovCloud documentation",
+        "Obtain CRM for inherited platform controls; customer configures model access"
+      ],
+      "notes": "Bedrock inherits AWS GovCloud boundary; not a standalone Marketplace package."
+    }
+  ]
+}

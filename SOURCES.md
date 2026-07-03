@@ -35,7 +35,51 @@ compliance documentation and practitioner publications.
 - **Title:** Security and Privacy Controls for Information Systems and Organizations
 - **Publisher:** National Institute of Standards and Technology
 - **URL:** https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final
-- **Used in:** FedRAMP control baselines referenced in fedramp-marketplace-guide
+- **Used in:** FedRAMP control baselines referenced in fedramp-marketplace-guide,
+  references/data/800-53-crosswalk.json (operational Rev 5 baseline membership),
+  scripts/generate_oscal_ssp.py
+
+### NIST SP 800-53B Rev 5 (Control Baselines)
+- **Title:** Control Baselines for Information Systems and Organizations
+- **Publisher:** National Institute of Standards and Technology
+- **URL:** https://csrc.nist.gov/pubs/sp/800/53b/r5/final
+- **Used in:** FedRAMP Moderate/High/Low baseline membership in
+  references/data/800-53-crosswalk.json (via NIST OSCAL profiles)
+
+### NIST SP 800-171 Rev 2 Appendix D (800-53 Mapping Tables)
+- **Title:** Mapping Tables D-1 through D-14 (800-171 requirements to
+  SP 800-53 and ISO/IEC 27001 controls)
+- **Publisher:** National Institute of Standards and Technology
+- **URL:** https://csrc.nist.gov/pubs/sp/800/171/r2/upd1/final (Appendix D)
+- **Used in:** references/fedramp-gap.md, references/data/800-53-crosswalk.json,
+  scripts/build_800_53_crosswalk.py (verified 2026-07-03: 110 requirements)
+
+### NIST OLIR — SP 800-53 Rev 5 to ISO/IEC 27001:2022 Crosswalk
+- **Title:** National Online Informative References crosswalk
+- **Publisher:** National Institute of Standards and Technology
+- **URL:** https://csrc.nist.gov/projects/olir
+- **Used in:** references/multi-framework-crosswalk.md (ISO 27001 alignment notes)
+
+### NIST OSCAL Content (SP 800-53 Rev 5 Baselines)
+- **Title:** usnistgov/oscal-content — OSCAL catalogs and baseline profiles
+- **Publisher:** National Institute of Standards and Technology
+- **URL:** https://github.com/usnistgov/oscal-content/tree/main/nist.gov/SP800-53/rev5
+- **Used in:** scripts/build_800_53_crosswalk.py, scripts/generate_oscal_ssp.py
+  (FedRAMP Moderate profile import; verified 2026-07-03)
+
+### Open Security Controls Assessment Language (OSCAL)
+- **Title:** OSCAL 1.1.x System Security Plan schema and examples
+- **Publisher:** National Institute of Standards and Technology
+- **URL:** https://pages.nist.gov/OSCAL/
+- **Used in:** scripts/generate_oscal_ssp.py, references/multi-framework-crosswalk.md,
+  references/ssp-guidance.md
+
+### IBM compliance-trestle (reference tooling)
+- **Title:** compliance-trestle — OSCAL validation and FedRAMP SSP tooling
+- **Publisher:** OSCAL Compass / IBM (open source)
+- **URL:** https://github.com/oscal-compass/compliance-trestle
+- **Used in:** references/multi-framework-crosswalk.md (validation path for
+  generated OSCAL SSPs; not bundled in this repo)
 
 ### NIST SP 800-61 Rev 2
 - **Title:** Computer Security Incident Handling Guide
@@ -273,6 +317,29 @@ compliance documentation and practitioner publications.
 ### FedRAMP Marketplace Data Export (official machine-readable)
 - **URL:** https://github.com/FedRAMP/marketplace-fedramp-gov-data
 - **Used in:** scripts/build_fedramp_snapshot.py and the generated references/data/fedramp-snapshot.json (live authorization status, impact level, auth path/type, dates)
+
+### FedRAMP Consolidated Rules 2026 (machine-readable)
+- **Title:** FedRAMP Consolidated Rules JSON (FRD, FRR, KSI, CTL)
+- **Publisher:** FedRAMP Program Management Office
+- **URL:** https://github.com/FedRAMP/rules (fedramp-consolidated-rules.json)
+- **Used in:** scripts/build_frmr_snapshot.py, references/fedramp-20x-ksi-due-diligence.md
+  (KSI catalog; verified 2026-07-03: 46 indicators across 10 themes in public preview)
+
+### FedRAMP 20x Program
+- **URL:** https://www.fedramp.gov/20x/
+- **Used in:** references/fedramp-20x-ksi-due-diligence.md (Classes A/B/C/D, KSI direction)
+
+### FedRAMP RFC-0006 — Key Security Indicators
+- **URL:** https://www.fedramp.gov/rfcs/0006/
+- **Used in:** references/fedramp-20x-ksi-due-diligence.md (KSI rationale, Phase One themes)
+
+### FedRAMP RFC-0022 — Leveraging External Frameworks
+- **URL:** https://www.fedramp.gov/rfcs/0022/
+- **Used in:** references/fedramp-20x-ksi-due-diligence.md (external framework to KSI mapping)
+
+### FedRAMP RFC-0024 — Rev 5 Machine-Readable Packages
+- **URL:** https://www.fedramp.gov/rfcs/0024/
+- **Used in:** references/fedramp-20x-ksi-due-diligence.md (OSCAL/machine-readable package direction)
 
 ### AWS GovCloud User Guide
 - **URL:** https://docs.aws.amazon.com/govcloud-us/latest/UserGuide/

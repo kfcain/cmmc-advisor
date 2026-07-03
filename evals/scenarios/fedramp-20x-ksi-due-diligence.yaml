@@ -1,0 +1,52 @@
+id: fedramp-20x-ksi-due-diligence
+title: Contractor evaluating SaaS vendor on FedRAMP 20x KSI path
+category: grc
+
+prompt: |
+  We are pursuing CMMC Level 2 and use GCC High for CUI. Our engineering
+  team wants GitHub Enterprise Cloud for source code and a new AI SaaS
+  vendor claims they are on the FedRAMP 20x path with KSI validation and
+  a public trust center.
+
+  How should we evaluate them for DFARS 7012 and CMMC inheritance? What
+  can we verify from public sources, what belongs in our vendor file,
+  and what do we map back to CMMC assessment objectives?
+
+required_terms:
+  - KSI
+  - trust center
+  - CRM
+  - 800-53
+  - Marketplace
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Start with DFARS 7012: external cloud services handling CUI need FedRAMP
+  Moderate or CO-deemed equivalent. Verify the exact Marketplace package
+  (build_fedramp_snapshot.py / build_frmr_snapshot.py), not marketing
+  language about "20x" or "KSI-ready."
+
+  For FedRAMP 20x/KSI claims: read references/fedramp-20x-ksi-due-diligence.md.
+  Public checks today: Marketplace authorization status, public trust center
+  URL and whether programmatic certification data access is documented, CRM
+  availability for inherited 800-53 controls. KSI catalog in frmr-snapshot.json
+  helps frame capability outcomes but does not replace CRM rows for CMMC.
+
+  Map CRM 800-53 controls to CMMC requirements via
+  references/data/800-53-crosswalk.json control_index, then to assessment
+  objectives in program data per inherited-controls-mapping.md. GitHub GHEC
+  is Tailored/LI-SaaS scoped to source code; CUI in issues/PRs is out of
+  design intent.
+
+  Vendor file should capture: package ID, authorization path (Rev5 vs 20x
+  class), trust center URL, verification date, ksi_due_diligence checklist
+  results, gaps when machine-readable certification data is missing, and
+  interim customer-side controls. Enabler posture: document the gap and
+  interim path, do not block if a compliant Rev5 CRM path exists.
+
+evaluator_notes: |
+  Must route to fedramp-20x-ksi-due-diligence.md and crosswalk, not generic
+  vendor advice. Accuracy: KSI does not replace CRM; Marketplace is first
+  check; honest gap when trust center immature. Score on mapping CRM to CMMC
+  via 800-53 crosswalk.

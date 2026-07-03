@@ -39,6 +39,25 @@ assessment:
 
 conditional_status_date: null
 
+trust_center:
+  published: true
+  last_reviewed: "2026-07-01"
+  security_contact: security@example.com
+  disclaimer: >
+    This trust center summarizes security posture for customers and partners.
+    It is not a CMMC certificate, C3PAO assessment result, or FedRAMP authorization.
+  attestations:
+    - framework: CMMC
+      level: "2"
+      status: In progress
+      status_date: "2026-06-01"
+      affirmation_current: false
+  public_documents:
+    - title: Microsoft GCC High CRM (customer NDA)
+      type: vendor-crm
+      url: https://learn.microsoft.com/en-us/compliance/us-government/gov-cmmc
+      updated: "2026-03-01"
+
 assets:
   cui:
     - name: M365 GCC High tenant (Exchange, SharePoint, Teams)

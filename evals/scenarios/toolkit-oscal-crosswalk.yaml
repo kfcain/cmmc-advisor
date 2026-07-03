@@ -1,0 +1,55 @@
+id: toolkit-oscal-crosswalk
+title: Compliance lead needs CMMC mapped to FedRAMP 800-53 and OSCAL output
+category: program-toolkit
+
+prompt: |
+  Our GRC team already tracks ISO 27001 and we are heading into a CMMC
+  Level 2 C3PAO assessment on GCC High. They want one data source that
+  can answer CMMC questions and also map our posture to NIST SP 800-53
+  for FedRAMP CRM inheritance work. Can this skill produce an OSCAL SSP
+  from our program data, and how do we look up which 800-53 controls
+  correspond to a CMMC practice like SC.L2-3.13.11?
+
+required_terms:
+  - 800-53
+  - crosswalk
+  - OSCAL
+  - program data
+  - FedRAMP
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Yes, via Phase 3 multi-framework tooling. The program data file
+  (templates/program-data.schema.json) remains the single source of
+  truth. The machine-readable crosswalk at
+  references/data/800-53-crosswalk.json maps all 110 CMMC Level 2
+  requirements to NIST SP 800-53 controls (sourced from NIST SP 800-171
+  Rev 2 Appendix D), with FedRAMP Moderate baseline membership and a
+  control_index for reverse lookup from CRM rows.
+
+  For SC.L2-3.13.11 specifically, the crosswalk maps to SC-13 (FIPS-
+  validated cryptography). CRM inheritance workflow: find SC-13 rows in
+  the Microsoft CRM, trace back to SC.L2-3.13.11 assessment objectives
+  via control_index, record inherited/shared conformity in program data
+  with CRM citations per references/grc/inherited-controls-mapping.md.
+
+  OSCAL emission: run scripts/generate_oscal_ssp.py on the program data
+  file to produce an OSCAL System Security Plan importing the NIST SP
+  800-53 Rev 5 Moderate baseline profile, with inheritance sources as
+  OSCAL components. Validate with compliance-trestle or FedRAMP OSCAL
+  rules before submission; the output is a CMMC-informed starting point,
+  not a complete FedRAMP authorization package.
+
+  ISO 27001: use the NIST OLIR crosswalk from 800-53 to ISO/IEC 27001:2022
+  at the control layer, then bridge to CMMC via control_index. Do not
+  claim ISO coverage from the CMMC crosswalk alone.
+
+  Reference: references/multi-framework-crosswalk.md for the full method.
+
+evaluator_notes: |
+  Accuracy essentials: 800-53-crosswalk.json as the lookup mechanism,
+  Appendix D as the mapping source, generate_oscal_ssp.py for OSCAL,
+  program data as single source, CRM inheritance caveats, compliance-
+  trestle as validation reference. Enabler posture: concrete workflow
+  for GCC High CRM row to CMMC objective tracing.

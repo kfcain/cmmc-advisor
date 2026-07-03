@@ -18,29 +18,30 @@ scenario. Remaining depth for a later pass: statement-level mapping
 (individual policy clauses to assessment objectives) and automated
 policy-document parsing.
 
-## Phase 3: Multi-Framework Crosswalks and OSCAL
+## Phase 3: Multi-Framework Crosswalks and OSCAL — DELIVERED
 
-CMMC to NIST SP 800-53 Rev 5 to FedRAMP Rev 5 crosswalk as data, not
-prose, extending the existing `references/fedramp-gap.md` narrative.
+Shipped: `references/data/800-53-crosswalk.json` (110 requirements, 127
+unique 800-53 controls, FedRAMP Moderate baseline membership from NIST
+OSCAL content), `scripts/build_800_53_crosswalk.py` (regenerator from
+Appendix D tables + baseline fetch), `references/multi-framework-crosswalk.md`
+(method, ISO 27001 notes, OSCAL workflow), `scripts/generate_oscal_ssp.py`
+(OSCAL SSP emission with inheritance components and back-matter), SKILL.md
+routing and toolkit workflow rows, CI crosswalk integrity check, and the
+`toolkit-oscal-crosswalk` eval scenario. Narrative depth remains in
+`references/fedramp-gap.md`; the dataset is the machine-readable layer.
 
-- New: `references/data/800-53-crosswalk.json` (from NIST's published
-  800-171 to 800-53 mapping), ISO/IEC 27001 mapping notes, and OSCAL
-  awareness: emit the program data file as an OSCAL SSP (component
-  definitions for inheritance sources; compliance-trestle as the
-  reference tooling).
-- Purpose: one program data file able to answer CMMC, FedRAMP, and
-  27001 questions about the same environment.
+## Phase 4: FedRAMP 20x and Trust Center Interop — DELIVERED
 
-## Phase 4: FedRAMP 20x and Trust Center Interop
-
-Track FedRAMP's machine-readable direction (FRMR artifacts, Key
-Security Indicators) alongside the Rev 5 baselines.
-
-- New: FRMR snapshot support next to
-  `scripts/build_fedramp_snapshot.py`; guidance for reading KSI-based
-  packages during vendor due diligence; a portable public trust-center
-  page generated from the program data file (the outward-facing twin of
-  the internal dashboard).
+Shipped: `scripts/build_frmr_snapshot.py` and
+`references/data/frmr-snapshot.manifest.json` (KSI catalog from FedRAMP
+Consolidated Rules JSON merged with Marketplace vendor fields),
+`references/fedramp-20x-ksi-due-diligence.md` (FRMR/KSI/trust-center due
+diligence method), `scripts/generate_trust_center.py` and
+`templates/program-trust-center.html` (deny-by-default public page from
+program data), `references/grc/trust-center.md` (public vs internal
+content rules), `trust_center` schema section, SKILL.md routing and toolkit
+workflow rows, CI FRMR snapshot integrity check, and the
+`fedramp-20x-ksi-due-diligence` eval scenario.
 
 ## Phase 5: Evidence Automation
 
