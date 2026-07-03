@@ -1,0 +1,54 @@
+id: grc-policy-mapping
+title: Compliance lead with a binder of policies and no idea what they cover
+category: grc
+
+prompt: |
+  We have about ten security policies written over the years by different
+  people. Nobody knows whether they actually cover what CMMC needs, and
+  our consultant says assessors will ask which policy governs each
+  control. How do we figure out our coverage, what gaps should we look
+  for, and how does this skill help us keep it current?
+
+required_terms:
+  - policy
+  - requirement
+  - coverage
+  - procedure
+  - assessment objective
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Build a policy-to-control mapping register: inventory the ten policies
+  (id, title, version, owner, last review date), then map each of the 110
+  requirements to the policy that governs it and the procedure that
+  operationalizes it, working requirement-first to find coverage gaps and
+  policy-first to find orphan clauses. The 800-171A assessment procedures
+  are the authority for what each requirement expects: policies and
+  procedures are the first examine objects for nearly every requirement.
+
+  Three gap types to hunt: requirements with no policy home, policies
+  with no linked procedure (intent without operating detail, the classic
+  compliance-theater pattern), and contradictions between policy text and
+  actual configuration.
+
+  With this skill: the register lives in the program data file's
+  policies section; the dashboard's Policies view computes coverage
+  (how many of the 110 requirements have a policy home), flags overdue
+  reviews (older than one year), and lists uncovered requirements. The
+  mapping re-validates on each annual policy review and whenever an
+  implementation changes.
+
+  A strong answer offers a starting shape (family-aligned policies with
+  legitimate cross-family documents like acceptable use) and warns
+  against mapping one requirement to many policies, which signals
+  contradiction risk.
+
+evaluator_notes: |
+  Accuracy essentials: policies and procedures as 800-171A examine
+  objects; the three gap types; annual review cadence tied to the
+  organization-defined one-year maximum. Score Category B on scoping the
+  answer to policy governance rather than drifting into generic
+  implementation advice. Enabler posture: a concrete build sequence for
+  the register plus the computed-coverage workflow, not an admonition to
+  write more policies.

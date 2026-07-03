@@ -94,6 +94,28 @@
         }
       }
     },
+    "policies": {
+      "type": "array",
+      "description": "Policy-to-control mapping register (PCMR); see references/grc/policy-mapping.md",
+      "items": {
+        "type": "object",
+        "required": ["id", "title"],
+        "properties": {
+          "id": {"type": "string", "description": "Short key, e.g. pol-ac"},
+          "title": {"type": "string"},
+          "version": {"type": "string"},
+          "owner": {"type": "string"},
+          "reviewed": {"type": "string", "description": "Last review date, ISO 8601"},
+          "location": {"type": "string", "description": "Path or URL to the document"},
+          "procedures": {"type": "array", "items": {"type": "string"}, "description": "Procedure documents operationalizing this policy"},
+          "requirements": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Requirement ids this policy governs (e.g. AC.L2-3.1.1)"
+          }
+        }
+      }
+    },
     "inheritance_sources": {
       "type": "array",
       "description": "External platforms controls are inherited from; referenced by per-AO inheritance entries",

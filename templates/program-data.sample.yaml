@@ -67,6 +67,24 @@ cmvp_certificates:
     sunset: "2030-03-01"
     security_policy: https://csrc.nist.gov/projects/cryptographic-module-validation-program
 
+policies:
+  - id: pol-ac
+    title: Access Control and Identity Policy
+    version: "3.1"
+    owner: Sam Patel
+    reviewed: "2026-05-01"
+    location: policies/access-control-v3.1.pdf
+    procedures:
+      - procedures/access-request-procedure-v3.pdf
+    requirements: [AC.L2-3.1.1, AC.L2-3.1.2, IA.L2-3.5.1, IA.L2-3.5.2]
+  - id: pol-ir
+    title: Incident Response Policy
+    version: "2.0"
+    owner: Sam Patel
+    reviewed: "2025-04-15"
+    location: policies/incident-response-v2.pdf
+    requirements: [IR.L2-3.6.1, IR.L2-3.6.2]
+
 inheritance_sources:
   - id: gcch
     provider: Microsoft

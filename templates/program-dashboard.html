@@ -231,7 +231,7 @@
         <div class="s">${(program.assessment && (program.assessment.path || "").toUpperCase()) || ""} ${(program.assessment && program.assessment.target_date) || ""}</div></div>`;
   }
 
-  const TABS = [["objectives", "Objectives"], ["poam", "POA&M"], ["gaps", "Gap remediation"], ["inheritance", "Inheritance"]];
+  const TABS = [["objectives", "Objectives"], ["poam", "POA&M"], ["gaps", "Gap remediation"], ["inheritance", "Inheritance"], ["policies", "Policies"]];
   let active = "objectives", famFilter = "", query = "";
 
   function renderTabs() {
@@ -366,11 +366,43 @@
       '<p class="note">Inheritance must be demonstrable via the provider CIS/CRM and body of evidence (32 CFR 170.17(c)(5), 170.18(c)(5)). See references/grc/inherited-controls-mapping.md.</p>';
   }
 
+  function renderPolicies(view) {
+    const pols = program.policies || [];
+    if (!pols.length) { view.innerHTML = '<div class="empty">No policy register recorded. Add a policies section to the program data file; see references/grc/policy-mapping.md.</div>'; return; }
+    const covered = new Set();
+    pols.forEach(p => (p.requirements || []).forEach(r => covered.add(r)));
+    const uncovered = dataset.requirements.filter(r => !covered.has(r.id));
+    const today = new Date();
+    const rows = pols.map(p => {
+      const fams = [...new Set((p.requirements || []).map(r => r.split(".")[0]))].sort().join(", ");
+      let review = p.reviewed || "";
+      if (p.reviewed) {
+        const age = (today - new Date(p.reviewed)) / 86400000;
+        if (age > 365) review += ' <span class="chip c-due">⏱ review overdue</span>';
+      }
+      const proc = (p.procedures || []).length;
+      return `<tr><td>${p.title}${p.version ? " v" + p.version : ""}</td>
+        <td>${p.owner || ""}</td><td class="num">${review}</td>
+        <td class="num">${(p.requirements || []).length}</td><td>${fams}</td>
+        <td>${proc ? proc + " linked" : '<span class="chip c-due">⏱ none linked</span>'}</td></tr>`;
+    }).join("");
+    view.innerHTML = `<table><thead><tr><th>Policy</th><th>Owner</th><th>Reviewed</th>
+      <th>Requirements</th><th>Families</th><th>Procedures</th></tr></thead>
+      <tbody>${rows}</tbody></table>
+      <p class="note">Coverage: ${covered.size}/110 requirements have a policy home.</p>
+      ${uncovered.length ? `<details class="req"><summary><span class="rid">${uncovered.length} requirements without a policy home</span>
+        ${chip("not-assessed")}</summary><div class="body">${uncovered.map(r =>
+          `<div class="meta"><span class="num">${r.id}</span> ${r.name}</div>`).join("")}</div></details>` :
+        '<p class="note">Every requirement has a policy home.</p>'}
+      <p class="note">Method and gap types: references/grc/policy-mapping.md. Policies without linked procedures are anti-pattern 1 territory.</p>`;
+  }
+
   function renderView() {
     const view = $("#view");
     if (active === "objectives") renderObjectives(view);
     else if (active === "poam") renderPoam(view);
     else if (active === "gaps") renderGaps(view);
+    else if (active === "policies") renderPolicies(view);
     else renderInheritance(view);
     renderTiles(); renderTabs();
   }

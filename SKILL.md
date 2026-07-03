@@ -52,6 +52,7 @@ from memory alone when a reference exists.
 | Staying certified: affirmations, SPRS maintenance, drift, control owners | `references/grc/continuous-monitoring.md` |
 | MSP/MSSP/ESP treatment, FedRAMP equivalency, subcontractor flowdowns | `references/grc/vendor-and-supply-chain.md` |
 | Mapping inherited controls from a FedRAMP CRM / CIS Appendix J / BoE | `references/grc/inherited-controls-mapping.md` |
+| Which policy covers which requirement, policy coverage gaps | `references/grc/policy-mapping.md` |
 | Compliance roles, policy lifecycle, change management, 72-hour incident reporting | `references/grc/program-governance.md` |
 | Specific domain practices (AC, IA, SC, etc.) | `references/domains/{domain}.md` |
 | Assessment objectives for a practice, what the assessor will examine, interview, or test | `references/assessment-objectives/{ac,at,au,ca,cm,ia,ir,ma,mp,pe,ps,ra,sc,si}.md` |
@@ -117,6 +118,15 @@ remediation view ordered by points at stake, and an inheritance view
 showing which objectives trace to which provider CRM rows. Regenerate
 after every data file change; the dashboard is a rendering, not a
 second source of truth.
+
+**Maintain the policy register.** When the user provides policies or
+asks what their policies cover, follow
+`references/grc/policy-mapping.md`: inventory them into the `policies`
+section of the program data file, propose requirement mappings family by
+family using the assessment-objective examine lists as the authority,
+and report the three gap types (uncovered requirements, policies without
+procedures, contradictions). The dashboard's Policies view computes
+coverage from the register.
 
 **Map inherited controls.** When the user provides a FedRAMP CRM, CIS
 workbook (Appendix J), or body of evidence for a platform they run on,

@@ -8,18 +8,15 @@ the expansion into a broader federal GRC capability. Each phase lands
 with sources in `SOURCES.md`, routing rows in `SKILL.md`, and at least
 one eval scenario, per `CLAUDE.md`.
 
-## Phase 2: Policy-to-Control Mapping Register (PCMR)
+## Phase 2: Policy-to-Control Mapping Register (PCMR) — DELIVERED
 
-Trace every policy statement to the requirements and assessment
-objectives it satisfies, and report coverage gaps.
-
-- New: `references/grc/policy-mapping.md` (method), a `policy_map`
-  section in the program data schema, and a coverage view in the
-  dashboard (which requirements have no policy home).
-- Builds on: the AO dataset; the policy lifecycle section of
-  `references/grc/program-governance.md`.
-- Eval: a scenario asking which policies a given requirement set needs
-  and where an uploaded policy leaves gaps.
+Shipped: `references/grc/policy-mapping.md` (method and gap taxonomy),
+the `policies` section of the program data schema with a worked sample,
+the dashboard's Policies view (computed coverage, overdue reviews,
+uncovered-requirements list), and the `grc-policy-mapping` eval
+scenario. Remaining depth for a later pass: statement-level mapping
+(individual policy clauses to assessment objectives) and automated
+policy-document parsing.
 
 ## Phase 3: Multi-Framework Crosswalks and OSCAL
 
