@@ -69,3 +69,16 @@ jobs:
           assert len(snap["vendors"]) >= 1
           print("FRMR snapshot ok")
           EOF
+      - name: Evidence collector manifest integrity
+        run: |
+          python3 - <<'EOF'
+          import json
+          m = json.load(open("references/data/evidence-collector-manifest.json"))
+          cols = m["collectors"]
+          assert len(cols) >= 10
+          ids = {c["id"] for c in cols}
+          assert "entra-signins" in ids and "defender-endpoint" in ids
+          for c in cols:
+              assert c.get("mappings")
+          print("evidence collector manifest ok")
+          EOF

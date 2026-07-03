@@ -43,25 +43,24 @@ content rules), `trust_center` schema section, SKILL.md routing and toolkit
 workflow rows, CI FRMR snapshot integrity check, and the
 `fedramp-20x-ksi-due-diligence` eval scenario.
 
-## Phase 5: Evidence Automation
+## Phase 5: Evidence Automation — DELIVERED
 
-Close the gap between "evidence links" and live proof.
+Shipped: `references/data/evidence-collector-manifest.json` (14 collectors
+across Microsoft Graph/GCC High, AWS GovCloud, GCP SCC, CrowdStrike, Zscaler,
+Prisma Access, Duo, Splunk), `scripts/collect_evidence.py` (orchestrator with
+`--dry-run` pipeline), `scripts/merge_findings.py` (GRC Engineering Club
+Finding bridge via 800-53 crosswalk), `scripts/evidence_lib.py`,
+`references/grc/evidence-automation.md`, `references/modern-it/security-operations/`
+(hub, Microsoft Graph, cloud-native inspectors), dashboard Evidence freshness
+view and SPRS submission diff, extended program data schema (collector metadata,
+`sprs_submission`), eval scenario `toolkit-evidence-collectors.yaml`.
 
-- New: guidance for collecting evidence from Microsoft Graph API and
-  cloud-native inspectors (Entra ID, Intune, Defender, Sentinel) mapped
-  to assessment objectives; collectors write into the program data
-  file's evidence arrays with timestamps; a dashboard freshness view
-  (evidence older than its refresh bucket per
-  `references/grc/continuous-monitoring.md`).
-- DELIVERED early: CMVP certificate validation for every FIPS claim
-  (scripts/check_cmvp.py verify/find against the NIST-CMVP-API mirror,
-  official registry cited per result) and the diagram capability
-  (topology data model, generate_diagrams.py network + CUI flow DFD
-  outputs, dashboard Diagrams view, references/diagram-guide.md).
-  Remaining here: a dashboard-to-SPRS diff that flags when the computed
-  score diverges from the last submitted score, and reconciliation with
-  the author's cmmc-dfd plugins and the cmmc.kylecain.dev Diagram Hub
-  once reachable.
+Remaining: live API credential harness per platform (use GRC inspector plugins
+or org-specific automation), dashboard-to-SPRS export back to SPRS portal,
+reconciliation with cmmc-dfd plugins when reachable.
+
+Early delivery (pre-Phase 5): CMVP validation (`scripts/check_cmvp.py`) and
+diagram capability (`scripts/generate_diagrams.py`).
 
 ## Phase 6: Assessment Operations
 

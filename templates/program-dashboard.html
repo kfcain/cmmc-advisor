@@ -186,6 +186,28 @@
     return { score: Math.max(score, -203), sspMissing };
   }
 
+  const STALE_DAYS = { machine: 90, periodic: 365, document: 365 };
+  function evidenceRows() {
+    const rows = [];
+    for (const r of dataset.requirements) {
+      const objs = (entries[r.id] || {}).objectives || {};
+      for (const [letter, oe] of Object.entries(objs)) {
+        for (const ev of (oe.evidence || [])) {
+          const bucket = ev.refresh_bucket || "machine";
+          const limit = STALE_DAYS[bucket] || 365;
+          let age = null, stale = true;
+          if (ev.collected) {
+            age = Math.floor((Date.now() - Date.parse(ev.collected)) / 86400000);
+            stale = age > limit;
+          }
+          rows.push({ rid: r.id, letter, ev, bucket, limit, age, stale });
+        }
+      }
+    }
+    rows.sort((a, b) => (b.stale - a.stale) || ((b.age ?? 9e9) - (a.age ?? 9e9)));
+    return rows;
+  }
+
   function counts() {
     const c = { met: 0, partial: 0, notmet: 0, na: 0, open: 0 };
     for (const r of dataset.requirements) {
@@ -220,22 +242,30 @@
     const { score, sspMissing } = sprs();
     const c = counts();
     const openPoams = poamRows().filter(x => (x.p.status || "open") !== "closed");
+    const stale = evidenceRows().filter(x => x.stale).length;
+    const sub = program.sprs_submission || {};
+    const sprsDiff = (sub.score != null && !sspMissing && sub.score !== score)
+      ? `<div class="s">submitted ${esc(sub.score)} on ${esc(sub.date || "?")} · Δ ${score - sub.score}</div>`
+      : (sub.score != null ? `<div class="s">matches SPRS submission (${esc(sub.date || "")})</div>` : "");
     $("#tiles").innerHTML = `
       <div class="tile"><div class="k">SPRS score</div>
         <div class="v num">${sspMissing ? "n/a" : score}</div>
-        <div class="s">${sspMissing ? "SSP not met: assessment cannot be conducted" : "of 110 (floor -203)"}</div></div>
+        <div class="s">${sspMissing ? "SSP not met: assessment cannot be conducted" : "of 110 (floor -203)"}</div>${sprsDiff}</div>
       <div class="tile"><div class="k">Requirements met</div>
         <div class="v num">${c.met + c.na}/110</div>
         <div class="s">${c.na ? c.na + " N/A, " : ""}${c.partial} partial, ${c.notmet} not met, ${c.open} unassessed</div></div>
+      <div class="tile"><div class="k">Evidence freshness</div>
+        <div class="v num">${stale}</div>
+        <div class="s">stale artifacts (machine &gt;90d, periodic/doc &gt;365d)</div></div>
       <div class="tile"><div class="k">Open POA&amp;M items</div>
         <div class="v num">${openPoams.length}</div>
-        <div class="s">${openPoams.length && openPoams[0].days != null ? "nearest clock: " + openPoams[0].days + " days" : " "}</div></div>
+        <div class="s">${openPoams.length && openPoams[0].days != null ? "nearest clock: " + openPoams[0].days + " days" : " "}</div></div>
       <div class="tile"><div class="k">Assessment</div>
         <div class="v">${esc((program.assessment && "L" + program.assessment.level) || "L2")}</div>
         <div class="s">${esc((program.assessment && (program.assessment.path || "").toUpperCase()) || "")} ${esc((program.assessment && program.assessment.target_date) || "")}</div></div>`;
   }
 
-  const TABS = [["objectives", "Objectives"], ["poam", "POA&M"], ["gaps", "Gap remediation"], ["inheritance", "Inheritance"], ["policies", "Policies"], ["diagrams", "Diagrams"]];
+  const TABS = [["objectives", "Objectives"], ["freshness", "Evidence freshness"], ["poam", "POA&M"], ["gaps", "Gap remediation"], ["inheritance", "Inheritance"], ["policies", "Policies"], ["diagrams", "Diagrams"]];
   let active = "objectives", famFilter = "", query = "";
 
   function renderTabs() {
@@ -400,6 +430,24 @@
       <p class="note">Method and gap types: references/grc/policy-mapping.md. Policies without linked procedures are anti-pattern 1 territory.</p>`;
   }
 
+  function renderFreshness(view) {
+    const rows = evidenceRows();
+    if (!rows.length) {
+      view.innerHTML = '<div class="empty">No evidence recorded. Run collectors (scripts/collect_evidence.py) or add evidence links manually.</div>';
+      return;
+    }
+    view.innerHTML = `<table><thead><tr><th>Status</th><th>Requirement</th><th>Objective</th><th>Artifact</th>
+      <th>Collector</th><th>Bucket</th><th>Collected</th><th>Age</th></tr></thead><tbody>
+      ${rows.map(({ rid, letter, ev, bucket, limit, age, stale }) => {
+        const status = stale ? '<span class="chip c-due">⏱ stale</span>' : '<span class="chip c-met">✓ current</span>';
+        const link = ev.link ? `<a href="${esc(ev.link)}">${esc(ev.name)}</a>` : esc(ev.name);
+        return `<tr><td>${status}</td><td class="num">${esc(rid)}</td><td>${esc(letter)}</td><td>${link}</td>
+          <td>${esc(ev.collector || "")}</td><td>${esc(bucket)} (${limit}d)</td><td class="num">${esc(ev.collected || "")}</td>
+          <td class="num">${age == null ? "?" : age + "d"}</td></tr>`;
+      }).join("")}</tbody></table>
+      <p class="note">Refresh buckets per references/grc/continuous-monitoring.md: machine-generated artifacts stale after 90 days; periodic and document buckets after 365 days. Regenerate with scripts/collect_evidence.py or GRC inspector merge (scripts/merge_findings.py).</p>`;
+  }
+
   function renderDiagrams(view) {
     const d = program._diagrams;
     if (!d) { view.innerHTML = '<div class="empty">No topology recorded. Add a topology section to the program data file and regenerate; see references/diagram-guide.md.</div>'; return; }
@@ -415,6 +463,7 @@
   function renderView() {
     const view = $("#view");
     if (active === "objectives") renderObjectives(view);
+    else if (active === "freshness") renderFreshness(view);
     else if (active === "poam") renderPoam(view);
     else if (active === "gaps") renderGaps(view);
     else if (active === "policies") renderPolicies(view);

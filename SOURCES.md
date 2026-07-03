@@ -341,6 +341,25 @@ compliance documentation and practitioner publications.
 - **URL:** https://www.fedramp.gov/rfcs/0024/
 - **Used in:** references/fedramp-20x-ksi-due-diligence.md (OSCAL/machine-readable package direction)
 
+### GRC Engineering Club claude-grc-engineering
+- **Title:** Open-source GRC toolkit and inspector connectors
+- **Publisher:** GRC Engineering Club
+- **URL:** https://github.com/GRCEngClub/claude-grc-engineering
+- **Used in:** scripts/merge_findings.py, references/grc/evidence-automation.md,
+  references/data/evidence-collector-manifest.json (grc_inspector_bridge)
+
+### Microsoft Graph API
+- **URL:** https://learn.microsoft.com/en-us/graph/api/overview
+- **Used in:** references/modern-it/security-operations/microsoft-graph-evidence.md
+
+### Microsoft Defender for Endpoint API
+- **URL:** https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/api-exposure
+- **Used in:** microsoft-graph-evidence.md, defender-endpoint collector
+
+### CrowdStrike Falcon API
+- **URL:** https://developer.crowdstrike.com/
+- **Used in:** references/modern-it/security-operations/cloud-native-inspectors.md
+
 ### AWS GovCloud User Guide
 - **URL:** https://docs.aws.amazon.com/govcloud-us/latest/UserGuide/
 - **Used in:** modern-it/cloud-platforms/aws-govcloud.md, modern-it/ai-services/fedramp-ai-services.md (Bedrock in GovCloud)

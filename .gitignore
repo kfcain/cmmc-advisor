@@ -18,6 +18,9 @@ evals/results/
 # Local Marketplace download cache for the snapshot builder (not the snapshot itself)
 references/data/.fedramp-products-cache.json
 
+# Generated evidence artifacts from collectors (org-specific; not shipped)
+evidence/
+
 # Python bytecode
 __pycache__/
 *.pyc

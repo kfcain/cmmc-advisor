@@ -75,6 +75,11 @@ from memory alone when a reference exists.
 | Self-hosted AI (Coder, on-prem LLM, air-gapped) | `references/modern-it/ai-services/self-hosted-ai.md` |
 | AI developer tools (Claude Code, Copilot, Cursor, Windsurf, Continue) | `references/modern-it/ai-services/ai-dev-tools.md` |
 | Endpoint fleet overview, capability vs product, practice crosswalk | `references/modern-it/endpoints/README.md` |
+| EDR/XDR, SASE/ZTNA, MFA, SIEM evidence collectors and API mapping | `references/modern-it/security-operations/README.md` |
+| Microsoft Graph / Entra / Intune / Defender / Sentinel evidence | `references/modern-it/security-operations/microsoft-graph-evidence.md` |
+| AWS/GCP/CrowdStrike/Zscaler/Duo/Splunk collector mapping | `references/modern-it/security-operations/cloud-native-inspectors.md` |
+| Evidence automation, freshness buckets, SPRS diff, GRC inspector merge | `references/grc/evidence-automation.md` |
+| Run evidence collectors or merge GRC inspector findings | `scripts/collect_evidence.py`, `scripts/merge_findings.py`, `references/data/evidence-collector-manifest.json` |
 | macOS fleet compliance | `references/modern-it/endpoints/macos-fleet.md` |
 | Windows endpoint compliance | `references/modern-it/endpoints/windows-fleet.md` |
 | Remote work and VDI | `references/modern-it/endpoints/remote-work.md` |
@@ -191,6 +196,15 @@ trust centers, or FRMR artifacts during vendor due diligence, read
 `scripts/build_frmr_snapshot.py` when fresh KSI counts matter, and cross-
 walk CRM 800-53 rows through `references/data/800-53-crosswalk.json`.
 Name gaps honestly when a vendor's public certification data is immature.
+
+**Collect evidence automatically.** When the user wants live or scheduled
+proof from security platforms, read `references/grc/evidence-automation.md`
+and the security-operations hub. List collectors with
+`python3 scripts/collect_evidence.py --list`. Run the pipeline with
+`--dry-run` (sample artifacts) or merge GRC Engineering Club Finding JSON
+via `python3 scripts/merge_findings.py`. Regenerate the dashboard to review
+the Evidence freshness tab and SPRS diff against `sprs_submission`. Never
+store API secrets in the program data file.
 
 **Maintain the program data file.** Treat it as the single source of
 truth: status changes, new evidence, POA&M updates (respect the

@@ -39,6 +39,12 @@ assessment:
 
 conditional_status_date: null
 
+sprs_submission:
+  score: 95
+  date: "2026-06-01"
+  submitted_by: ISSM
+  notes: Pre-assessment self-score; dashboard computed score may differ as objectives are updated
+
 trust_center:
   published: true
   last_reviewed: "2026-07-01"

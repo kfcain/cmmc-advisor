@@ -78,6 +78,14 @@ python3 scripts/build_frmr_snapshot.py
 See `references/fedramp-20x-ksi-due-diligence.md` for how contractors use the
 snapshot during vendor evaluation.
 
+See `references/data/README.md` for the assessment objectives dataset and FRMR snapshot.
+
+### Evidence collector manifest
+
+`evidence-collector-manifest.json` registers platform collectors (Microsoft Graph,
+AWS, GCP, EDR, SASE, MFA, SIEM) with objective mappings. Run
+`python3 scripts/collect_evidence.py --list`.
+
 ## Assessment objectives dataset
 
 `assessment-objectives.json` is the machine-readable backbone for the

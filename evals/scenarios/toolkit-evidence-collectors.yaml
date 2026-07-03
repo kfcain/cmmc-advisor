@@ -1,0 +1,53 @@
+id: toolkit-evidence-collectors
+title: ISSM wants automated evidence from GCC High and EDR into the program file
+category: program-toolkit
+
+prompt: |
+  We keep our CMMC program in the toolkit program data file and dashboard.
+  I want to stop hand-copying Entra sign-in exports and Defender onboarding
+  reports every month. Can this skill pull evidence from Microsoft Graph,
+  Defender, and maybe CrowdStrike into the right assessment objectives,
+  show me when evidence is stale, and warn if our dashboard SPRS score
+  diverges from what we last submitted to SPRS?
+
+required_terms:
+  - collector
+  - evidence
+  - program data
+  - freshness
+  - SPRS
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Yes, via Phase 5 evidence automation. Collectors are registered in
+  references/data/evidence-collector-manifest.json (entra-signins,
+  entra-conditional-access, intune-compliance, defender-endpoint,
+  sentinel-health, crowdstrike-hosts, etc.). Run
+  scripts/collect_evidence.py against the program data file (--dry-run for
+  pipeline testing without live credentials). Each collector writes dated
+  artifacts under evidence/ and updates requirements.*.objectives.*.evidence[]
+  with collector, source_system, refresh_bucket, and sha256 fields.
+
+  For GRC Engineering Club inspector plugins (aws-inspector,
+  crowdstrike-inspector, azure-inspector), merge Finding JSON with
+  scripts/merge_findings.py using the 800-53 crosswalk to CMMC requirements.
+
+  Microsoft GCC High endpoints use graph.microsoft.us and
+  api-gov.securitycenter.microsoft.us; see
+  references/modern-it/security-operations/microsoft-graph-evidence.md.
+
+  Regenerate scripts/generate_dashboard.py output: the Evidence freshness tab
+  flags machine bucket artifacts older than 90 days (per continuous-monitoring.md).
+  Set sprs_submission in program data; dashboard compares computed score vs
+  last submitted SPRS and shows delta on the SPRS tile.
+
+  Live API collection requires app registrations and secrets outside program
+  data; --dry-run proves the pipeline. Enabler posture: name credential setup
+  steps, do not refuse.
+
+evaluator_notes: |
+  Must route to evidence-automation.md and security-operations hub, cite
+  collect_evidence.py and manifest, freshness buckets, SPRS diff via
+  sprs_submission, merge_findings for GRC plugins. GCC High endpoint note
+  for Microsoft. No promise that live APIs work without credentials.
