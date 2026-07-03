@@ -45,7 +45,7 @@ provided by the Government to the public or simple transactional information.
 - Project schedules shared with the Government
 - Technical drawings not marked as CUI
 
-**CMMC requirement:** Level 1 (17 practices, self-assessment)
+**CMMC requirement:** Level 1 (17 practices / 15 codified requirements, self-assessment)
 
 ### Controlled Unclassified Information (CUI)
 

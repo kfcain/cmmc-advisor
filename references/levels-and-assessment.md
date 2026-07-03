@@ -28,16 +28,26 @@ requirements."
 | Attribute | Detail |
 |-----------|--------|
 | **Information type** | Federal Contract Information (FCI) |
-| **Practice count** | 17 practices |
-| **Source standard** | FAR 52.204-21 (Basic Safeguarding) |
+| **Practice count** | 17 practices (CMMC Model), codified as 15 security requirements in 32 CFR 170.14(c)(2) |
+| **Source standard** | FAR 52.204-21(b)(1) (Basic Safeguarding) |
 | **Assessment type** | Annual self-assessment |
 | **Assessment body** | Organization itself |
 | **Applies to** | All DoD contractors handling FCI |
 
-Level 1 represents basic cyber hygiene. These 17 practices are the minimum
-safeguards that any organization handling federal contract information should
-have in place. Examples include using passwords, limiting physical access
-to systems, and updating software.
+Level 1 represents basic cyber hygiene: the 17 practices of the CMMC Model,
+which the final rule codifies as the 15 basic safeguarding requirements of
+FAR 52.204-21(b)(1). Both counts describe the same safeguarding content;
+the model counts the three physical-protection activities of FAR paragraph
+(b)(1)(ix) (escort visitors, keep physical access logs, control access
+devices) as separate practices, while the rule and the CMMC Assessment
+Guide Level 1 v2.13 count that paragraph once. Examples include using
+passwords, limiting physical access to systems, and updating software.
+
+Under the final rule the requirements carry identifiers keyed to the FAR
+clause paragraphs, AC.L1-b.1.i through SI.L1-b.1.xv. Older material and
+many industry checklists use the 17-practice numbering (AC.L1-3.1.1
+style); see `references/level-1-quickstart.md` for the full mapping
+between the two schemes.
 
 **Key point for contractors:** If your contract involves only FCI (not CUI),
 Level 1 is sufficient. Self-assessment means no third-party audit. You
@@ -107,9 +117,11 @@ monitoring.
 **Key point:** Level 3 is government-assessed. There is no self-assessment
 or third-party option. DIBCAC conducts the assessment directly. This level
 applies to a small subset of DIB contractors working on the most sensitive
-programs.
+programs. A Final Level 2 (C3PAO) status on the same scope is a
+prerequisite. See `level-3-expert.md` for all 24 enhanced requirements,
+DoD-assigned ODPs, Level 3 scoping, and the DIBCAC process.
 
-> Source: 32 CFR 170.16, Level 3 Certification Assessment
+> Source: 32 CFR 170.18, Level 3 Certification Assessment
 
 ---
 
@@ -118,28 +130,32 @@ programs.
 All 110 Level 2 practices are organized into 14 domains. Each domain
 corresponds to a requirement family in NIST SP 800-171 Rev 2:
 
-| Domain | ID | L1 Practices | L2 Practices | Total |
-|--------|----|-------------|-------------|-------|
-| Access Control | AC | 4 | 18 | 22 |
-| Awareness and Training | AT | 0 | 3 | 3 |
-| Audit and Accountability | AU | 0 | 9 | 9 |
-| Configuration Management | CM | 0 | 9 | 9 |
-| Identification and Authentication | IA | 2 | 9 | 11 |
-| Incident Response | IR | 0 | 3 | 3 |
-| Maintenance | MA | 0 | 6 | 6 |
-| Media Protection | MP | 1 | 8 | 9 |
-| Personnel Security | PS | 0 | 2 | 2 |
-| Physical Protection | PE | 4 | 2 | 6 |
-| Risk Assessment | RA | 0 | 3 | 3 |
-| Security Assessment | CA | 0 | 4 | 4 |
-| System and Communications Protection | SC | 2 | 14 | 16 |
-| System and Information Integrity | SI | 4 | 3 | 7 |
-| **Total** | | **17** | **93** | **110** |
+| Domain | ID | L2 Practices | L1 Requirements (FAR 52.204-21) |
+|--------|----|-------------|--------------------------------|
+| Access Control | AC | 22 | 4 |
+| Awareness and Training | AT | 3 | 0 |
+| Audit and Accountability | AU | 9 | 0 |
+| Configuration Management | CM | 9 | 0 |
+| Identification and Authentication | IA | 11 | 2 |
+| Incident Response | IR | 3 | 0 |
+| Maintenance | MA | 6 | 0 |
+| Media Protection | MP | 9 | 1 |
+| Personnel Security | PS | 2 | 0 |
+| Physical Protection | PE | 6 | 2 |
+| Risk Assessment | RA | 3 | 0 |
+| Security Assessment | CA | 4 | 0 |
+| System and Communications Protection | SC | 16 | 2 |
+| System and Information Integrity | SI | 7 | 4 |
+| **Total** | | **110** | **15** |
 
-> Source: CMMC Model Overview v2.0, dodcio.defense.gov
+> Source: CMMC Assessment Guide Level 2 v2.13 and CMMC Assessment Guide
+> Level 1 v2.13, dodcio.defense.gov
 
-**Note:** The 17 Level 1 practices are a subset of the 110 Level 2 practices.
-A Level 2 certification covers all Level 1 requirements automatically.
+**Note:** All 110 requirements are assessed at Level 2 under XX.L2-3.x.x
+identifiers. The 15 Level 1 requirements are FAR 52.204-21 counterparts of
+a subset of them (PE.L1-b.1.ix alone corresponds to three Level 2
+requirements: PE.L2-3.10.3, 3.10.4, and 3.10.5). A Level 2 certification
+covers everything Level 1 protects, and more.
 
 ---
 
@@ -149,11 +165,14 @@ A Level 2 certification covers all Level 1 requirements automatically.
 
 Each of the 110 Level 2 practices is assessed as either **MET** or **NOT MET**.
 
-The scoring system assigns point values to each practice. The maximum score
-is 110 points (one point per practice in the simplest case). However, some
-practices carry higher point values when they have multiple assessment
-objectives, so a practice that is partially implemented may lose more than
-one point.
+The scoring system assigns point values to each practice per the DoD
+Assessment Methodology: 44 practices weigh 5 points, 14 weigh 3 points,
+51 weigh 1 point, and the SSP (CA.L2-3.12.4) is special (without one the
+assessment cannot be conducted). The maximum score is 110 and the floor
+is -203. Only two practices carry partial credit: IA.L2-3.5.3 and
+SC.L2-3.13.11. Per-practice values live in
+`assessment-objectives/{domain}.md` and
+`data/assessment-objectives.json`.
 
 **SPRS scoring:** Organizations calculate their SPRS (Supplier Performance
 Risk System) score by starting at 110 and subtracting points for practices
@@ -177,7 +196,7 @@ If an organization achieves at least 80% but does not meet all 110 practices:
    Methodology v1.2.1 partial-credit structure)
 3. All NOT MET items must be documented in a Plan of Action & Milestones (POA&M)
 4. All POA&M items must be closed within **180 days** per 32 CFR 170.21
-5. A POA&M **closeout assessment** must verify remediation—**who** performs it
+5. A POA&M **closeout assessment** must verify remediation. **Who** performs it
    depends on the assessment path (32 CFR 170.21(b)): Level 2 **(Self)** → the
    OSA performs a closeout self-assessment; Level 2 **(C3PAO)** → an authorized
    or accredited C3PAO; Level 3 **(DIBCAC)** → DCMA DIBCAC
@@ -216,8 +235,10 @@ deferring these items.
 
 ### Level 1 Self-Assessment
 
-1. Organization reviews all 17 Level 1 practices
-2. Assesses each practice as MET or NOT MET
+1. Organization reviews all 15 Level 1 requirements (AC.L1-b.1.i through
+   SI.L1-b.1.xv)
+2. Assesses each requirement as MET, NOT MET, or NOT APPLICABLE per
+   32 CFR 170.24
 3. Documents results
 4. Submits SPRS score
 5. Senior official affirms the assessment with a signed affirmation

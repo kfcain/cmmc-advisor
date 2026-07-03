@@ -192,15 +192,15 @@ the next section.
 | Change tracking (endpoint-level config drift detection) | CM.L2-3.4.3 | L2 |
 | Disk encryption at rest (FIPS 140-validated module) | SC.L2-3.13.11, SC.L2-3.13.16, MP.L2-3.8.1 | L2 |
 | Data-in-transit encryption from the endpoint | SC.L2-3.13.8, SC.L2-3.13.11 | L2 |
-| Patch management (operating system and application) | SI.L1-3.14.1, CM.L2-3.4.9 | L1/L2 |
-| Anti-malware capability on endpoints | SI.L1-3.14.2, SI.L1-3.14.4, SI.L1-3.14.5 | L1 |
+| Patch management (operating system and application) | SI.L2-3.14.1, CM.L2-3.4.9 | L1/L2 |
+| Anti-malware capability on endpoints | SI.L2-3.14.2, SI.L2-3.14.4, SI.L2-3.14.5 | L1 |
 | Endpoint Detection and Response (EDR), monitoring surface | SI.L2-3.14.3, SI.L2-3.14.6, SI.L2-3.14.7 | L2 |
 | Multi-Factor Authentication (MFA) endpoint agent | IA.L2-3.5.3, IA.L2-3.5.4 | L2 |
-| Endpoint account identification and authentication | IA.L1-3.5.1, IA.L1-3.5.2 | L1 |
+| Endpoint account identification and authentication | IA.L2-3.5.1, IA.L2-3.5.2 | L1 |
 | Screen lock and idle timeout | AC.L2-3.1.10, AC.L2-3.1.11 | L2 |
-| Remote wipe / device decommissioning | MP.L1-3.8.3, MP.L2-3.8.1 | L1/L2 |
+| Remote wipe / device decommissioning | MP.L2-3.8.3, MP.L2-3.8.1 | L1/L2 |
 | Remote access posture (VPN, ZTNA, split-tunnel block) | AC.L2-3.1.12, AC.L2-3.1.13, SC.L2-3.13.7 | L2 |
-| External system connection gate (BYOD, contractor laptops) | AC.L1-3.1.20, AC.L2-3.1.21 | L1/L2 |
+| External system connection gate (BYOD, contractor laptops) | AC.L2-3.1.20, AC.L2-3.1.21 | L1/L2 |
 | Mobile device management (MDM), overall capability | CM.L2-3.4.1, CM.L2-3.4.2, CM.L2-3.4.6, AC.L2-3.1.18, AC.L2-3.1.19 | L2 |
 | Endpoint audit log forwarding to SIEM | AU.L2-3.3.1, AU.L2-3.3.2, AU.L2-3.3.5 | L2 |
 

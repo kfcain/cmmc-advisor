@@ -6,9 +6,10 @@ This repository distributes the `cmmc-advisor` Claude Code skill. It ships a ful
 
 Do not treat this repo as a general code project. It is a content-first artifact:
 
-- `SKILL.md` defines the advisor persona, routing table, and anti-patterns.
-- `references/` holds every factual claim the skill cites, organized by CMMC domain, level, assessment process, SSP/POA&M guidance, Rev 3 transition notes, and modern IT mapping.
-- `evals/` tests the skill's answers against real CMMC scenarios.
+- `SKILL.md` defines the advisor persona, routing table, advisory workflow rails, and program toolkit workflows.
+- `references/` holds every factual claim the skill cites: all 14 domain files, the assessment-objective layer (`assessment-objectives/`, all 320 NIST SP 800-171A objectives), levels (including `level-1-quickstart.md` and `level-3-expert.md`), scoping, SSP/POA&M/evidence guidance, the GRC program layer (`grc/`), the Rev 2 to Rev 3 crosswalk, FedRAMP mapping, and modern IT mapping. Machine-readable data lives under `references/data/` (assessment-objectives.json, fedramp-snapshot.json).
+- `templates/` and `scripts/` carry the program toolkit: the program data schema and sample, the AO-level SSP structure and generator, and the self-contained HTML program dashboard and its generator. These are part of the distribution.
+- `evals/` tests the skill's answers against real CMMC scenarios. The runner loads the real SKILL.md with Read/Grep/Glob enabled so routing is exercised; `evals/runner/lint.py` is the deterministic voice/citation lint that CI runs (`.github/workflows/content-lint.yml`).
 - `SOURCES.md` lists the public DoD and NIST sources behind every factual claim. Any new factual assertion must cite a source in `SOURCES.md` before it lands.
 
 ## Philosophy
@@ -44,8 +45,9 @@ Same voice discipline as the wider Igris-family content: no em dashes, no slop w
 
 ## When to use which agent
 
-- Content work on `SKILL.md` or `references/`: edit directly; run the eval runner to confirm no regression on existing scenarios.
-- New domain practice files (there are 14 domains, only 5 have files so far): author one domain at a time, add at least one eval scenario per new domain.
+- Content work on `SKILL.md` or `references/`: edit directly; run `python3 evals/runner/lint.py` and the eval runner to confirm no regression on existing scenarios.
+- All 14 domain files exist, plus the full assessment-objective layer. New content should extend coverage (ROADMAP.md phases) with at least one eval scenario per new capability.
+- Factual data changes (AO dataset, crosswalk, SPRS weights): regenerate from primary sources programmatically and re-verify counts (110 requirements, 320 objectives, -203 floor; crosswalk 77 + 33 = 110, 97 Rev 3); never hand-edit numbers from memory.
 - Eval runner changes: small repo, direct edits are fine; tests are the scenario runs themselves.
 
 ## What this repo does NOT carry

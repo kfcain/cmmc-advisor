@@ -1,0 +1,57 @@
+id: level-3-dibcac-path
+title: Level 2 certified contractor told a recompete will require Level 3
+category: level-selection-and-scoping
+
+prompt: |
+  We are a 300-person contractor holding a Final Level 2 C3PAO
+  certification for our CUI enclave. Our program office just told us the
+  recompete next year will require CMMC Level 3. What actually changes for
+  us? Who assesses us, what new requirements come in, can we POA&M any of
+  it, and does our Level 2 scoping carry over?
+
+required_terms:
+  - NIST SP 800-172
+  - DIBCAC
+  - "24"
+  - Level 2
+  - 32 CFR 170
+  - enhanced
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Level 3 adds 24 enhanced requirements selected from NIST SP 800-172 with
+  DoD-assigned ODPs (table 1 to 32 CFR 170.14(c)(4)) on top of the 110
+  Level 2 requirements. DCMA DIBCAC performs the assessment; there is no
+  C3PAO or self-assessment option. Final Level 2 (C3PAO) on the same or a
+  superset scope is a prerequisite, Level 2 POA&Ms must be closed first,
+  and both the Level 2 and Level 3 assessments recur every three years.
+
+  POA&Ms are permitted at Level 3 only with a score of at least 80% of
+  Level 3 requirements, and seven requirements can never be on a POA&M:
+  IR.L3-3.6.1e (SOC), IR.L3-3.6.2e (CIRT), RA.L3-3.11.1e, RA.L3-3.11.4e,
+  RA.L3-3.11.6e, RA.L3-3.11.7e, and SI.L3-3.14.3e. Closeout is a DIBCAC
+  assessment within 180 days.
+
+  Scoping does not simply carry over: at Level 3, Contractor Risk Managed
+  Assets are treated as CUI assets and Specialized Assets are assessed
+  rather than just documented. The Level 3 scope may be a subset of the
+  Level 2 scope (an enclave within the enclave), which is the main cost
+  containment lever.
+
+  The practical delta is operational capability: 24/7 SOC, CIRT deployable
+  in 24 hours, threat hunting, annual penetration testing, and a supply
+  chain risk program. A strong answer sequences the never-POA&M-eligible
+  capabilities first and mentions ESP/managed-service delivery as a
+  legitimate path with the capability assessed in the contractor's scope.
+
+evaluator_notes: |
+  Score Category B on whether the answer correctly handles Level 3 scoping
+  deltas (CRMA treated as CUI assets, Specialized Assets assessed, subset
+  scope allowed) rather than generic enclave talk. Accuracy checks: 24
+  enhanced requirements from NIST SP 800-172 selected in 32 CFR 170.14;
+  DIBCAC government-led assessment; Final Level 2 (C3PAO) prerequisite
+  with POA&Ms closed; triennial cadence for both levels; the seven
+  POA&M-prohibited requirements (naming SOC and CIRT at minimum). Enabler
+  posture: the answer should give a build sequence and managed-service
+  option, not just requirements recitation.

@@ -53,6 +53,33 @@ compliance documentation and practitioner publications.
 - **URL:** https://www.acquisition.gov/dfars/252.204-7012-safeguarding-covered-defense-information-and-cyber-incident-reporting
 - **Used in:** Incident Response domain, scoping, FedRAMP equivalence framing, modern-IT tenancy decisions
 
+### DFARS 252.204-7019 / 7020 / 7021
+- **Title:** Notice of NIST SP 800-171 DoD Assessment Requirements (7019);
+  NIST SP 800-171 DoD Assessment Requirements (7020); Contractor
+  Compliance with the CMMC Level Requirement (7021)
+- **Publisher:** Department of Defense (DFARS)
+- **URL:** https://www.acquisition.gov/dfars/part-252-solicitation-provisions-and-contract-clauses
+- **Used in:** grc/continuous-monitoring (SPRS score currency, DIBCAC
+  investigation right, CMMC status maintenance), grc/vendor-and-supply-chain
+  (flowdowns)
+
+### DoD CIO Memorandum — FedRAMP Moderate Equivalency
+- **Title:** FedRAMP Moderate Equivalency for Cloud Service Provider's
+  Cloud Service Offerings (December 21, 2023)
+- **Publisher:** DoD CIO
+- **URL:** https://dodcio.defense.gov/Portals/0/Documents/Library/FEDRAMP-EquivalencyCloudServiceProviders.pdf
+- **Used in:** grc/vendor-and-supply-chain (100 percent baseline
+  compliance, 3PAO assessment, body of evidence, no assessment POA&Ms,
+  annual revalidation; verified 2026-07-03 via URL above)
+
+### DoD CIO — ESP Scoping Requirements for Level 2 and Level 3
+- **Title:** CMMC Technical Implementation Requirements presentation
+  (ESP scoping matrix)
+- **Publisher:** DoD CIO
+- **URL:** https://dodcio.defense.gov/Portals/0/Documents/CMMC/TechImplementationCMMC-Rqrmnts.pdf
+- **Used in:** grc/vendor-and-supply-chain ESP decision matrix (CSP vs
+  non-CSP, CUI vs SPD-only treatment; verified 2026-07-03 via URL above)
+
 ### DoD Cloud Computing Security Requirements Guide v1r1
 - **Title:** Department of Defense Cloud Computing Security Requirements Guide
 - **Publisher:** DISA
@@ -83,11 +110,72 @@ compliance documentation and practitioner publications.
 - **URL:** https://www.federalregister.gov/documents/2023/12/26/2023-27280/cybersecurity-maturity-model-certification-cmmc-program
 - **Used in:** Cost projections in contractor-profiles, fedramp-marketplace-guide
 
+### CMMC Assessment Guide — Level 1
+- **Title:** CMMC Assessment Guide Level 1, Version 2.13 (September 2024)
+- **Publisher:** DoD CIO
+- **URL:** https://dodcio.defense.gov/Portals/0/Documents/CMMC/AssessmentGuideL1.pdf
+- **Used in:** Level 1 requirement count (15) and identifiers (AC.L1-b.1.i
+  through SI.L1-b.1.xv), level-1-quickstart, levels-and-assessment
+  (verified 2026-07-03 via URL above)
+
 ### CMMC Assessment Guide — Level 2
-- **Title:** CMMC Assessment Guide Level 2
+- **Title:** CMMC Assessment Guide Level 2, Version 2.13 (September 2024)
 - **Publisher:** DoD CIO
 - **URL:** https://dodcio.defense.gov/Portals/0/Documents/CMMC/AssessmentGuideL2.pdf
-- **Used in:** Assessment process, practice-level guidance, scoping categories
+- **Used in:** Assessment process, practice-level guidance, scoping
+  categories, XX.L2-3.x.x identifier scheme for all 110 requirements
+  (verified 2026-07-03 via URL above)
+
+### NIST SP 800-171 Revision 3 (with Rev 2 change analysis)
+- **Title:** NIST SP 800-171 Rev 3, Protecting Controlled Unclassified
+  Information in Nonfederal Systems and Organizations, plus NIST's
+  Rev 2 to Rev 3 analysis of changes and the CPRT machine-readable
+  dataset (withdrawal dispositions, ODPs)
+- **Publisher:** NIST
+- **URL:** https://csrc.nist.gov/pubs/sp/800/171/r3/final
+- **Used in:** rev2-rev3-crosswalk (dispositions of all 110 Rev 2
+  requirements, 20 new Rev 3 requirements, ODP counts; counts verified
+  2026-07-03: 77 carried + 33 withdrawn = 110, and 97 Rev 3 total),
+  rev3-transition
+
+### DoD NIST SP 800-171 Assessment Methodology v1.2.1
+- **Title:** NIST SP 800-171 DoD Assessment Methodology, Version 1.2.1
+- **Publisher:** Office of the Under Secretary of Defense (A&S)
+- **URL:** https://www.acq.osd.mil/asda/dpc/cp/cyber/docs/safeguarding/NIST-SP-800-171-Assessment-Methodology-Version-1.2.1-6.24.2020.pdf
+- **Used in:** SPRS point values in references/assessment-objectives/ and
+  references/data/assessment-objectives.json (44 five-point, 14
+  three-point, 51 one-point requirements, SSP special rule; partial
+  credit for 3.5.3 and 3.13.11; minimum score -203; distribution
+  cross-checked 2026-07-03)
+
+### CMMC Assessment Guide — Level 3
+- **Title:** CMMC Assessment Guide Level 3, Version 2.13 (September 2024)
+- **Publisher:** DoD CIO
+- **URL:** https://dodcio.defense.gov/Portals/0/Documents/CMMC/AssessmentGuideL3.pdf
+- **Used in:** Level 3 requirement identifiers and names (XX.L3-3.x.xe),
+  level-3-expert (verified 2026-07-03 via URL above)
+
+### CMMC Scoping Guide — Level 1
+- **Title:** CMMC Scoping Guide Level 1, Version 2.13 (September 2024)
+- **Publisher:** DoD CIO
+- **URL:** https://dodcio.defense.gov/Portals/0/Documents/CMMC/ScopingGuideL1.pdf
+- **Used in:** Level 1 scoping rules and Specialized Asset exclusion,
+  level-1-quickstart (verified 2026-07-03 via URL above)
+
+### CMMC Scoping Guide — Level 3
+- **Title:** CMMC Scoping Guide Level 3, Version 2.13 (September 2024)
+- **Publisher:** DoD CIO
+- **URL:** https://dodcio.defense.gov/Portals/0/Documents/CMMC/ScopingGuideL3.pdf
+- **Used in:** Level 3 asset categories, CRMA and Specialized Asset
+  treatment, Level 2 prerequisite scope rules, level-3-expert
+  (verified 2026-07-03 via URL above)
+
+### NIST SP 800-172A — Assessing Enhanced Security Requirements
+- **Title:** NIST SP 800-172A, Assessing Enhanced Security Requirements
+  for Controlled Unclassified Information
+- **Publisher:** NIST
+- **URL:** https://csrc.nist.gov/pubs/sp/800/172/a/final
+- **Used in:** Level 3 assessment methodology references in level-3-expert
 
 ### CMMC Model Overview v2.0
 - **Title:** CMMC Model Overview Version 2.0

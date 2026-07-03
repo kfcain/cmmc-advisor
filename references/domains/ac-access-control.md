@@ -14,12 +14,18 @@ connection in your environment.
 
 ---
 
-## Level 1 Practices
+## Practices with Level 1 Counterparts
 
-These 4 practices apply to all CMMC levels and represent fundamental
-access control capabilities.
+The CUI requirements in this section are assessed at Level 2 under their
+XX.L2-3.x.x identifiers. Each also protects FCI at Level 1 through a
+counterpart requirement in FAR 52.204-21, identified as XX.L1-b.1.i through
+XX.L1-b.1.xv in 32 CFR 170.15 and the CMMC Assessment Guide Level 1. FCI-only
+organizations self-assess the Level 1 counterparts; see
+`references/level-1-quickstart.md`.
 
-### AC.L1-3.1.1 — Authorized Access Control
+### AC.L2-3.1.1 — Authorized Access Control
+
+*Level 1 counterpart: AC.L1-b.1.i (FAR 52.204-21)*
 
 **Requirement:** Limit system access to authorized users, processes acting
 on behalf of authorized users, and devices (including other systems).
@@ -58,7 +64,9 @@ Google side).
 
 ---
 
-### AC.L1-3.1.2 — Transaction and Function Control
+### AC.L2-3.1.2 — Transaction and Function Control
+
+*Level 1 counterpart: AC.L1-b.1.ii (FAR 52.204-21)*
 
 **Requirement:** Limit system access to the types of transactions and
 functions that authorized users are permitted to execute.
@@ -86,7 +94,9 @@ should not approve their own code deployments.
 
 ---
 
-### AC.L1-3.1.20 — External System Connections
+### AC.L2-3.1.20 — External System Connections
+
+*Level 1 counterpart: AC.L1-b.1.iii (FAR 52.204-21)*
 
 **Requirement:** Verify and control/limit connections to and use of
 external systems.
@@ -115,7 +125,9 @@ to know what external connections exist and control them.
 
 ---
 
-### AC.L1-3.1.22 — Publicly Accessible Content
+### AC.L2-3.1.22 — Publicly Accessible Content
+
+*Level 1 counterpart: AC.L1-b.1.iv (FAR 52.204-21)*
 
 **Requirement:** Control CUI posted or processed on publicly
 accessible systems.
@@ -670,9 +682,9 @@ because findings in AC often cascade into other domains (Audit, IA, SC).
 
 **Key relationships:**
 - AC practices depend on Identification and Authentication (IA) for
-  user verification; specifically IA.L1-3.5.1 (identify users) and
-  IA.L1-3.5.2 (authenticate users) are prerequisites for AC.L1-3.1.1
-  and AC.L1-3.1.2
+  user verification; specifically IA.L2-3.5.1 (identify users) and
+  IA.L2-3.5.2 (authenticate users) are prerequisites for AC.L2-3.1.1
+  and AC.L2-3.1.2
 - AC practices generate evidence relevant to Audit and Accountability
   (AU), notably AU.L2-3.3.1 (audit log creation) and AU.L2-3.3.2
   (user traceability), which depend on AC to know who is logged in
@@ -681,12 +693,12 @@ because findings in AC often cascade into other domains (Audit, IA, SC).
   requirements, specifically SC.L2-3.13.8 (transmission
   confidentiality) and SC.L2-3.13.11 (FIPS-validated cryptography)
 - Federal Risk and Authorization Management Program (FedRAMP)
-  inheritance: AC.L1-3.1.1, AC.L1-3.1.2, and the L2 AC practices
+  inheritance: AC.L2-3.1.1, AC.L2-3.1.2, and the L2 AC practices
   overlap with FedRAMP Moderate NIST SP 800-53 controls AC-2,
   AC-3, and AC-17. See `references/fedramp-gap.md` "Access control"
   family deep-dive under "Where the mapping is tightest" for the
   inheritance pattern and the break-glass-account gap
-- AC.L1-3.1.20 (external system connections) is anchored in the
+- AC.L2-3.1.20 (external system connections) is anchored in the
   Defense Federal Acquisition Regulation Supplement (DFARS)
   252.204-7012(b)(2)(ii)(D) when the external system is a cloud
   service holding CUI. See `references/fedramp-gap.md` "The CUI

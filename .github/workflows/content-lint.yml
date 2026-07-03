@@ -1,0 +1,38 @@
+name: content-lint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Voice and citation lint
+        run: python3 evals/runner/lint.py
+      - name: Scenario YAML sanity
+        run: |
+          pip install pyyaml
+          python3 - <<'EOF'
+          import glob, yaml
+          for f in glob.glob("evals/scenarios/*.yaml"):
+              d = yaml.safe_load(open(f))
+              assert d.get("id") and d.get("prompt"), f
+          print("scenarios ok")
+          EOF
+      - name: AO dataset integrity
+        run: |
+          python3 - <<'EOF'
+          import json
+          d = json.load(open("references/data/assessment-objectives.json"))
+          assert d["requirement_count"] == 110
+          assert sum(len(r["assessment_objectives"]) for r in d["requirements"]) == 320
+          deductions = sum(r["sprs_value"] for r in d["requirements"])
+          assert 110 - deductions == -203, deductions
+          print("AO dataset ok")
+          EOF

@@ -9,7 +9,7 @@ Security Assessment is where "we implemented the controls" becomes
 Level 2: CA.L2-3.12.1 (periodic control assessment), CA.L2-3.12.2
 (plans of action for deficiencies), CA.L2-3.12.3 (continuous
 monitoring), and CA.L2-3.12.4 (system security plan development and
-periodic update). No Level 1 practices exist in this domain, so
+periodic update). No Level 1 counterparts exist in this domain, so
 contractors handling only FCI have no CA obligation. Two of the four
 practices overlap with dedicated skill references.
 SSP (System Security Plan) structure, section content, and
@@ -229,10 +229,10 @@ reappear a month later.
 - Reporting and review: monitoring data flows to dashboards that
   an identified role reviews on a documented schedule. Raw
   telemetry that nobody reads is not monitoring
-- Coordination with SI.L1-3.14.1 (flaw remediation) and
+- Coordination with SI.L2-3.14.1 (flaw remediation) and
   SI.L2-3.14.3 (security alerts and advisories): CA.L2-3.12.3
   owns the assessment and monitoring cadence (are controls still
-  operating, are findings still being produced). SI.L1-3.14.1
+  operating, are findings still being produced). SI.L2-3.14.1
   owns flaw-correction execution (are findings being closed).
   SI.L2-3.14.3 provides the advisory-intake channel that surfaces
   new findings from external sources into the monitoring program.
@@ -253,7 +253,7 @@ reappear a month later.
 - Review records showing identified personnel examined monitoring
   output on the documented schedule
 - Cross-reference between monitoring-detected issues and
-  SI.L1-3.14.1 remediation records demonstrating the coordinated
+  SI.L2-3.14.1 remediation records demonstrating the coordinated
   tracking artifact
 - Change log showing ISCM strategy revisions tied to scope or
   technology changes
@@ -264,7 +264,7 @@ reappear a month later.
   review cadence assigned
 - Monitoring dashboards exist but no identified role reviews them;
   alerts accumulate until an incident forces manual triage
-- ISCM cadence documented but SI.L1-3.14.1 remediation tracking
+- ISCM cadence documented but SI.L2-3.14.1 remediation tracking
   uses a different ticketing system; the assessor cannot
   reconcile findings to closure
 - Real-time alerts in tooling but no real-time response path; an
@@ -382,7 +382,7 @@ common assessment gaps in this domain.
   that cannot be immediately remediated
 - System and Information Integrity (SI) shares the findings
   inventory with CA.L2-3.12.3 continuous monitoring. CA owns the
-  assessment cadence; SI.L1-3.14.1 and SI.L2-3.14.3 own
+  assessment cadence; SI.L2-3.14.1 and SI.L2-3.14.3 own
   flaw-correction execution. A single authoritative record per
   finding is the coordination target
 - Audit and Accountability (AU) log data is assessment evidence

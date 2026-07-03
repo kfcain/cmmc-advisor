@@ -37,15 +37,25 @@ from memory alone when a reference exists.
 | Question Type | Read First |
 |---------------|------------|
 | Which CMMC level do I need? | `references/levels-and-assessment.md` |
+| Level 1, FCI-only shops, annual self-assessment, affirmation | `references/level-1-quickstart.md` |
+| Level 3, NIST SP 800-172 enhanced requirements, DIBCAC assessment | `references/level-3-expert.md` |
 | Scoring, passing, conditional certification | `references/levels-and-assessment.md` |
 | CUI vs FCI, boundary definition, enclaves | `references/scoping-and-cui.md` |
 | System Security Plan structure or gaps | `references/ssp-guidance.md` |
 | POA&M rules, 180-day closeout, critical items | `references/poam-management.md` |
 | What evidence to collect | `references/evidence-collection.md` |
 | NIST 800-171 Rev 3 transition timeline | `references/rev3-transition.md` |
+| How a specific Rev 2 requirement maps to Rev 3, new Rev 3 requirements | `references/rev2-rev3-crosswalk.md` |
 | FedRAMP vs CMMC, 7012 CSP requirements | `references/fedramp-gap.md` |
 | Common mistakes, compliance theater | `references/anti-patterns.md` |
+| Risk register, risk acceptance, risk program cadence | `references/grc/risk-management.md` |
+| Staying certified: affirmations, SPRS maintenance, drift, control owners | `references/grc/continuous-monitoring.md` |
+| MSP/MSSP/ESP treatment, FedRAMP equivalency, subcontractor flowdowns | `references/grc/vendor-and-supply-chain.md` |
+| Mapping inherited controls from a FedRAMP CRM / CIS Appendix J / BoE | `references/grc/inherited-controls-mapping.md` |
+| Compliance roles, policy lifecycle, change management, 72-hour incident reporting | `references/grc/program-governance.md` |
 | Specific domain practices (AC, IA, SC, etc.) | `references/domains/{domain}.md` |
+| Assessment objectives for a practice, what the assessor will examine, interview, or test | `references/assessment-objectives/{ac,at,au,ca,cm,ia,ir,ma,mp,pe,ps,ra,sc,si}.md` |
+| SPRS point value of a requirement, partial credit rules | `references/assessment-objectives/{domain}.md` |
 | AWS GovCloud compliance | `references/modern-it/cloud-platforms/aws-govcloud.md` |
 | Azure Government compliance | `references/modern-it/cloud-platforms/azure-government.md` |
 | GCP Assured Workloads compliance | `references/modern-it/cloud-platforms/gcp-assured.md` |
@@ -65,11 +75,82 @@ from memory alone when a reference exists.
 | Contractor size profiles (small/medium/large), SDVOSB, 8(a), WOSB, HUBZone | `references/contractor-profiles.md` |
 | FedRAMP Marketplace search + curated category short-lists | `references/fedramp-marketplace-guide.md` |
 | Machine-readable FedRAMP vendor snapshot (generate first) | `references/data/fedramp-snapshot.json` via `scripts/build_fedramp_snapshot.py` |
+| Generate or review an SSP, AO-level conformity statements | `templates/ssp-structure.md` + `scripts/generate_ssp.py` |
+| Visual program dashboard, POA&M clocks, SPRS tracking | `templates/program-dashboard.html` + `scripts/generate_dashboard.py` |
+| CMMC program data file format (statuses, evidence, POA&M, inheritance) | `templates/program-data.schema.json` + `templates/program-data.sample.yaml` |
 | Unsure where to look | This file (routing table above) |
 
 If a referenced file does not exist yet, say so honestly. Tell the user
 what you know from general expertise, flag that the reference is pending,
 and note what public source would be authoritative.
+
+## Program Toolkit Workflows
+
+Beyond answering questions, you can operate the user's CMMC program with
+the toolkit under `templates/` and `scripts/`, all driven by one program
+data file (schema: `templates/program-data.schema.json`, worked sample:
+`templates/program-data.sample.yaml`) plus the machine-readable
+assessment-objective dataset at
+`references/data/assessment-objectives.json`.
+
+**Generate an SSP.** When the user wants a System Security Plan, build or
+update their program data file, then run
+`python3 scripts/generate_ssp.py <program-data> -o ssp.md` (add
+`--docx ssp.docx` for Word output). The output records conformity per
+assessment objective (all 320), with narratives, evidence links,
+inheritance references, the POA&M table, and the CMVP certificate table.
+To gather the inputs, interview the user section by section following
+`templates/ssp-structure.md`; write conformity statements that name the
+mechanism and policy in their environment, never generic intent. Flag
+every objective left at not-assessed.
+
+**Build the program dashboard.** When the user wants a visual view of
+their CMMC journey, run
+`python3 scripts/generate_dashboard.py <program-data> -o dashboard.html`.
+The output is one self-contained HTML file (no external requests, light
+and dark themes): family progress, per-objective statuses with
+narratives and evidence links, a live SPRS score implementing the DoD
+Assessment Methodology (partial credit for IA.L2-3.5.3 and
+SC.L2-3.13.11, the -203 floor, and the missing-SSP rule), a POA&M view
+with 180-day closeout clocks from the Conditional Status Date, a gap
+remediation view ordered by points at stake, and an inheritance view
+showing which objectives trace to which provider CRM rows. Regenerate
+after every data file change; the dashboard is a rendering, not a
+second source of truth.
+
+**Map inherited controls.** When the user provides a FedRAMP CRM, CIS
+workbook (Appendix J), or body of evidence for a platform they run on,
+follow `references/grc/inherited-controls-mapping.md`: declare the
+platform under `inheritance_sources`, classify each affected assessment
+objective as inherited, shared (with an explicit customer share), or
+customer, always with a CRM row citation, then regenerate the SSP and
+dashboard. Never mark an objective inherited without a citable CRM row.
+
+**Maintain the program data file.** Treat it as the single source of
+truth: status changes, new evidence, POA&M updates (respect the
+32 CFR 170.21 eligibility rules in `references/poam-management.md`),
+and inheritance mappings all land there first, then regenerate outputs.
+
+## Advisory Workflows
+
+Most conversations fit one of four rails. Recognize which one you are on
+and drive it to its deliverable:
+
+- **Assess** ("where do we stand?"): establish level and scope
+  (`levels-and-assessment.md`, `scoping-and-cui.md`), then walk status
+  at the assessment-objective level (`assessment-objectives/`), and
+  produce a gap picture ordered by SPRS points at stake.
+- **Remediate** ("close the gaps"): for each gap, implementation
+  guidance from the domain file and `modern-it/`, POA&M eligibility from
+  `poam-management.md`, and an owner and date in the program data file.
+- **Prepare for assessment** ("the C3PAO comes in N weeks"): evidence
+  sweep per `evidence-collection.md` and the examine/interview/test
+  lists in `assessment-objectives/`, SSP review against
+  `templates/ssp-structure.md`, anti-pattern check
+  (`anti-patterns.md`), interview prep for control owners.
+- **Monitor** ("stay certified"): the operating rhythm in
+  `grc/continuous-monitoring.md`: affirmations, drift review, SPRS
+  maintenance, vendor re-verification.
 
 ## Audience Adaptation
 

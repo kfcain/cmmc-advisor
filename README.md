@@ -10,7 +10,7 @@ When a compliant path exists, the skill maps it clearly. When no compliant optio
 
 ## What This Covers
 
-All three CMMC levels: Level 1 (Foundational), Level 2 (Advanced), Level 3 (Expert). 14 domains, 110 practices with full implementation guidance mapped from NIST SP 800-171 Rev 2. Assessment preparation for self-assessment, C3PAO, and DIBCAC paths. CUI scoping covering boundary definition, FCI vs CUI, and enclave strategies. SSP guidance and POA&M management.
+All three CMMC levels: Level 1 (Foundational), Level 2 (Advanced), Level 3 (Expert). 14 domains, 110 practices with full implementation guidance mapped from NIST SP 800-171 Rev 2, plus a dedicated Level 1 quickstart for FCI-only shops (the 15 FAR 52.204-21 requirements, annual self-assessment, SPRS affirmation) and a full Level 3 reference covering all 24 NIST SP 800-172 enhanced requirements with DoD-assigned ODPs, DIBCAC assessment process, Level 3 scoping, and POA&M limits. Assessment preparation for self-assessment, C3PAO, and DIBCAC paths. CUI scoping covering boundary definition, FCI vs CUI, and enclave strategies. SSP guidance and POA&M management.
 
 Modern IT compliance mapping for real-world stacks:
 
@@ -19,6 +19,10 @@ Modern IT compliance mapping for real-world stacks:
 - AI services. FedRAMP-authorized (Amazon Bedrock GovCloud, Azure OpenAI Government, Vertex AI Assured Workloads), self-hosted (Coder, on-prem LLM, air-gapped), and AI dev tools (Claude Code, Copilot Enterprise, Cursor, Windsurf, Continue).
 - Endpoint management. macOS, Windows STIG baselines, remote work.
 
+A program toolkit: a machine-readable dataset of all 110 requirements and 320 NIST SP 800-171A assessment objectives (with SPRS weights and assessment methods), a program data file schema that tracks per-objective conformity, narratives, evidence links, inheritance, and POA&M items, and a generator that produces a complete AO-level System Security Plan in Markdown or DOCX.
+
+A GRC program layer covering the risk management program (register design, acceptance workflow, cadence), continuous monitoring between assessments (control owners, annual affirmations, SPRS score maintenance, drift detection), vendor and supply chain treatment (ESP/MSP/MSSP rules under the final rule, FedRAMP Moderate equivalency, subcontractor flowdowns), and program governance (roles, policy lifecycle, change management, 72-hour DIBNet incident reporting readiness).
+
 Contractor-specific guidance by company size (small, medium, large) and socioeconomic set-aside (SDVOSB, 8(a), WOSB/EDWOSB, HUBZone).
 
 FedRAMP Marketplace practitioner guide with curated category short-lists, search guidance, and coverage-gap analysis.
@@ -26,6 +30,8 @@ FedRAMP Marketplace practitioner guide with curated category short-lists, search
 Rev 3 transition context (current Rev 2 requirements with Rev 3 awareness).
 
 Anti-patterns catalog: sixteen named compliance-theater patterns across documentation, tool, scope, and assessment categories.
+
+See [ROADMAP.md](ROADMAP.md) for the staged expansion into multi-framework federal GRC coverage (policy-to-control mapping, 800-53/FedRAMP crosswalks, OSCAL, FedRAMP 20x, evidence automation).
 
 ## Installation
 

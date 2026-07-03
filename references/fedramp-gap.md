@@ -356,8 +356,8 @@ authoritative regardless of paraphrase wording.
 
 | CMMC Practice | 800-53 Controls | Notes |
 |---------------|------------------|-------|
-| AC.L1-3.1.1 | AC-2, AC-3, AC-17 | Authorized access control |
-| AC.L1-3.1.2 | AC-2, AC-3, AC-17 | Transaction and function control (shares AC-2/3/17 with 3.1.1) |
+| AC.L2-3.1.1 | AC-2, AC-3, AC-17 | Authorized access control |
+| AC.L2-3.1.2 | AC-2, AC-3, AC-17 | Transaction and function control (shares AC-2/3/17 with 3.1.1) |
 | AC.L2-3.1.3 | AC-4 | Information flow enforcement (CUI flow) |
 | AC.L2-3.1.4 | AC-5 | Separation of duties |
 | AC.L2-3.1.5 | AC-6, AC-6(1), AC-6(5) | Least privilege |
@@ -375,9 +375,9 @@ authoritative regardless of paraphrase wording.
 | AC.L2-3.1.17 | AC-18(1) | Wireless authentication and encryption |
 | AC.L2-3.1.18 | AC-19 | Mobile device connection control |
 | AC.L2-3.1.19 | AC-19(5) | Mobile device encryption |
-| AC.L1-3.1.20 | AC-20, AC-20(1) | External system connections |
+| AC.L2-3.1.20 | AC-20, AC-20(1) | External system connections |
 | AC.L2-3.1.21 | AC-20(2) | Portable storage on external systems |
-| AC.L1-3.1.22 | AC-22 | Publicly accessible content |
+| AC.L2-3.1.22 | AC-22 | Publicly accessible content |
 
 #### Awareness and Training (AT) — 3 practices
 
@@ -428,8 +428,8 @@ authoritative regardless of paraphrase wording.
 
 | CMMC Practice | 800-53 Controls | Notes |
 |---------------|------------------|-------|
-| IA.L1-3.5.1 | IA-2, IA-3, IA-5 | Identify system users |
-| IA.L1-3.5.2 | IA-2, IA-3, IA-5 | Authenticate users (shares anchors) |
+| IA.L2-3.5.1 | IA-2, IA-3, IA-5 | Identify system users |
+| IA.L2-3.5.2 | IA-2, IA-3, IA-5 | Authenticate users (shares anchors) |
 | IA.L2-3.5.3 | IA-2(1), IA-2(2), IA-2(3) | Multi-factor authentication |
 | IA.L2-3.5.4 | IA-2(8), IA-2(9) | Replay-resistant authentication. See Rev 5 notes. |
 | IA.L2-3.5.5 | IA-4 | Identifier reuse prevention |
@@ -465,7 +465,7 @@ authoritative regardless of paraphrase wording.
 |---------------|------------------|-------|
 | MP.L2-3.8.1 | MP-2, MP-4, MP-6 | Protect system media |
 | MP.L2-3.8.2 | MP-2, MP-4, MP-6 | Limit media access (shares anchors) |
-| MP.L1-3.8.3 | MP-2, MP-4, MP-6 | Sanitize before disposal (shares anchors) |
+| MP.L2-3.8.3 | MP-2, MP-4, MP-6 | Sanitize before disposal (shares anchors) |
 | MP.L2-3.8.4 | MP-3 | Media marking |
 | MP.L2-3.8.5 | MP-5 | Media transport |
 | MP.L2-3.8.6 | MP-5(4) | Cryptographic protection in transport |
@@ -484,11 +484,11 @@ authoritative regardless of paraphrase wording.
 
 | CMMC Practice | 800-53 Controls | Notes |
 |---------------|------------------|-------|
-| PE.L1-3.10.1 | PE-2, PE-4, PE-5, PE-6 | Limit physical access |
+| PE.L2-3.10.1 | PE-2, PE-4, PE-5, PE-6 | Limit physical access |
 | PE.L2-3.10.2 | PE-2, PE-4, PE-5, PE-6 | Monitor physical facility (shares anchors) |
-| PE.L1-3.10.3 | PE-3 | Escort visitors |
-| PE.L1-3.10.4 | PE-3 | Physical access logs (shares PE-3) |
-| PE.L1-3.10.5 | PE-3 | Physical access devices (shares PE-3) |
+| PE.L2-3.10.3 | PE-3 | Escort visitors |
+| PE.L2-3.10.4 | PE-3 | Physical access logs (shares PE-3) |
+| PE.L2-3.10.5 | PE-3 | Physical access devices (shares PE-3) |
 | PE.L2-3.10.6 | PE-17 | Alternate work site safeguards |
 
 #### Risk Assessment (RA) — 3 practices
@@ -503,11 +503,11 @@ authoritative regardless of paraphrase wording.
 
 | CMMC Practice | 800-53 Controls | Notes |
 |---------------|------------------|-------|
-| SC.L1-3.13.1 | SC-7 | Boundary protection |
+| SC.L2-3.13.1 | SC-7 | Boundary protection |
 | SC.L2-3.13.2 | SA-8 | Security engineering principles. SA-8 is the System and Services Acquisition family control folded into SC in Appendix D. |
 | SC.L2-3.13.3 | SC-2 | Application partitioning |
 | SC.L2-3.13.4 | SC-4 | Shared resource information protection |
-| SC.L1-3.13.5 | SC-7 | Public access system separation (shares SC-7) |
+| SC.L2-3.13.5 | SC-7 | Public access system separation (shares SC-7) |
 | SC.L2-3.13.6 | SC-7(5) | Deny by default, allow by exception |
 | SC.L2-3.13.7 | SC-7(7) | Split tunneling prevention |
 | SC.L2-3.13.8 | SC-8, SC-8(1) | Transmission confidentiality and integrity |
@@ -524,11 +524,11 @@ authoritative regardless of paraphrase wording.
 
 | CMMC Practice | 800-53 Controls | Notes |
 |---------------|------------------|-------|
-| SI.L1-3.14.1 | SI-2, SI-3, SI-5 | Flaw remediation |
-| SI.L1-3.14.2 | SI-2, SI-3, SI-5 | Malicious code protection (shares anchors) |
+| SI.L2-3.14.1 | SI-2, SI-3, SI-5 | Flaw remediation |
+| SI.L2-3.14.2 | SI-2, SI-3, SI-5 | Malicious code protection (shares anchors) |
 | SI.L2-3.14.3 | SI-2, SI-3, SI-5 | Security alerts and advisories (shares anchors) |
-| SI.L1-3.14.4 | SI-3 | Update malicious code mechanisms |
-| SI.L1-3.14.5 | SI-3 | Periodic and real-time scanning (shares SI-3) |
+| SI.L2-3.14.4 | SI-3 | Update malicious code mechanisms |
+| SI.L2-3.14.5 | SI-3 | Periodic and real-time scanning (shares SI-3) |
 | SI.L2-3.14.6 | SI-4, SI-4(4) | System monitoring inbound and outbound |
 | SI.L2-3.14.7 | SI-4 | Unauthorized use detection |
 
@@ -607,9 +607,9 @@ or authenticator apps.
 
 #### Boundary protection
 
-**CMMC anchor.** SC.L1-3.13.1 requires monitoring, controlling, and
+**CMMC anchor.** SC.L2-3.13.1 requires monitoring, controlling, and
 protecting communications at the external boundaries and key
-internal boundaries. SC.L1-3.13.5 requires subnet separation for
+internal boundaries. SC.L2-3.13.5 requires subnet separation for
 publicly accessible components. SC.L2-3.13.6 (deny by default)
 and SC.L2-3.13.7 (split tunneling prevention) extend the boundary
 controls.
@@ -669,16 +669,16 @@ AU-family domain details.
 
 #### Access control
 
-**CMMC anchor.** AC.L1-3.1.1 and AC.L1-3.1.2 require limiting
-system access and transaction types to authorized users. AC.L1-3.1.20
-addresses external system connections; AC.L1-3.1.22 addresses
+**CMMC anchor.** AC.L2-3.1.1 and AC.L2-3.1.2 require limiting
+system access and transaction types to authorized users. AC.L2-3.1.20
+addresses external system connections; AC.L2-3.1.22 addresses
 publicly accessible content. The L2 practices cover the full
 depth: least privilege, session management, remote access,
 wireless, mobile.
 
 **FedRAMP anchor.** AC-2 (Account Management), AC-3 (Access
 Enforcement), AC-17 (Remote Access) are the three workhorse
-controls shared by AC.L1-3.1.1 and AC.L1-3.1.2.
+controls shared by AC.L2-3.1.1 and AC.L2-3.1.2.
 
 **What the contractor inherits.** FedRAMP Moderate CSPs operate AC-2
 identity lifecycle tooling and AC-3 policy enforcement points at
@@ -747,8 +747,8 @@ three categories:
 points to the CSP's ATO and uses it as implementing evidence. Most
 physical protection (PE), environmental, and infrastructure
 controls fall here. A contractor hosting exclusively on a FedRAMP
-Moderate CSP typically inherits PE.L1-3.10.1 and PE.L1-3.10.3
-through PE.L1-3.10.5 fully (the CSP operates the data center).
+Moderate CSP typically inherits PE.L2-3.10.1 and PE.L2-3.10.3
+through PE.L2-3.10.5 fully (the CSP operates the data center).
 PE.L2-3.10.6 (alternate work site) is contractor-side because the
 alternate work site is the contractor's office.
 
@@ -1531,8 +1531,8 @@ names Rev 5 as the current baseline, and states the Moderate CUI
 requirement.
 
 **CMMC to FedRAMP Moderate Overlap Crosswalk.** Maps each of the 110
-CMMC Level 2 practices (which includes the 17 CMMC Level 1 practices
-as a subset) to its corresponding NIST SP 800-53 Rev 5 control or
+CMMC Level 2 practices (a subset of which have Level 1 FAR 52.204-21
+counterparts) to its corresponding NIST SP 800-53 Rev 5 control or
 control set, with substantive treatment of the families where the
 mapping is tightest: FIPS-validated cryptography, multi-factor
 authentication, boundary protection, audit logging, access control,

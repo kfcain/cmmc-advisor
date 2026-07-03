@@ -12,7 +12,7 @@ alerting, AU.L2-3.3.5 audit correlation), coordinates with
 Configuration Management (CM) during containment and recovery
 (CM.L2-3.4.3 change tracking for rollback decisions), relies on
 System and Communications Protection (SC) to understand where the
-boundary is (SC.L1-3.13.1 boundary protection), and leans on
+boundary is (SC.L2-3.13.1 boundary protection), and leans on
 Identification and Authentication (IA) for account lockdown during
 triage (IA.L2-3.5.6 identifier disabling). The domain has 3
 practices, all at Level 2. No Level 1 IR practices exist, so
@@ -372,5 +372,5 @@ should start early because the medallion certificate has lead time.
   hours per DFARS 252.204-7012(c)(1)(ii), with malware samples to DC3
   under (d) and 90-day media preservation under (e). A joint incident
   runs both tracks. See `references/fedramp-gap.md` "Incident
-  reporting cadence" and "DFARS 252.204-7012 — the safeguarding clause
+  reporting cadence" and "DFARS 252.204-7012, the safeguarding clause
   in full"

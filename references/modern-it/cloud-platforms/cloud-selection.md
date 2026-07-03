@@ -306,7 +306,7 @@ mistakes.
 | Cryptographic key management (SC.L2-3.13.10) | KMS GovCloud, CloudHSM | Key Vault Premium, Managed HSM | Cloud KMS, Cloud HSM, External Key Manager |
 | Data at rest encryption (SC.L2-3.13.11, SC.L2-3.13.16) | S3 SSE, EBS encryption, RDS encryption using KMS | Azure Storage Service Encryption, Disk Encryption, SQL TDE | Cloud Storage CMEK, Persistent Disk encryption, Cloud SQL CMEK |
 | Data in transit (SC.L2-3.13.8) | VPC endpoints, TLS via ACM, PrivateLink | Private Link, ExpressRoute, TLS via Key Vault certificates | Private Google Access, VPC Service Controls, Cloud HTTPS Load Balancing |
-| Network boundary protection (SC.L1-3.13.1, SC.L2-3.13.6) | VPC, Security Groups, Network ACLs, WAF, Shield | VNet, NSGs, Azure Firewall Premium, WAF | VPC, firewall rules, Cloud Armor, VPC Service Controls |
+| Network boundary protection (SC.L2-3.13.1, SC.L2-3.13.6) | VPC, Security Groups, Network ACLs, WAF, Shield | VNet, NSGs, Azure Firewall Premium, WAF | VPC, firewall rules, Cloud Armor, VPC Service Controls |
 | Audit and logging (AU family) | CloudTrail, Config, CloudWatch, Security Hub | Activity Log, Azure Monitor, Log Analytics, Sentinel | Cloud Audit Logs, Cloud Logging, Security Command Center Premium |
 | Continuous monitoring and threat detection (SI.L2-3.14.6, SI.L2-3.14.7) | GuardDuty, Inspector, Security Hub | Defender for Cloud, Sentinel | Security Command Center Premium, Chronicle |
 | Configuration management (CM family) | Config, Systems Manager, Organizations SCPs | Azure Policy, Defender for Cloud benchmarks, Management Groups | Organization Policy, Security Command Center posture, Folder-level policies |
@@ -371,7 +371,7 @@ commercial-tenancy productivity suite; CUI processing and
 storage on a government-tenancy compute platform. Example
 composition: Microsoft 365 Commercial for non-CUI email,
 AWS GovCloud for CUI analytics and storage. The boundary
-between the two is a gate (SC.L1-3.13.1 boundary protection):
+between the two is a gate (SC.L2-3.13.1 boundary protection):
 CUI never transits the commercial productivity plane.
 
 **When this works.** The contractor's CUI workflow is

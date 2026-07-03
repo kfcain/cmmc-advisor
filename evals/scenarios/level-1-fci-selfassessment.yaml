@@ -1,0 +1,62 @@
+id: level-1-fci-selfassessment
+title: Small machine shop with DoD purchase orders and no CUI
+category: level-selection-and-scoping
+
+prompt: |
+  We are an 8-person machine shop. We hold a few DoD purchase orders for
+  standard fasteners and brackets. We get drawings from the prime but none
+  of them carry any markings, and we have never been asked to handle
+  anything labeled CUI. Our contracts reference FAR 52.204-21 but not any
+  DFARS cybersecurity clause.
+
+  What do we actually have to do for CMMC? Can we put anything we have not
+  finished on a POA&M and deal with it later? And who has to sign off?
+
+required_terms:
+  - FCI
+  - FAR 52.204-21
+  - self-assessment
+  - SPRS
+  - affirmation
+  - POA&M
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Level 1 self-assessment. The shop handles Federal Contract Information
+  (purchase orders, unmarked drawings provided under contract), and with
+  FAR 52.204-21 present and no DFARS 252.204-7012 clause, Level 1 is the
+  requirement: the 17 Level 1 practices, codified in the final rule as 15
+  basic safeguarding requirements (AC.L1-b.1.i through SI.L1-b.1.xv),
+  self-assessed annually with results submitted in SPRS.
+
+  No POA&Ms are permitted at Level 1 (32 CFR 170.15). Every requirement
+  must be MET or NOT APPLICABLE; there is no conditional status and no
+  defer-and-fix-later path.
+
+  The Affirming Official, a senior company representative responsible for
+  CMMC compliance, must affirm continuing compliance in SPRS after the
+  self-assessment and annually thereafter (32 CFR 170.22), and the answer
+  should note the affirmation carries legal weight.
+
+  A strong answer also checks for hidden CUI: unmarked technical drawings
+  from a prime deserve a written question to the contracting officer or
+  prime, because export-controlled or technical data may be CUI even when
+  unmarked, which would move the shop to Level 2. It should close with a
+  practical, low-cost implementation path (MFA, updates, physical controls,
+  media disposal), not just the rule citation.
+
+evaluator_notes: |
+  Score Category B (CUI scoping) on whether the answer correctly bounds
+  the question: recognizes purchase orders and contract drawings as FCI,
+  flags the unmarked-drawings CUI risk, and does not invent a CUI
+  obligation that is not in evidence. Either Level 1 count is correct
+  when framed properly: 17 practices (the CMMC Model count) or 15
+  security requirements (as codified in 32 CFR 170.14(c)(2) and the
+  Assessment Guide Level 1 v2.13); the strongest answers give both and
+  note the FAR paragraph (b)(1)(ix) consolidation that relates them. An
+  answer asserting one count while denying the other is valid has an
+  accuracy defect. The answer must state that POA&Ms are not permitted
+  at Level 1. Enabler posture: the answer
+  should give the shop a concrete cheap path to MET, not a wall of
+  regulation.

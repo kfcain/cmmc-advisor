@@ -19,12 +19,12 @@ and two Derived (3.14.4, 3.14.5); L2 contains one Basic (3.14.3) and two
 Derived (3.14.6, 3.14.7). Do not conflate the two classifications.
 
 Three practice clusters carry distinct operational loads. Flaw
-remediation (SI.L1-3.14.1) is the patching-and-correction backbone, the
+remediation (SI.L2-3.14.1) is the patching-and-correction backbone, the
 practice most visible on a POA&M (Plan of Action and Milestones) and the
 execution counterpart to RA.L2-3.11.3 vulnerability remediation.
-Malicious-code capability and execution (SI.L1-3.14.2 capability,
-SI.L1-3.14.4 currency, SI.L1-3.14.5 scanning execution) function as a
-capability-hub cluster where SI.L1-3.14.2 defines the anti-malware
+Malicious-code capability and execution (SI.L2-3.14.2 capability,
+SI.L2-3.14.4 currency, SI.L2-3.14.5 scanning execution) function as a
+capability-hub cluster where SI.L2-3.14.2 defines the anti-malware
 protection and the other two maintain and exercise it. System monitoring
 and unauthorized-use detection (SI.L2-3.14.6, SI.L2-3.14.7) are the
 detective controls that produce telemetry incident response consumes.
@@ -39,7 +39,7 @@ Cross-domain relationships cluster tightly because SI is a consumer
 practice by design. CUI (Controlled Unclassified Information) context
 shapes every one: the systems SI monitors are the systems where CUI
 flows. Risk Assessment (RA) shares a single remediation record with
-SI.L1-3.14.1; Configuration Management (CM) is the change-control gate
+SI.L2-3.14.1; Configuration Management (CM) is the change-control gate
 for patches and engine updates; Security Assessment (CA) owns the
 monitoring cadence SI executes within; Maintenance (MA), Audit and
 Accountability (AU), Access Control (AC), System and Communications
@@ -48,9 +48,18 @@ specific practice boundaries called out in the practice bodies below.
 
 ---
 
-## Level 1 Practices
+## Practices with Level 1 Counterparts
 
-### SI.L1-3.14.1 — Flaw Remediation
+The CUI requirements in this section are assessed at Level 2 under their
+XX.L2-3.x.x identifiers. Each also protects FCI at Level 1 through a
+counterpart requirement in FAR 52.204-21, identified as XX.L1-b.1.i through
+XX.L1-b.1.xv in 32 CFR 170.15 and the CMMC Assessment Guide Level 1. FCI-only
+organizations self-assess the Level 1 counterparts; see
+`references/level-1-quickstart.md`.
+
+### SI.L2-3.14.1 — Flaw Remediation
+
+*Level 1 counterpart: SI.L1-b.1.xii (FAR 52.204-21)*
 
 **Requirement:** Identify, report, and correct system flaws in a timely
 manner.
@@ -86,7 +95,7 @@ process does not exist in any reviewable form.
   configuration change. It flows through the change-control process
   with test, approve, deploy, verify stages. Emergency patches follow
   a compressed but documented path, not a bypass
-- POA&M eligibility: gaps in SI.L1-3.14.1 become POA&M entries only
+- POA&M eligibility: gaps in SI.L2-3.14.1 become POA&M entries only
   under weight-1 practices plus the SC.L2-3.13.11 encryption carve-out
   per references/poam-management.md. NIST SP 800-171A scores practices
   MET or NOT MET; partial implementations score NOT MET
@@ -116,7 +125,9 @@ process does not exist in any reviewable form.
 
 ---
 
-### SI.L1-3.14.2 — Malicious Code Protection
+### SI.L2-3.14.2 — Malicious Code Protection
+
+*Level 1 counterpart: SI.L1-b.1.xiii (FAR 52.204-21)*
 
 **Requirement:** Provide protection from malicious code at designated
 locations within organizational systems.
@@ -149,8 +160,8 @@ effective.
   code: SI owns the anti-malware capability on systems; MA owns the
   pre-connection discipline at the maintenance boundary. Coordinate
   so scan signatures and capability come from the same source of truth
-- Cross-reference: SI.L1-3.14.4 keeps the capability current;
-  SI.L1-3.14.5 covers scan execution (periodic plus real-time on
+- Cross-reference: SI.L2-3.14.4 keeps the capability current;
+  SI.L2-3.14.5 covers scan execution (periodic plus real-time on
   file events). This practice does not restate those execution
   surfaces; each subsequent practice builds on the capability
   defined here
@@ -173,12 +184,14 @@ effective.
 
 ---
 
-### SI.L1-3.14.4 — Update Malicious Code Protection Mechanisms
+### SI.L2-3.14.4 — Update Malicious Code Protection Mechanisms
+
+*Level 1 counterpart: SI.L1-b.1.xiv (FAR 52.204-21)*
 
 **Requirement:** Update malicious code protection mechanisms when new
 releases are available.
 
-**Why it matters:** The SI.L1-3.14.2 anti-malware capability degrades
+**Why it matters:** The SI.L2-3.14.2 anti-malware capability degrades
 rapidly without currency. Signature feeds are hours-stale within a
 day; engine versions accumulate vulnerabilities; ML models on newer
 platforms require periodic retraining. This practice is the currency
@@ -199,7 +212,7 @@ discipline that keeps the capability effective.
   pull signatures in the last 24 hours, quarantining or remediating
   stragglers. A definition feed that stops silently on 5% of
   endpoints is the common failure mode
-- Back-reference to SI.L1-3.14.2: this practice keeps the capability
+- Back-reference to SI.L2-3.14.2: this practice keeps the capability
   defined there current. It does not add new capability surface
 
 **Evidence to collect:**
@@ -220,14 +233,16 @@ discipline that keeps the capability effective.
 
 ---
 
-### SI.L1-3.14.5 — Periodic and Real-Time Scanning
+### SI.L2-3.14.5 — Periodic and Real-Time Scanning
+
+*Level 1 counterpart: SI.L1-b.1.xv (FAR 52.204-21)*
 
 **Requirement:** Perform periodic scans of organizational systems and
 real-time scans of files from external sources as files are
 downloaded, opened, or executed.
 
 **Why it matters:** Scanning is the execution surface of the
-SI.L1-3.14.2 capability. The NIST text explicitly names two modes:
+SI.L2-3.14.2 capability. The NIST text explicitly names two modes:
 periodic scans of systems and real-time scans of files on external-
 source events (download, open, execute). Both are required. A
 configuration with only one is a practice gap.
@@ -246,7 +261,7 @@ configuration with only one is a practice gap.
   Ties to CM.L2-3.4.7 nonessential-functionality restrictions where
   removable media is blocked entirely, in which case this requirement
   is satisfied by prevention rather than scanning
-- Back-reference to SI.L1-3.14.2: this practice exercises the
+- Back-reference to SI.L2-3.14.2: this practice exercises the
   capability defined there. Also a specialized case at the
   maintenance boundary: MA.L2-3.7.4 pre-connection scanning of
   diagnostic media invokes the same capability with stricter
@@ -296,7 +311,7 @@ watch, and action depends on whether that person is at work that week.
   an accelerated-priority feed
 - Intake discipline: advisories arrive at a central distribution,
   are triaged against the asset inventory, and produce action items
-  routed to SI.L1-3.14.1 flaw remediation, SI.L1-3.14.4 malicious-
+  routed to SI.L2-3.14.1 flaw remediation, SI.L2-3.14.4 malicious-
   code mechanism updates, or other relevant practices. The triage
   is documented, not memorialized in someone's head
 - Action cadence: critical advisories trigger same-day review;
@@ -306,7 +321,7 @@ watch, and action depends on whether that person is at work that week.
   closure
 - Coordination with CA.L2-3.12.3 continuous monitoring: CA.L2-3.12.3
   owns the assessment and monitoring cadence (are controls still
-  operating, are findings still being produced). SI.L1-3.14.1 owns
+  operating, are findings still being produced). SI.L2-3.14.1 owns
   flaw-correction execution (are findings being closed). SI.L2-3.14.3
   provides the advisory-intake channel that surfaces new findings
   from external sources into the monitoring program. All three
@@ -476,33 +491,33 @@ unauthorized-use signals.
 |-----------|---------|---------|-------|
 | Count | 4 | 3 | 7 |
 
-**Assessment priority:** Start with SI.L1-3.14.1. Flaw remediation is
+**Assessment priority:** Start with SI.L2-3.14.1. Flaw remediation is
 the largest operational surface in the domain and the practice most
 visible on a POA&M, and a documented patch cadence with verification
 scans is the foundation other SI practices build reporting and
-detection on. Next, establish the malicious-code cluster: SI.L1-3.14.2
-as capability baseline, SI.L1-3.14.4 as the currency discipline,
-SI.L1-3.14.5 as the scanning execution surface. Then the monitoring
+detection on. Next, establish the malicious-code cluster: SI.L2-3.14.2
+as capability baseline, SI.L2-3.14.4 as the currency discipline,
+SI.L2-3.14.5 as the scanning execution surface. Then the monitoring
 practices: SI.L2-3.14.6 for system and traffic monitoring, SI.L2-3.14.7
 for unauthorized-use detection. SI.L2-3.14.3 advisory intake threads
 across the entire sequence; stand it up early because every other
 practice's timely response depends on advisories arriving at a
 defined channel. The most common finding gap in this domain is
-SI.L1-3.14.1 without a verification-scan-to-close step, followed by
+SI.L2-3.14.1 without a verification-scan-to-close step, followed by
 SI.L2-3.14.6 without outbound-traffic inspection.
 
 **Key relationships:**
 
 - Risk Assessment (RA) shares flaw-remediation scope; coordination
-  defined in the SI.L1-3.14.1 body
+  defined in the SI.L2-3.14.1 body
 - Security Assessment (CA) owns continuous-monitoring cadence under
   CA.L2-3.12.3; coordination defined in the SI.L2-3.14.3 body
 - Configuration Management (CM) is the change-control gate for
   patches and engine-version updates; coordination defined in the
-  SI.L1-3.14.1 and SI.L1-3.14.4 bodies
+  SI.L2-3.14.1 and SI.L2-3.14.4 bodies
 - Maintenance (MA) pre-connection scanning at MA.L2-3.7.4 is a
-  specialized application of the SI.L1-3.14.2 capability; shared
-  signature source of truth, coordination defined in SI.L1-3.14.2
+  specialized application of the SI.L2-3.14.2 capability; shared
+  signature source of truth, coordination defined in SI.L2-3.14.2
 - Audit and Accountability (AU) log data feeds SI.L2-3.14.6 and
   SI.L2-3.14.7; AU is the shared telemetry surface
 - System and Communications Protection (SC) enforces the boundary
@@ -510,4 +525,4 @@ SI.L2-3.14.6 without outbound-traffic inspection.
 - Access Control (AC) privilege inventory is the baseline
   SI.L2-3.14.7 measures departures against
 - Incident Response (IR) is the primary consumer of SI detection
-  signals from SI.L1-3.14.5, SI.L2-3.14.6, and SI.L2-3.14.7
+  signals from SI.L2-3.14.5, SI.L2-3.14.6, and SI.L2-3.14.7

@@ -1,0 +1,55 @@
+id: ssp-authoring-first-draft
+title: Compliance lead starting an SSP from a blank page for a GCC High shop
+category: ssp
+
+prompt: |
+  I am the new compliance lead at a 40-person defense software shop on
+  Microsoft 365 GCC High. We have no SSP at all. Give me the structure I
+  should build, the things assessors complain about most, and where the
+  Microsoft side of the house fits into what I write.
+
+required_terms:
+  - System Security Plan
+  - CA.L2-3.12.4
+  - boundary
+  - shared responsibility
+  - assessment objective
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Structure: purpose and scope, roles with named individuals, system
+  environment and boundary description, asset inventory by scoping
+  category, network and CUI flow diagrams, then per-requirement
+  implementation statements for all 110 requirements, ideally recorded
+  at the assessment-objective level (320 objectives per NIST SP
+  800-171A), closing with the POA&M and CMVP certificate sections. The
+  SSP is itself a requirement (CA.L2-3.12.4) and is never
+  POA&M-eligible; without it the assessment cannot proceed.
+
+  Common assessor complaints: SSPs that document intended state rather
+  than current state; boundary diagrams that omit real data flows;
+  narratives that restate the requirement instead of naming the
+  mechanism ("Conditional Access policy CA-01" beats "access is
+  controlled"); nonapplicable claims without justification; and no
+  update history.
+
+  The Microsoft side: GCC High is a FedRAMP High authorized environment,
+  and its CIS/CRM (shared responsibility documentation) defines which
+  controls are inherited service-side versus what the customer must
+  configure and operate. Each affected objective should record inherited
+  or shared status with the CRM reference, while endpoint, process, and
+  people objectives stay customer-owned. The connecting infrastructure
+  is in scope.
+
+  A strong answer offers a build order (scope and diagrams first, then
+  highest-weight families) and points to generating the document from
+  structured program data rather than hand-maintaining a Word file.
+
+evaluator_notes: |
+  Accuracy essentials: SSP required by CA.L2-3.12.4 and not
+  POA&M-eligible; assessment-objective-level conformity as the standard
+  assessors grade against; inherited versus customer split documented
+  via the provider's responsibility matrix. Category B on the boundary
+  and scoping treatment for a GCC High tenant. Enabler: a concrete
+  build order and mechanism-naming narrative guidance.

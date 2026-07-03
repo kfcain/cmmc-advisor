@@ -1,0 +1,51 @@
+id: rev3-transition-timing
+title: CISO asks whether to implement Rev 2 or Rev 3 in mid-2026
+category: rev3
+
+prompt: |
+  NIST SP 800-171 Rev 3 has been final for a while now. We are starting
+  our CMMC push this quarter. Should we implement Rev 2 or go straight
+  to Rev 3 so we do not have to do this twice? And if we stay on Rev 2,
+  how do we avoid building things we will have to rip out?
+
+required_terms:
+  - Rev 2
+  - Rev 3
+  - class deviation
+  - 32 CFR
+  - rulemaking
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Implement Rev 2 now. CMMC assesses against NIST SP 800-171 Rev 2: the
+  CMMC rule (32 CFR 170) incorporates Rev 2, and DoD issued a class
+  deviation keeping Rev 2 as the DFARS baseline while Rev 3 adoption
+  goes through rulemaking. There is no Rev 3 CMMC assessment to pass
+  today, so going straight to Rev 3 delays certification without buying
+  eligibility.
+
+  Avoiding rework: most Rev 2 work carries forward. Of the 110 Rev 2
+  requirements, 77 continue in Rev 3 under the same numbering and 33
+  are consolidated into other requirements, so capability built for
+  Rev 2 survives. The genuine deltas are the roughly 20 new Rev 3
+  requirements, notably the Supply Chain Risk Management, Planning, and
+  System and Services Acquisition families, plus Organization-Defined
+  Parameters. Low-regret moves: when choosing parameter values, pick
+  ones that satisfy both revisions; stand up vendor and supply chain
+  risk management now (it is good practice and the Rev 3 cousin already
+  exists at CMMC Level 3); keep the SSP structured so renumbering is
+  mechanical.
+
+  Watch for the Rev 3 adoption rulemaking; transition timelines will
+  come with it, and certified-under-Rev-2 contractors will get
+  transition runway rather than an overnight switch.
+
+evaluator_notes: |
+  Accuracy essentials: Rev 2 is the assessed baseline today via 32 CFR
+  170 and the DoD class deviation; Rev 3 comes only through future
+  rulemaking; the crosswalk numbers if cited must be right (77 carried,
+  33 withdrawn, about 20 new, 97 total). An answer recommending
+  implementing Rev 3 instead of Rev 2 for a current CMMC push is an
+  accuracy failure. Category B on scoping to the transition question.
+  Enabler: concrete low-regret list, not both-sides hedging.

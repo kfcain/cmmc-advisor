@@ -1,0 +1,188 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CMMC Program Data File",
+  "description": "Single source of truth for an organization's CMMC program. Consumed by scripts/generate_ssp.py and scripts/generate_dashboard.py together with references/data/assessment-objectives.json. Maintain as YAML or JSON.",
+  "type": "object",
+  "required": ["organization", "requirements"],
+  "properties": {
+    "organization": {
+      "type": "object",
+      "required": ["name", "system_name"],
+      "properties": {
+        "name": {"type": "string", "description": "Organization (OSC/OSA) legal name"},
+        "system_name": {"type": "string", "description": "Name of the in-scope information system"},
+        "cage_codes": {"type": "array", "items": {"type": "string"}},
+        "revision": {"type": "string", "description": "SSP revision label, e.g. Rev 3"},
+        "date": {"type": "string", "description": "SSP effective date, ISO 8601"},
+        "purpose": {"type": "string", "description": "Purpose narrative; a default is generated when omitted"},
+        "scope_narrative": {"type": "string"},
+        "environment_narrative": {"type": "string"},
+        "roles": {
+          "type": "object",
+          "description": "Named accountabilities; keys are role slugs",
+          "additionalProperties": {
+            "type": "object",
+            "required": ["name"],
+            "properties": {
+              "name": {"type": "string"},
+              "title": {"type": "string"},
+              "email": {"type": "string"},
+              "phone": {"type": "string"},
+              "responsibilities": {"type": "array", "items": {"type": "string"}}
+            }
+          }
+        }
+      }
+    },
+    "conditional_status_date": {
+      "type": "string",
+      "description": "CMMC Status Date of a Conditional status, ISO 8601. Drives the 180-day POA&M closeout clocks."
+    },
+    "assessment": {
+      "type": "object",
+      "properties": {
+        "level": {"type": "string", "enum": ["1", "2", "3"]},
+        "path": {"type": "string", "enum": ["self", "c3pao", "dibcac"]},
+        "target_date": {"type": "string"},
+        "c3pao": {"type": "string"}
+      }
+    },
+    "assets": {
+      "type": "object",
+      "description": "Asset inventory by CMMC Level 2 scoping category (32 CFR 170.19(c))",
+      "properties": {
+        "cui": {"$ref": "#/$defs/assetList"},
+        "security_protection": {"$ref": "#/$defs/assetList"},
+        "contractor_risk_managed": {"$ref": "#/$defs/assetList"},
+        "specialized": {"$ref": "#/$defs/assetList"},
+        "out_of_scope": {"$ref": "#/$defs/assetList"}
+      }
+    },
+    "diagrams": {
+      "type": "object",
+      "properties": {
+        "network": {"type": "string", "description": "Path or URL to the network diagram"},
+        "cui_flow": {"type": "string", "description": "Path or URL to the CUI flow diagram"}
+      }
+    },
+    "hardware_software": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string"},
+          "type": {"type": "string"},
+          "version": {"type": "string"},
+          "location": {"type": "string"}
+        }
+      }
+    },
+    "cmvp_certificates": {
+      "type": "array",
+      "description": "FIPS 140 validation evidence for SC.L2-3.13.11 claims; verify at the NIST CMVP registry",
+      "items": {
+        "type": "object",
+        "required": ["certificate", "module"],
+        "properties": {
+          "certificate": {"type": "string"},
+          "vendor": {"type": "string"},
+          "module": {"type": "string"},
+          "standard": {"type": "string"},
+          "status": {"type": "string"},
+          "sunset": {"type": "string"},
+          "security_policy": {"type": "string"}
+        }
+      }
+    },
+    "inheritance_sources": {
+      "type": "array",
+      "description": "External platforms controls are inherited from; referenced by per-AO inheritance entries",
+      "items": {
+        "type": "object",
+        "required": ["id", "provider"],
+        "properties": {
+          "id": {"type": "string", "description": "Short key referenced from objectives, e.g. gcch"},
+          "provider": {"type": "string"},
+          "cso": {"type": "string", "description": "Cloud Service Offering name"},
+          "fedramp_status": {"type": "string", "description": "e.g. FedRAMP High Authorized, or Moderate equivalency"},
+          "marketplace_id": {"type": "string"},
+          "crm_document": {"type": "string", "description": "CIS/CRM (Appendix J) document name and version"},
+          "boe_reference": {"type": "string", "description": "Body of evidence index or storage location"},
+          "verified": {"type": "string", "description": "Date the authorization status was last verified"}
+        }
+      }
+    },
+    "requirements": {
+      "type": "object",
+      "description": "Keyed by requirement id (e.g. AC.L2-3.1.1). Every key must exist in references/data/assessment-objectives.json.",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "conformity": {"type": "string", "enum": ["met", "not-met", "partially-met", "not-applicable", "not-assessed"]},
+          "objectives": {
+            "type": "object",
+            "description": "Keyed by objective letter (a, b, c...)",
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "conformity": {"type": "string", "enum": ["met", "not-met", "not-applicable", "inherited", "shared", "not-assessed"]},
+                "statement": {"type": "string", "description": "Assessment Objective Conformity Statement: how this objective is satisfied, in this system, with named mechanisms"},
+                "evidence": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": ["name"],
+                    "properties": {
+                      "name": {"type": "string"},
+                      "link": {"type": "string", "description": "URL or repository path to the artifact"},
+                      "collected": {"type": "string"}
+                    }
+                  }
+                },
+                "inheritance": {
+                  "type": "object",
+                  "description": "Present when the objective is inherited from or shared with a platform",
+                  "required": ["source"],
+                  "properties": {
+                    "source": {"type": "string", "description": "id of an inheritance_sources entry"},
+                    "type": {"type": "string", "enum": ["inherited", "shared"]},
+                    "crm_ref": {"type": "string", "description": "Row or control reference in the provider CRM / Appendix J"},
+                    "customer_note": {"type": "string", "description": "The customer-side share of a shared objective"}
+                  }
+                }
+              }
+            }
+          },
+          "poam": {
+            "type": "object",
+            "properties": {
+              "priority": {"type": "string"},
+              "description": {"type": "string"},
+              "opened": {"type": "string"},
+              "due": {"type": "string"},
+              "owner": {"type": "string"},
+              "actions": {"type": "array", "items": {"type": "string"}},
+              "status": {"type": "string", "enum": ["open", "in-progress", "closed"]}
+            }
+          },
+          "remediation_plan": {"type": "string", "description": "Gap remediation narrative for not-met or partially-met requirements"}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "assetList": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": {"type": "string"},
+          "description": {"type": "string"},
+          "vendor": {"type": "string"},
+          "location": {"type": "string"}
+        }
+      }
+    }
+  }
+}

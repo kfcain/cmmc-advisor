@@ -1,0 +1,54 @@
+id: toolkit-ssp-generation
+title: Compliance lead wants an AO-level SSP produced by the toolkit
+category: program-toolkit
+
+prompt: |
+  We keep our CMMC status in a spreadsheet today. I heard this skill can
+  generate a full SSP where every assessment objective gets its own
+  conformity statement. How does that work, what do you need from me, and
+  how do POA&M items and controls we inherit from GCC High show up in the
+  output?
+
+required_terms:
+  - assessment objective
+  - conformity
+  - program data
+  - generate_ssp
+  - POA&M
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  The workflow: the user's program lives in one data file (see
+  templates/program-data.schema.json and the worked sample). The skill
+  helps populate it section by section: organization and roles, scope
+  narrative, asset inventory by 32 CFR 170.19(c) category, diagrams,
+  CMVP certificates, and per-requirement entries with per-objective
+  conformity (met, not-met, not-applicable, inherited, shared), a
+  conformity statement naming the actual mechanism, and evidence links.
+  Then scripts/generate_ssp.py merges it with the assessment-objective
+  dataset (all 110 requirements, 320 objectives from NIST SP 800-171A)
+  into a complete SSP in Markdown, optionally DOCX.
+
+  POA&M entries attach to requirements in the data file and render as
+  the SSP's POA&M table (priority, description, due date, actions), with
+  the 180-day closeout note when a Conditional Status Date is set; the
+  answer should note only POA&M-eligible gaps belong there per
+  32 CFR 170.21.
+
+  Inherited GCC High controls are declared once as an inheritance source
+  (provider, CSO, CRM document, body of evidence reference) and
+  referenced per objective with the CRM row and the customer-side share;
+  the SSP renders the inheritance line under each affected objective.
+
+  A strong answer offers a migration path from the spreadsheet: map
+  existing rows into the data file, start with the highest-weight
+  requirements, and flag every objective still at not-assessed.
+
+evaluator_notes: |
+  Accuracy essentials: per-objective conformity (320 objectives),
+  program data file as the single source, generate_ssp.py as the
+  mechanism, POA&M eligibility caveat, inheritance via CRM references.
+  Score Category B on scoping the answer to the toolkit workflow rather
+  than generic SSP advice. Enabler posture: concrete first steps for
+  migrating from the spreadsheet.

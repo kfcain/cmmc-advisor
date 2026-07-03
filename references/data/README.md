@@ -44,7 +44,7 @@ The builder pulls from the official FedRAMP repository:
 Live fields merged into each vendor entry include Marketplace impact level,
 authorization status, auth path/type, and status dates. **DoD Impact Level,
 CUI suitability, and practitioner notes** stay in the manifest as corpus
-guidance—they are not authoritative Marketplace facts.
+guidance; they are not authoritative Marketplace facts.
 
 ### When agents should use it
 
@@ -60,6 +60,23 @@ Platform-inherited services (Bedrock on GovCloud, Azure OpenAI on Azure
 Government, Vertex on GCP) are **not** standalone Marketplace packages. The
 manifest links them to their platform package and keeps service-specific notes
 in the corpus files.
+
+## Assessment objectives dataset
+
+`assessment-objectives.json` is the machine-readable backbone for the
+assessment-objective layer (`references/assessment-objectives/`) and the
+program toolkit (SSP generator, program dashboard). Per requirement: id,
+800-171 number, Rev 3 export id, name, statement, SPRS value and partial
+value (DoD Assessment Methodology v1.2.1), Level 1 counterpart, all
+800-171A assessment objectives, and examine/interview/test method objects
+from the CMMC Assessment Guide Level 2 v2.13.
+
+Verified 2026-07-03: 110 requirements, 320 objectives; weight
+distribution (44 five-point, 14 three-point, 51 one-point, SSP special
+rule) reproduces the documented -203 SPRS minimum; objective text
+spot-checked against the Assessment Guide. Sources are authoritative NIST
+and DoD documents listed in `SOURCES.md`; re-verify there before citing
+in an SSP.
 
 ## Contributing
 

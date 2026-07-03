@@ -261,8 +261,8 @@ domains can be added to the organization, which identity
 providers can federate in, and which service accounts can be
 created.
 
-**CMMC practices implemented.** IA.L1-3.5.1 (user
-identification), IA.L1-3.5.2 (user authentication),
+**CMMC practices implemented.** IA.L2-3.5.1 (user
+identification), IA.L2-3.5.2 (user authentication),
 IA.L2-3.5.3 (MFA), AC.L2-3.1.1 (account management), and
 AC.L2-3.1.5 (least privilege).
 
@@ -520,8 +520,8 @@ Identity-Aware Proxy (IAP) provides identity-based access to
 applications
 without a traditional VPN.
 
-**CMMC practices implemented.** SC.L1-3.13.1 (boundary
-protection), SC.L1-3.13.5 (public access system separation),
+**CMMC practices implemented.** SC.L2-3.13.1 (boundary
+protection), SC.L2-3.13.5 (public access system separation),
 SC.L2-3.13.6 (deny by default), SC.L2-3.13.7 (split-tunneling
 prevention on endpoint connections), SC.L2-3.13.2
 (architectural design for security), and AC.L2-3.1.12 (remote
@@ -792,7 +792,7 @@ are named.
 | Cryptographic key management (SC.L2-3.13.10) | Cloud KMS, Cloud HSM, Cloud External Key Manager (Cloud EKM), Key Access Justifications |
 | Data at rest encryption (SC.L2-3.13.11, SC.L2-3.13.16) | Cloud Storage CMEK, Persistent Disk encryption with CMEK, Cloud SQL CMEK |
 | Data in transit (SC.L2-3.13.8) | Private Google Access, VPC Service Controls, Cloud HTTPS Load Balancing with managed TLS |
-| Network boundary protection (SC.L1-3.13.1, SC.L2-3.13.6) | VPC, VPC firewall rules, VPC Service Controls, Cloud Armor, Identity-Aware Proxy |
+| Network boundary protection (SC.L2-3.13.1, SC.L2-3.13.6) | VPC, VPC firewall rules, VPC Service Controls, Cloud Armor, Identity-Aware Proxy |
 | Audit and logging (AU family) | Cloud Audit Logs, Cloud Logging, Log Router, Access Transparency |
 | Continuous monitoring and threat detection (SI.L2-3.14.6, SI.L2-3.14.7) | Security Command Center Premium, Chronicle Security Operations |
 | Configuration management (CM family) | Organization Policy, Assured Workloads control packages, Security Command Center posture benchmarks |

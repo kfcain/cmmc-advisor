@@ -190,7 +190,7 @@ activate FileVault and escrow the recovery key to the MDM.
 **CMMC practices implemented.** SC.L2-3.13.11 (FIPS-validated
 cryptography for CUI protection), SC.L2-3.13.16 (data at rest
 encryption), and MP.L2-3.8.1 (physical media protection) anchor
-here. MP.L1-3.8.3 (sanitize media before disposal) benefits from
+here. MP.L2-3.8.3 (sanitize media before disposal) benefits from
 FileVault because cryptographic erasure is the default path for
 sanitizing a FileVault-enabled Mac.
 
@@ -207,7 +207,7 @@ sanitizing a FileVault-enabled Mac.
   Many MDM products automate rotation.
 - Cryptographic erasure (destroying the key) is the standard
   sanitization path for FileVault-enabled Macs going through the
-  MP.L1-3.8.3 reuse or disposal flow. A factory reset of an Apple
+  MP.L2-3.8.3 reuse or disposal flow. A factory reset of an Apple
   Silicon Mac cryptographically erases the volume without needing
   physical destruction.
 
@@ -248,8 +248,8 @@ application-control substrate on macOS.
 
 **CMMC practices implemented.** CM.L2-3.4.7 (nonessential
 functionality restrictions), CM.L2-3.4.8 (application execution
-policy), SI.L1-3.14.2 (malicious code protection capability),
-SI.L1-3.14.4 (update malicious code protection), and SI.L1-3.14.5
+policy), SI.L2-3.14.2 (malicious code protection capability),
+SI.L2-3.14.4 (update malicious code protection), and SI.L2-3.14.5
 (periodic and real-time scanning).
 
 **Implementation notes.**
@@ -265,7 +265,7 @@ SI.L1-3.14.4 (update malicious code protection), and SI.L1-3.14.5
 - XProtect signatures update through the Apple Software Update
   mechanism independent of full OS updates. XProtect updates
   install silently; there is no user-facing update dialog.
-  SI.L1-3.14.4 currency discipline here means verifying that the
+  SI.L2-3.14.4 currency discipline here means verifying that the
   XProtect data files on each Mac are current.
 - XProtect alone is not an enterprise-grade EDR. It is a baseline
   anti-malware capability. CMMC L2 fleets must pair XProtect with
@@ -305,7 +305,7 @@ only by booting into recovery mode.
 
 **CMMC practices implemented.** CM.L2-3.4.7 (nonessential
 functionality restrictions), SC.L2-3.13.2 (architectural design
-for security), and SI.L1-3.14.2 (malicious code protection
+for security), and SI.L2-3.14.2 (malicious code protection
 capability, through attack-surface reduction).
 
 **Implementation notes.**
@@ -345,7 +345,7 @@ firewall to "block all incoming" or to enforce
 per-application rules. The firewall is an inbound-connection gate;
 it does not inspect outbound traffic.
 
-**CMMC practices implemented.** SC.L1-3.13.1 (boundary
+**CMMC practices implemented.** SC.L2-3.13.1 (boundary
 protection). The endpoint firewall is one layer of boundary
 protection; the network firewall, CSP security group, and tenancy
 edge are the others.
@@ -436,7 +436,7 @@ and schedule install windows. Rapid Security Response (RSR) is a
 smaller-scoped update pathway for critical security fixes between
 full OS updates.
 
-**CMMC practices implemented.** SI.L1-3.14.1 (flaw remediation)
+**CMMC practices implemented.** SI.L2-3.14.1 (flaw remediation)
 and CM.L2-3.4.9 (user-installed software control, where third-
 party application updates ride alongside OS updates).
 
@@ -453,7 +453,7 @@ party application updates ride alongside OS updates).
   update cadence.
 - Third-party applications (browsers, productivity tools, EDR
   agents) update through their own mechanisms or through the MDM
-  app management. SI.L1-3.14.1 covers these alongside OS updates.
+  app management. SI.L2-3.14.1 covers these alongside OS updates.
 - User-installed software outside the MDM app catalog is
   controlled through CM.L2-3.4.9. Gatekeeper and notarization
   provide the execution-policy gate; the fleet-operator's
@@ -472,7 +472,7 @@ party application updates ride alongside OS updates).
 - Indefinitely deferring major-version updates on older hardware.
   When Apple stops shipping security updates for an OS version,
   deferring past that point puts the fleet on an unsupported
-  codebase for SI.L1-3.14.1 purposes.
+  codebase for SI.L2-3.14.1 purposes.
 - Assuming Rapid Security Response updates install automatically
   when the MDM profile disables "Install macOS updates
   automatically."

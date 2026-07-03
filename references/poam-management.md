@@ -20,11 +20,12 @@ what can and cannot be deferred.
 
 ### Level 1
 
-POA&Ms are **not permitted** for Level 1 self-assessments. All 17 practices
-must be MET at the time of the annual self-assessment affirmation.
+POA&Ms are **not permitted** for Level 1 self-assessments. Every Level 1
+practice (all 15 codified requirements) must be MET (or NOT APPLICABLE)
+at the time of the annual self-assessment affirmation.
 
-If you cannot meet all 17 Level 1 practices, you cannot achieve Level 1
-certification. These are basic cyber hygiene; there is no conditional path.
+If you cannot meet every Level 1 practice, you cannot achieve Level 1
+status. These are basic cyber hygiene; there is no conditional path.
 
 ### Level 2
 
@@ -34,7 +35,7 @@ POA&Ms are permitted under strict conditions:
    of CMMC Level 2 security requirements must be **≥ 0.8** (80%). With the
    common 110-point SPRS scaling, that is often discussed as a minimum
    score of **88** when fully implementing the DoD Assessment Methodology
-   weights—confirm scoring with 32 CFR 170.24 and your assessor.
+   weights. Confirm scoring with 32 CFR 170.24 and your assessor.
 2. **Only 1-point practices on the POA&M** (with one exception below).
    Requirements with a point value greater than 1 may not appear on the
    POA&M except as specified for SC.L2-3.13.11.
@@ -57,7 +58,10 @@ POA&Ms are permitted under strict conditions:
 
 POA&Ms are permitted under 32 CFR 170.21(a)(3) (score/total Level 3
 requirements ≥ 0.8, and none of the listed enhanced requirements on the
-POA&M). Closeout is conducted by **DIBCAC**, not a C3PAO.
+POA&M). Seven requirements are never POA&M-eligible at Level 3:
+IR.L3-3.6.1e, IR.L3-3.6.2e, RA.L3-3.11.1e, RA.L3-3.11.4e, RA.L3-3.11.6e,
+RA.L3-3.11.7e, and SI.L3-3.14.3e. Closeout is conducted by **DIBCAC**,
+not a C3PAO, within 180 days. See `level-3-expert.md`.
 
 > Source: 32 CFR 170.21, POA&M Closeout; 32 CFR 170.23, Conditional
 > Certification Requirements
@@ -158,7 +162,7 @@ Each POA&M entry should contain:
 > Practice AC.L2-3.1.5: "Too many users have admin access. Will fix soon."
 
 **Good:**
-> Practice AC.L2-3.1.5 — Least Privilege
+> Practice AC.L2-3.1.5 (Least Privilege)
 >
 > **Weakness:** Three service accounts have broader permissions than required
 > for their function. Accounts SVC-BACKUP, SVC-MONITOR, and SVC-DEPLOY

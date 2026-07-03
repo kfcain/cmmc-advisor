@@ -1,0 +1,54 @@
+id: domain-ir-72-hour-reporting
+title: Suspected CUI file share compromise on a Friday night
+category: domain-practice
+
+prompt: |
+  It is Friday 11pm and our EDR flagged credential dumping on a file
+  server that holds CUI. We think data may have left. Walk me through
+  our reporting obligations and what has to happen in the next 72
+  hours. We are a DFARS 7012 contractor and a subcontractor to a large
+  prime.
+
+required_terms:
+  - 72 hours
+  - DIBNet
+  - DFARS 252.204-7012
+  - 90 days
+  - medium assurance certificate
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  This is likely a reportable cyber incident under DFARS 252.204-7012:
+  rapid report to DoD via DIBNet (dibnet.dod.mil) within 72 hours of
+  discovery. Discovery starts the clock, not forensic certainty; report
+  with what is known and supplement later. Reporting requires a
+  DoD-approved Medium Assurance Certificate, which must already be in
+  hand; if the company lacks one, obtaining it becomes an immediate
+  blocking task.
+
+  Preservation: capture and protect images of known affected systems
+  and relevant monitoring or packet capture data for at least 90 days
+  from the report, so DoD can request media. If malware is isolated,
+  submit it to the DoD Cyber Crime Center (DC3) per instructions. Be
+  ready to support DoD access for forensic analysis and damage
+  assessment.
+
+  As a subcontractor, notify the prime per the flowdown and contract
+  terms (7012 requires providing the incident report number to the
+  prime); coordinate so prime and sub reporting stay coherent.
+
+  In parallel, run the incident response plan (IR.L2-3.6.1, 3.6.2):
+  contain (isolate the server, reset exposed credentials), collect and
+  track, and keep an incident log; the incident later feeds the risk
+  register and the next affirmation cycle. A strong answer sequences the
+  next 72 hours concretely and notes that reporting is not an admission
+  of inadequate safeguarding.
+
+evaluator_notes: |
+  Accuracy essentials: 72-hour rapid report to DIBNet, Medium Assurance
+  Certificate prerequisite, 90-day media preservation, DC3 malware
+  submission, subcontractor-to-prime notification with the report
+  number. Category B on scoping to 7012 obligations plus immediate IR
+  actions. Enabler: an hour-by-hour or phased action sequence, calm and
+  concrete.

@@ -197,8 +197,8 @@ AWS SSO) provides workforce-identity federation, multi-account
 access, and SCIM-based user provisioning. Amazon Cognito
 supports application-layer user pools and identity pools.
 
-**CMMC practices implemented.** IA.L1-3.5.1 (user
-identification), IA.L1-3.5.2 (user authentication),
+**CMMC practices implemented.** IA.L2-3.5.1 (user
+identification), IA.L2-3.5.2 (user authentication),
 IA.L2-3.5.3 (MFA), AC.L2-3.1.1 (account management), and
 AC.L2-3.1.5 (least privilege).
 
@@ -390,7 +390,7 @@ CA.L2-3.12.1 (security control assessment), and CA.L2-3.12.3
   account.
 - Inspector should scan EC2 and ECR (container image)
   inventory on a continuous cadence; findings feed
-  SI.L1-3.14.1 flaw remediation evidence.
+  SI.L2-3.14.1 flaw remediation evidence.
 - Log forwarding to the SIEM terminates the AWS-native
   logging plane in the contractor's broader audit
   environment; see
@@ -446,8 +446,8 @@ interface endpoints reachable only from inside the VPC. AWS
 Network Firewall and AWS WAF provide stateful inspection and
 web-application-layer filtering.
 
-**CMMC practices implemented.** SC.L1-3.13.1 (boundary
-protection), SC.L1-3.13.5 (public access system separation),
+**CMMC practices implemented.** SC.L2-3.13.1 (boundary
+protection), SC.L2-3.13.5 (public access system separation),
 SC.L2-3.13.6 (deny by default, allow by exception),
 SC.L2-3.13.7 (split-tunneling prevention where AWS-side
 endpoints are involved), and SC.L2-3.13.2 (architectural
@@ -694,7 +694,7 @@ are named.
 | Cryptographic key management (SC.L2-3.13.10) | AWS KMS GovCloud, AWS CloudHSM |
 | Data at rest encryption (SC.L2-3.13.11, SC.L2-3.13.16) | S3 SSE, EBS encryption, RDS encryption using KMS CMKs |
 | Data in transit (SC.L2-3.13.8) | VPC endpoints with FIPS endpoint URLs, TLS via ACM, PrivateLink |
-| Network boundary protection (SC.L1-3.13.1, SC.L2-3.13.6) | VPC, Security Groups, Network ACLs, Network Firewall, WAF, Shield |
+| Network boundary protection (SC.L2-3.13.1, SC.L2-3.13.6) | VPC, Security Groups, Network ACLs, Network Firewall, WAF, Shield |
 | Audit and logging (AU family) | CloudTrail, Config, CloudWatch, Security Hub |
 | Continuous monitoring and threat detection (SI.L2-3.14.6, SI.L2-3.14.7) | GuardDuty, Inspector, Security Hub |
 | Configuration management (CM family) | Config, Systems Manager, Organizations SCPs, Control Tower guardrails |

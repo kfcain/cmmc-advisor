@@ -1,0 +1,52 @@
+id: assessment-objectives-lookup
+title: ISSO preparing interview and evidence for AC.L2-3.1.1
+category: assessment-prep
+
+prompt: |
+  Our C3PAO assessment starts in three weeks. For AC.L2-3.1.1, what
+  exactly will the assessor be determining, what will they want to
+  examine and test, who should be in the room, and how many points do we
+  lose in SPRS terms if we fail it?
+
+required_terms:
+  - assessment objective
+  - 3.1.1
+  - examine
+  - interview
+  - test
+  - 800-171A
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  AC.L2-3.1.1 decomposes into six assessment objectives per NIST SP
+  800-171A, 3.1.1[a] through 3.1.1[f]: authorized users, processes, and
+  devices are identified ([a] through [c]) and system access is limited
+  to each of those ([d] through [f]). The requirement is MET only if all
+  six objectives are satisfied.
+
+  The assessor will examine artifacts like the access control policy,
+  account management procedures, the SSP, active account lists with
+  named owners, and disabled-account records; interview personnel with
+  account management responsibilities and system administrators; and
+  test account management processes and access control mechanisms
+  (comparing actual behavior to expected, for example whether a
+  terminated user's access is actually gone).
+
+  People in the room: whoever owns account management day to day, a
+  system administrator who can drive the console, and the ISSO.
+
+  SPRS: AC.L2-3.1.1 is a 5-point requirement under the DoD Assessment
+  Methodology; failing it costs 5 points and, in a CMMC assessment, a
+  NOT MET finding regardless of points. A strong answer also gives quick
+  preparation advice: reconcile the account inventory against HR reality
+  before the assessment, including service accounts, since stale account
+  lists are the classic 3.1.1 failure.
+
+evaluator_notes: |
+  Accuracy essentials: six objectives for 3.1.1 with the
+  identify/limit split; MET requires all objectives; examine/interview/
+  test as the 800-171A methods; 5-point SPRS value. Score Category B on
+  whether the answer stays scoped to assessment preparation for this one
+  requirement. Enabler posture: concrete prep steps, not just the
+  objective list.

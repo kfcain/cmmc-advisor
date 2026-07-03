@@ -8,7 +8,7 @@ Media Protection governs the lifecycle of every object that stores
 CUI: laptops and servers, external drives and USB sticks, printed
 documents and archived tapes, backup media and loaner devices. The
 domain has 9 practices with 1 Level 1 and 8 Level 2 practices.
-MP.L1-3.8.3 (sanitize or destroy before disposal or reuse) is the
+MP.L2-3.8.3 (sanitize or destroy before disposal or reuse) is the
 single L1 practice, so contractors handling only FCI still have the
 sanitization obligation. The 8 L2 practices cover physical protection
 (3.8.1, 3.8.5), authorized-user access (3.8.2), CUI marking (3.8.4),
@@ -16,7 +16,7 @@ cryptographic protection in transport (3.8.6), removable and portable
 media control (3.8.7, 3.8.8), and backup confidentiality (3.8.9).
 
 Cross-domain relationships cluster around what CUI lives on media and
-who moves it: Maintenance (MA) depends on MP.L1-3.8.3 for the
+who moves it: Maintenance (MA) depends on MP.L2-3.8.3 for the
 sanitization of equipment before off-site maintenance under
 MA.L2-3.7.3 and on MP discipline for diagnostic media under
 MA.L2-3.7.4. Physical Protection (PE) carries the facility-level
@@ -29,15 +29,24 @@ MP during incidents, particularly the DFARS 252.204-7012(e) 90-day
 media preservation obligation established in the IR slice.
 Identification and Authentication (IA) provides the identity proofing
 that makes authorized-users enforcement meaningful under MP.L2-3.8.2
-and MP.L2-3.8.5. MP.L2-3.8.6 crypto and MP.L1-3.8.3 sanitization are
+and MP.L2-3.8.5. MP.L2-3.8.6 crypto and MP.L2-3.8.3 sanitization are
 load-bearing for Phase 5d endpoints and remote-work content (laptop
 encryption baselines, device return and sanitization on separation).
 
 ---
 
-## Level 1 Practices
+## Practices with Level 1 Counterparts
 
-### MP.L1-3.8.3 — Sanitize or Destroy Media Before Disposal or Reuse
+The CUI requirements in this section are assessed at Level 2 under their
+XX.L2-3.x.x identifiers. Each also protects FCI at Level 1 through a
+counterpart requirement in FAR 52.204-21, identified as XX.L1-b.1.i through
+XX.L1-b.1.xv in 32 CFR 170.15 and the CMMC Assessment Guide Level 1. FCI-only
+organizations self-assess the Level 1 counterparts; see
+`references/level-1-quickstart.md`.
+
+### MP.L2-3.8.3 — Sanitize or Destroy Media Before Disposal or Reuse
+
+*Level 1 counterpart: MP.L1-b.1.vii (FAR 52.204-21)*
 
 **Requirement:** Sanitize or destroy system media containing CUI
 (Controlled Unclassified Information) before disposal or release for
@@ -119,8 +128,8 @@ organization can enforce rules over.
 - Physical control during use: CUI documents and media do not leave
   designated work areas without accountability (check-in/check-out or
   transport procedure per MP.L2-3.8.5)
-- Reciprocal with PE: physical facility controls from PE.L1-3.10.1
-  and PE.L1-3.10.5 are the containing layer; MP.L2-3.8.1 adds
+- Reciprocal with PE: physical facility controls from PE.L2-3.10.1
+  and PE.L2-3.10.5 are the containing layer; MP.L2-3.8.1 adds
   media-specific controls inside that containment
 
 **Evidence to collect:**
@@ -466,7 +475,7 @@ scope when the primary suite is the CUI system of record.
 |-----------|---------|---------|-------|
 | Count | 1 | 8 | 9 |
 
-**Assessment priority:** Start with MP.L1-3.8.3 (sanitization). It
+**Assessment priority:** Start with MP.L2-3.8.3 (sanitization). It
 is the only L1 practice, applies to every contractor, and
 sanitization failures produce immediate data exposure. Then
 MP.L2-3.8.6 (crypto for media in transport) because encryption is
@@ -482,12 +491,12 @@ MP.L2-3.8.9 (backup confidentiality) is the most commonly
 under-engineered; review backup practices explicitly.
 
 **Key relationships:**
-- Maintenance (MA) invokes MP.L1-3.8.3 sanitization for equipment
+- Maintenance (MA) invokes MP.L2-3.8.3 sanitization for equipment
   removed off-site under MA.L2-3.7.3 and extends MP discipline to
   diagnostic media under MA.L2-3.7.4
 - Physical Protection (PE) carries the facility-level access and
   storage controls that MP.L2-3.8.1 specializes to media, with
-  PE.L1-3.10.5 access device management overlapping key control
+  PE.L2-3.10.5 access device management overlapping key control
   for media-storage locks
 - System and Communications Protection (SC) supplies the
   FIPS-validated cryptographic mechanisms MP.L2-3.8.6 requires for

@@ -325,14 +325,14 @@ sporadically and close without verification. Critical and
 high vulnerabilities identified three scan cycles ago are
 still present in the next scan report.
 
-**Why it fails.** SI.L1-3.14.1 (flaw remediation) requires
+**Why it fails.** SI.L2-3.14.1 (flaw remediation) requires
 that flaws be identified, reported, and corrected in a
 timely manner. Identification without correction satisfies
 the first half and fails the second. NIST 800-171A examines
 remediation evidence; unremediated persistent vulnerabilities
 produce findings.
 
-**CMMC practices broken.** SI.L1-3.14.1 (flaw remediation),
+**CMMC practices broken.** SI.L2-3.14.1 (flaw remediation),
 RA.L2-3.11.2 (vulnerability scanning), RA.L2-3.11.3
 (vulnerability response).
 
@@ -368,7 +368,7 @@ reflecting current state. Assessors discover the drift when
 they sample CUI-touching systems and find ones not in the
 SSP scope.
 
-**CMMC practices broken.** CA.L2-3.12.4 (SSP), AC.L1-3.1.1
+**CMMC practices broken.** CA.L2-3.12.4 (SSP), AC.L2-3.1.1
 (authorized access control, access granted to CUI by users
 not in the authorization boundary), MP.L2-3.8.2 (limit media
 access), and every CUI-protecting practice on the out-of-
@@ -397,7 +397,7 @@ transits contractor systems. DFARS 7012 applies to CUI
 processed, stored, or transmitted: all three.
 
 **CMMC practices broken.** CA.L2-3.12.4 (SSP scoping),
-AC.L1-3.1.1 (authorized access), SC.L2-3.13.8 (data in
+AC.L2-3.1.1 (authorized access), SC.L2-3.13.8 (data in
 transit, CUI email is in-scope), MP.L2-3.8.2 (media
 access, email attachments are media).
 
@@ -456,7 +456,7 @@ assessment and incident-response fail on shared-account
 patterns.
 
 **CMMC practices broken.** AU.L2-3.3.2 (user accountability),
-IA.L1-3.5.1 (identification), AC.L2-3.1.5 (least privilege,
+IA.L2-3.5.1 (identification), AC.L2-3.1.5 (least privilege,
 shared accounts typically have broad privilege), AC.L2-3.1.7
 (privileged-function auditing), SI.L2-3.14.7 (unauthorized
 use detection).

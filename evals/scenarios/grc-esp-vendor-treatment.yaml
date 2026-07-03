@@ -1,0 +1,58 @@
+id: grc-esp-vendor-treatment
+title: MSP helpdesk and MSSP SOC, do the vendors need their own CMMC
+category: grc
+
+prompt: |
+  We are a 60-person defense contractor working toward Level 2 C3PAO
+  certification. An MSP manages our helpdesk and endpoints, and an MSSP
+  runs our SOC and ingests all our logs. The MSP's technicians can remote
+  into machines that hold CUI. Our MSSP says they never see CUI, just
+  security telemetry.
+
+  Do these vendors need their own CMMC certification? Does either need
+  FedRAMP? And what do we need from them before our assessment?
+
+required_terms:
+  - External Service Provider
+  - 32 CFR 170
+  - shared responsibility
+  - CUI
+  - Security Protection Data
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Neither vendor needs a standalone CMMC certification. Under the CMMC
+  final rule (32 CFR 170), non-CSP External Service Providers are not
+  required to hold their own certification; their services are assessed
+  within the contractor's own assessment scope.
+
+  The MSP handles CUI (its technicians access CUI-bearing endpoints), so
+  its services are in the assessment scope and assessed as part of the
+  OSA's assessment. The MSSP handles Security Protection Data only (logs,
+  telemetry), so it is assessed as a Security Protection Asset within the
+  contractor's scope; SPD-only providers require neither a separate CMMC
+  assessment nor FedRAMP authorization. FedRAMP Moderate (or documented
+  equivalency per the December 2023 DoD CIO memo) applies to cloud service
+  offerings that store, process, or transmit CUI, which is not the case
+  for either vendor as described, though any cloud tooling the MSP uses to
+  store CUI would trigger it.
+
+  Before the assessment, the contractor needs from each vendor: a customer
+  responsibility matrix naming who implements which requirements, service
+  descriptions documented in the SSP, defined access architecture
+  (dedicated accounts in the contractor's tenant preferred), evidence for
+  the requirements the vendor fulfills (screening, MFA, logging for their
+  access), incident cooperation terms compatible with DFARS 252.204-7012
+  reporting, and data return/destruction terms.
+
+evaluator_notes: |
+  Score Category B on correct scope treatment: MSP services assessed
+  inside the OSA's scope because CUI is involved; MSSP treated as a
+  Security Protection Asset handling SPD. An answer requiring the MSP or
+  MSSP to obtain its own CMMC certification is a major accuracy failure
+  (that was the proposed rule, changed in the final rule). An answer
+  demanding FedRAMP for the MSSP's SPD-only service is also wrong. The
+  answer must name the customer responsibility matrix (or shared
+  responsibility matrix) as the key artifact. Enabler posture: a concrete
+  pre-assessment checklist for the vendors, not just definitions.

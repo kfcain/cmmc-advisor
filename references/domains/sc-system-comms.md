@@ -16,9 +16,18 @@ encryption modules, network design).
 
 ---
 
-## Level 1 Practices
+## Practices with Level 1 Counterparts
 
-### SC.L1-3.13.1 — Boundary Protection
+The CUI requirements in this section are assessed at Level 2 under their
+XX.L2-3.x.x identifiers. Each also protects FCI at Level 1 through a
+counterpart requirement in FAR 52.204-21, identified as XX.L1-b.1.i through
+XX.L1-b.1.xv in 32 CFR 170.15 and the CMMC Assessment Guide Level 1. FCI-only
+organizations self-assess the Level 1 counterparts; see
+`references/level-1-quickstart.md`.
+
+### SC.L2-3.13.1 — Boundary Protection
+
+*Level 1 counterpart: SC.L1-b.1.x (FAR 52.204-21)*
 
 **Requirement:** Monitor, control, and protect communications (i.e.,
 information transmitted or received by organizational systems) at the
@@ -51,7 +60,9 @@ is fundamental to protecting CUI.
 
 ---
 
-### SC.L1-3.13.5 — Public Access System Separation
+### SC.L2-3.13.5 — Public Access System Separation
+
+*Level 1 counterpart: SC.L1-b.1.xi (FAR 52.204-21)*
 
 **Requirement:** Implement subnetworks for publicly accessible system
 components that are physically or logically separated from internal
@@ -558,9 +569,9 @@ CUI confidentiality.
   practices IA.L2-3.5.10 (cryptographic password protection) and
   IA.L2-3.5.11 (obscured feedback) on encrypted authentication
   channels
-- SC.L1-3.13.1 (boundary protection) and SC.L1-3.13.5 (public
+- SC.L2-3.13.1 (boundary protection) and SC.L2-3.13.5 (public
   access separation) support Access Control (AC) enforcement at
-  AC.L1-3.1.20 (external system connections)
+  AC.L2-3.1.20 (external system connections)
 - SC.L2-3.13.7 (split tunnel prevention) relates to AC remote
   access practices AC.L2-3.1.12 through AC.L2-3.1.15
 - SC.L2-3.13.11 (FIPS validation) applies wherever cryptography
@@ -570,7 +581,7 @@ CUI confidentiality.
   media in transport)
 - FedRAMP inheritance: SC.L2-3.13.11 (FIPS) inherits strongly from
   FedRAMP Moderate SC-13 when the CSP operates on FIPS-validated
-  modules; SC.L1-3.13.1 (boundary) inherits from SC-7 at the CSP
+  modules; SC.L2-3.13.1 (boundary) inherits from SC-7 at the CSP
   infrastructure layer. See `references/fedramp-gap.md`
   "FIPS-validated cryptography" and "Boundary protection" family
   deep-dives
