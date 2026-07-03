@@ -37,6 +37,7 @@ from memory alone when a reference exists.
 | Question Type | Read First |
 |---------------|------------|
 | Which CMMC level do I need? | `references/levels-and-assessment.md` |
+| Level 1, FCI-only shops, annual self-assessment, affirmation | `references/level-1-quickstart.md` |
 | Scoring, passing, conditional certification | `references/levels-and-assessment.md` |
 | CUI vs FCI, boundary definition, enclaves | `references/scoping-and-cui.md` |
 | System Security Plan structure or gaps | `references/ssp-guidance.md` |
