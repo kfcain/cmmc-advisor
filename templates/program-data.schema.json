@@ -13,7 +13,7 @@
         "system_name": {"type": "string", "description": "Name of the in-scope information system"},
         "cage_codes": {"type": "array", "items": {"type": "string"}},
         "revision": {"type": "string", "description": "SSP revision label, e.g. Rev 3"},
-        "date": {"type": "string", "description": "SSP effective date, ISO 8601"},
+        "date": {"type": "string", "format": "date", "description": "SSP effective date, ISO 8601"},
         "purpose": {"type": "string", "description": "Purpose narrative; a default is generated when omitted"},
         "scope_narrative": {"type": "string"},
         "environment_narrative": {"type": "string"},
@@ -36,6 +36,7 @@
     },
     "conditional_status_date": {
       "type": "string",
+      "format": "date",
       "description": "CMMC Status Date of a Conditional status, ISO 8601. Drives the 180-day POA&M closeout clocks."
     },
     "assessment": {
@@ -43,7 +44,7 @@
       "properties": {
         "level": {"type": "string", "enum": ["1", "2", "3"]},
         "path": {"type": "string", "enum": ["self", "c3pao", "dibcac"]},
-        "target_date": {"type": "string"},
+        "target_date": {"type": "string", "format": "date"},
         "c3pao": {"type": "string"}
       }
     },
@@ -105,7 +106,7 @@
           "title": {"type": "string"},
           "version": {"type": "string"},
           "owner": {"type": "string"},
-          "reviewed": {"type": "string", "description": "Last review date, ISO 8601"},
+          "reviewed": {"type": "string", "format": "date", "description": "Last review date, ISO 8601"},
           "location": {"type": "string", "description": "Path or URL to the document"},
           "procedures": {"type": "array", "items": {"type": "string"}, "description": "Procedure documents operationalizing this policy"},
           "requirements": {
@@ -157,7 +158,7 @@
                     "properties": {
                       "name": {"type": "string"},
                       "link": {"type": "string", "description": "URL or repository path to the artifact"},
-                      "collected": {"type": "string"}
+                      "collected": {"type": "string", "format": "date"}
                     }
                   }
                 },
@@ -180,8 +181,8 @@
             "properties": {
               "priority": {"type": "string"},
               "description": {"type": "string"},
-              "opened": {"type": "string"},
-              "due": {"type": "string"},
+              "opened": {"type": "string", "format": "date"},
+              "due": {"type": "string", "format": "date"},
               "owner": {"type": "string"},
               "actions": {"type": "array", "items": {"type": "string"}},
               "status": {"type": "string", "enum": ["open", "in-progress", "closed"]}
