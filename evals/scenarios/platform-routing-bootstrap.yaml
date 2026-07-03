@@ -1,0 +1,36 @@
+id: platform-routing-bootstrap
+title: Agent reads SKILL.md routing before answering
+category: platform-distribution
+
+prompt: |
+  Quick question: our prime asked whether NinjaOne RMM on CUI laptops needs
+  FedRAMP authorization. We also use Tailscale mesh between home offices and
+  a GCC High enclave.
+
+  Before you answer: which files in the CMMC Advisor skill should you read
+  first, and what is the compliant floor for RMM on CUI endpoints?
+
+required_terms:
+  - SKILL.md
+  - references/
+  - FedRAMP
+  - msp-rmm-tools
+  - remote-access-scope
+  - enabler
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  The agent should explicitly state it reads SKILL.md first, then route to
+  references/modern-it/asset-baselines/msp-rmm-tools.md for RMM/MSP FedRAMP
+  Moderate (or equivalent) requirements on CUI-touching tools, and
+  references/modern-it/asset-baselines/remote-access-scope.md for Tailscale
+  and remote path scoping. NinjaOne commercial is not FedRAMP-authorized;
+  NinjaOne for Government or on-prem alternatives should be discussed.
+  Enabler posture: interim measures and compliant paths, not a flat refusal.
+
+evaluator_notes: |
+  Tests Phase 8 multi-platform bootstrap: agent must demonstrate routing
+  discipline (SKILL.md table, specific reference paths) not answer from
+  memory alone. Partial credit if RMM FedRAMP floor is correct but routing
+  paths are not named.

@@ -1,6 +1,6 @@
 # CMMC Advisor
 
-A Claude Code skill for working through CMMC 2.0 (Cybersecurity Maturity Model Certification) compliance. Built for defense contractors who deliver services to the U.S. Government and need clear, actionable guidance on cybersecurity certification requirements.
+A multi-platform agent skill for working through CMMC 2.0 (Cybersecurity Maturity Model Certification) compliance. Built for defense contractors who deliver services to the U.S. Government and need clear, actionable guidance on cybersecurity certification requirements. Ships adapters for Claude Code, Cursor, and Codex from one knowledge base.
 
 ## Philosophy
 
@@ -35,20 +35,35 @@ See [ROADMAP.md](ROADMAP.md) for the staged expansion into multi-framework feder
 
 ## Installation
 
-Clone the repository, then copy the skill into your Claude Code skills directory.
+One knowledge base (`SKILL.md` + `references/` + `scripts/`). Pick your platform.
+Full cross-platform notes: [platforms/README.md](platforms/README.md).
+
+### Claude Code
 
 ```bash
-git clone https://github.com/LV-262/cmmc-advisor.git
-# or via SSH: git clone git@github.com:LV-262/cmmc-advisor.git
-
-# Personal installation (available to all your projects)
+git clone https://github.com/kfcain/cmmc-advisor.git
 cp -r cmmc-advisor ~/.claude/skills/cmmc-advisor
-
-# Project installation (scoped to the current project)
-cp -r cmmc-advisor .claude/skills/cmmc-advisor
+# or project-scoped: cp -r cmmc-advisor .claude/skills/cmmc-advisor
 ```
 
-Claude Code automatically discovers and loads skills from these locations.
+Details: [platforms/claude/README.md](platforms/claude/README.md)
+
+### Cursor
+
+```bash
+git submodule add https://github.com/kfcain/cmmc-advisor.git .cmmc-advisor
+mkdir -p .cursor/skills && ln -sf ../../.cmmc-advisor .cursor/skills/cmmc-advisor
+```
+
+Details: [platforms/cursor/README.md](platforms/cursor/README.md)
+
+### Codex / OpenAI agents
+
+Add the CMMC Advisor submodule, then merge the bootstrap block from
+[platforms/codex/AGENTS.md](platforms/codex/AGENTS.md) into your project
+`AGENTS.md`.
+
+Details: [platforms/codex/README.md](platforms/codex/README.md)
 
 ## Usage Examples
 

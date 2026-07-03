@@ -106,6 +106,27 @@ Shipped:
 Remaining: live HTTP wiring per on-prem vendor API; printer-specific collector;
 deeper cmmc-raci interop when portfolio repo is reachable.
 
+## Phase 8: Multi-Platform Distribution — DELIVERED (8a)
+
+Shipped:
+
+- `platforms/README.md` cross-platform install overview
+- `platforms/claude/README.md` Claude Code personal and submodule install
+- `platforms/cursor/` Cursor plugin stub (`.cursor-plugin/plugin.json`, bootstrap
+  skill, Agent Decides rule)
+- `platforms/codex/` Codex bootstrap (`AGENTS.md` block + README)
+- Root `AGENTS.md` for Codex contributors working in this repository
+- README Installation section for all three platforms
+- Eval scenario `platform-routing-bootstrap` (routing discipline check)
+
+Remaining (8b, optional):
+
+- MCP or slash-command toolkit plugin wrapping high-value `scripts/*`
+- Harness-repo multi-agent specialists (scoping, evidence, POA&M, assessment prep)
+  consuming this repo as submodule; out of scope for this distribution per
+  `CLAUDE.md`
+- Cursor Marketplace submission after local plugin testing
+
 ## Not Planned
 
 Anything requiring nonpublic sources, paid feeds, or assessment

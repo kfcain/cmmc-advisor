@@ -1,6 +1,10 @@
 # Project Instructions for AI Agents
 
-This repository distributes the `cmmc-advisor` Claude Code skill. It ships a full SKILL.md plus a `references/` knowledge base, and carries its own eval runner under `evals/` so the skill's answer quality is measurable against curated scenarios and a rubric.
+This repository distributes the `cmmc-advisor` skill for Claude Code, Cursor,
+and Codex. It ships a full SKILL.md plus a `references/` knowledge base, thin
+platform adapters under `platforms/`, and its own eval runner under `evals/`
+so the skill's answer quality is measurable against curated scenarios and a
+rubric.
 
 ## Scope
 
@@ -50,6 +54,16 @@ Same voice discipline as the wider Igris-family content: no em dashes, no slop w
 - Factual data changes (AO dataset, crosswalk, SPRS weights): regenerate from primary sources programmatically and re-verify counts (110 requirements, 320 objectives, -203 floor; crosswalk 77 + 33 = 110, 97 Rev 3); never hand-edit numbers from memory.
 - Eval runner changes: small repo, direct edits are fine; tests are the scenario runs themselves.
 
+## Multi-platform distribution
+
+Platform install adapters live under `platforms/` (Claude, Cursor, Codex).
+One knowledge base; do not fork `references/` or factual data per platform.
+Root `AGENTS.md` covers Codex in this repo; consumer projects use
+`platforms/codex/AGENTS.md` as a paste-in bootstrap block.
+
 ## What this repo does NOT carry
 
-- No hooks, no agents dir, no settings.json, no soul.md. This is a skill distribution, not a Claude Code harness host. Harness-level governance (hooks, agents, settings) lives in the author's separate Claude Code harness repo and is out of scope here.
+- No hooks, no agents dir, no settings.json, no soul.md. This is a skill
+  distribution, not a Claude Code harness host. Harness-level governance
+  (hooks, agents, settings) and multi-agent orchestration live in the author's
+  separate harness repo and are out of scope here (see ROADMAP Phase 8b).

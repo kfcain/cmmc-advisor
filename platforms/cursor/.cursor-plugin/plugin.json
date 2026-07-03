@@ -1,0 +1,12 @@
+{
+  "name": "cmmc-advisor",
+  "displayName": "CMMC Advisor",
+  "version": "1.0.0",
+  "description": "CMMC 2.0 compliance advisor for defense contractors. Bootstrap entrypoint to the canonical SKILL.md and references/ knowledge base.",
+  "author": {
+    "name": "Lloyd Evans"
+  },
+  "repository": "https://github.com/kfcain/cmmc-advisor",
+  "license": "MIT",
+  "keywords": ["cmmc", "nist-800-171", "cui", "fedramp", "compliance", "defense-contractor"]
+}
