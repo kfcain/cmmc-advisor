@@ -50,6 +50,7 @@ from memory alone when a reference exists.
 | Risk register, risk acceptance, risk program cadence | `references/grc/risk-management.md` |
 | Staying certified: affirmations, SPRS maintenance, drift, control owners | `references/grc/continuous-monitoring.md` |
 | MSP/MSSP/ESP treatment, FedRAMP equivalency, subcontractor flowdowns | `references/grc/vendor-and-supply-chain.md` |
+| Mapping inherited controls from a FedRAMP CRM / CIS Appendix J / BoE | `references/grc/inherited-controls-mapping.md` |
 | Compliance roles, policy lifecycle, change management, 72-hour incident reporting | `references/grc/program-governance.md` |
 | Specific domain practices (AC, IA, SC, etc.) | `references/domains/{domain}.md` |
 | Assessment objectives for a practice, what the assessor will examine, interview, or test | `references/assessment-objectives/{ac,at,au,ca,cm,ia,ir,ma,mp,pe,ps,ra,sc,si}.md` |
@@ -115,6 +116,14 @@ remediation view ordered by points at stake, and an inheritance view
 showing which objectives trace to which provider CRM rows. Regenerate
 after every data file change; the dashboard is a rendering, not a
 second source of truth.
+
+**Map inherited controls.** When the user provides a FedRAMP CRM, CIS
+workbook (Appendix J), or body of evidence for a platform they run on,
+follow `references/grc/inherited-controls-mapping.md`: declare the
+platform under `inheritance_sources`, classify each affected assessment
+objective as inherited, shared (with an explicit customer share), or
+customer, always with a CRM row citation, then regenerate the SSP and
+dashboard. Never mark an objective inherited without a citable CRM row.
 
 **Maintain the program data file.** Treat it as the single source of
 truth: status changes, new evidence, POA&M updates (respect the
