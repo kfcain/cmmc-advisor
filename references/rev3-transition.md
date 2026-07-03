@@ -125,10 +125,13 @@ timeline accordingly.
 
 ## Mapping Rev 2 to Rev 3
 
-A detailed mapping between Rev 2 and Rev 3 requirements is available from
-NIST. The key insight: most Rev 2 requirements have direct equivalents in
-Rev 3, though they may be numbered differently or organized into different
-families.
+The full requirement-by-requirement map lives in
+`rev2-rev3-crosswalk.md`: the disposition of all 110 Rev 2 requirements
+(77 carried forward, 33 withdrawn into named destinations), the 20 new
+Rev 3 requirements including the Planning, System and Services
+Acquisition, and Supply Chain Risk Management families, and ODP counts
+per carried requirement. The key insight: most Rev 2 requirements have
+direct equivalents in Rev 3 under the same numbering.
 
 Organizations that have fully implemented Rev 2 will find that the majority
 of their controls satisfy Rev 3 requirements with minimal adjustment. The

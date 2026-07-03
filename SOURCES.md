@@ -126,6 +126,18 @@ compliance documentation and practitioner publications.
   categories, XX.L2-3.x.x identifier scheme for all 110 requirements
   (verified 2026-07-03 via URL above)
 
+### NIST SP 800-171 Revision 3 (with Rev 2 change analysis)
+- **Title:** NIST SP 800-171 Rev 3, Protecting Controlled Unclassified
+  Information in Nonfederal Systems and Organizations, plus NIST's
+  Rev 2 to Rev 3 analysis of changes and the CPRT machine-readable
+  dataset (withdrawal dispositions, ODPs)
+- **Publisher:** NIST
+- **URL:** https://csrc.nist.gov/pubs/sp/800/171/r3/final
+- **Used in:** rev2-rev3-crosswalk (dispositions of all 110 Rev 2
+  requirements, 20 new Rev 3 requirements, ODP counts; counts verified
+  2026-07-03: 77 carried + 33 withdrawn = 110, and 97 Rev 3 total),
+  rev3-transition
+
 ### DoD NIST SP 800-171 Assessment Methodology v1.2.1
 - **Title:** NIST SP 800-171 DoD Assessment Methodology, Version 1.2.1
 - **Publisher:** Office of the Under Secretary of Defense (A&S)

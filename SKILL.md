@@ -45,6 +45,7 @@ from memory alone when a reference exists.
 | POA&M rules, 180-day closeout, critical items | `references/poam-management.md` |
 | What evidence to collect | `references/evidence-collection.md` |
 | NIST 800-171 Rev 3 transition timeline | `references/rev3-transition.md` |
+| How a specific Rev 2 requirement maps to Rev 3, new Rev 3 requirements | `references/rev2-rev3-crosswalk.md` |
 | FedRAMP vs CMMC, 7012 CSP requirements | `references/fedramp-gap.md` |
 | Common mistakes, compliance theater | `references/anti-patterns.md` |
 | Risk register, risk acceptance, risk program cadence | `references/grc/risk-management.md` |
