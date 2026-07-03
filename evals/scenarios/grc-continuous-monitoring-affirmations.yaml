@@ -1,0 +1,55 @@
+id: grc-continuous-monitoring-affirmations
+title: Newly certified Level 2 contractor asks what keeps the certificate alive
+category: grc
+
+prompt: |
+  We just passed our Level 2 C3PAO assessment last month. Everyone wants
+  to move on to other projects. What do we actually have to do over the
+  next three years to keep our certification valid and stay eligible for
+  awards? Who has to do it, and what happens if we let something slip?
+
+required_terms:
+  - affirmation
+  - SPRS
+  - annual
+  - 252.204-7021
+  - triennial
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Three standing obligations. First, the Affirming Official must submit an
+  affirmation of continuing compliance in SPRS annually following the
+  Final CMMC Status date (32 CFR 170.22), in addition to the affirmation
+  at assessment time; DFARS 252.204-7021 makes maintaining the status and
+  affirmation a condition of eligibility, and a lapsed affirmation makes
+  the company ineligible for awards requiring that status. False
+  affirmations create False Claims Act exposure for company and signer.
+
+  Second, the certification itself must be renewed by a new C3PAO
+  assessment within three years (triennial cadence), which means starting
+  C3PAO scheduling well in advance and keeping evidence current rather
+  than rebuilding it in year three. Hashed assessment artifacts must be
+  retained six years.
+
+  Third, the posture must actually be maintained: ongoing monitoring per
+  CA.L2-3.12.3 and an SSP that keeps matching reality through change
+  management, SPRS score updates on material change (DFARS
+  252.204-7019/7020, with DoD's right to a DIBCAC investigation under
+  7020 whose results supersede the existing status).
+
+  A strong answer proposes an operating model: named control owners with
+  evidence refresh schedules, a compliance calendar (affirmation
+  anniversary, triennial lead time, POA&M deadlines if any), quarterly
+  drift review across configuration, people, vendors, and scope, and an
+  annual packet for the Affirming Official so the signature rests on
+  evidence.
+
+evaluator_notes: |
+  Score Category B on whether the answer stays within post-certification
+  obligations for the certified scope. Accuracy essentials: annual
+  affirmation in SPRS by the Affirming Official plus triennial
+  reassessment; consequences of lapse (award ineligibility, FCA
+  exposure); DIBCAC investigation right under 252.204-7020. Enabler
+  posture: the answer should convert obligations into an operating
+  rhythm (owners, calendar, evidence refresh), not just recite the rule.

@@ -19,6 +19,8 @@ Modern IT compliance mapping for real-world stacks:
 - AI services. FedRAMP-authorized (Amazon Bedrock GovCloud, Azure OpenAI Government, Vertex AI Assured Workloads), self-hosted (Coder, on-prem LLM, air-gapped), and AI dev tools (Claude Code, Copilot Enterprise, Cursor, Windsurf, Continue).
 - Endpoint management. macOS, Windows STIG baselines, remote work.
 
+A GRC program layer covering the risk management program (register design, acceptance workflow, cadence), continuous monitoring between assessments (control owners, annual affirmations, SPRS score maintenance, drift detection), vendor and supply chain treatment (ESP/MSP/MSSP rules under the final rule, FedRAMP Moderate equivalency, subcontractor flowdowns), and program governance (roles, policy lifecycle, change management, 72-hour DIBNet incident reporting readiness).
+
 Contractor-specific guidance by company size (small, medium, large) and socioeconomic set-aside (SDVOSB, 8(a), WOSB/EDWOSB, HUBZone).
 
 FedRAMP Marketplace practitioner guide with curated category short-lists, search guidance, and coverage-gap analysis.

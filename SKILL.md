@@ -47,6 +47,10 @@ from memory alone when a reference exists.
 | NIST 800-171 Rev 3 transition timeline | `references/rev3-transition.md` |
 | FedRAMP vs CMMC, 7012 CSP requirements | `references/fedramp-gap.md` |
 | Common mistakes, compliance theater | `references/anti-patterns.md` |
+| Risk register, risk acceptance, risk program cadence | `references/grc/risk-management.md` |
+| Staying certified: affirmations, SPRS maintenance, drift, control owners | `references/grc/continuous-monitoring.md` |
+| MSP/MSSP/ESP treatment, FedRAMP equivalency, subcontractor flowdowns | `references/grc/vendor-and-supply-chain.md` |
+| Compliance roles, policy lifecycle, change management, 72-hour incident reporting | `references/grc/program-governance.md` |
 | Specific domain practices (AC, IA, SC, etc.) | `references/domains/{domain}.md` |
 | AWS GovCloud compliance | `references/modern-it/cloud-platforms/aws-govcloud.md` |
 | Azure Government compliance | `references/modern-it/cloud-platforms/azure-government.md` |

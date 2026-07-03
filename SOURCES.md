@@ -53,6 +53,33 @@ compliance documentation and practitioner publications.
 - **URL:** https://www.acquisition.gov/dfars/252.204-7012-safeguarding-covered-defense-information-and-cyber-incident-reporting
 - **Used in:** Incident Response domain, scoping, FedRAMP equivalence framing, modern-IT tenancy decisions
 
+### DFARS 252.204-7019 / 7020 / 7021
+- **Title:** Notice of NIST SP 800-171 DoD Assessment Requirements (7019);
+  NIST SP 800-171 DoD Assessment Requirements (7020); Contractor
+  Compliance with the CMMC Level Requirement (7021)
+- **Publisher:** Department of Defense (DFARS)
+- **URL:** https://www.acquisition.gov/dfars/part-252-solicitation-provisions-and-contract-clauses
+- **Used in:** grc/continuous-monitoring (SPRS score currency, DIBCAC
+  investigation right, CMMC status maintenance), grc/vendor-and-supply-chain
+  (flowdowns)
+
+### DoD CIO Memorandum — FedRAMP Moderate Equivalency
+- **Title:** FedRAMP Moderate Equivalency for Cloud Service Provider's
+  Cloud Service Offerings (December 21, 2023)
+- **Publisher:** DoD CIO
+- **URL:** https://dodcio.defense.gov/Portals/0/Documents/Library/FEDRAMP-EquivalencyCloudServiceProviders.pdf
+- **Used in:** grc/vendor-and-supply-chain (100 percent baseline
+  compliance, 3PAO assessment, body of evidence, no assessment POA&Ms,
+  annual revalidation; verified 2026-07-03 via URL above)
+
+### DoD CIO — ESP Scoping Requirements for Level 2 and Level 3
+- **Title:** CMMC Technical Implementation Requirements presentation
+  (ESP scoping matrix)
+- **Publisher:** DoD CIO
+- **URL:** https://dodcio.defense.gov/Portals/0/Documents/CMMC/TechImplementationCMMC-Rqrmnts.pdf
+- **Used in:** grc/vendor-and-supply-chain ESP decision matrix (CSP vs
+  non-CSP, CUI vs SPD-only treatment; verified 2026-07-03 via URL above)
+
 ### DoD Cloud Computing Security Requirements Guide v1r1
 - **Title:** Department of Defense Cloud Computing Security Requirements Guide
 - **Publisher:** DISA
