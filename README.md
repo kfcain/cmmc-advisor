@@ -52,7 +52,9 @@ Details: [platforms/claude/README.md](platforms/claude/README.md)
 
 ```bash
 git submodule add https://github.com/kfcain/cmmc-advisor.git .cmmc-advisor
-mkdir -p .cursor/skills && ln -sf ../../.cmmc-advisor .cursor/skills/cmmc-advisor
+mkdir -p .cursor/skills .cursor/rules
+ln -sf ../../.cmmc-advisor .cursor/skills/cmmc-advisor
+ln -sf ../../.cmmc-advisor/platforms/cursor/rules/cmmc-advisor.mdc .cursor/rules/cmmc-advisor.mdc
 ```
 
 Details: [platforms/cursor/README.md](platforms/cursor/README.md)

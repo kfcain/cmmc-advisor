@@ -7,7 +7,7 @@ adapters only. Do not fork factual content per platform.
 | Platform | Adapter | Full install |
 |----------|---------|--------------|
 | Claude Code | `platforms/claude/` | Copy or submodule the whole repo into `~/.claude/skills/cmmc-advisor` or `.claude/skills/cmmc-advisor` |
-| Cursor | `platforms/cursor/` | Symlink the whole repo into `.cursor/skills/cmmc-advisor`, or install the local plugin stub |
+| Cursor | `platforms/cursor/` | Symlink the whole repo into `.cursor/skills/cmmc-advisor`, symlink the rule into `.cursor/rules/`, or install the local plugin stub |
 | Codex / OpenAI agents | `platforms/codex/` | Submodule the repo and merge `platforms/codex/AGENTS.md` into your project `AGENTS.md` |
 
 Recommended consumer layout (any platform):
@@ -17,7 +17,8 @@ your-project/
 ├── .cmmc-advisor/          # git submodule -> github.com/kfcain/cmmc-advisor
 ├── AGENTS.md               # Codex: includes platforms/codex bootstrap block
 ├── .claude/skills/cmmc-advisor -> ../../.cmmc-advisor   # Claude Code
-└── .cursor/skills/cmmc-advisor -> ../../.cmmc-advisor   # Cursor
+├── .cursor/skills/cmmc-advisor -> ../../.cmmc-advisor   # Cursor skill
+└── .cursor/rules/cmmc-advisor.mdc -> ../../.cmmc-advisor/platforms/cursor/rules/cmmc-advisor.mdc  # Cursor rule
 ```
 
 Contributors working in this repository use root `AGENTS.md` (Codex) and

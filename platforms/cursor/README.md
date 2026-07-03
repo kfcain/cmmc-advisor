@@ -10,12 +10,14 @@ repository (not just the plugin stub) so `references/` and `scripts/` resolve.
 
 ```bash
 git submodule add https://github.com/kfcain/cmmc-advisor.git .cmmc-advisor
-mkdir -p .cursor/skills
+mkdir -p .cursor/skills .cursor/rules
 ln -sf ../../.cmmc-advisor .cursor/skills/cmmc-advisor
+ln -sf ../../.cmmc-advisor/platforms/cursor/rules/cmmc-advisor.mdc .cursor/rules/cmmc-advisor.mdc
 ```
 
-Open **Customize > Skills** and confirm `cmmc-advisor` appears. Invoke with
-`/cmmc-advisor` or let Agent Decides surface it on CMMC questions.
+Open **Customize > Skills** and confirm `cmmc-advisor` appears. The rule loads
+from `.cursor/rules/cmmc-advisor.mdc`. Invoke with `/cmmc-advisor` or let Agent
+Decides surface it on CMMC questions.
 
 ### User-level (all Cursor projects)
 
@@ -47,7 +49,8 @@ SSP, or POA&M topics appear.
 ## Verify
 
 Ask: "Which CMMC level for a subcontractor processing CUI?" The agent should
-read `SKILL.md` and at least one file under `references/` before answering.
+read the skill-root `SKILL.md` (for example `.cmmc-advisor/SKILL.md`) and at
+least one file under `{skill-root}/references/` before answering.
 
 ## Related
 

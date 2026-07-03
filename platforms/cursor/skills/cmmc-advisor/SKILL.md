@@ -19,19 +19,22 @@ repository root of the CMMC Advisor distribution, alongside `references/`,
 
 Before answering any CMMC, CUI, or federal GRC question:
 
-1. Read the canonical `SKILL.md` (repo root, or `.cmmc-advisor/SKILL.md` when
-   installed as a submodule in a consumer project).
-2. Follow its **Knowledge Base Routing** table. Read each referenced file under
-   `references/` before answering from memory.
+1. Read the canonical `SKILL.md` (repo root when working in cmmc-advisor, or
+   `.cmmc-advisor/SKILL.md` / `.cursor/skills/cmmc-advisor/SKILL.md` in a
+   consumer project).
+2. Treat the directory containing that `SKILL.md` as the **skill root**. Follow
+   its **Knowledge Base Routing** table. Read each referenced file under
+   `{skill-root}/references/` before answering from memory.
 3. Apply the **Program Toolkit Workflows** section when the user wants SSP,
-   dashboard, evidence, POA&M, or assessment-prep automation via `scripts/`.
+   dashboard, evidence, POA&M, or assessment-prep automation via scripts under
+   `{skill-root}/scripts/`.
 
 ## If files are missing
 
-If `SKILL.md` or `references/` are not in the workspace, tell the user to install
-the full distribution. See `platforms/cursor/README.md` and root `README.md`
-(Installation). A symlink or submodule of the whole repo is required; this
-bootstrap file alone is not sufficient.
+If `SKILL.md` or `{skill-root}/references/` are not in the workspace, tell the
+user to install the full distribution. See `platforms/cursor/README.md` and root
+`README.md` (Installation). A symlink or submodule of the whole repo is required;
+this bootstrap file alone is not sufficient.
 
 ## Philosophy
 

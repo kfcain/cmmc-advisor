@@ -30,7 +30,7 @@ certification:
    from memory.
 3. For program toolkit operations (SSP, dashboard, evidence collectors, POA&M
    validation), run scripts from `.cmmc-advisor/scripts/` against the user's
-   program data file per SKILL.md Program Toolkit Workflows.
+   program data file per `.cmmc-advisor/SKILL.md` Program Toolkit Workflows.
 4. Preserve the enabler posture: map compliant paths; when no compliant option
    exists today, state the gap, interim measures, and who is closing it.
 
@@ -48,7 +48,7 @@ content discipline. Codex merges nested files; root guidance applies here.
 ## Verify
 
 Ask Codex a CMMC scoping question in a project with the submodule. Confirm it
-reads `.cmmc-advisor/SKILL.md` and at least one `references/` file.
+reads `.cmmc-advisor/SKILL.md` and at least one `.cmmc-advisor/references/` file.
 
 ## Related
 

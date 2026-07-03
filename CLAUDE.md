@@ -66,4 +66,4 @@ Root `AGENTS.md` covers Codex in this repo; consumer projects use
 - No hooks, no agents dir, no settings.json, no soul.md. This is a skill
   distribution, not a Claude Code harness host. Harness-level governance
   (hooks, agents, settings) and multi-agent orchestration live in the author's
-  separate harness repo and are out of scope here (see ROADMAP Phase 8b).
+  separate harness repo and are out of scope here (see ROADMAP Phase 8 optional follow-on).

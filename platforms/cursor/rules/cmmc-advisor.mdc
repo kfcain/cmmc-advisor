@@ -1,5 +1,6 @@
 ---
 description: Route CMMC 2.0, CUI, DFARS 252.204-7012, NIST SP 800-171, FedRAMP, SSP, and POA&M questions through the CMMC Advisor skill and references/ knowledge base
+globs: "*"
 alwaysApply: false
 ---
 
@@ -10,12 +11,14 @@ SPRS scoring, or defense contractor cybersecurity compliance:
 1. Read `SKILL.md` at the CMMC Advisor repository root (same tree as
    `references/`). If the workspace is a consumer project, read
    `.cmmc-advisor/SKILL.md` or `.cursor/skills/cmmc-advisor/SKILL.md`.
-2. Follow the Knowledge Base Routing table in that file. Read the referenced
-   path under `references/` before answering from memory.
+2. Treat the directory containing that `SKILL.md` as the **skill root**.
+   Follow the Knowledge Base Routing table in that file. Read referenced paths
+   under `{skill-root}/references/` (not workspace-root `references/`) before
+   answering from memory.
 3. Preserve the enabler posture: map compliant paths clearly; when no compliant
    option exists today, state the gap, interim measures, and who is closing it.
 4. For program toolkit tasks (SSP, dashboard, evidence collectors, POA&M
-   validation), use scripts under `scripts/` against the user's program data
-   file per `SKILL.md` Program Toolkit Workflows.
+   validation), run scripts under `{skill-root}/scripts/` against the user's
+   program data file per the skill root `SKILL.md` Program Toolkit Workflows.
 
 Do not block or refuse without offering a path forward.
