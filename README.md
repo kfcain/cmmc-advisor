@@ -31,6 +31,8 @@ Rev 3 transition context (current Rev 2 requirements with Rev 3 awareness).
 
 Anti-patterns catalog: sixteen named compliance-theater patterns across documentation, tool, scope, and assessment categories.
 
+See [ROADMAP.md](ROADMAP.md) for the staged expansion into multi-framework federal GRC coverage (policy-to-control mapping, 800-53/FedRAMP crosswalks, OSCAL, FedRAMP 20x, evidence automation).
+
 ## Installation
 
 Clone the repository, then copy the skill into your Claude Code skills directory.
