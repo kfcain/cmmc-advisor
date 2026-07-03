@@ -94,7 +94,8 @@ async def _invoke_subject(prompt: str) -> tuple[str, list[str]]:
         system_prompt=_load_skill_system_prompt(),
         cwd=str(REPO_ROOT),
         allowed_tools=["Read", "Grep", "Glob"],
-        permission_mode="bypassPermissions",  # read-only tools; headless run
+        permission_mode="default",  # allowed_tools covers the read-only set;
+        # bypassPermissions is rejected when the harness runs as root
         max_turns=25,
     )
     chunks: list[str] = []
