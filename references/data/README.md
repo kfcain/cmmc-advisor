@@ -12,7 +12,7 @@ instead of hand-maintaining a static matrix.
 | File | In git? | Purpose |
 |------|---------|---------|
 | `fedramp-snapshot.manifest.json` | Yes | Stable vendor list, corpus references, CUI/IL practitioner notes |
-| `../scripts/build_fedramp_snapshot.py` | Yes | Fetches official Marketplace export and merges live fields |
+| `scripts/build_fedramp_snapshot.py` (repo root) | Yes | Fetches official Marketplace export and merges live fields |
 | `fedramp-snapshot.json` | Yes | Generated output, committed for convenience; re-run the builder to refresh |
 
 The committed `fedramp-snapshot.json` is public, non-sensitive data. It carries
@@ -68,7 +68,7 @@ FedRAMP 20x machine-readable rules and KSI catalog for vendor due diligence.
 | File | In git? | Purpose |
 |------|---------|---------|
 | `frmr-snapshot.manifest.json` | Yes | Curated vendors with trust-center URLs and KSI checklist steps |
-| `../scripts/build_frmr_snapshot.py` | Yes | Fetches Consolidated Rules JSON + Marketplace merge |
+| `scripts/build_frmr_snapshot.py` (repo root) | Yes | Fetches Consolidated Rules JSON + Marketplace merge |
 | `frmr-snapshot.json` | Yes | Generated output; re-run builder to refresh KSI counts |
 
 ```bash
@@ -77,8 +77,6 @@ python3 scripts/build_frmr_snapshot.py
 
 See `references/fedramp-20x-ksi-due-diligence.md` for how contractors use the
 snapshot during vendor evaluation.
-
-See `references/data/README.md` for the assessment objectives dataset and FRMR snapshot.
 
 ### Evidence collector manifest
 

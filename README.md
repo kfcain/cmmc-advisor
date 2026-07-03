@@ -33,6 +33,8 @@ Anti-patterns catalog: sixteen named compliance-theater patterns across document
 
 See [ROADMAP.md](ROADMAP.md) for the staged expansion into multi-framework federal GRC coverage (policy-to-control mapping, 800-53/FedRAMP crosswalks, OSCAL, FedRAMP 20x, evidence automation).
 
+**Capability guide:** open [docs/capability-guide.html](docs/capability-guide.html) in a browser for a self-contained map of every feature, script, dataset, platform adapter, and known limitation in this repository.
+
 ## Installation
 
 One knowledge base (`SKILL.md` + `references/` + `scripts/`). Pick your platform.
