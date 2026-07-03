@@ -151,6 +151,13 @@
   const sourcesById = {};
   (program.inheritance_sources || []).forEach(s => sourcesById[s.id] = s);
 
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g,
+    c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c]));
+  const days_until = (iso, offset) => {
+    const t0 = Date.parse(iso);
+    if (isNaN(t0)) return null;
+    return Math.ceil((t0 + (offset || 0) * 86400000 - Date.now()) / 86400000);
+  };
   const STATUS = {
     "met":            { label: "Met",           cls: "c-met",         icon: "✓" },
     "inherited":      { label: "Inherited",     cls: "c-inherited",   icon: "⤓" },
@@ -194,17 +201,14 @@
 
   function poamRows() {
     const rows = [];
-    const today = new Date();
     for (const r of dataset.requirements) {
       const p = entries[r.id] && entries[r.id].poam;
       if (!p) continue;
       let days = null;
       if (program.conditional_status_date) {
-        const end = new Date(program.conditional_status_date);
-        end.setDate(end.getDate() + 180);
-        days = Math.ceil((end - today) / 86400000);
+        days = days_until(program.conditional_status_date, 180);
       } else if (p.due) {
-        days = Math.ceil((new Date(p.due) - today) / 86400000);
+        days = days_until(p.due, 0);
       }
       rows.push({ rid: r.id, p, days });
     }
@@ -227,11 +231,11 @@
         <div class="v num">${openPoams.length}</div>
         <div class="s">${openPoams.length && openPoams[0].days != null ? "nearest clock: " + openPoams[0].days + " days" : " "}</div></div>
       <div class="tile"><div class="k">Assessment</div>
-        <div class="v">${(program.assessment && "L" + program.assessment.level) || "L2"}</div>
-        <div class="s">${(program.assessment && (program.assessment.path || "").toUpperCase()) || ""} ${(program.assessment && program.assessment.target_date) || ""}</div></div>`;
+        <div class="v">${esc((program.assessment && "L" + program.assessment.level) || "L2")}</div>
+        <div class="s">${esc((program.assessment && (program.assessment.path || "").toUpperCase()) || "")} ${esc((program.assessment && program.assessment.target_date) || "")}</div></div>`;
   }
 
-  const TABS = [["objectives", "Objectives"], ["poam", "POA&M"], ["gaps", "Gap remediation"], ["inheritance", "Inheritance"]];
+  const TABS = [["objectives", "Objectives"], ["poam", "POA&M"], ["gaps", "Gap remediation"], ["inheritance", "Inheritance"], ["policies", "Policies"], ["diagrams", "Diagrams"]];
   let active = "objectives", famFilter = "", query = "";
 
   function renderTabs() {
@@ -251,22 +255,22 @@
       const inh = oe.inheritance;
       const src = inh && sourcesById[inh.source];
       const ev = (oe.evidence || []).map(e =>
-        e.link ? `<a href="${e.link}">${e.name}</a>` : e.name).join(" · ");
+        e.link ? `<a href="${esc(e.link)}">${esc(e.name)}</a>` : esc(e.name)).join(" · ");
       return `<div class="ao">
-        <div class="head"><span class="letter">[${letter}]</span>
-          <span class="otext">${text}</span>${chip(oe.conformity || "not-assessed")}</div>
-        ${oe.statement ? `<p class="narr">${oe.statement}</p>` : ""}
-        ${inh ? `<div class="meta"><span class="badge">${(inh.type || "inherited")} ← ${src ? (src.provider + " " + (src.cso || "")) : inh.source}${inh.crm_ref ? " · CRM " + inh.crm_ref : ""}</span>${inh.customer_note ? " customer share: " + inh.customer_note : ""}</div>` : ""}
+        <div class="head"><span class="letter">[${esc(letter)}]</span>
+          <span class="otext">${esc(text)}</span>${chip(oe.conformity || "not-assessed")}</div>
+        ${oe.statement ? `<p class="narr">${esc(oe.statement)}</p>` : ""}
+        ${inh ? `<div class="meta"><span class="badge">${esc(inh.type || "inherited")} ← ${esc(src ? (src.provider + " " + (src.cso || "")) : inh.source)}${inh.crm_ref ? " · CRM " + esc(inh.crm_ref) : ""}</span>${inh.customer_note ? " customer share: " + esc(inh.customer_note) : ""}</div>` : ""}
         ${ev ? `<div class="meta">Evidence: ${ev}</div>` : ""}
       </div>`;
     }).join("");
     return `<details class="req"><summary>
-        <span class="rid">${r.id}</span><span class="rname">${r.name}</span>
+        <span class="rid">${esc(r.id)}</span><span class="rname">${esc(r.name)}</span>
         ${chip(effStatus(r.id))}
         <span class="pts num">${r.sprs_value} pt${r.sprs_value === 1 ? "" : "s"}${r.sprs_partial_value ? " (partial " + r.sprs_partial_value + ")" : ""}</span>
       </summary>
-      <div class="body"><p class="stmt">${r.statement}</p>${aoHtml}
-      ${entry.remediation_plan ? `<div class="meta"><strong>Remediation plan:</strong> ${entry.remediation_plan}</div>` : ""}</div>
+      <div class="body"><p class="stmt">${esc(r.statement)}</p>${aoHtml}
+      ${entry.remediation_plan ? `<div class="meta"><strong>Remediation plan:</strong> ${esc(entry.remediation_plan)}</div>` : ""}</div>
     </details>`;
   }
 
@@ -316,14 +320,14 @@
           days < 0 ? `<span class="chip c-notmet">✕ ${-days}d over</span>` :
           days <= 30 ? `<span class="chip c-due">⏱ ${days}d left</span>` :
           `<span class="chip c-na">${days}d left</span>`;
-        return `<tr><td>${p.priority || ""}</td><td class="num">${rid}</td>
-          <td>${p.description || ""}</td><td>${p.owner || ""}</td>
-          <td class="num">${p.due || ""}</td><td>${clock}</td>
-          <td>${p.status || "open"}</td>
-          <td>${(p.actions || []).map(a => "• " + a).join("<br>")}</td></tr>`;
+        return `<tr><td>${esc(p.priority || "")}</td><td class="num">${esc(rid)}</td>
+          <td>${esc(p.description || "")}</td><td>${esc(p.owner || "")}</td>
+          <td class="num">${esc(p.due || "")}</td><td>${clock}</td>
+          <td>${esc(p.status || "open")}</td>
+          <td>${(p.actions || []).map(a => "• " + esc(a)).join("<br>")}</td></tr>`;
       }).join("")}</tbody></table>
       <p class="note">${program.conditional_status_date
-        ? "Clocks run 180 days from the Conditional CMMC Status Date (" + program.conditional_status_date + ") per 32 CFR 170.21(b)."
+        ? "Clocks run 180 days from the Conditional CMMC Status Date (" + esc(program.conditional_status_date) + ") per 32 CFR 170.21(b)."
         : "No Conditional Status Date set; clocks use each item's due date. After a conditional assessment, set conditional_status_date to drive the 180-day closeout."}</p>`;
   }
 
@@ -334,10 +338,10 @@
     view.innerHTML = gaps.sort((a, b) => b.sprs_value - a.sprs_value).map(r => {
       const e = entries[r.id] || {};
       return `<details class="req" open><summary>
-        <span class="rid">${r.id}</span><span class="rname">${r.name}</span>
+        <span class="rid">${esc(r.id)}</span><span class="rname">${esc(r.name)}</span>
         ${chip(effStatus(r.id))}<span class="pts num">${r.sprs_value} pts at stake</span></summary>
-        <div class="body">${e.remediation_plan ? `<p>${e.remediation_plan}</p>` : '<p class="stmt">No remediation plan recorded yet.</p>'}
-        ${e.poam ? `<div class="meta">POA&amp;M: ${e.poam.description || ""} (due ${e.poam.due || "unset"}, ${e.poam.status || "open"})</div>` : ""}</div>
+        <div class="body">${e.remediation_plan ? `<p>${esc(e.remediation_plan)}</p>` : '<p class="stmt">No remediation plan recorded yet.</p>'}
+        ${e.poam ? `<div class="meta">POA&amp;M: ${esc(e.poam.description || "")} (due ${esc(e.poam.due || "unset")}, ${esc(e.poam.status || "open")})</div>` : ""}</div>
       </details>`;
     }).join("");
   }
@@ -354,16 +358,58 @@
       }
     }
     view.innerHTML = srcs.map(s => `
-      <details class="req" open><summary><span class="rid">${s.provider}</span>
-        <span class="rname">${s.cso || ""}</span>
-        <span class="badge">${s.fedramp_status || ""}</span></summary>
+      <details class="req" open><summary><span class="rid">${esc(s.provider)}</span>
+        <span class="rname">${esc(s.cso || "")}</span>
+        <span class="badge">${esc(s.fedramp_status || "")}</span></summary>
         <div class="body">
-        <div class="meta">CRM: ${s.crm_document || "not recorded"} · BoE: ${s.boe_reference || "not recorded"} · verified: ${s.verified || "never"}</div>
+        <div class="meta">CRM: ${esc(s.crm_document || "not recorded")} · BoE: ${esc(s.boe_reference || "not recorded")} · verified: ${esc(s.verified || "never")}</div>
         ${(usage[s.id] || []).length ? `<table><thead><tr><th>Objective</th><th>Type</th><th>CRM ref</th></tr></thead>
-          <tbody>${usage[s.id].map(u => `<tr><td class="num">${u.ao}</td><td>${u.type}</td><td>${u.crm}</td></tr>`).join("")}</tbody></table>`
+          <tbody>${usage[s.id].map(u => `<tr><td class="num">${esc(u.ao)}</td><td>${esc(u.type)}</td><td>${esc(u.crm)}</td></tr>`).join("")}</tbody></table>`
           : '<p class="stmt">Declared but not yet referenced by any objective.</p>'}
         </div></details>`).join("") +
       '<p class="note">Inheritance must be demonstrable via the provider CIS/CRM and body of evidence (32 CFR 170.17(c)(5), 170.18(c)(5)). See references/grc/inherited-controls-mapping.md.</p>';
+  }
+
+  function renderPolicies(view) {
+    const pols = program.policies || [];
+    if (!pols.length) { view.innerHTML = '<div class="empty">No policy register recorded. Add a policies section to the program data file; see references/grc/policy-mapping.md.</div>'; return; }
+    const covered = new Set();
+    pols.forEach(p => (p.requirements || []).forEach(r => covered.add(r)));
+    const uncovered = dataset.requirements.filter(r => !covered.has(r.id));
+    const rows = pols.map(p => {
+      const fams = [...new Set((p.requirements || []).map(r => r.split(".")[0]))].sort().join(", ");
+      let review = esc(p.reviewed || "");
+      if (p.reviewed) {
+        const age = days_until(p.reviewed, 0);
+        if (age !== null && age < -365) review += ' <span class="chip c-due">⏱ review overdue</span>';
+      }
+      const proc = (p.procedures || []).length;
+      return `<tr><td>${esc(p.title)}${p.version ? " v" + esc(p.version) : ""}</td>
+        <td>${esc(p.owner || "")}</td><td class="num">${review}</td>
+        <td class="num">${(p.requirements || []).length}</td><td>${esc(fams)}</td>
+        <td>${proc ? proc + " linked" : '<span class="chip c-due">⏱ none linked</span>'}</td></tr>`;
+    }).join("");
+    view.innerHTML = `<table><thead><tr><th>Policy</th><th>Owner</th><th>Reviewed</th>
+      <th>Requirements</th><th>Families</th><th>Procedures</th></tr></thead>
+      <tbody>${rows}</tbody></table>
+      <p class="note">Coverage: ${covered.size}/110 requirements have a policy home.</p>
+      ${uncovered.length ? `<details class="req"><summary><span class="rid">${uncovered.length} requirements without a policy home</span>
+        ${chip("not-assessed")}</summary><div class="body">${uncovered.map(r =>
+          `<div class="meta"><span class="num">${esc(r.id)}</span> ${esc(r.name)}</div>`).join("")}</div></details>` :
+        '<p class="note">Every requirement has a policy home.</p>'}
+      <p class="note">Method and gap types: references/grc/policy-mapping.md. Policies without linked procedures are anti-pattern 1 territory.</p>`;
+  }
+
+  function renderDiagrams(view) {
+    const d = program._diagrams;
+    if (!d) { view.innerHTML = '<div class="empty">No topology recorded. Add a topology section to the program data file and regenerate; see references/diagram-guide.md.</div>'; return; }
+    // SVGs are produced by scripts/generate_diagrams.py at build time from the same program data
+    view.innerHTML = `
+      <h3 style="margin:4px 0 8px">Network diagram</h3>
+      <div style="overflow-x:auto;background:#fcfcfb;border:1px solid var(--grid);border-radius:8px;padding:8px">${d.network}</div>
+      <h3 style="margin:16px 0 8px">CUI flow diagram</h3>
+      <div style="overflow-x:auto;background:#fcfcfb;border:1px solid var(--grid);border-radius:8px;padding:8px">${d.cui_flow}</div>
+      <p class="note">Generated from the topology section; regenerate the dashboard after topology changes. Method: references/diagram-guide.md.</p>`;
   }
 
   function renderView() {
@@ -371,6 +417,8 @@
     if (active === "objectives") renderObjectives(view);
     else if (active === "poam") renderPoam(view);
     else if (active === "gaps") renderGaps(view);
+    else if (active === "policies") renderPolicies(view);
+    else if (active === "diagrams") renderDiagrams(view);
     else renderInheritance(view);
     renderTiles(); renderTabs();
   }

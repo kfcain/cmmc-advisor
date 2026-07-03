@@ -20,6 +20,8 @@ import json
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
 REPO_ROOT = Path(__file__).resolve().parents[1]
 TEMPLATE = REPO_ROOT / "templates" / "program-dashboard.html"
 AO_DATASET = REPO_ROOT / "references" / "data" / "assessment-objectives.json"
@@ -55,6 +57,13 @@ def main() -> int:
     unknown = [k for k in (program.get("requirements") or {}) if k not in known]
     if unknown:
         sys.exit(f"unknown requirement ids in program data: {unknown}")
+
+    if program.get("topology"):
+        from generate_diagrams import build_svg
+        program["_diagrams"] = {
+            "network": build_svg(program, "network"),
+            "cui_flow": build_svg(program, "cui-flow"),
+        }
 
     html = TEMPLATE.read_text(encoding="utf-8")
     html = html.replace("__PROGRAM_DATA__", embed(program))

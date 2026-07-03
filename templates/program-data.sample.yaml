@@ -67,6 +67,86 @@ cmvp_certificates:
     sunset: "2030-03-01"
     security_policy: https://csrc.nist.gov/projects/cryptographic-module-validation-program
 
+topology:
+  zones:
+    - id: enclave
+      label: EDS CUI Enclave
+      kind: enclave
+      boundary: cmmc-scope
+    - id: gcch
+      label: Microsoft GCC High / Azure Gov
+      kind: csp
+      boundary: fedramp
+    - id: corp
+      label: Corporate IT (commercial M365)
+      kind: corporate
+      boundary: none
+    - id: ext
+      label: External
+      kind: external
+      boundary: none
+  nodes:
+    - id: laptops
+      label: ENG laptops (12, Intune)
+      zone: enclave
+      category: cui
+      role: process
+    - id: cnc
+      label: CNC-07 (isolated VLAN)
+      zone: enclave
+      category: specialized
+      role: process
+    - id: m365
+      label: GCC High tenant (EXO/SPO/Teams)
+      zone: gcch
+      category: cui
+      role: store
+    - id: fileproj
+      label: Project file service (Azure Gov)
+      zone: gcch
+      category: cui
+      role: store
+    - id: sentinel
+      label: Microsoft Sentinel
+      zone: gcch
+      category: security-protection
+      role: process
+    - id: corpmail
+      label: Corporate M365 (no CUI)
+      zone: corp
+      category: out-of-scope
+      role: process
+    - id: prime
+      label: Prime contractor
+      zone: ext
+      category: out-of-scope
+      role: entity
+  flows:
+    - {from: prime, to: m365, data: cui, label: encrypted email/SPO share}
+    - {from: laptops, to: m365, data: cui, label: HTTPS 443, bidirectional: true}
+    - {from: laptops, to: fileproj, data: cui, label: SMB over P2S VPN}
+    - {from: laptops, to: sentinel, data: spd, label: AMA agent logs}
+    - {from: m365, to: sentinel, data: spd, label: audit log connector}
+    - {from: corpmail, to: laptops, data: other, label: calendar only, bidirectional: true}
+
+policies:
+  - id: pol-ac
+    title: Access Control and Identity Policy
+    version: "3.1"
+    owner: Sam Patel
+    reviewed: "2026-05-01"
+    location: policies/access-control-v3.1.pdf
+    procedures:
+      - procedures/access-request-procedure-v3.pdf
+    requirements: [AC.L2-3.1.1, AC.L2-3.1.2, IA.L2-3.5.1, IA.L2-3.5.2]
+  - id: pol-ir
+    title: Incident Response Policy
+    version: "2.0"
+    owner: Sam Patel
+    reviewed: "2025-04-15"
+    location: policies/incident-response-v2.pdf
+    requirements: [IR.L2-3.6.1, IR.L2-3.6.2]
+
 inheritance_sources:
   - id: gcch
     provider: Microsoft

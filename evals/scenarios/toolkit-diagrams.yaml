@@ -1,0 +1,45 @@
+id: toolkit-diagrams
+title: ISSO needs the SSP network and CUI flow diagrams and hates Visio drift
+category: program-toolkit
+
+prompt: |
+  Our SSP needs a network diagram and a CUI flow diagram, and our last
+  Visio drawing was out of date before the ink dried. What exactly do
+  assessors expect these diagrams to show, and how does this toolkit
+  keep them from drifting away from the SSP and the real environment?
+
+required_terms:
+  - network diagram
+  - CUI flow
+  - boundary
+  - topology
+  - asset
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Assessor expectations: the network diagram shows every zone and asset
+  with the CMMC Assessment Scope as an explicit boundary and each node
+  carrying its 32 CFR 170.19(c) asset category, matching the SSP asset
+  inventory; the CUI flow diagram is a data flow diagram showing every
+  CUI, FCI, and Security Protection Data movement with labeled flows and
+  trust boundaries. FedRAMP platform boundaries appear as their own
+  line, distinct from the CMMC scope. Assessors check diagram against
+  SSP prose and against a real traced transaction.
+
+  The toolkit answer to drift: diagrams are data. The topology section
+  of the program data file (zones, nodes with asset categories, flows
+  typed cui/fci/spd) is the single source; generate_diagrams.py renders
+  both diagrams (SVG plus Mermaid), the dashboard shows them in its
+  Diagrams view, and the SSP references the generated figures. Topology
+  changes are compliance events: regenerate instead of redrawing, and a
+  node or flow that disagrees with the asset inventory surfaces as a
+  data mismatch rather than an assessment-day discovery.
+
+evaluator_notes: |
+  Accuracy essentials: both diagrams required with the scope boundary
+  explicit; asset categories per 32 CFR 170.19(c) consistent with the
+  inventory; CUI flow diagram covers CUI/FCI/SPD flows; the
+  diagram-SSP-reality consistency check. Category B on scoping to
+  diagram governance. Enabler: the diagrams-as-data workflow with
+  concrete regeneration steps, not an admonition to keep Visio current.

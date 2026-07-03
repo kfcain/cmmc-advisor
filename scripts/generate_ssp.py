@@ -149,8 +149,11 @@ def build_markdown(program: dict, dataset: dict) -> str:
     a("## Networking Diagrams")
     a("")
     d = program.get("diagrams", {}) or {}
-    a(f"- Network diagram: {d.get('network', '*attach*')}")
-    a(f"- CUI flow diagram: {d.get('cui_flow', '*attach*')}")
+    gen_note = ""
+    if program.get("topology"):
+        gen_note = " (generate with scripts/generate_diagrams.py from the topology section)"
+    a(f"- Figure 1, Network diagram: {d.get('network', '*attach*')}{gen_note}")
+    a(f"- Figure 2, CUI flow diagram: {d.get('cui_flow', '*attach*')}{gen_note}")
     a("")
     hw = program.get("hardware_software") or []
     a("## Hardware and Software Information")
