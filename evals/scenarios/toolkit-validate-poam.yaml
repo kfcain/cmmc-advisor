@@ -1,0 +1,42 @@
+id: toolkit-validate-poam
+title: ISSM wants to validate POA&M entries before accepting Conditional status
+category: program-toolkit
+
+prompt: |
+  We might accept Conditional Level 2 after our C3PAO assessment. Our program
+  data file has three open POA&M items including AU.L2-3.3.5. Before we sign
+  anything, can the toolkit check 32 CFR 170.21 eligibility, the 80% score
+  floor, SSP gate, and 180-day closeout dates? And can it bundle closeout
+  evidence when we are ready?
+
+required_terms:
+  - POA&M
+  - 32 CFR 170.21
+  - closeout
+  - conditional
+  - validate
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Yes. Run python3 scripts/validate_poam.py against the program data file.
+  It enforces Level 2 banned practices (including CA.L2-3.12.4 SSP gate),
+  the 1-point rule with SC.L2-3.13.11 FIPS carve-out, the 80% score floor
+  (88/110), and POA&M due dates against conditional_status_date plus 180 days.
+  Use --json for CI or dashboard hooks.
+
+  When closeout is near, python3 scripts/generate_closeout_packet.py bundles
+  open POA&M items, linked evidence, poam-validation.json, SPRS context, and
+  closeout-checklist.md. Closeout actor follows assessment path: C3PAO for
+  Level 2 (C3PAO), OSA for Level 2 (Self), DIBCAC for Level 3.
+
+  Set conditional_status_date in program data so clocks match the dashboard.
+  Regulatory detail lives in references/poam-management.md and
+  references/grc/assessment-operations.md. Enabler: fix ineligible items
+  (especially SSP) before pursuing Conditional, do not treat POA&M as a
+  parking lot.
+
+evaluator_notes: |
+  Must cite validate_poam.py and generate_closeout_packet.py, 170.21 rules,
+  SSP never on POA&M, 180-day closeout, assessment-operations.md routing.
+  No certification decision; practitioner guidance only.

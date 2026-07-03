@@ -1,0 +1,39 @@
+id: toolkit-mock-assessment
+title: C3PAO is six weeks out and control owners need interview prep
+category: program-toolkit
+
+prompt: |
+  Our C3PAO assessment is six weeks away. Control owners keep asking what
+  they will be interviewed on and which documents to have ready. Can this
+  skill generate a mock-assessment pack from our program data file with
+  examine, interview, and test lists per practice and objective-level prompts?
+
+required_terms:
+  - mock
+  - interview
+  - examine
+  - assessment objective
+  - program data
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Yes. Run python3 scripts/generate_mock_assessment.py on the program data
+  file. It reads references/data/assessment-objectives.json (320 objectives,
+  examine/interview/test methods) and scopes to requirements in the file.
+  Use --family AU (or AC, IA, etc.) for one domain at a time. Output:
+  mock-assessment.json and mock-assessment.md under exports/.
+
+  Each practice block lists examine artifacts to pull, test steps, and
+  objective-level interview prompts plus a scoring template (met / not-met /
+  not-applicable). Pair with references/assessment-objectives/{domain}.md for
+  assessor nuance and references/grc/assessment-operations.md for the full
+  prep workflow.
+
+  Enabler: schedule document pulls first, then tabletop interviews using the
+  generated prompts; score at objective level, not practice-only summaries.
+
+evaluator_notes: |
+  Must route to generate_mock_assessment.py, assessment-objectives dataset,
+  assessment-operations.md, objective-level scoring. Mention --family filter.
+  No promise of live C3PAO questions; this is prep from public AO data.
