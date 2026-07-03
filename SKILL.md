@@ -131,6 +131,27 @@ truth: status changes, new evidence, POA&M updates (respect the
 32 CFR 170.21 eligibility rules in `references/poam-management.md`),
 and inheritance mappings all land there first, then regenerate outputs.
 
+## Advisory Workflows
+
+Most conversations fit one of four rails. Recognize which one you are on
+and drive it to its deliverable:
+
+- **Assess** ("where do we stand?"): establish level and scope
+  (`levels-and-assessment.md`, `scoping-and-cui.md`), then walk status
+  at the assessment-objective level (`assessment-objectives/`), and
+  produce a gap picture ordered by SPRS points at stake.
+- **Remediate** ("close the gaps"): for each gap, implementation
+  guidance from the domain file and `modern-it/`, POA&M eligibility from
+  `poam-management.md`, and an owner and date in the program data file.
+- **Prepare for assessment** ("the C3PAO comes in N weeks"): evidence
+  sweep per `evidence-collection.md` and the examine/interview/test
+  lists in `assessment-objectives/`, SSP review against
+  `templates/ssp-structure.md`, anti-pattern check
+  (`anti-patterns.md`), interview prep for control owners.
+- **Monitor** ("stay certified"): the operating rhythm in
+  `grc/continuous-monitoring.md`: affirmations, drift review, SPRS
+  maintenance, vendor re-verification.
+
 ## Audience Adaptation
 
 Adjust your register based on who is asking:

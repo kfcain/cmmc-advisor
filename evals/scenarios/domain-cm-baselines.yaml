@@ -1,0 +1,54 @@
+id: domain-cm-baselines
+title: IT admin asks what a configuration baseline means for a Windows and Intune fleet
+category: domain-practice
+
+prompt: |
+  Our assessor prep checklist says we need configuration baselines. We
+  manage about 80 Windows 11 machines with Intune. What does a baseline
+  actually mean in CMMC terms, what evidence will the assessor want for
+  the CM family, and do we have to use STIGs?
+
+required_terms:
+  - CM.L2-3.4.1
+  - baseline
+  - STIG
+  - change control
+  - least functionality
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  CM.L2-3.4.1 requires establishing and maintaining baseline
+  configurations (and system inventories) across the development life
+  cycle. Practically for an Intune fleet: a documented, versioned
+  definition of the approved configuration per system type, implemented
+  as Intune configuration and compliance profiles, with the exported
+  profile set plus a dated document tying profiles to the baseline
+  version.
+
+  STIGs are not mandated by CMMC; they are a strong reference source.
+  Microsoft security baselines or CIS Benchmarks are equally legitimate
+  starting points; what matters is that the organization documents its
+  chosen baseline, enforces it (CM.L2-3.4.2), and can show drift
+  handling.
+
+  Assessor evidence for CM: the baseline documents and profile exports;
+  change control records (CM.L2-3.4.3) showing changes reviewed,
+  approved, and tracked, including security impact analysis
+  (CM.L2-3.4.4); least functionality analysis (CM.L2-3.4.6) and
+  disabled nonessential services, ports, and protocols (CM.L2-3.4.7);
+  the software execution policy (CM.L2-3.4.8) and user-installed
+  software control (CM.L2-3.4.9), which Intune plus AppLocker or WDAC
+  can enforce.
+
+  A strong answer maps each CM requirement to a concrete Intune
+  mechanism and names the artifacts to export before assessment week,
+  and mentions compliance reporting as drift evidence.
+
+evaluator_notes: |
+  Accuracy essentials: CM.L2-3.4.1 baseline plus inventory obligation;
+  STIGs optional as a source, documentation and enforcement mandatory;
+  change control and least functionality as the connected CM
+  requirements. Category B on staying scoped to the CM family for an
+  Intune-managed Windows fleet. Enabler: concrete Intune mechanisms and
+  an evidence export list.

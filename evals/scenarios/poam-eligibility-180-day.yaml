@@ -1,0 +1,57 @@
+id: poam-eligibility-180-day
+title: Six failed practices after a C3PAO assessment, which can go on the POA&M
+category: poam
+
+prompt: |
+  Our C3PAO assessment just wrapped. Six requirements came back NOT MET:
+  AC.L2-3.1.9 (privacy notices), AU.L2-3.3.5 (audit correlation),
+  CM.L2-3.4.4 (security impact analysis), IA.L2-3.5.6 (identifier
+  handling), SC.L2-3.13.11 (we encrypt CUI but our modules are not
+  FIPS-validated), and CA.L2-3.12.4 (our SSP was two years stale and did
+  not match the environment). Which of these can go on a POA&M, what
+  does the clock look like, and who closes it out?
+
+required_terms:
+  - 180 days
+  - conditional
+  - SC.L2-3.13.11
+  - CA.L2-3.12.4
+  - closeout
+  - 32 CFR 170.21
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Assuming the 80 percent minimum score is met, the four 1-point items
+  (AC.L2-3.1.9, AU.L2-3.3.5, CM.L2-3.4.4, IA.L2-3.5.6) are
+  POA&M-eligible under 32 CFR 170.21(a)(2). SC.L2-3.13.11 is the named
+  exception: normally 5 points and above the 1-point limit, it may go on
+  the POA&M specifically when encryption is employed but not
+  FIPS-validated (scored as a 3-point partial condition).
+
+  CA.L2-3.12.4 cannot go on a POA&M; the SSP is one of the requirements
+  32 CFR 170.21(a)(2) excludes, and without a MET SSP there is no
+  Conditional Level 2 (C3PAO) status at all. Fixing the SSP is the
+  gating move.
+
+  Clock and closeout: Conditional status runs 180 days from the
+  Conditional CMMC Status Date; a C3PAO (not a self-assessment) performs
+  the POA&M closeout assessment and posts results to eMASS. Miss the
+  window and the conditional status expires, with award ineligibility
+  until a new assessment. The affirmation obligations also attach at the
+  conditional milestone.
+
+  A strong answer sequences the work: fix the SSP first, schedule the
+  closeout with the same C3PAO early, and treat the FIPS item with a
+  concrete validated-module plan (CMVP certificate targets), not a vague
+  intention.
+
+evaluator_notes: |
+  Accuracy essentials: 1-point-only rule with the SC.L2-3.13.11 FIPS
+  carve-out; CA.L2-3.12.4 never POA&M-eligible; 180-day closeout by a
+  C3PAO from the Conditional Status Date; consequence of expiry. The
+  answer must not claim the six POA&M-ineligible requirements list
+  includes items it does not, and must not offer risk acceptance as an
+  alternative. Category B scores on bounding the answer to POA&M
+  mechanics for these six items. Enabler: a remediation sequence, not
+  just eligibility rulings.

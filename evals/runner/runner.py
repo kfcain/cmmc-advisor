@@ -1,7 +1,10 @@
 """Minimum viable cmmc-advisor eval runner.
 
-Loads a scenario YAML, invokes Claude as the subject with the cmmc-advisor
-skill active, captures the response, runs precheck, then invokes the
+Loads a scenario YAML, invokes Claude as the subject running the real
+shipped skill: SKILL.md (frontmatter stripped) is the system prompt, the
+repo root is the working directory, and Read/Grep/Glob are enabled so the
+routing table actually exercises references/. Captures the answer and the
+list of files the subject consulted, runs precheck, then invokes the
 evaluator via scoring.py. Writes a results JSON to evals/results/.
 
 Usage:
@@ -28,7 +31,14 @@ except ImportError:
     sys.exit(1)
 
 try:
-    from claude_agent_sdk import query, ClaudeAgentOptions, AssistantMessage, TextBlock
+    from claude_agent_sdk import (
+        query,
+        ClaudeAgentOptions,
+        AssistantMessage,
+        TextBlock,
+        ToolUseBlock,
+        ResultMessage,
+    )
     SDK_AVAILABLE = True
 except ImportError:
     SDK_AVAILABLE = False
@@ -63,25 +73,45 @@ def _load_rubric(path: Path) -> str:
     return path.read_text()
 
 
-async def _invoke_subject(prompt: str) -> str:
+def _load_skill_system_prompt() -> str:
+    """The real SKILL.md body, frontmatter stripped, so the subject runs
+    exactly what production users install."""
+    text = (REPO_ROOT / "SKILL.md").read_text()
+    if text.startswith("---"):
+        end = text.find("\n---", 3)
+        if end != -1:
+            text = text[end + 4 :]
+    return text.strip()
+
+
+async def _invoke_subject(prompt: str) -> tuple[str, list[str]]:
     if not SDK_AVAILABLE:
         raise RuntimeError(
             "claude-agent-sdk not installed. Run pip install -r requirements.txt"
         )
-    system = (
-        "You are the cmmc-advisor skill. Answer the prompt as a CMMC 2.0 "
-        "compliance advisor. Cite public NIST and DoD sources for factual "
-        "claims. Take an enabler posture: say how, not no. Practitioner "
-        "register. No em dashes, no slop words."
+    options = ClaudeAgentOptions(
+        model=SUBJECT_MODEL,
+        system_prompt=_load_skill_system_prompt(),
+        cwd=str(REPO_ROOT),
+        allowed_tools=["Read", "Grep", "Glob"],
+        permission_mode="bypassPermissions",  # read-only tools; headless run
+        max_turns=25,
     )
-    options = ClaudeAgentOptions(model=SUBJECT_MODEL, system_prompt=system)
     chunks: list[str] = []
+    files_consulted: list[str] = []
+    final_result: str | None = None
     async for msg in query(prompt=prompt, options=options):
         if isinstance(msg, AssistantMessage):
             for block in msg.content:
                 if isinstance(block, TextBlock):
                     chunks.append(block.text)
-    return "".join(chunks)
+                elif isinstance(block, ToolUseBlock) and block.name == "Read":
+                    fp = (block.input or {}).get("file_path")
+                    if fp:
+                        files_consulted.append(fp)
+        elif isinstance(msg, ResultMessage):
+            final_result = getattr(msg, "result", None)
+    return (final_result or "".join(chunks)), files_consulted
 
 
 async def run_scenario(scenario_path: Path, rubric_path: Path) -> dict:
@@ -90,8 +120,9 @@ async def run_scenario(scenario_path: Path, rubric_path: Path) -> dict:
 
     print(f"[runner] scenario: {scenario.get('id')}")
     print(f"[runner] invoking subject ({SUBJECT_MODEL})...")
-    response = await _invoke_subject(scenario["prompt"])
+    response, files_consulted = await _invoke_subject(scenario["prompt"])
     print(f"[runner] subject response: {len(response)} chars")
+    print(f"[runner] files consulted: {len(files_consulted)}")
 
     precheck = run_precheck(response, scenario)
     print(f"[runner] precheck hard_fail_flags: {precheck['hard_fail_flags'] or '(none)'}")
@@ -109,6 +140,7 @@ async def run_scenario(scenario_path: Path, rubric_path: Path) -> dict:
         "rubric_path": str(rubric_path),
         "subject_model": SUBJECT_MODEL,
         "timestamp": datetime.utcnow().isoformat() + "Z",
+        "files_consulted": files_consulted,
         "response": response,
         "precheck": precheck,
         "score": asdict(score),
