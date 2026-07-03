@@ -1,0 +1,148 @@
+# Sample CMMC program data file. Validate against program-data.schema.json.
+# This is a worked miniature: three requirements shown in three states
+# (met with evidence, shared with a platform, not-met with a POA&M).
+# A real file carries an entry for every requirement in
+# references/data/assessment-objectives.json.
+
+organization:
+  name: Example Defense Systems LLC
+  system_name: EDS CUI Enclave
+  cage_codes: [1ABC2]
+  revision: Rev 1
+  date: "2026-07-01"
+  scope_narrative: >
+    The CMMC Assessment Scope is the EDS CUI Enclave: a Microsoft 365 GCC
+    High tenant, twelve Intune-managed Windows laptops used by the
+    engineering team, and the Azure Government subscription hosting the
+    project file service. Corporate IT (commercial M365) is out of scope
+    and separated by tenant boundary with no CUI authorized.
+  roles:
+    system_owner:
+      name: Jordan Rivera
+      title: Director of Engineering
+      email: jrivera@example.com
+    affirming_official:
+      name: Casey Morgan
+      title: Chief Executive Officer
+      responsibilities:
+        - Affirm continuing compliance in SPRS after each assessment and annually
+    issm:
+      name: Sam Patel
+      title: IT and Security Lead
+      responsibilities:
+        - Maintain this SSP, the POA&M, and the risk register
+
+assessment:
+  level: "2"
+  path: c3pao
+  target_date: "2026-11-01"
+
+conditional_status_date: null
+
+assets:
+  cui:
+    - name: M365 GCC High tenant (Exchange, SharePoint, Teams)
+      vendor: Microsoft
+      description: CUI storage, processing, and transmission
+    - name: ENG laptops (12, Intune-managed, BitLocker)
+      description: CUI processing endpoints
+  security_protection:
+    - name: Microsoft Sentinel (Azure Government)
+      vendor: Microsoft
+      description: SIEM ingesting enclave logs
+  specialized:
+    - name: CNC-07 controller
+      description: OT device on isolated VLAN, documented in SSP
+
+diagrams:
+  network: diagrams/eds-network-2026-06.pdf
+  cui_flow: diagrams/eds-cui-flow-2026-06.pdf
+
+cmvp_certificates:
+  - certificate: "4536"
+    vendor: Microsoft
+    module: Windows Cryptographic Primitives Library
+    standard: FIPS 140-3
+    status: Active
+    sunset: "2030-03-01"
+    security_policy: https://csrc.nist.gov/projects/cryptographic-module-validation-program
+
+inheritance_sources:
+  - id: gcch
+    provider: Microsoft
+    cso: Microsoft 365 GCC High
+    fedramp_status: FedRAMP High (DISA IL5 PA)
+    crm_document: Microsoft 365 GCC High CIS/CRM Appendix J, 2026-03 edition
+    boe_reference: vendor-boe/microsoft/2026-03/
+    verified: "2026-06-15"
+
+requirements:
+  AC.L2-3.1.1:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: >
+          Authorized users are identified in Entra ID Government. The
+          engineering security group ENG-CUI is the single authorization
+          source for enclave access; membership requires a signed access
+          request approved by the system owner.
+        evidence:
+          - name: ENG-CUI group membership export
+            link: evidence/ac/3.1.1/group-export-2026-06.csv
+            collected: "2026-06-20"
+          - name: Access request procedure
+            link: evidence/ac/3.1.1/access-request-procedure-v3.pdf
+      d:
+        conformity: met
+        statement: >
+          Conditional Access policy CA-01 blocks all access to the tenant
+          except from compliant, Intune-enrolled devices by ENG-CUI
+          members with phishing-resistant MFA.
+        evidence:
+          - name: CA-01 policy export
+            link: evidence/ac/3.1.1/ca-01-export.json
+  SC.L2-3.13.11:
+    conformity: met
+    objectives:
+      a:
+        conformity: shared
+        statement: >
+          FIPS-validated cryptography is employed for CUI at rest and in
+          transit. Service-side cryptography is inherited from the GCC
+          High boundary per the Microsoft CRM; customer-side, BitLocker
+          runs in FIPS mode (CMVP certificate 4536) enforced by Intune
+          policy EDS-FIPS-01.
+        inheritance:
+          source: gcch
+          type: shared
+          crm_ref: SC-13 rows 3-7
+          customer_note: Customer enforces FIPS mode on endpoints and manages Intune policy
+        evidence:
+          - name: Intune EDS-FIPS-01 policy export
+            link: evidence/sc/3.13.11/intune-fips-policy.json
+  AU.L2-3.3.5:
+    conformity: not-met
+    objectives:
+      a:
+        conformity: not-met
+        statement: >
+          Audit record review processes are not yet correlated across
+          sources. Sentinel collects enclave logs but correlation rules
+          and the weekly review runbook are not implemented.
+    poam:
+      priority: High
+      description: Implement Sentinel analytics rules and weekly correlated review for enclave audit records
+      opened: "2026-06-22"
+      due: "2026-09-15"
+      owner: Sam Patel
+      status: in-progress
+      actions:
+        - Deploy Microsoft Sentinel analytics rules for the enclave workspace
+        - Stand up weekly audit review runbook with sign-off log
+        - Backfill 90 days of review evidence before assessment
+    remediation_plan: >
+      Sentinel workspace exists and ingests all enclave sources. Remaining
+      work is detection content and the operating rhythm, tracked on the
+      POA&M above; 1-point requirement, POA&M-eligible under
+      32 CFR 170.21(a)(2).

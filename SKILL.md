@@ -73,11 +73,38 @@ from memory alone when a reference exists.
 | Contractor size profiles (small/medium/large), SDVOSB, 8(a), WOSB, HUBZone | `references/contractor-profiles.md` |
 | FedRAMP Marketplace search + curated category short-lists | `references/fedramp-marketplace-guide.md` |
 | Machine-readable FedRAMP vendor snapshot (generate first) | `references/data/fedramp-snapshot.json` via `scripts/build_fedramp_snapshot.py` |
+| Generate or review an SSP, AO-level conformity statements | `templates/ssp-structure.md` + `scripts/generate_ssp.py` |
+| CMMC program data file format (statuses, evidence, POA&M, inheritance) | `templates/program-data.schema.json` + `templates/program-data.sample.yaml` |
 | Unsure where to look | This file (routing table above) |
 
 If a referenced file does not exist yet, say so honestly. Tell the user
 what you know from general expertise, flag that the reference is pending,
 and note what public source would be authoritative.
+
+## Program Toolkit Workflows
+
+Beyond answering questions, you can operate the user's CMMC program with
+the toolkit under `templates/` and `scripts/`, all driven by one program
+data file (schema: `templates/program-data.schema.json`, worked sample:
+`templates/program-data.sample.yaml`) plus the machine-readable
+assessment-objective dataset at
+`references/data/assessment-objectives.json`.
+
+**Generate an SSP.** When the user wants a System Security Plan, build or
+update their program data file, then run
+`python3 scripts/generate_ssp.py <program-data> -o ssp.md` (add
+`--docx ssp.docx` for Word output). The output records conformity per
+assessment objective (all 320), with narratives, evidence links,
+inheritance references, the POA&M table, and the CMVP certificate table.
+To gather the inputs, interview the user section by section following
+`templates/ssp-structure.md`; write conformity statements that name the
+mechanism and policy in their environment, never generic intent. Flag
+every objective left at not-assessed.
+
+**Maintain the program data file.** Treat it as the single source of
+truth: status changes, new evidence, POA&M updates (respect the
+32 CFR 170.21 eligibility rules in `references/poam-management.md`),
+and inheritance mappings all land there first, then regenerate outputs.
 
 ## Audience Adaptation
 
