@@ -15,8 +15,9 @@ releases publicly and simple transactional data like payment processing
 If you hold DoD contracts or purchase orders, you almost certainly handle
 FCI. Level 1 is the floor, not an option. The good news: it is achievable in
 weeks, not months, and requires no third party. You self-assess annually
-against 15 basic safeguarding requirements and affirm the result in the
-Supplier Performance Risk System (SPRS).
+against the 17 Level 1 practices, codified in the final rule as the 15
+basic safeguarding requirements of FAR 52.204-21(b)(1), and affirm the
+result in the Supplier Performance Risk System (SPRS).
 
 Related reading: `levels-and-assessment.md` for level selection,
 `scoping-and-cui.md` for the FCI vs CUI distinction, and the six domain
@@ -24,14 +25,16 @@ files with Level 1 counterparts under `domains/`.
 
 ---
 
-## The 15 Level 1 Requirements
+## The Level 1 Practices
 
-Level 1 comprises the 15 basic safeguarding requirements of FAR
-52.204-21(b)(1), identified in 32 CFR 170 and the CMMC Assessment Guide
-Level 1 by their FAR clause paragraph. The deprecated CMMC Model v2.0
-described Level 1 as 17 practices using 800-171-style numbers; the final
-rule replaced that scheme. The legacy column below exists so you can read
-older gap assessments without confusion.
+The CMMC Model counts Level 1 as 17 practices; the final rule codifies
+them as the 15 basic safeguarding requirements of FAR 52.204-21(b)(1),
+identified in 32 CFR 170 and the CMMC Assessment Guide Level 1 by their
+FAR clause paragraph. Both describe the same content: the model splits
+FAR paragraph (b)(1)(ix) into three physical-protection practices, the
+rule counts it once. Use the mapping below to move between the two
+numbering schemes; assessments under the rule record findings against
+the 15 FAR-paragraph identifiers.
 
 | Requirement | Name | Legacy Model v2.0 ID | Implementation guidance |
 |---|---|---|---|
@@ -53,7 +56,8 @@ older gap assessments without confusion.
 
 Note the consolidation: PE.L1-b.1.ix covers visitor escort, physical access
 logs, and physical access devices, which the old model counted as three
-separate practices. That is why 17 became 15 with no requirement dropped.
+separate practices. That is why the rule's 15 requirements carry all 17
+practices' content with nothing dropped.
 
 The Level 1 requirements protect FCI. The corresponding Level 2 requirements
 protect CUI with the same control language. Implement once, and the work
@@ -66,7 +70,8 @@ counts toward Level 2 if CUI ever enters your environment.
 The Level 1 process under 32 CFR 170.15:
 
 1. **Define your CMMC Assessment Scope** (see Scoping below).
-2. **Assess all 15 requirements** using the criteria in the CMMC Assessment
+2. **Assess every Level 1 practice** (all 15 codified requirements,
+   covering the 17 model practices) using the criteria in the CMMC Assessment
    Guide Level 1 and the assessment methods of NIST SP 800-171A adapted for
    FCI: examine artifacts, interview people, test mechanisms.
 3. **Record a finding per requirement:** MET, NOT MET, or NOT APPLICABLE
@@ -186,10 +191,10 @@ carry forward to Level 2.
 
 ## Key Takeaways for Contractors
 
-1. Level 1 is 15 requirements from FAR 52.204-21, self-assessed annually,
-   affirmed in SPRS by your Affirming Official. Identifiers run
-   AC.L1-b.1.i through SI.L1-b.1.xv; 17-practice lists are the deprecated
-   model.
+1. Level 1 is 17 practices, codified as 15 FAR 52.204-21 requirements,
+   self-assessed annually and affirmed in SPRS by your Affirming
+   Official. Rule identifiers run AC.L1-b.1.i through SI.L1-b.1.xv; the
+   mapping table above translates 17-practice lists.
 2. No POA&Ms, no conditional status. Everything MET or NOT APPLICABLE, or
    no Level 1 status.
 3. Scope is every asset touching FCI; Specialized Assets are excluded at

@@ -20,11 +20,11 @@ what can and cannot be deferred.
 
 ### Level 1
 
-POA&Ms are **not permitted** for Level 1 self-assessments. All 15
-requirements must be MET (or NOT APPLICABLE) at the time of the annual
-self-assessment affirmation.
+POA&Ms are **not permitted** for Level 1 self-assessments. Every Level 1
+practice (all 15 codified requirements) must be MET (or NOT APPLICABLE)
+at the time of the annual self-assessment affirmation.
 
-If you cannot meet all 15 Level 1 requirements, you cannot achieve Level 1
+If you cannot meet every Level 1 practice, you cannot achieve Level 1
 status. These are basic cyber hygiene; there is no conditional path.
 
 ### Level 2

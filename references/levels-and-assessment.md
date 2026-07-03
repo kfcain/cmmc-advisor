@@ -28,25 +28,26 @@ requirements."
 | Attribute | Detail |
 |-----------|--------|
 | **Information type** | Federal Contract Information (FCI) |
-| **Requirement count** | 15 security requirements |
+| **Practice count** | 17 practices (CMMC Model), codified as 15 security requirements in 32 CFR 170.14(c)(2) |
 | **Source standard** | FAR 52.204-21(b)(1) (Basic Safeguarding) |
 | **Assessment type** | Annual self-assessment |
 | **Assessment body** | Organization itself |
 | **Applies to** | All DoD contractors handling FCI |
 
-Level 1 represents basic cyber hygiene. These 15 requirements, taken directly
-from FAR 52.204-21, are the minimum safeguards that any organization handling
-federal contract information should have in place. Examples include using
+Level 1 represents basic cyber hygiene: the 17 practices of the CMMC Model,
+which the final rule codifies as the 15 basic safeguarding requirements of
+FAR 52.204-21(b)(1). Both counts describe the same safeguarding content;
+the model counts the three physical-protection activities of FAR paragraph
+(b)(1)(ix) (escort visitors, keep physical access logs, control access
+devices) as separate practices, while the rule and the CMMC Assessment
+Guide Level 1 v2.13 count that paragraph once. Examples include using
 passwords, limiting physical access to systems, and updating software.
 
-Under the CMMC final rule, Level 1 requirements carry identifiers keyed to the
-FAR clause paragraphs: AC.L1-b.1.i through SI.L1-b.1.xv (see the CMMC
-Assessment Guide Level 1, version 2.13). The pre-rule CMMC Model v2.0
-described Level 1 as 17 practices with 800-171-style identifiers such as
-AC.L1-3.1.1; the final rule consolidated the physical-protection items and
-retired that numbering. If you see a 17-practice Level 1 list, it is the
-deprecated model, not the rule. See `references/level-1-quickstart.md` for
-the full 15-requirement mapping.
+Under the final rule the requirements carry identifiers keyed to the FAR
+clause paragraphs, AC.L1-b.1.i through SI.L1-b.1.xv. Older material and
+many industry checklists use the 17-practice numbering (AC.L1-3.1.1
+style); see `references/level-1-quickstart.md` for the full mapping
+between the two schemes.
 
 **Key point for contractors:** If your contract involves only FCI (not CUI),
 Level 1 is sufficient. Self-assessment means no third-party audit. You
