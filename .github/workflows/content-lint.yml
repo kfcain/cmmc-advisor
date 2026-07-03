@@ -36,3 +36,20 @@ jobs:
           assert 110 - deductions == -203, deductions
           print("AO dataset ok")
           EOF
+      - name: 800-53 crosswalk integrity
+        run: |
+          python3 - <<'EOF'
+          import json
+          cw = json.load(open("references/data/800-53-crosswalk.json"))
+          ao = json.load(open("references/data/assessment-objectives.json"))
+          assert cw["requirement_count"] == 110
+          assert len(cw["requirements"]) == 110
+          ao_ids = {r["id"] for r in ao["requirements"]}
+          cw_ids = {r["cmmc_id"] for r in cw["requirements"]}
+          assert ao_ids == cw_ids
+          for row in cw["requirements"]:
+              assert row["controls_800_53_rev4"]
+              assert len(row["controls_oscal"]) == len(row["controls_800_53_rev4"])
+          assert len(cw["control_index"]) >= 120
+          print("800-53 crosswalk ok")
+          EOF

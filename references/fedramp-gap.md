@@ -313,6 +313,11 @@ NIST. Its cross-references target NIST SP 800-53 Revision 4, per
 the Appendix D cautionary footnote: "The security controls in
 Tables D-1 through D-14 are taken from NIST Special Publication
 800-53, Revision 4." This file reproduces the Appendix D mapping.
+The machine-readable version lives at
+`references/data/800-53-crosswalk.json` (regenerate with
+`scripts/build_800_53_crosswalk.py`); see
+`references/multi-framework-crosswalk.md` for OSCAL emission and
+ISO 27001 notes.
 
 **Note on the withdrawn parent document.** NIST SP 800-171 Rev 2
 was withdrawn on May 14, 2024, and superseded by Rev 3. It

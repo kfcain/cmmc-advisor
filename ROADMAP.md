@@ -18,18 +18,17 @@ scenario. Remaining depth for a later pass: statement-level mapping
 (individual policy clauses to assessment objectives) and automated
 policy-document parsing.
 
-## Phase 3: Multi-Framework Crosswalks and OSCAL
+## Phase 3: Multi-Framework Crosswalks and OSCAL — DELIVERED
 
-CMMC to NIST SP 800-53 Rev 5 to FedRAMP Rev 5 crosswalk as data, not
-prose, extending the existing `references/fedramp-gap.md` narrative.
-
-- New: `references/data/800-53-crosswalk.json` (from NIST's published
-  800-171 to 800-53 mapping), ISO/IEC 27001 mapping notes, and OSCAL
-  awareness: emit the program data file as an OSCAL SSP (component
-  definitions for inheritance sources; compliance-trestle as the
-  reference tooling).
-- Purpose: one program data file able to answer CMMC, FedRAMP, and
-  27001 questions about the same environment.
+Shipped: `references/data/800-53-crosswalk.json` (110 requirements, 127
+unique 800-53 controls, FedRAMP Moderate baseline membership from NIST
+OSCAL content), `scripts/build_800_53_crosswalk.py` (regenerator from
+Appendix D tables + baseline fetch), `references/multi-framework-crosswalk.md`
+(method, ISO 27001 notes, OSCAL workflow), `scripts/generate_oscal_ssp.py`
+(OSCAL SSP emission with inheritance components and back-matter), SKILL.md
+routing and toolkit workflow rows, CI crosswalk integrity check, and the
+`toolkit-oscal-crosswalk` eval scenario. Narrative depth remains in
+`references/fedramp-gap.md`; the dataset is the machine-readable layer.
 
 ## Phase 4: FedRAMP 20x and Trust Center Interop
 
