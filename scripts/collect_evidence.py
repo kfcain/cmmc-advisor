@@ -2,21 +2,26 @@
 """Run evidence collectors and merge results into a program data file.
 
 Collectors are registered in references/data/evidence-collector-manifest.json.
-Live API calls require platform credentials in the environment; use --dry-run
-to emit sample artifacts and update evidence links for pipeline testing.
+Each collector module lives under scripts/collectors/ and writes artifacts into
+platform-specific buckets: evidence/<bucket>/<family>/<req>/<slug>.json.
+
+Use --dry-run for pipeline testing. Without --dry-run, collectors check env vars
+(Vanta-style integration model) and emit credential status envelopes until live
+API clients are wired or GRC inspector findings are merged.
 
 Usage (from repo root):
     python3 scripts/collect_evidence.py templates/program-data.sample.yaml --dry-run
-    python3 scripts/collect_evidence.py program.yaml --collectors entra-signins,defender-endpoint
+    python3 scripts/collect_evidence.py program.yaml --collectors entra-signins
     python3 scripts/collect_evidence.py program.yaml --list
+    python3 scripts/collect_evidence.py program.yaml --env-check
 """
 
 from __future__ import annotations
 
 import argparse
+import importlib
 import json
 import sys
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -62,17 +67,15 @@ def save_program(path: Path, program: dict) -> None:
         path.write_text(json.dumps(program, indent=2) + "\n", encoding="utf-8")
 
 
-def dry_run_payload(collector: dict[str, Any]) -> dict[str, Any]:
-    now = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
-    return {
-        "schema_version": "1.0",
-        "collector": collector["id"],
-        "source_system": collector.get("source_system"),
-        "collected_at": now,
-        "dry_run": True,
-        "note": "Sample artifact for pipeline testing. Replace with live API export before assessment.",
-        "sample_records": [{"status": "ok", "record_count": 3}],
-    }
+def load_collector_module(module_path: str):
+    rel = module_path.removeprefix("scripts/").removesuffix(".py").replace("/", ".")
+    scripts_dir = REPO_ROOT / "scripts"
+    if str(scripts_dir) not in sys.path:
+        sys.path.insert(0, str(scripts_dir))
+    try:
+        return importlib.import_module(rel)
+    except ImportError as exc:
+        raise SystemExit(f"Cannot load collector module {rel}: {exc}") from exc
 
 
 def run_collector(
@@ -81,21 +84,21 @@ def run_collector(
     evidence_root: Path,
     dry_run: bool,
 ) -> list[dict[str, Any]]:
-    if not dry_run:
-        raise SystemExit(
-            f"Live collection for {collector['id']} is not bundled in this release. "
-            f"Use --dry-run for pipeline testing, or run the GRC Engineering Club "
-            f"connector ({collector.get('platform')}) and merge with scripts/merge_findings.py. "
-            f"See references/grc/evidence-automation.md."
-        )
+    module_path = collector.get("module")
+    if not module_path:
+        raise SystemExit(f"Collector {collector['id']} missing module path in manifest")
 
-    payload = dry_run_payload(collector)
+    mod = load_collector_module(module_path)
+    if not hasattr(mod, "collect"):
+        raise SystemExit(f"Collector module missing collect(): {module_path}")
+    payload = mod.collect(collector, dry_run=dry_run)
     manifest_entries: list[dict[str, Any]] = []
     slug = collector["id"].replace("-", "_")
+    bucket = collector.get("evidence_bucket")
 
     for mapping in collector.get("mappings", []):
         req_id = mapping["requirement_id"]
-        rel = artifact_path(req_id, slug)
+        rel = artifact_path(req_id, slug, evidence_bucket=bucket)
         out_path = artifact_out_path(evidence_root, rel)
         out_path.parent.mkdir(parents=True, exist_ok=True)
         record = {**payload, "requirement_id": req_id, "objectives": mapping.get("objectives")}
@@ -111,17 +114,34 @@ def run_collector(
                 "sha256": sha256_file(out_path),
             },
             rel,
-            collected_at=record["collected_at"][:10],
+            collected_at=str(record.get("collected_at", ""))[:10] or None,
         )
         manifest_entries.append({"requirement_id": req_id, "artifact": rel})
 
     return manifest_entries
 
 
+def print_env_check(manifest: dict[str, Any]) -> None:
+    scripts_dir = REPO_ROOT / "scripts"
+    if str(scripts_dir) not in sys.path:
+        sys.path.insert(0, str(scripts_dir))
+    from collectors.env_config import profile_env_summary  # noqa: E402
+
+    seen: set[str] = set()
+    for collector in manifest.get("collectors", []):
+        profile = collector.get("env_profile")
+        if not profile or profile in seen:
+            continue
+        seen.add(profile)
+        summary = profile_env_summary(profile)
+        status = "ready" if summary["credentials_present"] else "missing"
+        print(f"{profile:28} {status:8} missing={summary['missing_env']}")
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="Run CMMC evidence collectors")
     ap.add_argument("program_data", type=Path, nargs="?", help="program data file to update")
-    ap.add_argument("--dry-run", action="store_true", help="write sample artifacts (default for now)")
+    ap.add_argument("--dry-run", action="store_true", help="write sample artifacts")
     ap.add_argument("--collectors", type=str, default="", help="comma-separated collector ids")
     ap.add_argument(
         "--evidence-root",
@@ -130,6 +150,7 @@ def main() -> int:
         help="directory for collector artifacts (default: <repo>/evidence)",
     )
     ap.add_argument("--list", action="store_true", help="list registered collectors")
+    ap.add_argument("--env-check", action="store_true", help="show env var readiness per platform profile")
     ap.add_argument("--no-save", action="store_true", help="do not write program data file")
     args = ap.parse_args()
 
@@ -138,11 +159,16 @@ def main() -> int:
 
     if args.list:
         for c in collectors:
-            print(f"{c['id']:28} {c.get('platform', '')} -> {len(c.get('mappings', []))} mappings")
+            bucket = c.get("evidence_bucket", "")
+            print(f"{c['id']:28} {bucket:22} {len(c.get('mappings', []))} mappings")
+        return 0
+
+    if args.env_check:
+        print_env_check(manifest)
         return 0
 
     if not args.program_data:
-        ap.error("program_data is required unless --list")
+        ap.error("program_data is required unless --list or --env-check")
 
     program = load_program(args.program_data)
     selected = {x.strip() for x in args.collectors.split(",") if x.strip()}

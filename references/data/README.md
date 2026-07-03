@@ -82,9 +82,11 @@ See `references/data/README.md` for the assessment objectives dataset and FRMR s
 
 ### Evidence collector manifest
 
-`evidence-collector-manifest.json` registers platform collectors (Microsoft Graph,
-AWS, GCP, EDR, SASE, MFA, SIEM) with objective mappings. Run
-`python3 scripts/collect_evidence.py --list`.
+`evidence-collector-manifest.json` registers 14 platform collectors (Microsoft Graph,
+AWS GovCloud, GCP SCC, EDR, SASE, MFA, SIEM) with objective mappings and
+platform-specific evidence buckets. Run `python3 scripts/collect_evidence.py --list`.
+Env profiles: `scripts/collectors/env_config.py`. SPRS export:
+`scripts/export_sprs.py`.
 
 ## Assessment objectives dataset
 

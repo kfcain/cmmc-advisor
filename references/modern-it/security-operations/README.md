@@ -79,9 +79,16 @@ binaries are not bundled (public-source-only constraint).
 # List collectors
 python3 scripts/collect_evidence.py --list
 
-# Dry-run pipeline (sample artifacts + program data update)
+# Dry-run pipeline (sample artifacts into platform buckets + program data update)
 python3 scripts/collect_evidence.py templates/program-data.sample.yaml --dry-run \
   --collectors entra-signins,defender-endpoint
+
+# Env var readiness (Vanta-style CMMC_* keys; see scripts/collectors/env_config.py)
+python3 scripts/collect_evidence.py --env-check
+
+# SPRS scoresheet export before portal entry
+python3 scripts/export_sprs.py templates/program-data.sample.yaml \
+  -o exports/sprs-scoresheet.json --csv exports/sprs-scoresheet.csv
 
 # Regenerate dashboard (freshness + SPRS diff)
 python3 scripts/generate_dashboard.py templates/program-data.sample.yaml -o dashboard.html

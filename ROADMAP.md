@@ -55,9 +55,15 @@ Finding bridge via 800-53 crosswalk), `scripts/evidence_lib.py`,
 view and SPRS submission diff, extended program data schema (collector metadata,
 `sprs_submission`), eval scenario `toolkit-evidence-collectors.yaml`.
 
-Remaining: live API credential harness per platform (use GRC inspector plugins
-or org-specific automation), dashboard-to-SPRS export back to SPRS portal,
-reconciliation with cmmc-dfd plugins when reachable.
+Also shipped in this pass: platform-specific evidence buckets
+(`evidence/<bucket>/<family>/<req>/`), all 14 collector modules under
+`scripts/collectors/` with Vanta-style env profiles (`env_config.py`,
+`--env-check`), and `scripts/export_sprs.py` (JSON + optional CSV scoresheet
+for SPRS portal entry).
+
+Remaining: wire live HTTP clients per collector (or rely on external GRC
+inspector plugins), finer AO-letter mapping in merge_findings, reconciliation
+with cmmc-dfd plugins when reachable.
 
 Early delivery (pre-Phase 5): CMVP validation (`scripts/check_cmvp.py`) and
 diagram capability (`scripts/generate_diagrams.py`).

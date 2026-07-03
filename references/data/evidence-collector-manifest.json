@@ -1,6 +1,10 @@
 {
   "schema_version": "1.0",
   "verified": "2026-07-03: collector registry aligned with references/modern-it/security-operations/ and GRC Engineering Club finding bridge",
+  "evidence_layout": {
+    "description": "Collector artifacts land in platform-specific buckets: evidence/<bucket>/<family>/<req>/<slug>.json. Manual uploads may use evidence/<family>/<req>/ without a bucket prefix.",
+    "default_root": "evidence"
+  },
   "refresh_buckets": {
     "machine": {
       "description": "Machine-generated telemetry (AU, CM baselines, MFA enforcement)",
@@ -37,6 +41,8 @@
     {
       "id": "entra-signins",
       "platform": "microsoft-graph-gcch",
+      "evidence_bucket": "m365-gcch",
+      "env_profile": "microsoft-graph-gcch",
       "module": "scripts/collectors/entra_signins.py",
       "source_system": "Microsoft Entra ID (GCC High)",
       "refresh_bucket": "machine",
@@ -51,6 +57,8 @@
     {
       "id": "entra-conditional-access",
       "platform": "microsoft-graph-gcch",
+      "evidence_bucket": "m365-gcch",
+      "env_profile": "microsoft-graph-gcch",
       "module": "scripts/collectors/entra_conditional_access.py",
       "source_system": "Microsoft Entra Conditional Access",
       "refresh_bucket": "machine",
@@ -64,6 +72,8 @@
     {
       "id": "intune-compliance",
       "platform": "microsoft-graph-gcch",
+      "evidence_bucket": "m365-gcch",
+      "env_profile": "microsoft-graph-gcch",
       "module": "scripts/collectors/intune_compliance.py",
       "source_system": "Microsoft Intune",
       "refresh_bucket": "machine",
@@ -78,6 +88,8 @@
     {
       "id": "defender-endpoint",
       "platform": "microsoft-defender-gcch",
+      "evidence_bucket": "m365-defender-gcch",
+      "env_profile": "microsoft-defender-gcch",
       "module": "scripts/collectors/defender_endpoint.py",
       "source_system": "Microsoft Defender for Endpoint",
       "refresh_bucket": "machine",
@@ -92,6 +104,8 @@
     {
       "id": "sentinel-health",
       "platform": "azure-sentinel-gov",
+      "evidence_bucket": "azure-sentinel-gov",
+      "env_profile": "azure-sentinel-gov",
       "module": "scripts/collectors/sentinel_health.py",
       "source_system": "Microsoft Sentinel",
       "refresh_bucket": "machine",
@@ -106,6 +120,8 @@
     {
       "id": "aws-config-compliance",
       "platform": "aws-govcloud",
+      "evidence_bucket": "aws-govcloud",
+      "env_profile": "aws-govcloud",
       "module": "scripts/collectors/aws_config.py",
       "source_system": "AWS Config",
       "refresh_bucket": "machine",
@@ -119,6 +135,8 @@
     {
       "id": "aws-cloudtrail",
       "platform": "aws-govcloud",
+      "evidence_bucket": "aws-govcloud",
+      "env_profile": "aws-govcloud",
       "module": "scripts/collectors/aws_cloudtrail.py",
       "source_system": "AWS CloudTrail",
       "refresh_bucket": "machine",
@@ -131,6 +149,8 @@
     {
       "id": "aws-security-hub",
       "platform": "aws-govcloud",
+      "evidence_bucket": "aws-govcloud",
+      "env_profile": "aws-govcloud",
       "module": "scripts/collectors/aws_security_hub.py",
       "source_system": "AWS Security Hub",
       "refresh_bucket": "machine",
@@ -143,6 +163,8 @@
     {
       "id": "gcp-scc-findings",
       "platform": "gcp-assured-workloads",
+      "evidence_bucket": "gcp-assured",
+      "env_profile": "gcp-assured-workloads",
       "module": "scripts/collectors/gcp_scc.py",
       "source_system": "Google Security Command Center",
       "refresh_bucket": "machine",
@@ -156,6 +178,8 @@
     {
       "id": "crowdstrike-hosts",
       "platform": "crowdstrike-falcon",
+      "evidence_bucket": "crowdstrike",
+      "env_profile": "crowdstrike-falcon",
       "module": "scripts/collectors/crowdstrike_hosts.py",
       "source_system": "CrowdStrike Falcon",
       "refresh_bucket": "machine",
@@ -169,6 +193,8 @@
     {
       "id": "zscaler-policy",
       "platform": "zscaler-zia",
+      "evidence_bucket": "zscaler",
+      "env_profile": "zscaler-zia",
       "module": "scripts/collectors/zscaler_policy.py",
       "source_system": "Zscaler Internet Access",
       "refresh_bucket": "machine",
@@ -181,6 +207,8 @@
     {
       "id": "prisma-access-rules",
       "platform": "palo-alto-prisma-access",
+      "evidence_bucket": "prisma-access",
+      "env_profile": "palo-alto-prisma-access",
       "module": "scripts/collectors/prisma_access.py",
       "source_system": "Palo Alto Strata Cloud Manager",
       "refresh_bucket": "machine",
@@ -193,6 +221,8 @@
     {
       "id": "duo-auth-logs",
       "platform": "duo-mfa",
+      "evidence_bucket": "duo",
+      "env_profile": "duo-mfa",
       "module": "scripts/collectors/duo_auth.py",
       "source_system": "Cisco Duo",
       "refresh_bucket": "machine",
@@ -206,6 +236,8 @@
     {
       "id": "splunk-ingest-health",
       "platform": "splunk-enterprise",
+      "evidence_bucket": "splunk",
+      "env_profile": "splunk-enterprise",
       "module": "scripts/collectors/splunk_health.py",
       "source_system": "Splunk Enterprise",
       "refresh_bucket": "machine",

@@ -4,8 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
-import re
-from datetime import date, datetime
+from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -37,10 +36,19 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
-def artifact_path(requirement_id: str, slug: str, ext: str = "json") -> str:
+def artifact_path(
+    requirement_id: str,
+    slug: str,
+    *,
+    evidence_bucket: str | None = None,
+    ext: str = "json",
+) -> str:
     family, _, rest = requirement_id.partition(".")
     nist = rest.replace("L2-", "")
-    return f"evidence/{family.lower()}/{nist}/{slug}.{ext}"
+    rel = f"{family.lower()}/{nist}/{slug}.{ext}"
+    if evidence_bucket:
+        return f"evidence/{evidence_bucket}/{rel}"
+    return f"evidence/{rel}"
 
 
 def days_since(iso_date: str | None) -> int | None:
@@ -128,3 +136,81 @@ def merge_collector_result(
 def normalize_control_id(control: str) -> str:
     c = control.strip().lower().replace("(", ".").replace(")", "")
     return c
+
+
+def sprs_assessment_status(conformity: str) -> str:
+    mapping = {
+        "met": "MET",
+        "not-met": "NOT MET",
+        "partially-met": "NOT MET",
+        "not-applicable": "NOT APPLICABLE",
+        "not-assessed": "NOT MET",
+    }
+    return mapping.get(conformity or "not-assessed", "NOT MET")
+
+
+def sprs_points_deducted(conformity: str, req: dict[str, Any]) -> int:
+    if conformity in ("met", "not-applicable"):
+        return 0
+    if req["id"] == "CA.L2-3.12.4" and conformity == "not-met":
+        return 0
+    if conformity == "partially-met" and req.get("sprs_partial_value") is not None:
+        return int(req["sprs_partial_value"])
+    if conformity in ("not-met", "partially-met", "not-assessed"):
+        return int(req["sprs_value"])
+    return 0
+
+
+def build_sprs_export(program: dict, dataset: dict) -> dict[str, Any]:
+    """Build SPRS Basic Assessment export payload from program data."""
+    org = program.get("organization") or {}
+    assessment = program.get("assessment") or {}
+    entries = program.get("requirements") or {}
+    summary = compute_sprs(program, dataset)
+    requirements_out: list[dict[str, Any]] = []
+
+    for req in dataset["requirements"]:
+        rid = req["id"]
+        conformity = (entries.get(rid) or {}).get("conformity") or "not-assessed"
+        deducted = sprs_points_deducted(conformity, req)
+        requirements_out.append(
+            {
+                "requirement_id": rid,
+                "nist_id": req.get("nist_id"),
+                "name": req.get("name"),
+                "conformity": conformity,
+                "sprs_assessment_status": sprs_assessment_status(conformity),
+                "sprs_value": req.get("sprs_value"),
+                "sprs_partial_value": req.get("sprs_partial_value"),
+                "points_deducted": deducted,
+            }
+        )
+
+    return {
+        "schema_version": "1.0",
+        "export_type": "sprs_basic_assessment",
+        "generated_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
+        "methodology": "DoD Assessment Methodology v1.2.1 (110 practices, -203 floor)",
+        "organization": {
+            "name": org.get("name"),
+            "system_name": org.get("system_name"),
+            "cage_codes": org.get("cage_codes") or [],
+        },
+        "assessment": {
+            "level": assessment.get("level"),
+            "path": assessment.get("path"),
+            "target_date": assessment.get("target_date"),
+        },
+        "summary_score": summary["computed_score"],
+        "maximum_score": 110,
+        "minimum_score": -203,
+        "ssp_missing": summary["ssp_missing"],
+        "deductions": summary["deductions"],
+        "requirements": requirements_out,
+        "sprs_submission": program.get("sprs_submission"),
+        "submission_notes": (
+            "Import this scoresheet into your SPRS workflow. SPRS portal entry is manual; "
+            "retain this file as the reproducible basis of the submitted score per "
+            "references/grc/continuous-monitoring.md."
+        ),
+    }

@@ -201,10 +201,13 @@ Name gaps honestly when a vendor's public certification data is immature.
 proof from security platforms, read `references/grc/evidence-automation.md`
 and the security-operations hub. List collectors with
 `python3 scripts/collect_evidence.py --list`. Run the pipeline with
-`--dry-run` (sample artifacts) or merge GRC Engineering Club Finding JSON
-via `python3 scripts/merge_findings.py`. Regenerate the dashboard to review
-the Evidence freshness tab and SPRS diff against `sprs_submission`. Never
-store API secrets in the program data file.
+`--dry-run` (sample artifacts into platform buckets under `evidence/`) or
+without `--dry-run` to check env vars (`--env-check`) and emit credential
+status envelopes. Merge GRC Engineering Club Finding JSON (external dependency)
+via `python3 scripts/merge_findings.py`. Export SPRS scoresheets with
+`python3 scripts/export_sprs.py` before portal entry; regenerate the dashboard
+to review the Evidence freshness tab and SPRS diff against `sprs_submission`.
+Never store API secrets in the program data file.
 
 **Maintain the program data file.** Treat it as the single source of
 truth: status changes, new evidence, POA&M updates (respect the

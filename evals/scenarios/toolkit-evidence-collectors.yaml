@@ -21,15 +21,14 @@ factual_claims_expected: true
 
 expected_recommendation: |
   Yes, via Phase 5 evidence automation. Collectors are registered in
-  references/data/evidence-collector-manifest.json (entra-signins,
-  entra-conditional-access, intune-compliance, defender-endpoint,
-  sentinel-health, crowdstrike-hosts, etc.). Run
-  scripts/collect_evidence.py against the program data file (--dry-run for
-  pipeline testing without live credentials). Each collector writes dated
-  artifacts under evidence/ and updates requirements.*.objectives.*.evidence[]
-  with collector, source_system, refresh_bucket, and sha256 fields.
+  references/data/evidence-collector-manifest.json (14 platforms: Entra,
+  Defender, Sentinel, AWS GovCloud, GCP SCC, CrowdStrike, Zscaler, Prisma,
+  Duo, Splunk). Run scripts/collect_evidence.py against the program data file.
+  Use --dry-run for pipeline testing; artifacts land in platform buckets such as
+  evidence/m365-gcch/ia/3.5.3/entra_signins.json. Use --env-check for
+  Vanta-style env var readiness (CMMC_M365_*, CMMC_AWS_*, etc.).
 
-  For GRC Engineering Club inspector plugins (aws-inspector,
+  For GRC Engineering Club inspector plugins (external dependency: aws-inspector,
   crowdstrike-inspector, azure-inspector), merge Finding JSON with
   scripts/merge_findings.py using the 800-53 crosswalk to CMMC requirements.
 
@@ -40,11 +39,11 @@ expected_recommendation: |
   Regenerate scripts/generate_dashboard.py output: the Evidence freshness tab
   flags machine bucket artifacts older than 90 days (per continuous-monitoring.md).
   Set sprs_submission in program data; dashboard compares computed score vs
-  last submitted SPRS and shows delta on the SPRS tile.
+  last submitted SPRS. Export scoresheets with scripts/export_sprs.py before
+  SPRS portal entry.
 
-  Live API collection requires app registrations and secrets outside program
-  data; --dry-run proves the pipeline. Enabler posture: name credential setup
-  steps, do not refuse.
+  Live HTTP fetch is org-specific; --dry-run and credential envelopes prove the
+  pipeline. Enabler posture: name credential setup steps, do not refuse.
 
 evaluator_notes: |
   Must route to evidence-automation.md and security-operations hub, cite
