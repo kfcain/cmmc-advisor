@@ -358,6 +358,10 @@
               "no_local_cui_storage": {"type": "boolean"},
               "fips_cc_mode": {"type": "boolean"},
               "cmvp_certificate": {"type": "string"},
+              "fedramp_package_id": {"type": "string", "description": "FedRAMP Marketplace package id for CSP/RMM tools"},
+              "authorization": {"type": "string", "description": "e.g. FedRAMP Moderate Rev5 Class C"},
+              "cui_agents": {"type": "number"},
+              "commercial_tenant_segregated": {"type": "boolean"},
               "controls": {"type": "array", "items": {"type": "string"}},
               "notes": {"type": "string"}
             }

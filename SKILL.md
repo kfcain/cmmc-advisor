@@ -56,6 +56,7 @@ from memory alone when a reference exists.
 | Risk register, risk acceptance, risk program cadence | `references/grc/risk-management.md` |
 | Staying certified: affirmations, SPRS maintenance, drift, control owners | `references/grc/continuous-monitoring.md` |
 | MSP/MSSP/ESP treatment, FedRAMP equivalency, subcontractor flowdowns | `references/grc/vendor-and-supply-chain.md` |
+| MSP/RMM on CUI endpoints (NinjaOne, Endpoint Central, ConnectWise) | `references/modern-it/asset-baselines/msp-rmm-tools.md` |
 | Mapping inherited controls from a FedRAMP CRM / CIS Appendix J / BoE | `references/grc/inherited-controls-mapping.md` |
 | Which policy covers which requirement, policy coverage gaps | `references/grc/policy-mapping.md` |
 | Compliance roles, policy lifecycle, change management, 72-hour incident reporting | `references/grc/program-governance.md` |

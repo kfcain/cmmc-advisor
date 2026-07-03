@@ -147,6 +147,28 @@ def validate_asset_baselines(program: dict[str, Any]) -> dict[str, Any]:
                     }
                 )
 
+        if profile_id == "msp-rmm-platform":
+            if not validation.get("fedramp_package_id") and not validation.get("authorization"):
+                issues.append(
+                    {
+                        "type": "rmm_missing_fedramp",
+                        "asset": name,
+                        "message": (
+                            "MSP/RMM on CUI endpoints requires FedRAMP Moderate or "
+                            "FedRAMP 20x Class C authorization evidence "
+                            "(fedramp_package_id or authorization field)"
+                        ),
+                    }
+                )
+            if validation.get("commercial_tenant_segregated") is False:
+                issues.append(
+                    {
+                        "type": "rmm_commingled_tenant",
+                        "asset": name,
+                        "message": "commercial_tenant_segregated must be true for CUI RMM agents",
+                    }
+                )
+
     matrix = program.get("responsibility_matrix") or {}
     if not matrix.get("entries"):
         warnings.append(

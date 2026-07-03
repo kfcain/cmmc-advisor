@@ -70,6 +70,14 @@
       "scoping_categories": ["security-protection", "contractor-risk-managed", "cui"],
       "primary_practices": ["AC.L2-3.1.12", "AC.L2-3.1.13", "AC.L2-3.1.14", "SC.L2-3.13.7", "SC.L2-3.13.8"],
       "validation_script": "scripts/validate_asset_baselines.py"
+    },
+    {
+      "id": "msp-rmm-platform",
+      "title": "MSP/RMM platform touching CUI endpoints",
+      "reference": "references/modern-it/asset-baselines/msp-rmm-tools.md",
+      "scoping_categories": ["security-protection"],
+      "primary_practices": ["AC.L2-3.1.12", "CM.L2-3.4.1", "CM.L2-3.4.2", "AU.L2-3.3.2", "IA.L2-3.5.3"],
+      "validation_script": "scripts/validate_asset_baselines.py"
     }
   ]
 }

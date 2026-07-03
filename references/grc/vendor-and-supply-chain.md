@@ -43,6 +43,13 @@ and 170.18(c)(5)-(6) (Level 3):
 | **SPD only** (no CUI) | Services assessed within your scope as Security Protection Assets; no FedRAMP requirement | Services assessed within your scope as Security Protection Assets |
 | **Neither CUI nor SPD** | Not an ESP for CMMC purposes | Not an ESP for CMMC purposes |
 
+**RMM / MSP platforms (NinjaOne, Endpoint Central, ConnectWise, etc.).** When
+agents or remote access touch CUI endpoints, the vendor cloud typically handles
+CUI and/or Security Protection Data. Cloud SaaS that can reach CUI requires
+**FedRAMP Moderate** (or FedRAMP 20x **Class C Moderate**) per DFARS 7012 for
+CUI on CSP assets. Commercial multi-tenant SKUs without Marketplace authorization
+cannot hold CUI workloads. Detail: `references/modern-it/asset-baselines/msp-rmm-tools.md`.
+
 Consequences worth spelling out:
 
 - **No standalone ESP certification requirement.** An MSP or MSSP does

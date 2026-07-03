@@ -106,6 +106,16 @@ assets:
         validated: "2026-06-20"
         fips_cc_mode: true
         cmvp_certificate: "see vendor datasheet for deployed firmware"
+    - name: NinjaOne for Government (ENG CUI laptops only)
+      vendor: NinjaOne
+      description: FedRAMP Moderate RMM; segregated from MSP commercial tenants
+      baseline_profile: msp-rmm-platform
+      baseline_validation:
+        validated: "2026-07-01"
+        fedramp_package_id: FR2430847803
+        authorization: FedRAMP Moderate Rev5 Class C
+        cui_agents: 12
+        commercial_tenant_segregated: true
   contractor_risk_managed:
     - name: HP MFP Floor-2
       location: Building A, adjacent to CUI floor

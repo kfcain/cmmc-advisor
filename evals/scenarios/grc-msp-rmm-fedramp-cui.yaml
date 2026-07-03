@@ -1,0 +1,42 @@
+id: grc-msp-rmm-fedramp-cui
+title: MSP wants to use commercial NinjaOne on CUI laptops
+category: grc
+
+prompt: |
+  Our MSP manages our twelve CUI engineering laptops through commercial
+  NinjaOne (not the government SKU). They say RMM is just patching and
+  remote support and does not store CUI. Can we keep this for CMMC Level 2,
+  or do we need FedRAMP Moderate / Class C?
+
+required_terms:
+  - FedRAMP
+  - ESP
+  - CUI
+  - remote access
+  - DFARS
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Treat RMM on CUI endpoints as high risk. If the vendor cloud can remote into
+  CUI systems or holds inventory/telemetry from CUI agents, it handles CUI
+  and/or Security Protection Data and is an ESP. Cloud SaaS touching CUI
+  requires FedRAMP Moderate per DFARS 252.204-7012(b)(2)(ii)(D), or FedRAMP
+  20x Class C (Moderate) for newer certifications.
+
+  Commercial NinjaOne is not interchangeable with NinjaOne for Government
+  (Marketplace FR2430847803, FedRAMP Moderate Rev5 Class C). ManageEngine
+  Endpoint Central cloud and most MSP stacks lack FedRAMP for CUI use.
+
+  Enabler paths: (1) migrate CUI agents to FedRAMP-authorized government SKU,
+  (2) move CUI endpoints to Intune/Defender in GCC High with MSP delegated
+  admin in customer tenant, (3) on-premises RMM inside enclave with hardened
+  MSP access. Document in vendor-and-supply-chain.md and msp-rmm-tools.md;
+  validate with validate_asset_baselines.py (msp-rmm-platform profile).
+
+  Disable RMM backup/file browse on CUI; segregate tenants; CRM in SSP. Do not
+  accept "we do not store CUI" without architecture proof.
+
+evaluator_notes: |
+  Must cite DFARS 7012, ESP matrix, FedRAMP Moderate/Class C floor, NinjaOne
+  for Government vs commercial, alternative paths. Enabler not gatekeeper.

@@ -403,6 +403,12 @@ compliance documentation and practitioner publications.
 - **Used in:** references/modern-it/asset-baselines/network-firewall-wlan.md, remote-access-scope.md
 - **Note:** Interpretive practitioner paper; factual claims trace to DoD FAQ and NIST. Verify against current authoritative FAQ before assessment.
 
+### NinjaOne for Government (FedRAMP Marketplace)
+- **Title:** NinjaOne for Government
+- **URL:** https://fedramp.gov/marketplace/products/FR2430847803/
+- **Used in:** references/modern-it/asset-baselines/msp-rmm-tools.md
+- **Note:** FedRAMP Certified Rev 5, Class C (Moderate) as of Marketplace listing; verify current status before SSP citation.
+
 ### AWS GovCloud User Guide
 - **URL:** https://docs.aws.amazon.com/govcloud-us/latest/UserGuide/
 - **Used in:** modern-it/cloud-platforms/aws-govcloud.md, modern-it/ai-services/fedramp-ai-services.md (Bedrock in GovCloud)
