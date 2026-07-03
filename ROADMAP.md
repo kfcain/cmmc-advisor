@@ -146,6 +146,19 @@ Remaining:
 - Automated scheduled sync jobs (org-specific cron/CI)
 - Paramify OSCAL push automation beyond documented workflow
 
+## Phase 10: Executive Brief and Solution Selection — DELIVERED
+
+Shipped:
+
+- `scripts/generate_executive_brief.py` + `templates/program-executive-brief.html`
+  (C-level gap/SPRS/budget view; internal only)
+- `scripts/recommend_solutions.py` + `scripts/executive_brief_lib.py`
+- `references/grc/solution-selection.md` (Rev5 Class C/D, 20x no CMMC reciprocity,
+  ITAR notes, Marketplace workflow)
+- `references/modern-it/asset-baselines/cis-appliance-baselines.md`
+- SKILL.md executive brief workflow; trust-center vs executive distinction
+- Eval scenario `toolkit-executive-brief-selection`
+
 ## Not Planned
 
 Anything requiring nonpublic sources, paid feeds, or assessment

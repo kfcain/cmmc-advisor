@@ -136,6 +136,16 @@ compliance documentation and practitioner publications.
 - **Used in:** grc/vendor-and-supply-chain ESP decision matrix (CSP vs
   non-CSP, CUI vs SPD-only treatment; verified 2026-07-03 via URL above)
 
+### FedRAMP Consolidated Rules for 2026 (Public Preview)
+- **Publisher:** FedRAMP PMO / GSA
+- **URL:** https://www.fedramp.gov/preview/2026/certification/
+- **Used in:** references/grc/solution-selection.md (Class C/D, Rev5 vs 20x paths)
+
+### CIS Benchmarks
+- **Publisher:** Center for Internet Security
+- **URL:** https://www.cisecurity.org/cis-benchmarks
+- **Used in:** references/modern-it/asset-baselines/cis-appliance-baselines.md, domains/cm-configuration-mgmt.md
+
 ### DoD Cloud Computing Security Requirements Guide v1r1
 - **Title:** Department of Defense Cloud Computing Security Requirements Guide
 - **Publisher:** DISA

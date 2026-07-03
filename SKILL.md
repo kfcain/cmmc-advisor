@@ -50,6 +50,10 @@ from memory alone when a reference exists.
 | FedRAMP 20x, KSI packages, FRMR due diligence on vendors | `references/fedramp-20x-ksi-due-diligence.md` |
 | Machine-readable FRMR/KSI snapshot (generate first) | `references/data/frmr-snapshot.json` via `scripts/build_frmr_snapshot.py` |
 | Public trust center page from program data | `references/grc/trust-center.md` + `scripts/generate_trust_center.py` |
+| Executive brief for C-level (gaps, SPRS, budget hints) | `references/grc/solution-selection.md` + `scripts/generate_executive_brief.py` |
+| FedRAMP Rev5 Class C/D, 20x, Marketplace tool selection | `references/grc/solution-selection.md` + `references/fedramp-marketplace-guide.md` |
+| Gap-driven Marketplace / CIS solution hints | `scripts/recommend_solutions.py` |
+| CIS/STIG baselines for firewalls, switches, appliances | `references/modern-it/asset-baselines/cis-appliance-baselines.md` |
 | CMMC requirement to NIST 800-53 / FedRAMP Moderate / ISO 27001 crosswalk | `references/multi-framework-crosswalk.md` + `references/data/800-53-crosswalk.json` |
 | Which 800-53 controls a CMMC practice maps to, CRM row lookup | `references/data/800-53-crosswalk.json` (control_index) |
 | Common mistakes, compliance theater | `references/anti-patterns.md` |
@@ -147,6 +151,14 @@ remediation view ordered by points at stake, and an inheritance view
 showing which objectives trace to which provider CRM rows. Regenerate
 after every data file change; the dashboard is a rendering, not a
 second source of truth.
+
+**Build the executive brief.** When C-level sponsors, CFO, or program
+owners need budget justification (not customer-facing posture), run
+`python3 scripts/generate_executive_brief.py <program-data> -o executive-brief.html`.
+The output summarizes SPRS exposure, top gaps by point value, POA&M risk,
+and Marketplace/CIS solution hints. Pair with `scripts/recommend_solutions.py`
+for Markdown/JSON exports. Use the **trust center** for external audiences;
+never publish gap counts or SPRS on the trust center.
 
 **Generate diagrams.** When the user needs the SSP network or CUI flow
 diagram, build the `topology` section of the program data file (zones,

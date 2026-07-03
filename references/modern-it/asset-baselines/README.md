@@ -32,6 +32,7 @@ at `references/data/asset-baseline-manifest.json`.
 | `development-sdlc` | Dev/test pipelines touching CUI (3.13.2) | `development-sdlc.md` |
 | `remote-access-scope` | SASE, VPN, Tailscale, bastion, jump paths | `remote-access-scope.md` |
 | `msp-rmm-platform` | MSP/RMM on CUI endpoints (NinjaOne, Endpoint Central, etc.) | `msp-rmm-tools.md` |
+| `cis-appliance-onprem` | Firewalls, switches, WLAN, PACS without FedRAMP | `cis-appliance-baselines.md` |
 
 Assign `baseline_profile` on each asset row in program data. Run:
 

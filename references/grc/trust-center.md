@@ -48,5 +48,9 @@ nosniff`, and `Referrer-Policy: strict-origin-when-cross-origin`. Regenerate
 after every program data change that affects public posture; the trust center
 is a rendering, not a second source of truth.
 
+**Internal executive brief** (gaps, SPRS, budget hints): use
+`scripts/generate_executive_brief.py`, not the trust center. See
+`references/grc/solution-selection.md`.
+
 See also: `references/fedramp-20x-ksi-due-diligence.md` for reading vendor
 trust centers during due diligence.

@@ -83,6 +83,12 @@ MLA, CMT, PIY, RPL, INR, CED, SCR, and others). Each indicator carries:
 KSIs do not replace CRM rows for CMMC. They explain what FedRAMP 20x expects
 CSPs to demonstrate over time.
 
+**CMMC reciprocity.** FedRAMP authorization (Rev 5 or 20x Class C/D) does **not**
+currently grant CMMC certification or eliminate C3PAO assessment. Inheritance flows
+through **CRM rows** mapped to assessment objectives only. FedRAMP program Phase 4
+may refine reciprocity language; until DoD acquisition policy changes, document
+customer-side controls and CRM citations per `references/grc/solution-selection.md`.
+
 ---
 
 ## Trust Center and Certification Data Sharing

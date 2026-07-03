@@ -1,0 +1,35 @@
+id: toolkit-executive-brief-selection
+title: Executive brief and FedRAMP Class C solution selection
+category: platform-distribution
+
+prompt: |
+  Our board wants a one-page view of why we need to increase the cybersecurity
+  budget this quarter. We have program-data.yaml populated with several not-met
+  practices. We also need to replace an on-prem firewall and pick a SIEM.
+
+  What do we generate for executives vs customers? How do we pick FedRAMP Moderate
+  Rev5 Class C vs Class D, and does FedRAMP 20x give us CMMC reciprocity? What do
+  we do for the firewall if it is not on the Marketplace?
+
+required_terms:
+  - executive-brief
+  - trust center
+  - Class C
+  - reciprocity
+  - marketplace.fedramp.gov
+  - CIS
+  - points at stake
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Generate executive-brief.html for board/CFO (gaps, SPRS, points at stake,
+  solution hints); trust center for external customers only without gap detail.
+  CSP/SaaS for CUI: FedRAMP Rev5 Moderate or 20x Class C Moderate with Marketplace
+  listing; High/ITAR-adjacent cloud often Rev5 Class D — not Moderate alone.
+  No current CMMC reciprocity from 20x; CRM inheritance only. On-prem firewall:
+  CIS/STIG/vendor baseline per cis-appliance-baselines.md, not FedRAMP.
+
+evaluator_notes: |
+  Must distinguish three HTML outputs: dashboard (ISSM), executive brief (internal),
+  trust center (public). Must not claim 20x auto-certifies CMMC.
