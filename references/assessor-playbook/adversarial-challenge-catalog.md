@@ -163,6 +163,16 @@ so tenant isolation is a fair question. Survives: jump box or one-way
 gateway architecture, session recording, and the provider's tenant
 isolation answer.
 
+**"Your SIEM is someone else's tenant."** When the MSSP runs the SIEM
+as a multi-tenant instance in their cloud, your logs and alerts
+(Security Protection Data) live in a platform you do not control:
+whose tenancy is it, which other customers' analysts can reach your
+data, where does it physically run, and does the CSP conversation from
+DFARS 252.204-7012(b)(2)(ii)(D) apply to it? The CRM must also cover
+the AU requirements the MSSP performs. Survives: the tenancy answer,
+the named-analyst access list with isolation evidence, the platform's
+location and authorization posture, and mapped AU rows in the CRM.
+
 **"That remote tool is not FIPS validated."** Consumer remote-access tools
 (TeamViewer, Splashtop tiers) generally lack CMVP-validated modules; a CUI
 session over them fails SC.L2-3.13.11's validated-crypto expectation.
@@ -253,6 +263,61 @@ evidence, and the vendor-access story (vendor bastion, named accounts).
 (iLO, iDRAC, IPMI) is a privileged path to in-scope hardware: SPA
 treatment, its own network, its own access list. Survives: the management
 network drawn on the topology, filtered, and inventoried.
+
+## Group 7: Audit trail, egress, and AI
+
+**"Your asset inventory and your log-source inventory disagree."** Every
+in-scope asset that emits logs and does not appear in the log-source
+inventory (AU.L2-3.3.1) is an unaudited asset: the PACS, the OT
+segment's system of record, the MFPs, the backup platform, break-glass
+usage. Survives: the reconciled list, or a documented decision per
+exclusion.
+
+**"Show me the alert rules, not the SIEM brochure."** Owning a SIEM is
+not correlating with one (AU.L2-3.3.5) or reviewing with one
+(AU.L2-3.3.3). The practice-based version: the documented rule set, who
+tunes it, the review artifact from a named recent week, and the last
+audit-failure alert that fired (AU.L2-3.3.4). Survives: dated review
+output and the rule export, mapped to the documented cadence.
+
+**"Your general IT admins can edit the audit trail."** AU.L2-3.3.8 and
+3.3.9 expect audit information protected from the people it watches:
+management of logging functions limited to a subset of privileged
+users, not every administrator. An admin who can delete the logs of
+their own actions defeats the family. Survives: the access list for
+audit data and logging tools, and the technical control separating
+them from general administration.
+
+**"Your retention cannot survive an incident."** DFARS 252.204-7012
+sets no general log-retention duration, but 7012(c)'s 72-hour report
+presumes logs exist to investigate with, and 7012(e) requires
+preserving images and monitoring data of affected systems for 90 days
+from the report date. Retention shorter than the investigation window
+fails in practice (see `references/domains/au-audit.md`). Survives: the
+configured retention value, the documented decision behind it, and the
+7012(e) scenario walked end to end.
+
+**"Your backups are encrypted with unvalidated crypto."** The backup
+path is a CUI path: SC.L2-3.13.11 wants the module doing the
+encrypting (appliance firmware, agent TLS, the backup SaaS provider's
+module) CMVP-validated for the deployed version. "AES-256" is a cipher
+name, not a validation. Survives: the certificate in
+`cmvp_certificates` verified via `scripts/check_cmvp.py`, with FIPS
+mode evidenced on the platform.
+
+**"Prove CUI cannot reach ChatGPT."** A policy prohibiting unsanctioned
+AI or SaaS fails the policy-is-not-separation test like every other
+paper control. The challenge: from a CUI endpoint, what technically
+stops the request, by name and layer (DNS or secure web gateway, CASB
+and DLP, conditional access and tenant restrictions, device rules,
+application-layer egress; per
+`modern-it/ai-services/README.md`)? In a cloud-only environment with
+no NGFW, name the native stack or the SASE boundary
+(`modern-it/asset-baselines/network-firewall-wlan.md`). Survives: the
+named enforcement point per layer, the rule export, and a live test
+that fails. Enabler note: the close of this challenge is the
+sanctioned alternative, not a ban (`ai-services/fedramp-ai-services.md`,
+`self-hosted-ai.md`).
 
 ## Output format
 

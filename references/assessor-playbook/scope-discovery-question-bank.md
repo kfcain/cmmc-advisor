@@ -2,7 +2,7 @@
 
 > Source: 32 CFR 170.19 and 170.4; CMMC Assessment Process (CAP) v2.0 (The Cyber AB); DoD CMMC Scoping Guide Level 2 v2.13; DoD CMMC FAQ (entries cited inline); practitioner sources per SOURCES.md
 
-The grill rail's ammunition: ten interrogation phases that walk every nook
+The grill rail's ammunition: twelve interrogation phases that walk every nook
 of an OSC environment the way a Lead CCA validates scope in CAP Phase 1.
 Scope validation is a hard gate in a real assessment; disagreements about
 asset categorization must be resolved before conformity assessment begins,
@@ -55,7 +55,7 @@ Follow-up logic:
 | "We only handle FCI" | Hidden-CUI check: ask for three recent deliverables and the DD Form 254 or contract attachments; run the `level-1-quickstart.md` decision test |
 | "The prime sends us drawings by email" | Which mailbox, which tenant, who else is on the distribution, does it forward anywhere |
 | "ITAR applies" | Foreign-national access anywhere in IT support, including the MSP's offshore helpdesk; tenancy (GCC High or equivalent US-persons backing) |
-| "We make parts from their drawings" | The G-code and CAM files derived from controlled drawings are CUI; jump to Phase 7 (specialized-ot) |
+| "We make parts from their drawings" | The G-code and CAM files derived from controlled drawings are CUI; jump to Phase 8 (specialized-ot) |
 
 Writes: `organization.scope_narrative`, `discovery.qa_log`, contract-driven
 entries in `assets.cui`.
@@ -86,7 +86,7 @@ Follow-up logic:
 
 | If the answer is | Dig here |
 |---|---|
-| "IT is outsourced" | Jump the whole MSP question set from Phase 8 into this sitting's open questions |
+| "IT is outsourced" | Jump the whole MSP question set from Phase 9 into this sitting's open questions |
 | "A few people work from home" | For each: equipment owner, print capability at home, household member access, VPN vs VDI path |
 | "Everyone has one account" | Whether that identity also signs into out-of-scope systems; identity is the bleed path assessors follow first |
 
@@ -210,7 +210,70 @@ Follow-up logic:
 Writes: `assets` by category with `baseline_profile` pointers,
 `discovery.qa_log`, VDI `decisions` entries.
 
-## Phase 6: physical-media
+## Phase 6: dev-ai
+
+**Entry criteria:** platforms and endpoints mapped. **Exit criteria:**
+the developer and DevOps population is inventoried with its CUI
+exposure; the toolchain (repos, CI/CD, registries, secrets) is
+categorized; every AI tool in use is either sanctioned or blocked by a
+named enforcement point, not a policy memo.
+
+Core questions:
+
+1. Who writes software here: developers, DevOps, data scientists,
+   contractors? What CUI do they touch: source code derived from
+   controlled specifications, test data seeded from CUI, IaC holding
+   environment secrets?
+2. Developer workstations: same baseline as the fleet, or a privileged
+   exception ("developers have local admin")? Exceptions are bypass
+   paths for every enforcement layer below; see
+   `modern-it/asset-baselines/development-sdlc.md` for the workstation
+   baseline row.
+3. The toolchain: which repo platform and whose tenancy, which CI/CD
+   system, artifact registries, package proxies, secrets managers?
+   Shared CI runners carry the SC.L2-3.13.4 shared-resource question
+   (CUI build artifacts leaking to non-CUI jobs); build systems that
+   deploy to CUI environments are Security Protection Asset
+   candidates.
+4. AI inventory, sanctioned side first: which AI services are approved
+   for CUI-adjacent work, and on what basis
+   (`modern-it/ai-services/fedramp-ai-services.md`,
+   `ai-dev-tools.md`)? Self-hosted models are in scope with a
+   contractor-authored boundary (`self-hosted-ai.md`); "it's local so
+   it doesn't count" is wrong in both directions.
+5. AI inventory, shadow side: what do expense reports, the SSO app
+   catalog, browser extensions, and DNS logs show people actually
+   using? This extends the Phase 4 shadow-SaaS sweep to the tools
+   engineering adopts fastest.
+6. The enforcement question: walk me from a CUI laptop to chatgpt.com.
+   What stops the request, by name? Layers per
+   `modern-it/ai-services/README.md` (Blocking unsanctioned AI and
+   SaaS): DNS filtering or secure web gateway, CASB and DLP,
+   conditional access and tenant restrictions, device-based rules
+   (MDM app control, managed browser), application-layer egress
+   rules.
+7. If there is no traditional firewall: name the cloud-native stack
+   that is the boundary (AWS security groups, Network Firewall, SCPs;
+   Azure NSGs, Azure Firewall, Conditional Access; GCP VPC Service
+   Controls, Context-Aware Access) or the SASE/SWG that fills the
+   role, per `modern-it/asset-baselines/network-firewall-wlan.md`
+   (No NGFW section).
+
+Follow-up logic:
+
+| If the answer is | Dig here |
+|---|---|
+| "Policy prohibits unsanctioned AI" | The policy-is-not-separation rule: name the technical layer, show the rule export, run the live test that fails |
+| "We're cloud-only, no firewall" | The named native enforcement stack per platform, and what covers off-network laptops (SWG agent, device rules) |
+| "We use Zscaler / a SASE" | Is the SWG documented as the boundary enforcement point; does it terminate TLS on CUI (then it is a CUI asset); is the tunnel module FIPS-validated (SC.L2-3.13.11, `scripts/check_cmvp.py`) |
+| "Developers need local admin" | What that exempts them from (agent removal, proxy bypass, extension installs) and the compensating monitoring |
+| "Copilot/Cursor is approved" | Whose approval, which tier and routing, and the prompt-context exposure analysis per `ai-dev-tools.md` |
+
+Writes: `assets` (dev and build systems, AI platforms by category),
+`topology.flows` (egress paths), `decisions` (the sanctioned-AI list),
+`open_questions` per unverified enforcement layer.
+
+## Phase 7: physical-media
 
 **Entry criteria:** locations known. **Exit criteria:** paper, print, scan,
 mail, removable media, and camera/badge systems all have owners and
@@ -246,7 +309,7 @@ Follow-up logic:
 Writes: `assets` (MFPs, NVRs, PACS), media-handling `qa_log` entries,
 `open_questions` for unverified scan/mail paths.
 
-## Phase 7: specialized-ot
+## Phase 8: specialized-ot
 
 **Entry criteria:** locations and endpoints mapped. **Exit criteria:** every
 OT, IoT, GFE, and test-equipment asset is categorized; legacy-system
@@ -277,7 +340,7 @@ Core questions:
 Writes: `assets.specialized`, compensating-control notes, `decisions` on
 categorization calls.
 
-## Phase 8: esps-access-paths
+## Phase 9: esps-access-paths
 
 **Entry criteria:** platforms and people mapped. **Exit criteria:** every
 external provider is classified (CSP vs non-CSP ESP), every tool touching
@@ -327,7 +390,71 @@ Writes: `responsibility_matrix`, ESP entries in
 `assets.security_protection`, `inheritance_sources`, `open_questions` per
 uncovered requirement.
 
-## Phase 9: data-flows
+When a provider runs the SIEM or SOC function, do not settle for the
+generic tool answer here: drill the platform, tenancy, analyst access,
+and retention in Phase 10 (audit-siem).
+
+## Phase 10: audit-siem
+
+**Entry criteria:** platforms (Phase 4) and ESPs (Phase 9) mapped.
+**Exit criteria:** the log platform and its tenancy are known; the
+log-source inventory is reconciled against the asset inventory or the
+gap is logged; access, prevented access, and retention have answers.
+
+Core questions:
+
+1. What platform collects and correlates the logs (SIEM, log
+   management, cloud-native), and whose tenant is it: yours, or a
+   multi-tenant instance the MSSP operates? Where does it run? Log and
+   alert data about the CUI environment is Security Protection Data;
+   an MSSP platform holding it in their cloud raises the CSP
+   conversation from Phase 9, and the platform is a Security
+   Protection Asset either way.
+2. Show the log-source inventory: which systems forward logs, and
+   which event types per source (AU.L2-3.3.1)? "We have a SIEM" is
+   not an answer; the documented list of what is collected is.
+3. Reconcile that inventory against the asset inventory from the other
+   phases: do the badge/PACS system (Phase 7), the OT segment
+   (Phase 8), the MFPs, the break-glass accounts, and the backup
+   platform actually forward logs? Every in-scope asset absent from
+   the log-source list is a finding candidate.
+4. Show the correlation and alerting rules (AU.L2-3.3.5) and the
+   audit-failure alerting path (AU.L2-3.3.4). Who wrote the rules, who
+   tunes them, and when did a rule last fire usefully?
+5. Who reviews, and on what cadence (AU.L2-3.3.3): named reviewers,
+   review artifacts from a specific recent week, not the policy's
+   intention. This is the practice-based question a policy cannot
+   answer.
+6. Who can read audit information, and who can administer the logging
+   tools? AU.L2-3.3.8 and 3.3.9 expect management limited to a subset
+   of privileged users; general IT administrators who can edit or
+   delete the audit trail defeat it. Name who is prevented, and how.
+7. If an MSSP runs it: which named analysts have access, from where,
+   under whose identities, with what isolation from other customers'
+   tenants? If ITAR applies (Phase 1), the US-persons question follows
+   their staffing.
+8. Retention: what period is configured and documented (AU.L2-3.3.1
+   expects a defined retention; DFARS 7012 sets no general duration,
+   with 1 year a common standard per
+   `references/domains/au-audit.md`), and can it serve the incident
+   duties: 72-hour reporting under 7012(c) presumes logs to
+   investigate with, and 7012(e) requires 90-day preservation of
+   images and monitoring data from the report date.
+
+Follow-up logic:
+
+| If the answer is | Dig here |
+|---|---|
+| "The MSSP handles all of that" | The CRM rows for the AU requirements they perform, their named analysts for interview, and the tenancy/SPD-location questions above |
+| "Everything goes to the SIEM" | The log-source export vs the asset inventory; the gap list is the real answer |
+| "Admins can see the logs" | Which admins can modify or delete them; 3.3.8/3.3.9 want the audit trail protected from the people it watches |
+| "Retention is whatever the default is" | The configured value, the documented decision, and the 7012(e) 90-day scenario walked end to end |
+
+Writes: `assets.security_protection` (SIEM/log platform with tenancy
+notes), `responsibility_matrix` (AU rows when MSSP-performed),
+`discovery.qa_log`, `open_questions` per missing log source.
+
+## Phase 11: data-flows
 
 **Entry criteria:** most asset phases touched; this phase stitches them.
 **Exit criteria:** every CUI ingress and egress on the diagram has a
@@ -343,7 +470,7 @@ Core questions:
 2. For every line crossing the scope boundary on the diagram: what is it,
    what enforces it, where is the evidence? Undocumented ingress/egress is
    the DFD question assessors ask first.
-3. The quiet flows: scan-to-email (Phase 6), backup streams (Phase 10),
+3. The quiet flows: scan-to-email (Phase 7), backup streams (Phase 12),
    admin sessions, monitoring agents, print spools, VoIP and video (a DoD
    assessor has treated Teams as a collaborative computing device under
    SC.L2-3.13.12), ticketing systems (screenshots in tickets make the
@@ -360,7 +487,7 @@ Core questions:
 Writes: `topology.flows` additions, diagram-gap `open_questions`,
 `decisions` for accepted-risk flows.
 
-## Phase 10: backup-dr
+## Phase 12: backup-dr
 
 **Entry criteria:** platforms and flows mapped. **Exit criteria:** every
 backup target holding CUI is categorized; restore paths and DR sites are
@@ -384,11 +511,25 @@ Core questions:
    backup jobs that the inventory does not list?
 6. SaaS-to-SaaS backup tools (M365 backup vendors): tenancy and FedRAMP
    posture, per the Phase 4 rules.
+7. Name the backup platform exactly: on-premises appliance, backup SaaS,
+   or CSP-native service. Each carries a different half of the scoping
+   conversation (appliance: physical and management-plane questions;
+   SaaS/CSP: the Phase 4 tenancy and authorization questions).
+8. Is the encryption in the backup path FIPS-validated? SC.L2-3.13.11
+   applies to CUI in the backup path like any other: the module doing
+   the encrypting (appliance firmware crypto, agent TLS, the SaaS
+   provider's module) needs a CMVP certificate for the deployed
+   version, verified with `scripts/check_cmvp.py` and recorded in
+   `cmvp_certificates`. "It's encrypted" without a validated module is
+   the same gap the SSP's other encryption claims have.
+9. Does the backup platform forward its own logs (job success/failure,
+   admin actions, restore events) to the audit platform from Phase 10?
 
 Writes: `assets` (backup targets), `topology.flows` (backup streams),
-`open_questions` for unverified DR posture.
+`cmvp_certificates` (backup path modules), `open_questions` for
+unverified DR posture.
 
-## After the tenth phase
+## After the twelfth phase
 
 Run `python3 scripts/discovery_report.py <program-data>` and read the
 result like an assessor: untouched phases are unexamined scope, open

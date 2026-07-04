@@ -12,7 +12,7 @@ assessor could pull on, pulled first, on the OSC's side of the table.
 
 | File | Rail | What it carries |
 |------|------|-----------------|
-| `scope-discovery-question-bank.md` | Grill (`/cmmc-advisor:grill`) | Ten interrogation phases covering every nook of an OSC environment, with entry and exit criteria and follow-up logic |
+| `scope-discovery-question-bank.md` | Grill (`/cmmc-advisor:grill`) | Twelve interrogation phases covering every nook of an OSC environment, with entry and exit criteria and follow-up logic |
 | `adversarial-challenge-catalog.md` | Red team (`/cmmc-advisor:red-team-scope`) | Challenges in assessor voice against asset categorization, DFDs, enclave integrity, ESP stories, out-of-scope and inheritance claims, and physical/OT scope |
 | `mock-assessment-conduct.md` | Mock assess (`/cmmc-advisor:mock-assess`) | CAP-ordered conduct for a mock: readiness, the scope-validation gate, per-family interviews, objective-level scoring, out-brief |
 | `interview-method.md` | Shared | How assessors select interviewees, judge answers, and escalate sampling; used by both the grill and the mock |
