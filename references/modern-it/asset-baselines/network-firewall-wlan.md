@@ -99,6 +99,38 @@ security_protection:
       wpa: WPA3-Enterprise
 ```
 
+## No NGFW: cloud-native and SASE boundaries
+
+Environments with no Palo Alto or FortiGate still owe a named boundary
+enforcement point; "we are cloud-only" is a description, not a control.
+The stacks that answer SC.L2-3.13.1 and SC.L2-3.13.6 without a
+traditional appliance:
+
+- **AWS**: security groups per instance, AWS Network Firewall for
+  in-line VPC inspection, Service Control Policies for
+  organization-level guardrails. Evidence: rule-set exports with
+  flagged 0.0.0.0/0 entries. See
+  `../cloud-platforms/aws-govcloud.md`.
+- **Azure**: NSGs at subnet and NIC, Azure Firewall for stateful
+  inspection, Conditional Access as the identity-plane enforcement
+  point. See `../cloud-platforms/azure-government.md`.
+- **Google Cloud**: VPC firewall rules plus VPC Service Controls as
+  the service perimeter, Context-Aware Access on the identity plane.
+  See `../cloud-platforms/gcp-assured.md`.
+- **SASE / secure web gateway**: for managed endpoints going straight
+  to SaaS with no VPC to segment, the SWG is the egress boundary:
+  category and destination policy, sanctioned-app allow-listing,
+  per-device tunnels. Two scoping consequences: a TLS-terminating SWG
+  in the CUI path decrypts CUI and is a CUI asset, and the tunnel
+  carries the SC.L2-3.13.11 question for the deployed client and
+  gateway modules (verify with `scripts/check_cmvp.py`). Document the
+  SWG as the boundary enforcement point on the topology; endpoints
+  with direct-to-internet paths around it make the boundary
+  unenforced.
+
+Blocking unsanctioned SaaS and AI endpoints through these layers:
+`../ai-services/README.md` (Blocking unsanctioned AI and SaaS).
+
 ## Common mistakes
 
 - Flat network diagram with a single "firewall" icon and no rule narrative
