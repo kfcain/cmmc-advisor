@@ -31,6 +31,8 @@ Rev 3 transition context (current Rev 2 requirements with Rev 3 awareness).
 
 Anti-patterns catalog: sixteen named compliance-theater patterns across documentation, tool, scope, and assessment categories.
 
+Assessor-mode rails: a Lead CCA persona on the OSC's side of the table. Scope discovery interrogation across ten phases (contracts, people, locations, tenancy seams, endpoints, physical media, OT, ESP access paths, data flows, backup/DR) with persistent per-OSC memory in the program data file; CAP-faithful mock assessments with the scope-validation gate first and objective-level scoring; and a devil's-advocate rail that attacks asset categorization, DFD completeness, enclave integrity, ESP stories, and inheritance claims with a citation behind every challenge. Installed as a plugin these are `/cmmc-advisor:grill`, `/cmmc-advisor:mock-assess`, and `/cmmc-advisor:red-team-scope`.
+
 See [ROADMAP.md](ROADMAP.md) for the staged expansion into multi-framework federal GRC coverage (policy-to-control mapping, 800-53/FedRAMP crosswalks, OSCAL, FedRAMP 20x, evidence automation).
 
 **Capability guide:** open [docs/capability-guide.html](docs/capability-guide.html) in a browser for a self-contained map of every feature, script, dataset, platform adapter, and known limitation in this repository.

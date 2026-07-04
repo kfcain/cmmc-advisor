@@ -31,7 +31,9 @@ requirement, so the SSP answers exactly what a C3PAO determines.
    Assets, Contractor Risk Managed Assets, Security Protection Assets,
    Specialized Assets, Out-of-Scope Assets.
 10. **Networking Diagrams**: network diagram and CUI flow diagram
-    (figures referenced from the data file).
+    (figures referenced from the data file). One combined diagram
+    covering both the network topology and the CUI flows also
+    satisfies this section.
 11. **Hardware and Software Information**: inventory table.
 12. **Organizational Responsibilities**: enforcement, exception to
     policy, non-compliance handling.

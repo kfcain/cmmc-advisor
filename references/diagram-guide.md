@@ -6,13 +6,16 @@
 
 ## Overview
 
-Two diagrams are mandatory equipment. The SSP carries a network diagram
-and a CUI flow diagram as figures, and the scoping guides require a
-network diagram of the CMMC Assessment Scope to drive pre-assessment
-discussions. Assessors read them before they read your narratives, then
-spend the engagement checking that diagram, SSP prose, and reality tell
-the same story. A diagram that omits a real data flow is not a drawing
-problem; it is a scoping finding.
+Two views are mandatory equipment: the network topology of the
+assessment scope and the CUI data flow. The SSP carries them as figures
+and the scoping guides require a network diagram of the CMMC Assessment
+Scope to drive pre-assessment discussions. One combined diagram
+satisfies the SSP when it shows both the topology and the CUI flows;
+what matters is content coverage, not figure count. Assessors read the
+diagrams before they read your narratives, then spend the engagement
+checking that diagram, SSP prose, and reality tell the same story. A
+diagram that omits a real data flow is not a drawing problem; it is a
+scoping finding.
 
 This skill treats diagrams as data: the `topology` section of the
 program data file (zones, nodes, flows) is the single source, and
@@ -20,7 +23,7 @@ program data file (zones, nodes, flows) is the single source, and
 asset inventory, the SSP, the dashboard, and the figures cannot drift
 apart silently.
 
-## The Two Diagrams
+## The Two Views
 
 **Network diagram.** Every zone and node, with the CMMC Assessment Scope
 drawn as an explicit dashed boundary. Nodes carry their 32 CFR 170.19(c)
@@ -96,9 +99,10 @@ sometimes scope re-evaluation (`scoping-and-cui.md`).
 
 ## Key Takeaways for Contractors
 
-1. Two diagrams, both generated from one topology dataset: network
-   (everything, scope boundary explicit) and CUI flow (DFD of every
-   CUI/FCI/SPD movement).
+1. Two views generated from one topology dataset: network (everything,
+   scope boundary explicit) and CUI flow (DFD of every CUI/FCI/SPD
+   movement). Separate figures or one combined diagram both work; the
+   content has to be there either way.
 2. Topology entries mirror the asset inventory categories; mismatches
    are findings, not typos.
 3. The dashed CMMC scope boundary and any FedRAMP boundaries are

@@ -112,6 +112,11 @@ from memory alone when a reference exists.
 | Network and CUI flow diagrams, boundary drawing, topology | `references/diagram-guide.md` + `scripts/generate_diagrams.py` |
 | FIPS validation, CMVP certificates, sunset dates | `scripts/check_cmvp.py` + `references/assessment-objectives/sc.md` (SC.L2-3.13.11) |
 | CMMC program data file format (statuses, evidence, POA&M, inheritance) | `templates/program-data.schema.json` + `templates/program-data.sample.yaml` |
+| Scope discovery interrogation, grilling the environment, advisor memory | `references/assessor-playbook/scope-discovery-question-bank.md` |
+| Devil's advocate, challenge scope/categorization/DFD/ESP claims | `references/assessor-playbook/adversarial-challenge-catalog.md` |
+| Mock assessment conduct, scope-validation gate, out-brief format | `references/assessor-playbook/mock-assessment-conduct.md` + `scripts/generate_mock_assessment.py` |
+| Interview technique, who answers what, E-I-T triad, answer depth | `references/assessor-playbook/interview-method.md` |
+| Discovery status, open questions, assumptions, staleness | `scripts/discovery_report.py` |
 | Unsure where to look | This file (routing table above) |
 
 If a referenced file does not exist yet, say so honestly. Tell the user
@@ -264,6 +269,15 @@ truth: status changes, new evidence, POA&M updates (respect the
 32 CFR 170.21 eligibility rules in `references/poam-management.md`),
 and inheritance mappings all land there first, then regenerate outputs.
 
+**Maintain discovery memory.** The `discovery` section is the advisor's
+memory of the OSC: dated qa_log entries with answer confidence, an
+assumptions register, open questions with owners, and decisions with
+rationale (contract in `references/assessor-playbook/README.md`). The
+grill, mock-assess, and red-team rails read and write it; per-objective
+conformity fields are written only with explicit user consent. Check
+coverage, staleness, and id integrity with
+`python3 scripts/discovery_report.py program.yaml`.
+
 ## Advisory Workflows
 
 Most conversations fit one of four rails. Recognize which one you are on
@@ -284,6 +298,34 @@ and drive it to its deliverable:
 - **Monitor** ("stay certified"): the operating rhythm in
   `grc/continuous-monitoring.md`: affirmations, drift review, SPRS
   maintenance, vendor re-verification.
+
+Three assessor-mode rails sit on top of these, speaking as a Lead CCA on
+the OSC's side of the table. Installed as a plugin they are
+`/cmmc-advisor:grill`, `/cmmc-advisor:mock-assess`, and
+`/cmmc-advisor:red-team-scope` (see `commands/`); as a plain skill, run
+the same procedures when the user asks for them in their own words:
+
+- **Grill** ("interrogate us about our environment"): phased scope
+  discovery per `assessor-playbook/scope-discovery-question-bank.md`,
+  one phase per session, interview craft per
+  `assessor-playbook/interview-method.md`. Every answer persists to the
+  program data file's `discovery` section (qa_log, assumptions,
+  open_questions, decisions); asset and topology edits apply on
+  confirmation. End with `scripts/discovery_report.py` output and the
+  top open questions.
+- **Mock assess** ("run us through a dry run"): conduct per
+  `assessor-playbook/mock-assessment-conduct.md`. Scope-validation gate
+  before any family interview, packs from
+  `scripts/generate_mock_assessment.py`, objective-level scoring,
+  findings out-brief. Conformity fields are written only with explicit
+  consent at the out-brief; each mock-sourced write gets a dated qa_log
+  stamp.
+- **Red-team scope** ("poke holes in our scope"): adversarial pass per
+  `assessor-playbook/adversarial-challenge-catalog.md`, prioritizing
+  out-of-scope and CRMA claims, inheritance assertions, reported or
+  assumed answers, and stale entries. Ranked challenge report with a
+  citation and the surviving evidence per challenge; writes
+  open_questions by default and never conformity.
 
 ## Audience Adaptation
 
