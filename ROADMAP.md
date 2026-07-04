@@ -45,9 +45,10 @@ workflow rows, CI FRMR snapshot integrity check, and the
 
 ## Phase 5: Evidence Automation — DELIVERED
 
-Shipped: `references/data/evidence-collector-manifest.json` (14 collectors
-across Microsoft Graph/GCC High, AWS GovCloud, GCP SCC, CrowdStrike, Zscaler,
-Prisma Access, Duo, Splunk), `scripts/collect_evidence.py` (orchestrator with
+Shipped: `references/data/evidence-collector-manifest.json` (18 collectors:
+14 cloud/SaaS plus 4 on-prem network/physical stubs across Microsoft Graph/GCC
+High, AWS GovCloud, GCP SCC, CrowdStrike, Zscaler, Prisma Access, Duo,
+Splunk, FortiGate, PAN-OS, WLAN, PACS), `scripts/collect_evidence.py` (orchestrator with
 `--dry-run` pipeline), `scripts/merge_findings.py` (GRC Engineering Club
 Finding bridge via 800-53 crosswalk), `scripts/evidence_lib.py`,
 `references/grc/evidence-automation.md`, `references/modern-it/security-operations/`
@@ -56,7 +57,7 @@ view and SPRS submission diff, extended program data schema (collector metadata,
 `sprs_submission`), eval scenario `toolkit-evidence-collectors.yaml`.
 
 Also shipped in this pass: platform-specific evidence buckets
-(`evidence/<bucket>/<family>/<req>/`), all 14 collector modules under
+(`evidence/<bucket>/<family>/<req>/`), all 18 collector modules under
 `scripts/collectors/` with Vanta-style env profiles (`env_config.py`,
 `--env-check`), `scripts/export_sprs.py` (JSON + optional CSV scoresheet
 for SPRS portal entry), and Meridian GCP bridge (`scripts/import_meridian_run.py`,

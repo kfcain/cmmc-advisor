@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CMMC Advisor — Capability Guide</title>
+<style>
+  :root {
+    --surface: #fcfcfb; --plane: #f9f9f7; --ink: #0b0b0b; --ink-2: #52514e;
+    --muted: #898781; --grid: #e1e0d9;
+    --good: #0ca30c; --warning: #fab219; --serious: #ec835a; --critical: #d03b3b;
+    --accent: #2563eb; --chip-muted-bg: #efeeea;
+  }
+  @media (prefers-color-scheme: dark) { :root {
+    --surface: #1a1a19; --plane: #0d0d0d; --ink: #ffffff; --ink-2: #c3c2b7;
+    --muted: #898781; --grid: #2c2c2a; --chip-muted-bg: #262624;
+  }}
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--plane); color: var(--ink);
+         font: 15px/1.55 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  a { color: var(--accent); }
+  header.hero { padding: 32px 24px 20px; max-width: 1100px; margin: 0 auto; }
+  header.hero h1 { font-size: 28px; margin: 0 0 8px; font-weight: 700; }
+  header.hero p.lead { color: var(--ink-2); max-width: 72ch; margin: 0 0 16px; }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px; }
+  .pill { background: var(--chip-muted-bg); border: 1px solid var(--grid); border-radius: 999px;
+          padding: 4px 12px; font-size: 12px; color: var(--ink-2); }
+  nav.toc { position: sticky; top: 0; z-index: 10; background: var(--surface);
+            border-bottom: 1px solid var(--grid); padding: 8px 24px;
+            display: flex; flex-wrap: wrap; gap: 6px 14px; }
+  nav.toc a { text-decoration: none; color: var(--ink-2); font-size: 13px; padding: 4px 0; }
+  nav.toc a:hover { color: var(--ink); }
+  main { max-width: 1100px; margin: 0 auto; padding: 24px 24px 64px; }
+  section { margin-bottom: 40px; scroll-margin-top: 56px; }
+  section h2 { font-size: 20px; margin: 0 0 12px; padding-bottom: 8px;
+               border-bottom: 1px solid var(--grid); }
+  section h3 { font-size: 16px; margin: 20px 0 8px; }
+  p, li { color: var(--ink-2); }
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+  .card { background: var(--surface); border: 1px solid var(--grid); border-radius: 8px; padding: 14px 16px; }
+  .card h4 { margin: 0 0 6px; font-size: 14px; color: var(--ink); }
+  .card p { margin: 0; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--grid); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: .04em; }
+  td code, p code, li code { font: 13px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+                             background: var(--chip-muted-bg); padding: 1px 5px; border-radius: 4px; }
+  .diagram { background: var(--surface); border: 1px solid var(--grid); border-radius: 8px;
+             padding: 16px; overflow-x: auto; font: 12px/1.45 ui-monospace, monospace; color: var(--ink-2); }
+  .warn { border-left: 3px solid var(--warning); padding: 10px 14px; background: var(--surface);
+          margin: 12px 0; font-size: 13px; color: var(--ink-2); }
+  .good { color: var(--good); font-weight: 600; }
+  .phase { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px;
+           border-radius: 999px; background: var(--chip-muted-bg); color: var(--good); margin-right: 6px; }
+  ul.compact { margin: 8px 0; padding-left: 20px; }
+  ul.compact li { margin: 4px 0; }
+  footer { text-align: center; padding: 24px; color: var(--muted); font-size: 12px; border-top: 1px solid var(--grid); }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>CMMC Advisor — Capability Guide</h1>
+  <p class="lead">A self-contained map of everything this repository ships: the advisory skill, reference corpus, program toolkit, HTML views, evidence automation, GRC MCP bridge, multi-platform adapters, and quality evals. Open this file in a browser to learn what the codebase can do.</p>
+  <div class="meta">
+    <span class="pill">110 requirements</span>
+    <span class="pill">320 assessment objectives</span>
+    <span class="pill">14 domains</span>
+    <span class="pill">29 CLI scripts</span>
+    <span class="pill">18 evidence collectors</span>
+    <span class="pill">7 MCP tools</span>
+    <span class="pill">33 eval scenarios</span>
+    <span class="pill">Phases 2–10 delivered</span>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Sections">
+  <a href="#philosophy">Philosophy</a>
+  <a href="#architecture">Architecture</a>
+  <a href="#skill">Skill &amp; routing</a>
+  <a href="#references">Reference corpus</a>
+  <a href="#data">Data layer</a>
+  <a href="#toolkit">Program toolkit</a>
+  <a href="#html-views">HTML views</a>
+  <a href="#evidence">Evidence automation</a>
+  <a href="#grc-mcp">GRC MCP bridge</a>
+  <a href="#platforms">Platforms</a>
+  <a href="#evals">Evals &amp; CI</a>
+  <a href="#roadmap">Roadmap status</a>
+  <a href="#limits">Known limits</a>
+</nav>
+
+<main>
+
+<section id="philosophy">
+  <h2>Philosophy</h2>
+  <p>CMMC Advisor is an <strong>enabler, not a gatekeeper</strong>. When a compliant path exists, the skill maps it clearly. When no compliant option exists today, it identifies the gap, names who is working on it, and suggests interim measures. Answers that block or refuse without a path forward are failures.</p>
+  <p>Every factual claim traces to public sources listed in <code>SOURCES.md</code>. Interpretive guidance (cloud selection, SSP narrative drafting) does not require citation but must not contradict cited sources.</p>
+</section>
+
+<section id="architecture">
+  <h2>Architecture</h2>
+  <p>One knowledge base powers every platform adapter. Program state lives in a single <code>program-data.yaml</code> file; scripts render artifacts from it.</p>
+  <div class="diagram"><pre>
+┌─────────────────────────────────────────────────────────────────────────┐
+│  SKILL.md + references/  (advisory corpus, routing table)               │
+└───────────────────────────────┬─────────────────────────────────────────┘
+                                │ read / grep
+        ┌───────────────────────┼───────────────────────┐
+        ▼                       ▼                       ▼
+  Claude Code              Cursor                 Codex / agents
+  (~/.claude/skills)    (.cursor/skills + rule)    (AGENTS.md bootstrap)
+        │                       │                       │
+        └───────────────────────┼───────────────────────┘
+                                ▼
+              program-data.yaml  (single source of truth)
+                                │
+     ┌──────────────┬───────────┼───────────┬──────────────┐
+     ▼              ▼           ▼           ▼              ▼
+ generate_ssp   dashboard   trust center  executive brief  OSCAL / SPRS
+     │              │           │           │              │
+     ▼              ▼           ▼           ▼              ▼
+  ssp.md/docx   dashboard.html  public     C-level gaps   exports/
+                                HTML       + budget hints
+                                │
+              evidence/  ← collectors, GRC snapshots, Meridian import
+              </pre></div>
+  <h3>Three HTML views (different audiences)</h3>
+  <div class="card-grid">
+    <div class="card"><h4>Program dashboard</h4><p>ISSM / security team. Full objective status, SPRS score, POA&amp;M clocks, evidence freshness. Internal.</p></div>
+    <div class="card"><h4>Trust center</h4><p>Customers and partners. Deny-by-default public posture page. No gap counts or SPRS.</p></div>
+    <div class="card"><h4>Executive brief</h4><p>CFO / C-level. Top gaps by point value, budget hints, Marketplace/CIS solution recommendations. Internal only.</p></div>
+  </div>
+</section>
+
+<section id="skill">
+  <h2>Skill &amp; routing</h2>
+  <p><code>SKILL.md</code> defines the advisor persona, the knowledge-base routing table (80+ question types to reference files), program toolkit workflows, advisory workflows, audience adaptation, and response standards. Agents must read referenced files before answering factual questions.</p>
+  <h3>Key entry files</h3>
+  <table>
+    <thead><tr><th>File</th><th>Role</th></tr></thead>
+    <tbody>
+      <tr><td><code>SKILL.md</code></td><td>Primary skill: routing, workflows, voice discipline</td></tr>
+      <tr><td><code>CLAUDE.md</code></td><td>Agent instructions for contributors editing this repo</td></tr>
+      <tr><td><code>AGENTS.md</code></td><td>Codex bootstrap for contributors in this repository</td></tr>
+      <tr><td><code>SOURCES.md</code></td><td>Provenance for every factual claim</td></tr>
+      <tr><td><code>ROADMAP.md</code></td><td>Phased expansion plan (Phases 2–10 delivered)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="references">
+  <h2>Reference corpus</h2>
+  <p>Under <code>references/</code> — practitioner guidance the skill cites. Do not answer from memory when a reference exists.</p>
+  <div class="card-grid">
+    <div class="card"><h4>Levels &amp; assessment</h4><p>Level 1 quickstart, Level 2/3 paths, scoping, SSP, POA&amp;M, evidence collection, Rev 3 transition</p></div>
+    <div class="card"><h4>14 domain files</h4><p>AC, AT, AU, CA, CM, IA, IR, MA, MP, PE, PS, RA, SC, SI — implementation guidance per practice</p></div>
+    <div class="card"><h4>Assessment objectives</h4><p>14 family files under <code>assessment-objectives/</code> — all 320 NIST SP 800-171A objectives with examine/interview/test methods</p></div>
+    <div class="card"><h4>Modern IT</h4><p>Cloud platforms, productivity suites, AI services, endpoints, security operations, asset baselines</p></div>
+    <div class="card"><h4>GRC program layer</h4><p>Risk, continuous monitoring, vendor/supply chain, governance, policy mapping, inherited controls, trust center, assessment ops, solution selection</p></div>
+    <div class="card"><h4>FedRAMP &amp; frameworks</h4><p>Marketplace guide, 20x/KSI due diligence, multi-framework crosswalk, anti-patterns, contractor profiles</p></div>
+  </div>
+</section>
+
+<section id="data">
+  <h2>Data layer</h2>
+  <p>Machine-readable datasets under <code>references/data/</code>. Regenerate from primary sources; do not hand-edit counts.</p>
+  <table>
+    <thead><tr><th>Dataset</th><th>Counts / notes</th><th>Regenerator</th></tr></thead>
+    <tbody>
+      <tr><td><code>assessment-objectives.json</code></td><td>110 requirements, 320 objectives, SPRS weights</td><td>Curated from NIST/DoD sources</td></tr>
+      <tr><td><code>800-53-crosswalk.json</code></td><td>110 reqs → 127 unique 800-53 controls, FedRAMP Moderate baseline</td><td><code>scripts/build_800_53_crosswalk.py</code></td></tr>
+      <tr><td><code>fedramp-snapshot.json</code></td><td>Curated vendor authorization snapshot</td><td><code>scripts/build_fedramp_snapshot.py</code></td></tr>
+      <tr><td><code>frmr-snapshot.json</code></td><td>FedRAMP 20x KSI catalog + vendor trust-center fields</td><td><code>scripts/build_frmr_snapshot.py</code></td></tr>
+      <tr><td><code>evidence-collector-manifest.json</code></td><td>18 collectors with objective mappings</td><td>Hand-maintained manifest + CI integrity check</td></tr>
+      <tr><td><code>asset-baseline-manifest.json</code></td><td>Baseline profile IDs (printers, VDI, firewalls, WLAN, PACS, OT, SDLC)</td><td>Hand-maintained</td></tr>
+      <tr><td><code>grc-platform-mcp-manifest.json</code></td><td>Vanta, Drata, Secureframe, Paramify, Hyperproof, GRC Engineering Club</td><td>Hand-maintained</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="toolkit">
+  <h2>Program toolkit</h2>
+  <p>All toolkit scripts read or write <code>program-data.yaml</code> (schema: <code>templates/program-data.schema.json</code>, sample: <code>templates/program-data.sample.yaml</code>).</p>
+
+  <h3>Core generation</h3>
+  <table>
+    <thead><tr><th>Script</th><th>Output</th></tr></thead>
+    <tbody>
+      <tr><td><code>generate_ssp.py</code></td><td>AO-level System Security Plan (Markdown or DOCX)</td></tr>
+      <tr><td><code>generate_dashboard.py</code></td><td>Self-contained program dashboard HTML</td></tr>
+      <tr><td><code>generate_trust_center.py</code></td><td>Public trust center HTML (deny-by-default)</td></tr>
+      <tr><td><code>generate_executive_brief.py</code></td><td>C-level executive brief HTML</td></tr>
+      <tr><td><code>generate_oscal_ssp.py</code></td><td>OSCAL SSP for FedRAMP/GRC tooling</td></tr>
+      <tr><td><code>generate_diagrams.py</code></td><td>Network/CUI flow SVG and Mermaid from topology section</td></tr>
+      <tr><td><code>recommend_solutions.py</code></td><td>Gap-driven Marketplace/CIS solution hints (Markdown/JSON)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Assessment operations</h3>
+  <table>
+    <thead><tr><th>Script</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td><code>generate_mock_assessment.py</code></td><td>Interview scripts and evidence requests per family</td></tr>
+      <tr><td><code>validate_poam.py</code></td><td>32 CFR 170.21 POA&amp;M eligibility rules</td></tr>
+      <tr><td><code>generate_closeout_packet.py</code></td><td>Closeout evidence package from program data</td></tr>
+      <tr><td><code>check_cmvp.py</code></td><td>FIPS/CMVP certificate verification against NIST registry mirror</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Asset baselines &amp; responsibility</h3>
+  <table>
+    <thead><tr><th>Script</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td><code>validate_asset_baselines.py</code></td><td>Check baseline profile checklists on assets</td></tr>
+      <tr><td><code>generate_responsibility_matrix.py</code></td><td>Internal RACI / responsibility matrix</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Data builders</h3>
+  <table>
+    <thead><tr><th>Script</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td><code>build_fedramp_snapshot.py</code></td><td>Refresh FedRAMP Marketplace vendor snapshot</td></tr>
+      <tr><td><code>build_frmr_snapshot.py</code></td><td>Refresh FedRAMP 20x FRMR/KSI snapshot</td></tr>
+      <tr><td><code>build_800_53_crosswalk.py</code></td><td>Regenerate 800-53 crosswalk from NIST OSCAL</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Typical workflow</h3>
+  <ol class="compact">
+    <li>Copy <code>templates/program-data.sample.yaml</code> to your compliance repo as <code>program-data.yaml</code>.</li>
+    <li>Fill organization, assessment path, per-objective conformity, narratives, evidence links, inheritance, POA&amp;M.</li>
+    <li>Run collectors or import GRC snapshots into <code>evidence/</code>.</li>
+    <li>Regenerate: <code>python3 scripts/generate_dashboard.py program-data.yaml -o dashboard.html</code></li>
+    <li>Export SPRS: <code>python3 scripts/export_sprs.py program-data.yaml -o exports/sprs.json --csv exports/sprs.csv</code></li>
+  </ol>
+</section>
+
+<section id="html-views">
+  <h2>HTML views</h2>
+  <p>Three templates under <code>templates/</code> render from program data. All are self-contained (no external CDN requests), with light/dark theme support where applicable.</p>
+  <table>
+    <thead><tr><th>Template</th><th>Generator</th><th>Audience</th><th>Contains</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><code>program-dashboard.html</code></td>
+        <td><code>generate_dashboard.py</code></td>
+        <td>ISSM, security team</td>
+        <td>Family progress, 320 objectives, live SPRS (-203 floor), POA&amp;M clocks, gap remediation order, inheritance, policies, evidence freshness, diagrams</td>
+      </tr>
+      <tr>
+        <td><code>program-trust-center.html</code></td>
+        <td><code>generate_trust_center.py</code></td>
+        <td>Customers, partners</td>
+        <td>Public certifications, subprocessors, security contacts — only fields explicitly marked public</td>
+      </tr>
+      <tr>
+        <td><code>program-executive-brief.html</code></td>
+        <td><code>generate_executive_brief.py</code></td>
+        <td>C-level, CFO</td>
+        <td>SPRS exposure, top gaps by points, POA&amp;M risk, budget-oriented solution hints — never publish externally</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="evidence">
+  <h2>Evidence automation</h2>
+  <p>Orchestrator: <code>python3 scripts/collect_evidence.py --list</code> (dry-run: <code>--dry-run</code>). Artifacts land in <code>evidence/&lt;bucket&gt;/&lt;family&gt;/&lt;req&gt;/</code>.</p>
+
+  <h3>18 registered collectors</h3>
+  <table>
+    <thead><tr><th>ID</th><th>Platform</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>entra-signins</td><td>Microsoft Graph GCC High</td><td>Stub (manifest + module; live HTTP wiring optional)</td></tr>
+      <tr><td>entra-conditional-access</td><td>Microsoft Graph GCC High</td><td>Stub</td></tr>
+      <tr><td>intune-compliance</td><td>Microsoft Graph GCC High</td><td>Stub</td></tr>
+      <tr><td>defender-endpoint</td><td>Microsoft Graph GCC High</td><td>Stub</td></tr>
+      <tr><td>sentinel-health</td><td>Microsoft Graph GCC High</td><td>Stub</td></tr>
+      <tr><td>aws-config-compliance</td><td>AWS GovCloud</td><td>Stub</td></tr>
+      <tr><td>aws-cloudtrail</td><td>AWS GovCloud</td><td>Stub</td></tr>
+      <tr><td>aws-security-hub</td><td>AWS GovCloud</td><td>Stub</td></tr>
+      <tr><td>gcp-scc-findings</td><td>GCP SCC</td><td>Stub; live ConMon via Meridian bridge</td></tr>
+      <tr><td>crowdstrike-hosts</td><td>CrowdStrike</td><td>Stub</td></tr>
+      <tr><td>zscaler-policy</td><td>Zscaler</td><td>Stub</td></tr>
+      <tr><td>prisma-access-rules</td><td>Prisma Access</td><td>Stub</td></tr>
+      <tr><td>duo-auth-logs</td><td>Duo</td><td>Stub</td></tr>
+      <tr><td>splunk-ingest-health</td><td>Splunk</td><td>Stub</td></tr>
+      <tr><td>fortinet-firewall</td><td>On-prem FortiGate</td><td>Stub</td></tr>
+      <tr><td>palo-alto-ngfw-onprem</td><td>On-prem PAN-OS</td><td>Stub</td></tr>
+      <tr><td>wlan-controller</td><td>On-prem WLAN</td><td>Stub</td></tr>
+      <tr><td>physical-access-pacs</td><td>Physical access / PACS</td><td>Stub</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Supporting evidence scripts</h3>
+  <ul class="compact">
+    <li><code>merge_findings.py</code> — merge GRC Engineering Club inspector findings via 800-53 crosswalk</li>
+    <li><code>import_meridian_run.py</code> — import live GCP ConMon from external Meridian repo</li>
+    <li><code>validate_evidence.py</code> — freshness and layout validation</li>
+    <li><code>export_evidence_package.py</code> — assessor-ready evidence bundle</li>
+    <li><code>export_sprs.py</code> — SPRS scoresheet JSON/CSV for portal entry</li>
+    <li><code>import_grc_snapshot.py</code> — merge Vanta/Drata/etc. normalized snapshots into program data</li>
+  </ul>
+  <p>Env profiles for collectors: <code>scripts/collectors/env_config.py</code> and <code>--env-check</code> on the orchestrator.</p>
+</section>
+
+<section id="grc-mcp">
+  <h2>GRC MCP bridge</h2>
+  <p>Connect vendor MCP servers (Vanta, Drata, Secureframe, Paramify) <em>and</em> the local cmmc-advisor MCP. Vendor MCP pulls their SaaS; cmmc-advisor MCP maps controls to CMMC objectives and updates program data.</p>
+
+  <h3>Local MCP server (<code>scripts/mcp/cmmc_advisor_server.py</code>)</h3>
+  <table>
+    <thead><tr><th>Tool</th><th>Function</th></tr></thead>
+    <tbody>
+      <tr><td><code>list_grc_platforms</code></td><td>List platforms with MCP endpoints and mapping method</td></tr>
+      <tr><td><code>map_controls_to_cmmc</code></td><td>Map 800-53 control IDs to CMMC requirement IDs</td></tr>
+      <tr><td><code>import_grc_snapshot</code></td><td>Import normalized snapshot JSON into program-data.yaml</td></tr>
+      <tr><td><code>read_program_summary</code></td><td>Summarize org, assessment path, SPRS, GRC integrations</td></tr>
+      <tr><td><code>validate_poam</code></td><td>Run POA&amp;M eligibility validation</td></tr>
+      <tr><td><code>export_sprs</code></td><td>Export SPRS scoresheet JSON/CSV</td></tr>
+      <tr><td><code>get_grc_integration_workflow</code></td><td>Step-by-step workflow per platform</td></tr>
+    </tbody>
+  </table>
+  <p>Template config: <code>platforms/toolkit/mcp.json</code>. Reference: <code>references/grc/grc-platform-mcp-bridge.md</code>.</p>
+  <div class="warn"><strong>Important:</strong> Import sets <code>grc_monitoring</code> and evidence links; it does <em>not</em> auto-set conformity to MET. Human ISSM review is required.</div>
+</section>
+
+<section id="platforms">
+  <h2>Multi-platform distribution</h2>
+  <p>One knowledge base; thin adapters under <code>platforms/</code>. Never fork factual content per platform.</p>
+  <table>
+    <thead><tr><th>Platform</th><th>Install</th><th>Adapter path</th></tr></thead>
+    <tbody>
+      <tr><td>Claude Code</td><td>Copy or submodule into <code>~/.claude/skills/cmmc-advisor</code></td><td><code>platforms/claude/</code></td></tr>
+      <tr><td>Cursor</td><td>Symlink repo to <code>.cursor/skills/cmmc-advisor</code> + rule to <code>.cursor/rules/</code></td><td><code>platforms/cursor/</code></td></tr>
+      <tr><td>Codex / OpenAI agents</td><td>Merge bootstrap block from <code>platforms/codex/AGENTS.md</code></td><td><code>platforms/codex/</code></td></tr>
+      <tr><td>GRC MCP toolkit</td><td>Combined vendor + cmmc-advisor MCP in compliance repo</td><td><code>platforms/toolkit/mcp.json</code></td></tr>
+    </tbody>
+  </table>
+  <p>See <code>platforms/README.md</code> and root <code>README.md</code> Installation section for copy-paste commands.</p>
+</section>
+
+<section id="evals">
+  <h2>Evals &amp; CI</h2>
+  <p>The eval runner (<code>evals/runner/</code>) invokes Claude as the subject using the skill, runs deterministic voice/citation lint, then scores against rubrics.</p>
+  <pre class="diagram"><code>pip install -r evals/runner/requirements.txt
+python -m evals.runner.runner evals/scenarios/level-2-scoping-basic.yaml
+python3 evals/runner/lint.py   # CI voice/citation lint on SKILL.md + references/</code></pre>
+
+  <h3>33 eval scenarios (coverage areas)</h3>
+  <ul class="compact">
+    <li>Level 1/2/3 scoping and assessment paths</li>
+    <li>Domain practices, assessment objectives, SSP authoring</li>
+    <li>POA&amp;M eligibility, GRC continuous monitoring, vendor treatment</li>
+    <li>Modern IT (M365 tenancy, AI dev tools, remote access, VDI/IGEL)</li>
+    <li>Toolkit: SSP generation, diagrams, FIPS, OSCAL crosswalk, evidence collectors, Meridian import, POA&amp;M validation, mock assessment, asset baselines, responsibility matrix, GRC MCP import, executive brief</li>
+    <li>FedRAMP 20x KSI due diligence, platform routing bootstrap, anti-patterns</li>
+  </ul>
+  <p>CI workflow <code>.github/workflows/content-lint.yml</code> checks voice discipline, crosswalk integrity, FRMR snapshot, and evidence collector manifest (18 collectors, modules on disk).</p>
+</section>
+
+<section id="roadmap">
+  <h2>Roadmap status</h2>
+  <p>From <code>ROADMAP.md</code>. CMMC-complete baseline plus federal GRC expansion through Phase 10.</p>
+  <table>
+    <thead><tr><th>Phase</th><th>Status</th><th>Highlights</th></tr></thead>
+    <tbody>
+      <tr><td><span class="phase">2</span> Policy-to-control mapping</td><td class="good">Delivered</td><td>Policy register, dashboard Policies view, gap taxonomy</td></tr>
+      <tr><td><span class="phase">3</span> Multi-framework / OSCAL</td><td class="good">Delivered</td><td>800-53 crosswalk, OSCAL SSP generator</td></tr>
+      <tr><td><span class="phase">4</span> FedRAMP 20x / trust center</td><td class="good">Delivered</td><td>FRMR snapshot, public trust center HTML</td></tr>
+      <tr><td><span class="phase">5</span> Evidence automation</td><td class="good">Delivered</td><td>18 collectors, SPRS export, Meridian bridge, CMVP/diagrams</td></tr>
+      <tr><td><span class="phase">6</span> Assessment operations</td><td class="good">6a delivered</td><td>Mock assessment, POA&amp;M validation, closeout packets; portfolio interop remaining</td></tr>
+      <tr><td><span class="phase">7</span> Asset baselines / on-prem</td><td class="good">Delivered</td><td>6 baseline class guides, on-prem collector stubs, responsibility matrix</td></tr>
+      <tr><td><span class="phase">8</span> Multi-platform distribution</td><td class="good">Delivered</td><td>Claude, Cursor, Codex adapters; optional Marketplace publish remaining</td></tr>
+      <tr><td><span class="phase">9</span> GRC MCP bridge</td><td class="good">Delivered</td><td>Vendor manifest, import script, local MCP server</td></tr>
+      <tr><td><span class="phase">10</span> Executive brief / solution selection</td><td class="good">Delivered</td><td>C-level brief, recommend_solutions, Rev5 Class C/D guidance, CIS appliance baselines</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="limits">
+  <h2>Known limits &amp; honest gaps</h2>
+  <ul class="compact">
+    <li><strong>Collector HTTP clients:</strong> Most cloud/SaaS and on-prem collectors are manifest + stub modules. Live API wiring is org-specific or delegated to vendor MCP / GRC inspector plugins. GCP live ConMon uses the external Meridian bridge.</li>
+    <li><strong>GRC import does not certify:</strong> Snapshots add monitoring metadata and evidence links; conformity status requires human review.</li>
+    <li><strong>FedRAMP 20x ≠ CMMC reciprocity:</strong> A FedRAMP 20x authorization does not substitute for CMMC Level 2 certification. Documented in solution-selection guidance.</li>
+    <li><strong>Trust center vs executive brief:</strong> Never publish SPRS scores, gap counts, or POA&amp;M details on the trust center.</li>
+    <li><strong>Harness multi-agent specialists:</strong> Out of scope for this distribution (lives in author's separate harness repo).</li>
+    <li><strong>Cursor Marketplace:</strong> Local plugin stub exists; marketplace submission is optional follow-on.</li>
+    <li><strong>Scheduled sync:</strong> No built-in cron for GRC snapshots; orgs run import on their own schedule or CI.</li>
+    <li><strong>Not legal advice:</strong> Guidance from public sources only; verify before SSP submission.</li>
+  </ul>
+</section>
+
+</main>
+
+<footer>
+  CMMC Advisor capability guide — generated for the repository at github.com/kfcain/cmmc-advisor<br>
+  Open <code>docs/capability-guide.html</code> locally or serve from any static host. No network required.
+</footer>
+
+</body>
+</html>

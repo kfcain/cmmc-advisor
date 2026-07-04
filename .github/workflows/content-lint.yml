@@ -76,7 +76,7 @@ jobs:
           from pathlib import Path
           m = json.load(open("references/data/evidence-collector-manifest.json"))
           cols = m["collectors"]
-          assert len(cols) == 14, len(cols)
+          assert len(cols) == 18, len(cols)
           ids = {c["id"] for c in cols}
           assert len(ids) == len(cols)
           assert m.get("meridian_bridge", {}).get("import_script") == "scripts/import_meridian_run.py"
