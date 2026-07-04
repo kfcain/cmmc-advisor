@@ -265,7 +265,7 @@
         <div class="s">${esc((program.assessment && (program.assessment.path || "").toUpperCase()) || "")} ${esc((program.assessment && program.assessment.target_date) || "")}</div></div>`;
   }
 
-  const TABS = [["objectives", "Objectives"], ["freshness", "Evidence freshness"], ["poam", "POA&M"], ["gaps", "Gap remediation"], ["inheritance", "Inheritance"], ["policies", "Policies"], ["diagrams", "Diagrams"]];
+  const TABS = [["objectives", "Objectives"], ["freshness", "Evidence freshness"], ["poam", "POA&M"], ["gaps", "Gap remediation"], ["inheritance", "Inheritance"], ["policies", "Policies"], ["diagrams", "Diagrams"], ["discovery", "Discovery"]];
   let active = "objectives", famFilter = "", query = "";
 
   function renderTabs() {
@@ -460,6 +460,56 @@
       <p class="note">Generated from the topology section; regenerate the dashboard after topology changes. Method: references/diagram-guide.md.</p>`;
   }
 
+  // Interrogation phase order per references/assessor-playbook/scope-discovery-question-bank.md
+  const PHASES = ["contracts-cui", "people", "locations", "platforms-tenants", "endpoints", "dev-ai",
+    "physical-media", "specialized-ot", "esps-access-paths", "audit-siem", "data-flows", "backup-dr"];
+  const PHASE_CHIP = { "complete": "c-met", "in-progress": "c-partial", "revisit": "c-due", "not-started": "c-notassessed" };
+
+  function renderDiscovery(view) {
+    const d = program.discovery;
+    if (!d) {
+      view.innerHTML = '<div class="empty">No discovery memory recorded. Run the grill rail (references/assessor-playbook/scope-discovery-question-bank.md) to build it; status via scripts/discovery_report.py.</div>';
+      return;
+    }
+    const phases = d.phases || {};
+    const asList = (x) => Array.isArray(x) ? x : [];
+    const qa = asList(d.qa_log), oq = asList(d.open_questions), as = asList(d.assumptions), de = asList(d.decisions);
+    const phaseCards = PHASES.map(p => {
+      const e = phases[p] || {};
+      const st = e.status || "not-started";
+      return `<div class="fam"><h3>${esc(p)}</h3>
+        <span class="chip ${PHASE_CHIP[st] || "c-notassessed"}">${esc(st)}</span>
+        ${e.last_touched ? `<div class="meta">touched ${esc(e.last_touched)}</div>` : ""}
+        ${e.summary ? `<p class="narr">${esc(e.summary)}</p>` : ""}</div>`;
+    }).join("");
+    const openQ = oq.filter(q => (q.status || "open") === "open");
+    const unverified = qa.filter(q => q.confidence === "reported" || q.confidence === "assumed");
+    const openA = as.filter(a => (a.status || "open") === "open");
+    const staleQ = qa.filter(q => { const dd = days_until(q.date, 0); return dd != null && dd < -180; });
+    const row3 = (cells) => `<tr>${cells.map(c => `<td>${c}</td>`).join("")}</tr>`;
+    view.innerHTML = `
+      <div class="fams">${phaseCards}</div>
+      <h3 style="margin:16px 0 8px">Open questions (${openQ.length})</h3>
+      ${openQ.length ? `<table><thead><tr><th>Id</th><th>Question</th><th>Why it matters</th><th>Owner</th><th>Raised</th></tr></thead><tbody>
+        ${openQ.map(q => row3([esc(q.id), esc(q.question), esc(q.why_it_matters || ""), esc(q.owner || ""), esc(q.raised || "")])).join("")}</tbody></table>`
+        : '<div class="empty">None open.</div>'}
+      <h3 style="margin:16px 0 8px">Unverified answers (${unverified.length})</h3>
+      ${unverified.length ? `<table><thead><tr><th>Id</th><th>Question</th><th>Confidence</th><th>Answered by</th><th>Date</th></tr></thead><tbody>
+        ${unverified.map(q => row3([esc(q.id), esc(q.question), esc(q.confidence), esc(q.answered_by || ""), esc(q.date || "")])).join("")}</tbody></table>`
+        : '<div class="empty">Every recorded answer is evidence-backed.</div>'}
+      <h3 style="margin:16px 0 8px">Unretired assumptions (${openA.length})</h3>
+      ${openA.length ? `<table><thead><tr><th>Id</th><th>Statement</th><th>Risk if wrong</th><th>Date</th></tr></thead><tbody>
+        ${openA.map(a => row3([esc(a.id), esc(a.statement), esc(a.risk_if_wrong || ""), esc(a.date || "")])).join("")}</tbody></table>`
+        : '<div class="empty">None.</div>'}
+      ${staleQ.length ? `<h3 style="margin:16px 0 8px">Stale answers (older than 180 days)</h3>
+        <table><thead><tr><th>Id</th><th>Question</th><th>Date</th></tr></thead><tbody>
+        ${staleQ.map(q => row3([esc(q.id), esc(q.question), esc(q.date || "")])).join("")}</tbody></table>` : ""}
+      ${de.length ? `<h3 style="margin:16px 0 8px">Decisions</h3>
+        <table><thead><tr><th>Id</th><th>Decision</th><th>Rationale</th><th>By</th><th>Date</th></tr></thead><tbody>
+        ${de.map(x => row3([esc(x.id), esc(x.decision), esc(x.rationale || ""), esc(x.decided_by || ""), esc(x.date || "")])).join("")}</tbody></table>` : ""}
+      <p class="note">Advisor memory per the grill, mock-assess, and red-team rails; integrity and staleness via scripts/discovery_report.py. Open questions and unverified answers are the red-team rail's first targets.</p>`;
+  }
+
   function renderView() {
     const view = $("#view");
     if (active === "objectives") renderObjectives(view);
@@ -468,6 +518,7 @@
     else if (active === "gaps") renderGaps(view);
     else if (active === "policies") renderPolicies(view);
     else if (active === "diagrams") renderDiagrams(view);
+    else if (active === "discovery") renderDiscovery(view);
     else renderInheritance(view);
     renderTiles(); renderTabs();
   }

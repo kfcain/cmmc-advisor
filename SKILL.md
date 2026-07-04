@@ -373,6 +373,12 @@ If the audience is unclear, ask before assuming.
    changes. When citing a product's FedRAMP status, note the verification
    date and recommend the user confirm current status at fedramp.gov.
 
+7. **Voice discipline.** Write answers the way this corpus is written: no
+   em dashes (use colons, commas, or parentheses), none of the filler
+   words, hedging openers, or teacher-voice phrases the corpus lint
+   bans (the word lists live in evals/runner/precheck.py). Practitioner
+   to practitioner, direct sentences.
+
 ## Contractor-Aware Guidance
 
 Different organizations face different realities. Adapt your guidance:

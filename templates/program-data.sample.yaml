@@ -262,6 +262,20 @@ discovery:
       summary: >
         Print path mapped; scan-to-email path on the Floor-2 MFP still
         unverified. Paper CUI handling and mail procedures not yet covered.
+    dev-ai:
+      status: in-progress
+      last_touched: "2026-07-03"
+      summary: >
+        Two engineers use Copilot on a commercial GitHub org; sanctioned-AI
+        decision not yet made. SSO catalog sweep found a personal ChatGPT
+        Plus subscription expensed in May.
+    audit-siem:
+      status: in-progress
+      last_touched: "2026-07-03"
+      summary: >
+        Sentinel is OSC-tenant (Azure Government) with documented log
+        sources, but the MSP's NOC also receives NinjaOne alerts in their
+        own console; that path is not yet in the log-source inventory.
   qa_log:
     - id: QA-0001
       date: "2026-06-24"
@@ -284,6 +298,30 @@ discovery:
       answered_by: IT lead
       confidence: reported
       affects: [HP MFP Floor-2]
+    - id: QA-0003
+      date: "2026-07-03"
+      phase: dev-ai
+      question: From an ENG CUI laptop, what technically stops a request to chatgpt.com?
+      answer: >
+        Defender for Cloud Apps blocks the generative-AI category on
+        managed devices; rule export produced. Off-network behavior not
+        yet tested.
+      answered_by: Security engineer
+      confidence: verified
+      affects: ["ENG laptops (12, Intune-managed, BitLocker)"]
+    - id: QA-0004
+      date: "2026-07-03"
+      phase: audit-siem
+      question: Whose tenant is the SIEM, and which analysts can reach it?
+      answer: >
+        Microsoft Sentinel in the OSC's own Azure Government subscription;
+        two named internal engineers have Log Analytics access. The MSP
+        NOC sees NinjaOne alerts in the MSP's multi-tenant console, which
+        is a second alert path outside the documented log-source
+        inventory.
+      answered_by: Security engineer
+      confidence: verified
+      affects: [Microsoft Sentinel (Azure Government), NinjaOne for Government (ENG CUI laptops only)]
   assumptions:
     - id: AS-0001
       date: "2026-07-02"
@@ -295,6 +333,16 @@ discovery:
         asset and pulls its network segment into scope.
       status: open
   open_questions:
+    - id: OQ-0002
+      raised: "2026-07-03"
+      phase: audit-siem
+      question: Does the MSP NOC's NinjaOne alert console constitute a second, undocumented monitoring path holding Security Protection Data?
+      why_it_matters: >
+        An alert path outside the log-source inventory is an unaudited SPD
+        flow into a multi-tenant provider console; an assessor follows it
+        to the MSP's environment and the CRM.
+      owner: Security engineer
+      status: open
     - id: OQ-0001
       raised: "2026-07-02"
       phase: physical-media
