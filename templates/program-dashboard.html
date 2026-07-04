@@ -488,7 +488,7 @@
     const staleQ = qa.filter(q => { const dd = days_until(q.date, 0); return dd != null && dd < -180; });
     const row3 = (cells) => `<tr>${cells.map(c => `<td>${c}</td>`).join("")}</tr>`;
     view.innerHTML = `
-      <div class="fams">${phaseCards}</div>
+      <div class="fam-grid">${phaseCards}</div>
       <h3 style="margin:16px 0 8px">Open questions (${openQ.length})</h3>
       ${openQ.length ? `<table><thead><tr><th>Id</th><th>Question</th><th>Why it matters</th><th>Owner</th><th>Raised</th></tr></thead><tbody>
         ${openQ.map(q => row3([esc(q.id), esc(q.question), esc(q.why_it_matters || ""), esc(q.owner || ""), esc(q.raised || "")])).join("")}</tbody></table>`

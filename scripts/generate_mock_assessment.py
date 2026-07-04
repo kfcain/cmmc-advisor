@@ -182,7 +182,9 @@ def build_discovery_watchlist(program: dict[str, Any]) -> dict[str, Any]:
         return {}
 
     def entries(section: str) -> list[dict[str, Any]]:
-        raw = discovery.get(section) or []
+        raw = discovery.get(section)
+        if not isinstance(raw, list):
+            return []
         return [e for e in raw if isinstance(e, dict)]
 
     open_questions = [
