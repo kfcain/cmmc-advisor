@@ -25,6 +25,17 @@ jobs:
               assert d.get("id") and d.get("prompt"), f
           print("scenarios ok")
           EOF
+      - name: Program data sample sanity
+        run: |
+          pip install jsonschema
+          python3 - <<'EOF'
+          import json, yaml, jsonschema
+          schema = json.load(open("templates/program-data.schema.json"))
+          sample = yaml.safe_load(open("templates/program-data.sample.yaml"))
+          jsonschema.validate(sample, schema)
+          print("sample validates against schema")
+          EOF
+          python3 scripts/discovery_report.py templates/program-data.sample.yaml
       - name: AO dataset integrity
         run: |
           python3 - <<'EOF'

@@ -536,6 +536,69 @@ capability needs.
 
 ---
 
+## Blocking unsanctioned AI and SaaS
+
+Choosing an authorized AI service is half the control. The other
+half is technically preventing CUI from reaching every service
+you did not choose. A policy memo or contractual prohibition
+fails the same test policy-only scoping fails everywhere else in
+this corpus: an assessor treats "we told people not to" as no
+separation at all. The block has to have a name, a rule set, and
+a test that fails.
+
+Enforcement layers, from the network out to the device. Most
+environments need more than one, because each layer has a bypass
+the next one closes:
+
+- **DNS filtering and secure web gateway (SWG).** Category or
+  destination blocks for generative-AI and unsanctioned-SaaS
+  domains at the resolver or forward proxy. The cheapest broad
+  layer, and the first thing to demonstrate live ("resolve
+  chat.openai.com from a CUI laptop"). A TLS-terminating SWG in
+  the CUI path decrypts CUI and becomes a CUI asset itself, with
+  the FIPS question attached; see
+  `references/modern-it/asset-baselines/network-firewall-wlan.md`
+  for the no-NGFW boundary treatment.
+- **CASB and DLP.** Sanctioned-app catalogs, upload and paste
+  inspection, and shadow-SaaS discovery from traffic and audit
+  logs. This is the layer that catches the browser-based paste
+  into a personal account that DNS category lists miss.
+- **Conditional access and tenant restrictions.** Identity-plane
+  enforcement: managed, compliant devices only into sanctioned
+  tenants, and tenant restrictions so the corporate identity
+  cannot sign in to arbitrary external tenants of the same SaaS.
+  Pairs with the endpoint plane so a personal device with stolen
+  credentials still cannot reach the sanctioned tenant.
+- **Device-based rules.** MDM application allow/block lists,
+  managed-browser policy (extension control, forced proxy),
+  and application-layer egress rules on the endpoint firewall.
+  This layer survives the coffee-shop network that the corporate
+  DNS and SWG never see, if the agent enforces off-network.
+- **Application-layer egress rules at the boundary.** Explicit
+  deny of AI and file-sharing endpoints at the firewall or its
+  cloud-native equivalent, allow-listing the sanctioned
+  endpoints only (the pattern the self-hosted and dev-workspace
+  guidance in `self-hosted-ai.md` and `ai-dev-tools.md` already
+  uses for enclave egress).
+
+In cloud-based environments with no Palo Alto or FortiGate, the
+same layers exist under native names: security groups, AWS
+Network Firewall, and Service Control Policies on AWS; NSGs,
+Azure Firewall, and Conditional Access on Azure; VPC Service
+Controls and Context-Aware Access on Google Cloud. The per-cloud
+enforcement stacks and their evidence exports are covered in
+`references/modern-it/cloud-platforms/` (aws-govcloud.md,
+azure-government.md, gcp-assured.md; comparison table in
+cloud-selection.md).
+
+Whatever the stack, the assessor-facing artifacts are the same:
+the documented sanctioned list, the named enforcement point per
+layer, the rule export showing the deny, and a live test that
+fails. The scope-discovery and red-team rails in
+`references/assessor-playbook/` interrogate exactly these.
+
+---
+
 ## Cross-domain anchors
 
 AI-service posture composes with corpus cross-cutting files and

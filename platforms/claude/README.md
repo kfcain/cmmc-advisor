@@ -1,7 +1,29 @@
 # Claude Code installation
 
-CMMC Advisor is a Claude Code skill. The canonical entrypoint is `SKILL.md`
-at the repository root.
+CMMC Advisor is a Claude Code skill and plugin. The canonical entrypoint
+is `SKILL.md` at the repository root.
+
+## Plugin install (slash commands)
+
+The repo is its own plugin marketplace. Inside Claude Code:
+
+```
+/plugin marketplace add kfcain/cmmc-advisor
+/plugin install cmmc-advisor@cmmc-advisor
+```
+
+This loads the skill plus three assessor-mode commands:
+
+- `/cmmc-advisor:grill`: scope discovery interrogation, one phase per
+  session, persisted to the program data file's `discovery` section
+- `/cmmc-advisor:mock-assess`: CAP-faithful mock assessment with the
+  scope-validation gate first and objective-level scoring
+- `/cmmc-advisor:red-team-scope`: adversarial pass over scope, asset
+  categorization, DFD, ESP story, and inheritance claims
+
+The copy and submodule installs below still work; the same three
+procedures are mirrored as Advisory Workflow rails in `SKILL.md`, so no
+capability is plugin-gated.
 
 ## Personal (all projects)
 

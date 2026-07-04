@@ -2,8 +2,8 @@
 """Deterministic content lint for the cmmc-advisor corpus.
 
 Reuses the precheck voice regexes over references/**/*.md, SKILL.md,
-templates/*.md, and ROADMAP.md. No API calls, stdlib only, suitable for
-CI. Checks:
+templates/*.md, commands/*.md, and ROADMAP.md. No API calls, stdlib
+only, suitable for CI. Checks:
 
 - no em dashes in prose (headings and code fences exempt)
 - no slop words, hedge phrases, or teacher phrases in prose
@@ -39,6 +39,7 @@ def iter_files():
             yield p
     yield from sorted((REPO_ROOT / "references").rglob("*.md"))
     yield from sorted((REPO_ROOT / "templates").glob("*.md"))
+    yield from sorted((REPO_ROOT / "commands").glob("*.md"))
 
 
 def lint_file(path: Path) -> list[str]:

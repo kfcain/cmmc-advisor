@@ -1,0 +1,48 @@
+id: assessor-esp-access-paths
+title: MSP helpdesk with RMM on CUI laptops plus an MSSP SOC watching the SIEM
+category: assessor-mode
+
+prompt: |
+  Our MSP handles helpdesk and runs their RMM agent on our CUI laptops,
+  and their SOC affiliate watches our SIEM around the clock. What will
+  an assessor grill us on, and what should we have ready?
+
+required_terms:
+  - External Service Provider
+  - Security Protection Data
+  - RMM
+  - CRM
+  - access path
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Both providers are in the assessment. The MSP touches CUI assets
+  through the RMM; the SOC handles Security Protection Data (your logs
+  and alerts), which pulls a provider into scope even with zero CUI.
+  The first fork the assessor runs is subscription ownership per
+  service: provider-held subscription with CUI transiting raises the
+  FedRAMP question; OSC-held subscription with provider administration
+  makes it ESP staff access to your environment.
+
+  What to have ready: the enumeration of every tool touching the
+  boundary (RMM, EDR, backup agents, remote access, ticketing, and the
+  documentation platform holding your credentials and diagrams); the
+  access-path story for RMM desk-reach, because a technician's desk
+  that can open a session to a CUI laptop puts that desk environment in
+  the access story, with jump boxes or one-way gateways as the usual
+  mitigations; a customer responsibility matrix with a row for every
+  requirement the providers wholly or partially perform, since a shared
+  requirement with no CRM row scores NOT MET; and named provider
+  engineers prepared to interview, because ESP personnel must show
+  credible ownership of the requirements they perform. SOC 2 covers
+  none of this. Check fourth parties (who the MSP outsources after
+  hours to) and the FIPS posture of the remote-access tools in the CUI
+  path.
+
+evaluator_notes: |
+  Must distinguish the CSP vs ESP fork by subscription ownership and
+  cite it as DoD FAQ interpretation, hit SPD pulling the SOC in without
+  CUI, the RMM desk-reach access path, per-requirement CRM coverage,
+  and interview-ready provider personnel. Enabler: a preparation
+  checklist, not a warning to fire the MSP.

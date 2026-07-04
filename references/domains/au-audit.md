@@ -35,8 +35,18 @@ assessors that your controls are operational.
   account management actions, configuration changes, privileged function
   execution, system events
 - Centralize logs in a SIEM or log management platform
-- Define retention periods (DFARS 7012 does not specify, but 1 year is
-  a common standard; some organizations retain for 3 years)
+- Define retention periods (DFARS 7012 does not specify a general log
+  retention duration, but 1 year is a common standard; some
+  organizations retain for 3 years)
+- Size retention against the DFARS 252.204-7012 incident duties: the
+  72-hour reporting clock under 7012(c) presumes logs exist to
+  investigate with, and 7012(e) requires preserving images of all known
+  affected systems and relevant monitoring or packet capture data for
+  at least 90 days from the report date. Retention too short to
+  reconstruct the
+  window before discovery fails both in practice. See
+  `references/domains/ir-incident-response.md` for the reporting and
+  preservation mechanics.
 
 **Evidence to collect:**
 - Audit policy defining what events are logged

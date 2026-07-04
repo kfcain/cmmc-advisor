@@ -35,9 +35,9 @@
       }
     },
     "conditional_status_date": {
-      "type": "string",
+      "type": ["string", "null"],
       "format": "date",
-      "description": "CMMC Status Date of a Conditional status, ISO 8601. Drives the 180-day POA&M closeout clocks."
+      "description": "CMMC Status Date of a Conditional status, ISO 8601, or null when no Conditional status exists. Drives the 180-day POA&M closeout clocks."
     },
     "sprs_submission": {
       "type": "object",
@@ -283,6 +283,94 @@
         }
       }
     },
+    "discovery": {
+      "type": "object",
+      "description": "Advisor memory: what the grill, mock-assess, and red-team-scope rails have learned about the OSC environment. Dated, append-mostly. See references/assessor-playbook/README.md for the memory contract and scripts/discovery_report.py for status and integrity checks.",
+      "properties": {
+        "updated": {"type": "string", "format": "date", "description": "Date of the most recent discovery write"},
+        "phases": {
+          "type": "object",
+          "description": "Keyed by interrogation phase id from references/assessor-playbook/scope-discovery-question-bank.md (contracts-cui, people, locations, platforms-tenants, endpoints, dev-ai, physical-media, specialized-ot, esps-access-paths, audit-siem, data-flows, backup-dr)",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "status": {"type": "string", "enum": ["not-started", "in-progress", "complete", "revisit"]},
+              "last_touched": {"type": "string", "format": "date"},
+              "summary": {"type": "string", "description": "One-paragraph state of knowledge for this phase"}
+            }
+          }
+        },
+        "qa_log": {
+          "type": "array",
+          "description": "Question and answer record; every grill or mock-assess answer lands here with a date",
+          "items": {
+            "type": "object",
+            "required": ["id", "date", "question", "answer"],
+            "properties": {
+              "id": {"type": "string", "description": "QA-NNNN, unique within the file"},
+              "date": {"type": "string", "format": "date"},
+              "phase": {"type": "string", "description": "Interrogation phase id the question belongs to"},
+              "question": {"type": "string"},
+              "answer": {"type": "string"},
+              "answered_by": {"type": "string", "description": "Role or name; assessors interview role owners, not spokespeople"},
+              "confidence": {"type": "string", "enum": ["verified", "reported", "assumed"], "description": "verified = evidence seen; reported = asserted by the OSC; assumed = inferred"},
+              "affects": {"type": "array", "items": {"type": "string"}, "description": "Asset names, requirement ids, or topology node ids this answer bears on"}
+            }
+          }
+        },
+        "assumptions": {
+          "type": "array",
+          "description": "Inferred facts the advisor is operating on until confirmed or retired",
+          "items": {
+            "type": "object",
+            "required": ["id", "date", "statement"],
+            "properties": {
+              "id": {"type": "string", "description": "AS-NNNN, unique within the file"},
+              "date": {"type": "string", "format": "date"},
+              "statement": {"type": "string"},
+              "basis": {"type": "string", "description": "What the assumption was inferred from"},
+              "risk_if_wrong": {"type": "string", "description": "What an assessor finds if the assumption fails"},
+              "status": {"type": "string", "enum": ["open", "confirmed", "retired"]},
+              "resolution": {"type": "string", "description": "How the assumption was confirmed or retired"}
+            }
+          }
+        },
+        "open_questions": {
+          "type": "array",
+          "description": "Unanswered items an assessor would pull on; grill sessions open them, answers close them",
+          "items": {
+            "type": "object",
+            "required": ["id", "raised", "question"],
+            "properties": {
+              "id": {"type": "string", "description": "OQ-NNNN, unique within the file"},
+              "raised": {"type": "string", "format": "date"},
+              "phase": {"type": "string"},
+              "question": {"type": "string"},
+              "why_it_matters": {"type": "string", "description": "What an assessor does with the unanswered version"},
+              "owner": {"type": "string", "description": "Who in the OSC owes the answer"},
+              "status": {"type": "string", "enum": ["open", "answered"]},
+              "answer_ref": {"type": "string", "description": "qa_log id once answered"}
+            }
+          }
+        },
+        "decisions": {
+          "type": "array",
+          "description": "Scoping and architecture decisions with rationale, so later sessions do not relitigate them",
+          "items": {
+            "type": "object",
+            "required": ["id", "date", "decision"],
+            "properties": {
+              "id": {"type": "string", "description": "DE-NNNN, unique within the file"},
+              "date": {"type": "string", "format": "date"},
+              "decision": {"type": "string"},
+              "rationale": {"type": "string"},
+              "decided_by": {"type": "string"},
+              "supersedes": {"type": "string", "description": "id of an earlier decision this replaces"}
+            }
+          }
+        }
+      }
+    },
     "requirements": {
       "type": "object",
       "description": "Keyed by requirement id (e.g. AC.L2-3.1.1). Every key must exist in references/data/assessment-objectives.json.",
@@ -370,6 +458,8 @@
           "description": {"type": "string"},
           "vendor": {"type": "string"},
           "location": {"type": "string"},
+          "notes": {"type": "string", "description": "Free-form discovery notes for this asset"},
+          "discovery_refs": {"type": "array", "items": {"type": "string"}, "description": "discovery qa_log / open_questions ids about this asset"},
           "baseline_profile": {
             "type": "string",
             "description": "Profile id from references/data/asset-baseline-manifest.json"

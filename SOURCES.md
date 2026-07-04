@@ -249,6 +249,48 @@ compliance documentation and practitioner publications.
 - **URL:** https://dodcio.defense.gov/CMMC/
 - **Used in:** Domain structure, practice counts, level definitions
 
+### CMMC Assessment Process (CAP) v2.0
+- **Title:** CMMC Assessment Process (CAP), Version 2.0 (December 2024)
+- **Publisher:** The Cyber AB
+- **URL:** https://cyberab.org/CAP
+- **Used in:** references/assessor-playbook/ (phase flow, scope-validation
+  gate, sampling escalation, in-person validation set, evidence windows,
+  adverse-determination conduct)
+- **Note:** The Cyber AB's assessment process for C3PAOs under 32 CFR
+  Part 170; verify the current published version before an actual
+  assessment engagement.
+
+### DoD CMMC FAQ
+- **Title:** CMMC Frequently Asked Questions (scoping and external-provider
+  entries cited by series in the assessor playbook)
+- **Publisher:** DoD CIO
+- **URL:** https://dodcio.defense.gov/CMMC/FAQ/
+- **Used in:** references/assessor-playbook/ (encrypted pass-through,
+  ESP and CSP treatment, subscription-ownership fork); see also the
+  Level 2 scoping FAQ entry under FedRAMP and Cloud Authorization
+- **Note:** DoD's own interpretive guidance; entries are revised between
+  releases, so verify the current FAQ text before relying on a cited
+  entry.
+
+### Cyber AB CCA and CCP Certification Blueprints
+- **Title:** Certified CMMC Assessor (CCA) and Certified CMMC Professional
+  (CCP) Examination Blueprints
+- **Publisher:** The Cyber AB / CAICO
+- **URL:** https://cyberab.org/Catalog
+- **Used in:** references/assessor-playbook/interview-method.md (adequacy
+  and sufficiency standard, assessment method depth)
+
+### NDISAC VDI White Paper
+- **Title:** Virtual Desktop Infrastructure guidance for CMMC assessment
+  scope
+- **Publisher:** National Defense Information Sharing and Analysis Center
+  (ND-ISAC)
+- **URL:** https://ndisac.org
+- **Used in:** references/assessor-playbook/ VDI carve-out testing
+  (clipboard, drive mapping, print, local cache), vdi-thin-client baseline
+- **Note:** Industry white paper; the scoping authority remains the DoD
+  CMMC Scoping Guide's VDI note. Verify against the current guide.
+
 ---
 
 ## CUI, FCI, and Export-Control Definitions

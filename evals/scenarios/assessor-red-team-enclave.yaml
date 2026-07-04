@@ -1,0 +1,48 @@
+id: assessor-red-team-enclave
+title: OSC asks for holes in a policy-scoped enclave with VDI from corporate
+category: assessor-mode
+
+prompt: |
+  Our corporate network is out of scope by policy; the enclave is a GCC
+  High tenant, and users reach it over VDI from their corporate laptops.
+  Poke holes in this before our assessor does.
+
+required_terms:
+  - out of scope
+  - VDI
+  - clipboard
+  - security protection
+  - identity
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Three thread pulls, in the order an assessor would take them. First,
+  "out of scope by policy" is not separation: the scoping test is
+  technical or physical inability, so the challenge is to name the
+  enforcement point that stops a corporate host from reaching the
+  enclave, with a test showing the path fails; a memo does not survive.
+
+  Second, the VDI carve-out: corporate laptops stay out of scope only
+  when the session is KVM only, and assessors spot-check clipboard
+  redirection, drive mapping, print redirection, and local cache on the
+  spot. Each needs dated test evidence, plus gateway device
+  authentication controlling what may connect at all.
+
+  Third, the seams the diagram probably does not show: where enclave
+  identities federate from (if the corporate directory feeds the
+  enclave, the assessor follows the identity chain out), the Security
+  Protection Asset entourage (patching, monitoring, backup, and
+  identity services serving the enclave are in scope as SPAs), and the
+  daily-use bleed paths: screen sharing enclave content into commercial
+  meetings, personal OneDrive accounts on the same client, dual-homed
+  users hand-carrying between their own machines. Every challenge that
+  cannot be answered from the current documentation becomes an open
+  question with an owner; each carries the artifact that closes it.
+
+evaluator_notes: |
+  Assessor voice with citations (170.19 scoping, VDI carve-out testing,
+  SPA category), ranked by thread-pull likelihood. Must reject
+  policy-only separation, name the four VDI redirection tests, and
+  follow the identity chain. Enabler check: every challenge ends with
+  what survives it, not a bare "this fails."

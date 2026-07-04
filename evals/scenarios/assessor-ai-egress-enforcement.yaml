@@ -1,0 +1,52 @@
+id: assessor-ai-egress-enforcement
+title: Cloud-only shop must prove developers cannot paste CUI into ChatGPT
+category: assessor-mode
+
+prompt: |
+  We are a cloud-only shop with no firewall appliance, and our policy
+  prohibits using ChatGPT or other unsanctioned AI. Our developers push
+  back that nothing actually stops them. How do we prove to an assessor
+  that CUI cannot reach unsanctioned AI or SaaS?
+
+required_terms:
+  - egress
+  - conditional access
+  - secure web gateway
+  - device
+  - enforcement point
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  The policy alone fails: an assessor treats a prohibition memo as no
+  separation, and the developers are correctly describing the gap. The
+  proof is a named enforcement point per layer, a rule export showing
+  the deny, and a live test that fails from a CUI endpoint.
+
+  The layers: DNS filtering or a secure web gateway blocking
+  generative-AI and unsanctioned-SaaS destinations (and if the SWG
+  terminates TLS on CUI traffic, it becomes a CUI asset with the FIPS
+  question attached); CASB and DLP for upload and paste inspection and
+  shadow-SaaS discovery; conditional access and tenant restrictions so
+  only managed, compliant devices reach sanctioned tenants and the
+  corporate identity cannot sign in to arbitrary external tenants;
+  device-based rules (MDM application control, managed browser policy,
+  endpoint egress rules) that survive off-network use.
+
+  With no firewall appliance, the boundary still needs a name: the
+  cloud-native stack (AWS security groups, Network Firewall, and SCPs;
+  Azure NSGs, Azure Firewall, and Conditional Access; GCP VPC Service
+  Controls and Context-Aware Access) or the SASE/SWG documented as the
+  egress boundary on the topology, with no direct-to-internet paths
+  around it. Close the loop the enabler way: pair the block with the
+  sanctioned alternative (FedRAMP-authorized AI services or a
+  self-hosted model inside the boundary) so the friction that drives
+  route-arounds has somewhere compliant to go.
+
+evaluator_notes: |
+  Must reject policy-only enforcement, name at least three distinct
+  technical layers, give the cloud-native no-NGFW answer (native
+  stacks or SASE as the documented boundary), note the TLS-termination
+  scope consequence for the SWG, and offer the sanctioned-AI
+  alternative. Category B scores bounding to egress enforcement rather
+  than a general AI-policy lecture.

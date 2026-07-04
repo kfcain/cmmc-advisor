@@ -1,0 +1,48 @@
+id: assessor-grill-kickoff
+title: OSC asks to be interrogated about their environment like a Lead CCA
+category: assessor-mode
+
+prompt: |
+  We want you to interrogate us about our environment the way a Lead CCA
+  would, and remember what you learn so we never repeat ourselves. We
+  have never mapped our scope formally. Where do we start, and how does
+  this work?
+
+required_terms:
+  - discovery
+  - program data
+  - open questions
+  - phase
+  - scope
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Start a phased scope-discovery interrogation, not a one-shot
+  questionnaire. The question bank runs ten phases beginning with
+  contracts and CUI types (which clauses, which CUI categories, ITAR/EAR
+  triggers, where CUI enters), because everything downstream depends on
+  those answers. One phase per sitting; each phase has exit criteria.
+
+  Memory is the program data file's discovery section: every answer
+  lands in a dated qa_log with the answering role and a confidence
+  grade (verified, reported, assumed), inferences go to an assumptions
+  register with the risk if wrong, unanswered items become open
+  questions with owners, and scoping calls are recorded as decisions so
+  later sessions do not relitigate them. Asset and topology changes are
+  proposed as explicit edits and applied on confirmation. Since no
+  program data file exists yet, offer to bootstrap a minimal one first.
+
+  Each session ends with the discovery report (phase coverage, open
+  question count, staleness) and the top open questions. Scope
+  validation is a hard gate in a real assessment under the CAP, so the
+  cheapest time to answer these questions is now.
+
+evaluator_notes: |
+  Must present persistence (discovery section, qa_log, open questions),
+  a phased structure starting from contracts/CUI, and the bootstrap
+  offer for the missing program data file. Fails if it launches into a
+  one-shot list of questions with no memory contract, or starts with
+  control implementation instead of scope discovery. Category B scores
+  bounding to discovery kickoff rather than answering controls
+  questions nobody asked.

@@ -31,6 +31,8 @@ Rev 3 transition context (current Rev 2 requirements with Rev 3 awareness).
 
 Anti-patterns catalog: sixteen named compliance-theater patterns across documentation, tool, scope, and assessment categories.
 
+Assessor-mode rails: a Lead CCA persona on the OSC's side of the table. Scope discovery interrogation across twelve phases (contracts, people, locations, tenancy seams, endpoints, dev/DevOps/AI, physical media, OT, ESP access paths, audit and SIEM operations, data flows, backup/DR) with persistent per-OSC memory in the program data file; CAP-faithful mock assessments with the scope-validation gate first and objective-level scoring; and a devil's-advocate rail that attacks asset categorization, DFD completeness, enclave integrity, ESP stories, and inheritance claims with a citation behind every challenge. Installed as a plugin these are `/cmmc-advisor:grill`, `/cmmc-advisor:mock-assess`, and `/cmmc-advisor:red-team-scope`.
+
 See [ROADMAP.md](ROADMAP.md) for the staged expansion into multi-framework federal GRC coverage (policy-to-control mapping, 800-53/FedRAMP crosswalks, OSCAL, FedRAMP 20x, evidence automation).
 
 **Capability guide:** open [docs/capability-guide.html](docs/capability-guide.html) in a browser for a self-contained map of every feature, script, dataset, platform adapter, and known limitation in this repository.
@@ -41,6 +43,15 @@ One knowledge base (`SKILL.md` + `references/` + `scripts/`). Pick your platform
 Full cross-platform notes: [platforms/README.md](platforms/README.md).
 
 ### Claude Code
+
+Plugin (skill plus the assessor-mode slash commands):
+
+```
+/plugin marketplace add kfcain/cmmc-advisor
+/plugin install cmmc-advisor@cmmc-advisor
+```
+
+Or copy the repo as a plain skill:
 
 ```bash
 git clone https://github.com/kfcain/cmmc-advisor.git
