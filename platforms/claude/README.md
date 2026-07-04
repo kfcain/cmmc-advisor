@@ -43,10 +43,31 @@ ln -sf ../../.cmmc-advisor .claude/skills/cmmc-advisor
 Commit `.claude/skills/cmmc-advisor` (symlink) and `.cmmc-advisor` (submodule)
 so teammates get the same skill.
 
+## Program toolkit (same as Cursor and Codex)
+
+Claude Code runs the same CLI scripts from the skill root. For SSP network and
+CUI flow diagrams:
+
+```bash
+python3 scripts/generate_diagrams.py program-data.yaml -o diagrams/
+python3 scripts/generate_diagrams.py program-data.yaml -o diagrams/ --theme dark
+```
+
+Read `references/diagram-guide.md` first. Topology in program data is the source
+of truth; outputs use license-safe generic glyphs and text labels (no vendor
+logo packs). Plugin slash commands and `SKILL.md` Advisory Workflows are
+Claude-specific entrypoints; diagram generation is not.
+
 ## Verify
 
 In Claude Code, ask a CMMC question. The agent should read `SKILL.md` and
-route to `references/` before answering. Run evals from the repo root:
+route to `references/` before answering. For program toolkit coverage, ask:
+"We need SSP network and CUI flow diagrams without Visio drift." The agent
+should route to `references/diagram-guide.md` and run
+`python3 scripts/generate_diagrams.py` against program data (works the same
+on Claude Code, Cursor, and Codex; no Cursor-only diagram tooling).
+
+Run evals from the repo root:
 
 ```bash
 pip install -r evals/runner/requirements.txt

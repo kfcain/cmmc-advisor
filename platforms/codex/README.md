@@ -28,10 +28,21 @@ certification:
 1. Read `.cmmc-advisor/SKILL.md` and follow its Knowledge Base Routing table.
 2. Read referenced files under `.cmmc-advisor/references/` before answering
    from memory.
-3. For program toolkit operations (SSP, dashboard, evidence collectors, POA&M
-   validation), run scripts from `.cmmc-advisor/scripts/` against the user's
-   program data file per `.cmmc-advisor/SKILL.md` Program Toolkit Workflows.
-4. Preserve the enabler posture: map compliant paths; when no compliant option
+3. For program toolkit operations (SSP, dashboard, network/CUI flow diagrams,
+   evidence collectors, POA&M validation), run scripts from
+   `.cmmc-advisor/scripts/` against the user's program data file per
+   `.cmmc-advisor/SKILL.md` Program Toolkit Workflows. For diagrams: maintain
+   `topology` in program data, then
+   `python3 .cmmc-advisor/scripts/generate_diagrams.py program-data.yaml -o diagrams/`
+   per `.cmmc-advisor/references/diagram-guide.md` (license-safe glyphs, no
+   vendor logos; optional `--theme dark`).
+4. For assessor-mode requests (interrogate/grill the environment, run a mock
+   assessment, red-team the scope), follow the Advisory Workflows rails in
+   `.cmmc-advisor/SKILL.md` and the procedures under
+   `.cmmc-advisor/references/assessor-playbook/`; persist findings to the
+   program data file's `discovery` section and check integrity with
+   `.cmmc-advisor/scripts/discovery_report.py`.
+5. Preserve the enabler posture: map compliant paths; when no compliant option
    exists today, state the gap, interim measures, and who is closing it.
 
 If `.cmmc-advisor/` is missing, tell the user to run:
@@ -39,6 +50,17 @@ If `.cmmc-advisor/` is missing, tell the user to run:
 ```
 
 Adjust the path if you submodule to a different directory.
+
+## Program toolkit (same as Claude Code and Cursor)
+
+From your project root (with `.cmmc-advisor` submodule):
+
+```bash
+python3 .cmmc-advisor/scripts/generate_diagrams.py program-data.yaml -o diagrams/
+```
+
+See `.cmmc-advisor/references/diagram-guide.md`. Codex has no separate diagram
+integration; the bootstrap block above is sufficient.
 
 ## Working inside the cmmc-advisor repository
 
@@ -49,6 +71,12 @@ content discipline. Codex merges nested files; root guidance applies here.
 
 Ask Codex a CMMC scoping question in a project with the submodule. Confirm it
 reads `.cmmc-advisor/SKILL.md` and at least one `.cmmc-advisor/references/` file.
+
+For diagram toolkit coverage, ask for network and CUI flow figures from
+program-data topology. Codex should route to
+`.cmmc-advisor/references/diagram-guide.md` and run
+`python3 .cmmc-advisor/scripts/generate_diagrams.py` (identical to Claude Code
+and Cursor; no platform-specific diagram dependency).
 
 ## Related
 

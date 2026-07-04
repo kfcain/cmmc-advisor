@@ -8,9 +8,14 @@ certification:
 1. Read `.cmmc-advisor/SKILL.md` and follow its Knowledge Base Routing table.
 2. Read referenced files under `.cmmc-advisor/references/` before answering
    from memory.
-3. For program toolkit operations (SSP, dashboard, evidence collectors, POA&M
-   validation), run scripts from `.cmmc-advisor/scripts/` against the user's
-   program data file per `.cmmc-advisor/SKILL.md` Program Toolkit Workflows.
+3. For program toolkit operations (SSP, dashboard, network/CUI flow diagrams,
+   evidence collectors, POA&M validation), run scripts from
+   `.cmmc-advisor/scripts/` against the user's program data file per
+   `.cmmc-advisor/SKILL.md` Program Toolkit Workflows. For diagrams: maintain
+   `topology` in program data, then
+   `python3 .cmmc-advisor/scripts/generate_diagrams.py program-data.yaml -o diagrams/`
+   per `.cmmc-advisor/references/diagram-guide.md` (license-safe glyphs, no
+   vendor logos; optional `--theme dark`).
 4. For assessor-mode requests (interrogate/grill the environment, run a mock
    assessment, red-team the scope), follow the Advisory Workflows rails in
    `.cmmc-advisor/SKILL.md` and the procedures under

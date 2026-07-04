@@ -88,6 +88,19 @@ SSP/dashboard/SPRS from the same file.
 
 Details: [references/grc/grc-platform-mcp-bridge.md](references/grc/grc-platform-mcp-bridge.md) and [platforms/toolkit/mcp.json](platforms/toolkit/mcp.json)
 
+### Diagrams (all platforms)
+
+Network and CUI flow figures come from program-data `topology`, not Visio or
+draw.io vendor icon packs:
+
+```bash
+python3 scripts/generate_diagrams.py program-data.yaml -o diagrams/
+python3 scripts/generate_diagrams.py program-data.yaml -o diagrams/ --theme dark
+```
+
+See [references/diagram-guide.md](references/diagram-guide.md). Claude Code,
+Cursor, and Codex agents all route through the same `SKILL.md` workflow.
+
 ## Usage Examples
 
 ```

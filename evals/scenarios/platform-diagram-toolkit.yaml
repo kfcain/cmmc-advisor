@@ -1,0 +1,34 @@
+id: platform-diagram-toolkit
+title: Cross-platform diagram toolkit routing (Claude, Cursor, Codex)
+category: platform-distribution
+
+prompt: |
+  We use Codex in our compliance repo with the cmmc-advisor submodule. Our ISSO
+  wants network and CUI flow diagrams for the SSP without Visio drift or
+  trademarked vendor logo packs.
+
+  Which skill files and script should the agent use, and does this depend on
+  Cursor specifically?
+
+required_terms:
+  - diagram-guide
+  - generate_diagrams
+  - topology
+  - program-data
+  - license
+
+factual_claims_expected: false
+
+expected_recommendation: |
+  Route to references/diagram-guide.md and SKILL.md Program Toolkit Workflows.
+  Diagrams are data: maintain topology (zones, nodes with 170.19(c) categories,
+  typed flows) in program-data.yaml, then run
+  python3 scripts/generate_diagrams.py program-data.yaml -o diagrams/ from the
+  skill root. License-safe generic glyphs and text labels only; no vendor logo
+  packs. Optional --theme dark. The same CLI works on Claude Code, Cursor, and
+  Codex; no platform-specific diagram tooling or draw.io vendor libraries.
+
+evaluator_notes: |
+  Tests that agents do not treat diagrams as Cursor-only (drawio-for-cursor) or
+  recommend bundling trademark icon packs. Enabler: concrete topology-first
+  workflow with regenerate-on-change discipline.
