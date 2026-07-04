@@ -1,0 +1,54 @@
+id: assessor-audit-siem-mssp
+title: MSSP runs the SIEM; OSC asks what the assessor will grill them on for AU
+category: assessor-mode
+
+prompt: |
+  Our MSSP runs our SIEM inside their own platform and their SOC watches
+  it around the clock. What will an assessor grill us on for audit and
+  accountability, and what should we have documented before they ask?
+
+required_terms:
+  - SIEM
+  - tenant
+  - log
+  - retention
+  - MSSP
+  - audit
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Start with the platform itself: whose tenant is the SIEM, where does
+  it run, and which other customers share the instance? Log and alert
+  data about the CUI environment is Security Protection Data, so an
+  MSSP platform holding it in their cloud raises the CSP conversation,
+  and the platform is a Security Protection Asset regardless. Named
+  MSSP analysts with access should be listed and prepared to interview,
+  with isolation evidence for the multi-tenant instance, and the CRM
+  must carry rows for the AU requirements the MSSP performs.
+
+  Then the documentation an assessor asks for by name: the log-source
+  inventory (which systems forward logs and which event types, per
+  AU.L2-3.3.1) reconciled against the asset inventory, since every
+  in-scope asset absent from the log-source list is a finding
+  candidate; the documented correlation and alerting rules
+  (AU.L2-3.3.5) and audit-failure alerting path (AU.L2-3.3.4); named
+  reviewers and review artifacts from a recent week (AU.L2-3.3.3); and
+  the access story for the audit trail itself: AU.L2-3.3.8 and 3.3.9
+  limit audit management to a subset of privileged users, so general
+  IT admins who can edit or delete logs defeat the family.
+
+  Retention: a defined, documented period (DFARS 7012 sets no general
+  log-retention duration; 1 year is a common standard), sized so the
+  72-hour reporting duty under 7012(c) has logs to investigate with
+  and the 90-day preservation duty under 7012(e) can be met after an
+  incident report.
+
+evaluator_notes: |
+  Must hit the multi-tenant tenancy question, SPD making the SIEM
+  platform in scope, CRM coverage for MSSP-performed AU requirements,
+  the log-source-vs-asset-inventory reconciliation, the 3.3.8/3.3.9
+  subset-of-privileged-users rule, and retention tied to 7012(c)/(e)
+  rather than a fixed invented number. Fails if it asserts DFARS
+  mandates a specific general log-retention period. Enabler: a
+  have-ready checklist, not a warning against MSSPs.
