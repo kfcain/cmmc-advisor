@@ -56,6 +56,8 @@ def load_program(path: Path) -> dict:
 
 
 def parse_date(value) -> date | None:
+    if isinstance(value, datetime):
+        return value.date()
     if isinstance(value, date):
         return value
     if isinstance(value, str):
@@ -138,17 +140,29 @@ def build_report(program: dict, stale_days: int, today: date) -> dict:
     for asset in [a for entries in (program.get("assets") or {}).values() for a in entries or []]:
         if not isinstance(asset, dict):
             continue
-        for ref in asset.get("discovery_refs") or []:
+        refs = asset.get("discovery_refs") or []
+        if isinstance(refs, str):
+            errors.append(f"asset '{asset.get('name')}': discovery_refs must be a list, not a string")
+            continue
+        for ref in refs:
             if ref not in seen_ids:
                 errors.append(f"asset '{asset.get('name')}': discovery_refs '{ref}' has no discovery entry")
 
     known_targets = asset_names | set(
         (program.get("requirements") or {}).keys()
-    ) | {n.get("id") for n in ((program.get("topology") or {}).get("nodes") or []) if isinstance(n, dict)}
+    ) | {
+        n.get("id")
+        for n in ((program.get("topology") or {}).get("nodes") or [])
+        if isinstance(n, dict) and n.get("id") is not None
+    }
     for qa in discovery.get("qa_log") or []:
         if not isinstance(qa, dict):
             continue
-        for target in qa.get("affects") or []:
+        affects = qa.get("affects") or []
+        if isinstance(affects, str):
+            warnings.append(f"qa_log {qa.get('id')}: affects must be a list, not a string")
+            continue
+        for target in affects:
             if target not in known_targets:
                 warnings.append(
                     f"qa_log {qa.get('id')}: affects '{target}' matches no asset, requirement, or topology node"
@@ -176,7 +190,10 @@ def main() -> int:
     ap.add_argument("--json", action="store_true", help="emit full JSON report on stdout")
     args = ap.parse_args()
 
-    program = load_program(args.program_data)
+    try:
+        program = load_program(args.program_data)
+    except Exception as exc:
+        sys.exit(f"error reading or parsing program data: {exc}")
     if not isinstance(program, dict):
         sys.exit("program data did not parse to an object")
     report = build_report(program, args.stale_days, date.today())
