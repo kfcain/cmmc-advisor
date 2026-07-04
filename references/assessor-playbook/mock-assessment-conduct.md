@@ -3,8 +3,10 @@
 > Source: CMMC Assessment Process (CAP) v2.0 (The Cyber AB, December 2024); 32 CFR 170.17 and 170.19; NIST SP 800-171A; CMMC Assessment Guide Level 2 v2.13; Cyber AB CCA Certification Blueprint
 
 How to run a mock assessment that behaves like the real thing. The
-structure follows the CAP's four phases (Plan and Prepare; Conduct the
-Assessment; Report Results; Close-out POA&Ms), compressed for a mock. The
+structure follows the CAP v2.0 phases (Conduct the Pre-Assessment;
+Assess Conformity to Security Requirements; Complete and Report
+Assessment Results; Issue Certificate and Close Out POA&M), compressed
+for a mock. The
 engine is `scripts/generate_mock_assessment.py`; this file is the conduct
 around it. Interview craft lives in `interview-method.md`; POA&M and
 closeout rules stay in `grc/assessment-operations.md` and
@@ -31,18 +33,20 @@ interviews, objective-level scoring, and the evidence standard
 Before any interview, verify the package an assessor would ask for on day
 one:
 
-1. SSP written at the objective level, all 320 objectives, not 110
-   practice-level paragraphs. OSCs that estimate scores in the hundreds
-   from practice-level SSPs routinely land far lower when scored per
-   objective.
+1. SSP mapped to the objective level, all 320 objectives, not 110
+   practice-level paragraphs. No rule requires an objective-level SSP;
+   the mock demands it because scoring happens per objective, and OSCs
+   that estimate scores from practice-level SSPs routinely land far
+   lower when each objective is judged on its own.
 2. Evidence mapped objective to document, section, and paragraph. Handing
    over a policy binder and inviting the assessor to find it fails the
    sufficiency standard.
 3. Asset inventory by 170.19(c) category, network topology, and CUI flow
    documented (one combined diagram covering both network topology and CUI
    flow is fine; missing content is not).
-4. All CAGE codes and physical locations enumerated; a real assessment
-   samples every one.
+4. All CAGE codes and physical locations enumerated; every CAGE code
+   must be accounted for in the assessment's sampling approach and
+   locations with differing controls draw samples (CAP 2.11-2.12).
 5. The responsibility matrix and provider CRMs for every ESP and inherited
    claim.
 6. `scripts/discovery_report.py` clean: untouched phases and open
@@ -57,12 +61,20 @@ the CMMC Assessment Scope against 32 CFR 170.19, and disagreements are
 resolved before conformity assessment begins. The mock does the same, and
 never starts family interviews first.
 
-Run the categorization and DFD groups of
-`adversarial-challenge-catalog.md` (groups 1, 2, and 5) against the
-program data file. Outcomes per challenge: survived, or logged as a scope
-finding. A scope finding that would move an asset between categories
-changes which requirements apply, which is exactly why the gate precedes
-the families.
+Run the asset-categorization, data-flow, and out-of-scope/inheritance
+groups of `adversarial-challenge-catalog.md` (groups 1, 2, and 5)
+against the program data file. Outcomes per challenge: survived,
+not-applicable (nothing claimed), or logged as a scope finding
+persisted to `discovery.open_questions` with an owner, matching the
+red-team rail's write path. A scope finding that would move an asset
+between categories changes which requirements apply, which is exactly
+why the gate precedes the families.
+
+Short-circuit rule: when a readiness gap makes an entire challenge
+group unanswerable (no topology on file means every group 2 challenge
+fails vacuously), log the gap once, mark the group blocked, and move
+on; do not generate one finding per challenge for the same missing
+artifact.
 
 ## Step 3: In-brief
 
@@ -102,11 +114,15 @@ Conduct rules, mirroring the CAP's assessment phase:
   the in-scope quarter, the log review from a named week, the last
   incident-response test. These cannot be answered from a well-written
   policy alone.
-- **Physical objectives get flagged, not skipped.** The CAP designates a
-  set of objectives for in-person or physical validation, concentrated in
-  MP, PE, MA, CM.L2-3.4.5, and SC.L2-3.13.12 (collaborative computing).
-  In a remote mock, simulate what can be simulated (camera walk-through)
-  and mark the rest "requires on-site validation" rather than MET.
+- **Physical objectives get flagged, not skipped.** CAP P.11 lists
+  eighteen objectives where the assessment team should consider the
+  optimal logistical approach (virtual vs in-person): CM.L2-3.4.5[d];
+  MA.L2-3.7.2[d]; MP.L2-3.8.1[c][d]; MP.L2-3.8.4[a][b];
+  PE.L1-3.10.1[b][c][d]; PE.L2-3.10.2[a][b][c][d];
+  PE.L1-3.10.3[a][b]; PE.L1-3.10.5[b][c]; and the SC.L2-3.13.12
+  collaborative-computing objective. In a remote mock, simulate what
+  can be simulated (camera walk-through) and mark the rest "requires
+  on-site validation" rather than MET.
 - **Score as you go.** Per assessment objective: MET, NOT MET, NOT
   APPLICABLE (with the justification an assessor would accept), or NEEDS
   EVIDENCE (mock-only status: the claim is plausible and the artifact was
@@ -120,10 +136,10 @@ End each family or each day with two lists:
 - **Contradiction register:** every place examine, interview, and test
   disagreed, with both versions. These become findings unless resolved.
 - **Evidence debt:** every NEEDS EVIDENCE with a named owner and artifact.
-  In a real assessment there is a bounded window for additional evidence
-  on NOT MET items (during the assessment plus a short post-assessment
-  period, per the CAP); rehearse producing artifacts inside days, not
-  weeks.
+  In a real assessment the window for additional evidence on NOT MET
+  items is bounded: 10 business days following the active assessment
+  period (CAP 2.15; 32 CFR 170.17(c)(2)); rehearse producing artifacts
+  inside days, not weeks.
 
 ## Step 6: Out-brief and findings report
 

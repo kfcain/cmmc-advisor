@@ -51,9 +51,13 @@ something on file to assess.
    register and evidence-debt list as you go.
 6. **Out-brief** per the conduct guide: scope results first, then
    per-objective results with method basis and determination-language
-   findings, SPRS delta, POA&M eligibility preview
-   (`python3 <skill-root>/scripts/validate_poam.py <program-data>`),
-   remediation direction per finding, and the re-test list.
+   findings, SPRS delta, POA&M eligibility preview derived in-session
+   from the mock's NOT MET list against the 32 CFR 170.21 rules
+   (never-POA&M practices, point values, the 80% floor; see
+   `references/poam-management.md`), remediation direction per
+   finding, and the re-test list. `validate_poam.py` checks the
+   file's recorded POA&M entries, so it runs after write-back in
+   step 7, not here.
 7. **Write-back with consent.** Ask once at the out-brief: write mock
    results into per-objective conformity and statement fields? On yes,
    write them and stamp each written objective with a qa_log entry

@@ -44,9 +44,17 @@ Core questions:
    portal, physical mail, hand carry at a customer site?
 5. Do you generate CUI (drawings, test results, G-code derived from
    controlled drawings) or only receive it?
-6. Which CAGE codes and which legal entities perform on these contracts?
-   Every CAGE code and physical location in scope gets sampled in a real
-   assessment (CAP sampling rules).
+6. What happens to CUI at contract closeout: return, destruction with
+   certificates, or retention under a named obligation? And has the
+   company acquired or divested anything since the scope was drawn?
+   An acquisition brings an unassessed network, identity plane, and
+   inventory into the boundary conversation; a divestiture can leave
+   CUI on systems that walked out the door.
+7. Which CAGE codes and which legal entities perform on these contracts?
+   Every CAGE code must be accounted for in the assessment's sampling
+   approach, which is nonstatistical and representative at FOCUSED
+   depth and coverage (CAP 2.8-2.11); enumerate everything now and
+   expect samples, not per-site visits.
 
 Follow-up logic:
 
@@ -54,6 +62,8 @@ Follow-up logic:
 |---|---|
 | "We only handle FCI" | Hidden-CUI check: ask for three recent deliverables and the DD Form 254 or contract attachments; run the `level-1-quickstart.md` decision test |
 | "The prime sends us drawings by email" | Which mailbox, which tenant, who else is on the distribution, does it forward anywhere |
+| "We download from the prime's portal" | Who holds portal accounts, any shared logins, where downloads land (managed folder or personal Downloads), browser cache and sync on that machine |
+| "We just acquired a company" | Their identity plane, tenancy, and inventory join the scope conversation before the assessment does; when do their systems enter the boundary or get separated |
 | "ITAR applies" | Foreign-national access anywhere in IT support, including the MSP's offshore helpdesk; tenancy (GCC High or equivalent US-persons backing) |
 | "We make parts from their drawings" | The G-code and CAM files derived from controlled drawings are CUI; jump to Phase 8 (specialized-ot) |
 
@@ -80,7 +90,12 @@ Core questions:
    environment (two accounts, two machines, one person)? Dual-home users are
    a classic enclave bleed path.
 5. Who holds privileged access, and are any admin identities shared?
-6. Subcontractors: who receives CUI downstream, and what flows down to them?
+6. Account lifecycle: pull the last five terminations from HR and show
+   each account's disable date next to it (AC.L1-3.1.1,
+   PS.L2-3.9.2). Who reviews for dormant accounts, on what cadence?
+   List the service accounts: which have non-expiring passwords,
+   which are shared, and who owns each?
+7. Subcontractors: who receives CUI downstream, and what flows down to them?
 
 Follow-up logic:
 
@@ -102,8 +117,10 @@ with its physical-control story; colo and landlord arrangements are written.
 Core questions:
 
 1. List every location: HQ, plants, sales offices, home offices, colos,
-   customer sites, vehicles used for transport. All CAGE codes and physical
-   locations get sampled (CAP).
+   customer sites, vehicles used for transport. Locations with different
+   physical controls draw their own samples in the assessment's
+   sampling approach (CAP 2.12), so the enumeration must be complete
+   even though not every site gets a visit.
 2. For each colo: where does their perimeter end and yours begin? Cage or
    rack lock ownership, escort rules, right to audit in the contract.
 3. Who else can enter CUI spaces: landlord master keys, cleaning crews,
@@ -111,6 +128,11 @@ Core questions:
 4. Where is CUI discussed out loud? Conference rooms with always-on video
    or transcription devices are an overlooked scope entry.
 5. Do employees travel with CUI on devices? Which countries?
+6. Visitors at your own sites: show the visitor log for a named recent
+   week, the escort rule as practiced (not as written), and badge
+   issuance and return (PE.L1-3.10.3 puts escorted visitors and
+   monitored activity on the CAP's in-person consideration list, so
+   this gets walked in person at a real assessment).
 
 Follow-up logic:
 
@@ -152,8 +174,10 @@ Core questions:
    connectors and legacy smart hosts left over from migrations.
 6. Anything that terminates TLS on CUI traffic (CDN, WAF, SSL-inspecting
    proxy, VPN concentrator) decrypts CUI and is a CUI asset. Encrypted
-   pass-through does not extend scope (DoD CMMC FAQ; see also the
-   encryption-is-not-separation point below).
+   pass-through can stay out of scope only under the DoD CMMC FAQ's
+   F-Q4 conditions: the enclave is otherwise logically separated, has
+   no direct internet connection, and CUI is properly encrypted before
+   it leaves; encryption alone is never separation (F-Q3, B-Q8).
 7. Shadow SaaS sweep: expense reports, SSO app catalog, browser extensions,
    DNS logs. What tools did engineering adopt without a review, including
    AI assistants and file-conversion sites?
@@ -166,7 +190,7 @@ Follow-up logic:
 |---|---|
 | "Commercial M365" with CUI confirmed | FedRAMP Moderate baseline question for each service in the path; commercial EXO/SPO/Teams do not carry it |
 | "We have both tenants" | Name the technical enforcement at every seam: conditional access, tenant restrictions, DLP, sync-client blocks |
-| "Encryption separates it" | Encryption protects confidentiality in transit; it is not logical separation for scoping (DoD CMMC FAQ) |
+| "Encryption separates it" | Encryption protects confidentiality in transit; it is not logical separation for scoping (DoD CMMC FAQ F-Q3, B-Q8) |
 | "Our SSO covers everything" | Everything the CUI identity can reach is a candidate asset; walk the app list |
 
 Writes: `assets.cui` / `assets.security_protection`,
@@ -198,6 +222,15 @@ Core questions:
 6. Forgotten hosts: compare the asset inventory against DHCP leases, switch
    MAC tables, backup job lists, and EDR consoles. Machines those systems
    know about and the inventory does not are the classic finding.
+7. Wireless: inventory the SSIDs and who authorized each
+   (AC.L2-3.1.16); how is the CUI WLAN authenticated and encrypted
+   (AC.L2-3.1.17: 802.1X, WPA2/WPA3-Enterprise, never a shared PSK),
+   and what technically separates guest Wi-Fi from the CUI VLAN
+   beyond the SSID name? Wireless peripherals too: BYO Bluetooth or
+   proprietary-dongle keyboards and mice at CUI workstations are a
+   stock assessor probe. Depth per
+   `modern-it/asset-baselines/network-firewall-wlan.md` (WLAN
+   baseline).
 
 Follow-up logic:
 
@@ -406,10 +439,12 @@ Core questions:
 1. What platform collects and correlates the logs (SIEM, log
    management, cloud-native), and whose tenant is it: yours, or a
    multi-tenant instance the MSSP operates? Where does it run? Log and
-   alert data about the CUI environment is Security Protection Data;
-   an MSSP platform holding it in their cloud raises the CSP
-   conversation from Phase 9, and the platform is a Security
-   Protection Asset either way.
+   alert data about the CUI environment is Security Protection Data; a
+   cloud platform holding only SPD is assessed as a Security
+   Protection Asset (32 CFR 170.19(c)(2)(i) Table 4), and the FedRAMP
+   question from Phase 9 attaches when CUI itself lands in the
+   platform (captured payloads, file names in alerts). Ask which one
+   this is; do not guess.
 2. Show the log-source inventory: which systems forward logs, and
    which event types per source (AU.L2-3.3.1)? "We have a SIEM" is
    not an answer; the documented list of what is collected is.

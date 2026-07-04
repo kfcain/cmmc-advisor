@@ -38,9 +38,11 @@ engagement; it is the highest-yield finding source there is.
 
 ## What a strong answer sounds like
 
-Assessment depth comes in two grades: basic (the answer describes the
-practice) and focused (the answer pins it to reality). A focused answer
-names:
+For the record: NIST SP 800-171A's depth and coverage attributes take
+three values (basic, focused, comprehensive), and the CAP mandates
+FOCUSED for both on all Level 2 requirements (CAP 2.9). Answer quality
+is a different axis: an answer is either vague (it describes the
+practice) or pinned to reality. A pinned answer names:
 
 - the document and section, not "our policy covers that";
 - the exact mechanism ("Entra conditional access policy CA-04", not "MFA");
@@ -59,6 +61,38 @@ Evidence is judged on adequacy (the right evidence for the objective) and
 sufficiency (enough of it across the sampled population). Document-dumping
 fails sufficiency review: the mapping from objective to document, section,
 and paragraph is the OSC's job, not the assessor's.
+
+## The confidently wrong answer
+
+Vague answers and wrong interviewees have moves above; the interviewee
+who is certain and mistaken needs its own. When an answer sounds sure
+but conflicts with something already on record ("our M365 is the
+government version" from a tenant whose domains say otherwise), do not
+argue and do not silently downgrade. Ask for the demonstration: "show
+me the admin portal", "pull up the tenant's service health page",
+"open the certificate". Record the claim at `confidence: reported`
+with the verification artifact as an open question until it is shown.
+Certainty is not evidence, and the demonstration request is the
+polite version of saying so.
+
+## Calibration for the room
+
+The machinery is the same for a 22-person machine shop and a
+2,000-seat integrator; the delivery is not.
+
+- Translate before you cite. Ask "which version of Office 365 do you
+  pay for, and does the invoice say GCC High?" before ever saying
+  "FedRAMP Moderate baseline". Clause numbers close an interview
+  faster than they open one.
+- Warm up with inventory questions the interviewee owns cold (what
+  machines, what people, what contracts) before the questions that
+  feel like an exam.
+- Pace to the organization: a small shop covers a phase in one
+  sitting with one person wearing four hats; do not book four
+  role-owner interviews that all resolve to the same office manager.
+  The role-owner rule still applies; it just resolves to fewer people.
+- Say what happens next. Interviewees answer better when they know an
+  open question is a to-do item, not a failure.
 
 ## Coaching the interviewees
 

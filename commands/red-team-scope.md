@@ -17,8 +17,9 @@ these relative to the directory containing the plugin's SKILL.md.
 Same resolution as the grill command: `$ARGUMENTS` first token, then
 `program.yaml` / `program-data.yaml` / `*.program.yaml` in the working
 directory. With no file on hand: say there is nothing on file to attack,
-offer the grill rail first, or attack a verbally described environment
-and persist what is learned as the bootstrap `discovery` content.
+offer the grill rail first, or attack a verbally described environment;
+in that case create the minimal scaffold exactly as the grill command's
+bootstrap step defines it, then persist what is learned into it.
 
 ## Session flow
 
@@ -44,9 +45,11 @@ and persist what is learned as the bootstrap `discovery` content.
 4. Emit the ranked challenge report in the catalog's output format,
    ending with the three threads to close before scheduling a C3PAO.
 5. Write-back: new `open_questions` entries for every challenge the data
-   could not answer (default behavior, announced up front). Assumption
-   confirmations and retirements only with consent. Never write
-   conformity fields from this rail.
+   could not answer (default behavior, announced up front). Substantive
+   facts the user supplies while answering challenges append to
+   `qa_log` under the standard memory contract (dated, confidence
+   graded). Assumption confirmations and retirements only with
+   consent. Never write conformity fields from this rail.
 6. Run `discovery_report.py` after writes; fix any id-integrity errors.
 
 ## Rules

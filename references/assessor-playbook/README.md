@@ -31,7 +31,15 @@ program data file (`templates/program-data.schema.json`):
   with the unanswered version.
 - Scoping calls with rationale go to `decisions` so later sessions do not
   relitigate them.
-- Interrogation progress is tracked per phase in `phases`.
+- Interrogation progress is tracked per phase in `phases`. Status
+  transitions: `not-started` until the first question of the phase is
+  asked; `in-progress` while core questions or exit criteria remain,
+  including when the only remainder is open questions awaiting owners;
+  `complete` only when the phase's exit criteria in the question bank
+  are met; `revisit` when a later answer invalidates something the
+  phase recorded (an acquisition, a platform migration, a retired
+  assumption that was wrong). Open questions do not block `complete`
+  by themselves unless the exit criteria name them.
 
 `scripts/discovery_report.py` prints coverage, staleness, and id integrity.
 Mock-assessment findings write into per-objective conformity fields only
