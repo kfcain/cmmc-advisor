@@ -67,6 +67,14 @@ counts toward Level 2 if CUI ever enters your environment.
 
 ## Annual Self-Assessment and Affirmation
 
+Before running the steps below, read
+`references/level-1-affirmation-readiness.md`: the affirmation is a
+signed representation with False Claims Act enforcement behind it, and
+that file carries the gates (scope truth, objective-level gaps, dated
+evidence, the affirmation packet) plus the
+`scripts/generate_l1_package.py` automation that assembles the
+self-assessment package and refuses to bless an unready one.
+
 The Level 1 process under 32 CFR 170.15:
 
 1. **Define your CMMC Assessment Scope** (see Scoping below).
