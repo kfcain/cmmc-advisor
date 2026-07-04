@@ -1,6 +1,6 @@
 # Plan of Action & Milestones (POA&M) Management
 
-> Source: 32 CFR Part 170 (Sections 170.21, 170.23), CMMC Assessment Guide,
+> Source: 32 CFR Part 170 (Section 170.21), CMMC Assessment Guide,
 > ISI Defense POA&M Guidance
 
 ## Overview
@@ -63,7 +63,7 @@ IR.L3-3.6.1e, IR.L3-3.6.2e, RA.L3-3.11.1e, RA.L3-3.11.4e, RA.L3-3.11.6e,
 RA.L3-3.11.7e, and SI.L3-3.14.3e. Closeout is conducted by **DIBCAC**,
 not a C3PAO, within 180 days. See `level-3-expert.md`.
 
-> Source: 32 CFR 170.21, POA&M Closeout; 32 CFR 170.23, Conditional
+> Source: 32 CFR 170.21, Plan of Action and Milestones; Conditional
 > Certification Requirements
 
 ---

@@ -76,10 +76,13 @@ surfaces it.
   Full organizational independence is not required at Level 2, but
   an implementer reviewing their own control is not an assessment
 - Scoping: assessment covers the system boundary documented in the
-  CA.L2-3.12.4 SSP. In-scope asset categories (CUI Assets, Security
-  Protection Assets, Contractor Risk Managed Assets, Specialized
-  Assets) all receive assessment; out-of-scope assets remain out of
-  scope with the scoping decision documented in the SSP
+  CA.L2-3.12.4 SSP. In-scope asset categories receive different
+  treatment per Table 3 to 32 CFR 170.19(c)(1): CUI and Security
+  Protection Assets are assessed against applicable requirements;
+  Contractor Risk Managed Assets get an SSP review with a limited
+  check only if documentation raises questions; Specialized Assets
+  are documented and SSP-reviewed, not assessed; out-of-scope assets
+  remain out with the scoping decision documented in the SSP
 - Assessment output: a written report documenting which practices
   are MET, NOT MET, or NOT APPLICABLE, with evidence references and
   rationale. Findings feed directly into CA.L2-3.12.2 POA&M entries

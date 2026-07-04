@@ -134,7 +134,7 @@ exposures, not just producing tickets.
   unauthenticated scans cannot see (missing patches on non-listening
   services, local configuration weaknesses, installed-but-unused
   software). Authenticated scanning is the practitioner standard for
-  internal assets (NIST SP 800-115 Section 4.3.1 recommends
+  internal assets (NIST SP 800-115 Section 4.3 recommends
   credentialed testing for complete results); unauthenticated
   scanning supplements it for external-perimeter views
 - Frequency: a periodic baseline (monthly for production, more

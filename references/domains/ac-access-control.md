@@ -274,7 +274,7 @@ limits exposure if a daily-use account is compromised.
 
 ---
 
-### AC.L2-3.1.7 — Privileged Function Logging
+### AC.L2-3.1.7 — Privileged Functions
 
 **Requirement:** Prevent non-privileged users from executing privileged
 functions and capture the execution of such functions in audit logs.
@@ -414,7 +414,7 @@ ensures abandoned sessions do not remain active indefinitely.
 
 ---
 
-### AC.L2-3.1.12 — Remote Access Monitoring
+### AC.L2-3.1.12 — Control Remote Access
 
 **Requirement:** Monitor and control remote access sessions.
 

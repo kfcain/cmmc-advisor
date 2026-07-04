@@ -182,11 +182,11 @@ contract independent of the incident's technical impact.
   root cause is confirmed. Reporting at the point of reasonable
   determination is the required posture; waiting for confirmation will
   miss the window
-- DIBNet pre-provisioning: DIBNet submission requires a medallion
+- DIBNet pre-provisioning: DIBNet submission requires a medium assurance
   certificate for authentication. The certificate takes time to obtain
   from the DoD external certification authority; organizations that
   wait until an incident to start the process will miss the 72-hour
-  window. Register the organization and obtain at least one medallion
+  window. Register the organization and obtain at least one medium assurance
   certificate before it is needed
 - Media preservation: DFARS 252.204-7012(e) requires preserving images
   of all known affected systems and relevant monitoring or packet
@@ -215,7 +215,7 @@ contract independent of the incident's technical impact.
   operation
 - Sample incident records showing open and close timestamps, actions
   log, and attribution
-- DIBNet reporting account provisioning evidence (medallion
+- DIBNet reporting account provisioning evidence (medium assurance
   certificate, account registration confirmation)
 - Sample DFARS 252.204-7012 report submission or a tested submission
   path
@@ -231,7 +231,7 @@ contract independent of the incident's technical impact.
 
 **Common mistakes:**
 - No DIBNet account established before an incident occurs. Discovering
-  the registration and medallion-certificate requirement mid-incident
+  the registration and medium assurance-certificate requirement mid-incident
   burns hours against the 72-hour clock
 - Incident tracking via email threads rather than a case-management
   system, which produces no audit trail and no structured timeline
@@ -348,7 +348,7 @@ on IR.L2-3.6.3 (testing) because testing is the evidence that
 IR.L2-3.6.1 is real rather than documented. IR.L2-3.6.2 (tracking and
 reporting) is straightforward to demonstrate once the case-management
 system and DIBNet account are in place, but DIBNet pre-provisioning
-should start early because the medallion certificate has lead time.
+should start early because the medium assurance certificate has lead time.
 
 **Key relationships:**
 - IR consumes Audit and Accountability (AU) detection output as the

@@ -586,18 +586,21 @@ authentication for the same scopes.
 privileged and non-privileged network and local access. IA-2(8)
 and IA-2(9) cover replay resistance.
 
-**Rev 4 to Rev 5 delta.** IA-2(8) was not in the Rev 4 Moderate
-baseline. NIST SP 800-171 Rev 2 Appendix D flags this explicitly
-(footnote 33, page 70): "IA-2(8) is not currently in the NIST
-Special Publication 800-53 moderate security control baseline
-although it will be added to the baseline in the next update.
-Employing multifactor authentication without a replay-resistant
-capability for non-privileged accounts creates a significant
-vulnerability for systems transmitting CUI." Rev 5 closed this
-gap: IA-2(8) is in the Rev 5 Moderate baseline. A FedRAMP Moderate
-CSP authorized under Rev 5 inherits replay resistance for privileged
-accounts directly; the contractor verifies the equivalent on the
-non-privileged side.
+**Rev 4 to Rev 5 delta.** Read the baselines carefully here, because
+NIST SP 800-171 Rev 2's own footnote 33 muddies them. 800-53 Rev 4
+Table D-2 lists IA-2(8) (replay resistance, privileged accounts) in
+the Moderate baseline; the control missing from Rev 4 Moderate was
+IA-2(9), replay resistance for non-privileged accounts, which sat in
+the High baseline only. The 171 Rev 2 footnote names IA-2(8) but its
+substance describes the non-privileged gap: "Employing multifactor
+authentication without a replay-resistant capability for
+non-privileged accounts creates a significant vulnerability for
+systems transmitting CUI." Rev 5 resolved it structurally: IA-2(9)
+was withdrawn into a broadened IA-2(8) covering all accounts, and
+that broadened control is in the Rev 5 Moderate baseline. A FedRAMP
+Moderate CSP authorized under Rev 5 inherits replay resistance for
+all account types; under Rev 4-era packages, verify the
+non-privileged side yourself.
 
 **Where it gets missed.** SMS-based second factors. NIST SP
 800-63B deprecates one-time passwords sent over SMS for
@@ -795,9 +798,11 @@ controls cited in the tables retain their identifiers between Rev
 4 and Rev 5. A Rev 5 FedRAMP Moderate package cites the same
 control numbers.
 
-**Specific deltas that matter.** IA-2(8) replay resistance for
-non-privileged accounts was not in Rev 4 Moderate (Appendix D
-footnote 33); Rev 5 Moderate includes it. CM-7(5) allowlisting
+**Specific deltas that matter.** Replay resistance for
+non-privileged accounts was not in Rev 4 Moderate (it lived in the
+High-only IA-2(9), the gap Appendix D footnote 33 describes); Rev 5
+withdrew IA-2(9) into a broadened IA-2(8) that Rev 5 Moderate
+includes for all accounts. CM-7(5) allowlisting
 was restricted to High in Rev 4 (Appendix D footnote 32); Rev 5
 treats allowlisting more permissively across baselines, and
 contractors using CM-7(5) should confirm the CSP's Rev 5

@@ -6,8 +6,9 @@
 ## Overview
 
 Certification is a snapshot. The obligations are continuous. Between the
-triennial assessments (or annual self-assessments at Level 1 and Level 2
-Self), three clocks keep running:
+triennial assessments (Level 2 and Level 3; Level 2 Self is also
+triennial per 32 CFR 170.16) and Level 1's annual self-assessment,
+three clocks keep running:
 
 1. **Annual affirmations** in SPRS by your Affirming Official
    (32 CFR 170.22).
