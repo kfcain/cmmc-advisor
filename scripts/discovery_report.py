@@ -27,9 +27,11 @@ PHASE_IDS = [
     "locations",
     "platforms-tenants",
     "endpoints",
+    "dev-ai",
     "physical-media",
     "specialized-ot",
     "esps-access-paths",
+    "audit-siem",
     "data-flows",
     "backup-dr",
 ]

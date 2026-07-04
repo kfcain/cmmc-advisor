@@ -290,7 +290,7 @@
         "updated": {"type": "string", "format": "date", "description": "Date of the most recent discovery write"},
         "phases": {
           "type": "object",
-          "description": "Keyed by interrogation phase id from references/assessor-playbook/scope-discovery-question-bank.md (contracts-cui, people, locations, platforms-tenants, endpoints, physical-media, specialized-ot, esps-access-paths, data-flows, backup-dr)",
+          "description": "Keyed by interrogation phase id from references/assessor-playbook/scope-discovery-question-bank.md (contracts-cui, people, locations, platforms-tenants, endpoints, dev-ai, physical-media, specialized-ot, esps-access-paths, audit-siem, data-flows, backup-dr)",
           "additionalProperties": {
             "type": "object",
             "properties": {

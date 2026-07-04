@@ -84,7 +84,7 @@ Delivered (Phase 6a):
 
 Delivered (Phase 6b), the assessor-mode rails and plugin packaging:
 
-- Lead CCA layer: `references/assessor-playbook/` (ten-phase
+- Lead CCA layer: `references/assessor-playbook/` (twelve-phase
   scope-discovery question bank, adversarial challenge catalog with a
   citation behind every challenge, CAP-ordered mock-assessment conduct
   with the scope-validation gate before family interviews, shared
