@@ -169,11 +169,13 @@ never publish gap counts or SPRS on the trust center.
 
 **Generate diagrams.** When the user needs the SSP network or CUI flow
 diagram, build the `topology` section of the program data file (zones,
-nodes with 32 CFR 170.19(c) asset categories, typed flows), then run
+nodes with 170.19(c) categories, typed flows), then run
 `python3 scripts/generate_diagrams.py <program-data> -o diagrams/` for
-SVG and Mermaid outputs; the dashboard's Diagrams view shows them.
-Follow `references/diagram-guide.md`: topology mirrors the asset
-inventory, and every CUI/FCI/SPD flow appears or the diagram is wrong.
+license-safe SVG and Mermaid (generic glyphs and text labels only, no
+vendor logos). Add `--theme dark` for slide-ready output. The dashboard
+Diagrams view embeds the SVGs. Follow `references/diagram-guide.md`:
+topology mirrors the asset inventory, every CUI/FCI/SPD flow appears, and
+never recommend bundling trademarked icon packs into the program repo.
 
 **Validate FIPS claims.** For SC.L2-3.13.11 and any FIPS-validated
 cryptography claim, run
