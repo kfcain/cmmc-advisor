@@ -82,12 +82,33 @@ Delivered (Phase 6a):
 - Assessment operations hub: `references/grc/assessment-operations.md`.
 - Eval scenarios: `toolkit-validate-poam`, `toolkit-mock-assessment`.
 
+Delivered (Phase 6b), the assessor-mode rails and plugin packaging:
+
+- Lead CCA layer: `references/assessor-playbook/` (ten-phase
+  scope-discovery question bank, adversarial challenge catalog with a
+  citation behind every challenge, CAP-ordered mock-assessment conduct
+  with the scope-validation gate before family interviews, shared
+  interview method).
+- Advisor memory: the `discovery` section of the program data schema
+  (dated qa_log with answer confidence, assumptions register, open
+  questions, decisions) plus `scripts/discovery_report.py` for
+  coverage, staleness, and id integrity; CI validates the sample.
+- Claude Code plugin packaging: `.claude-plugin/` manifest and
+  self-hosting marketplace, `commands/` with `/cmmc-advisor:grill`,
+  `/cmmc-advisor:mock-assess`, and `/cmmc-advisor:red-team-scope`; the
+  root SKILL.md stays the canonical skill and the same rails run
+  without the plugin.
+- Eval scenarios: `assessor-grill-kickoff`, `assessor-mock-scope-gate`,
+  `assessor-red-team-enclave`, `assessor-esp-access-paths`.
+
 Remaining:
 
 - Reconciliation with the author's wider portfolio (cmmc-l2-master,
   policy-mapper, remediation-tracker skills; cmmc-dfd, cmmc-raci,
   myctrl.tools and grclanker interop) as those sources become reachable
   from the working environment.
+- Optional: listing in a public plugin marketplace beyond the repo's
+  self-hosted one.
 
 ## Phase 7: Asset Baselines and On-Prem Evidence — DELIVERED
 

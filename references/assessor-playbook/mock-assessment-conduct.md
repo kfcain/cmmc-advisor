@@ -107,10 +107,11 @@ Conduct rules, mirroring the CAP's assessment phase:
   MP, PE, MA, CM.L2-3.4.5, and SC.L2-3.13.12 (collaborative computing).
   In a remote mock, simulate what can be simulated (camera walk-through)
   and mark the rest "requires on-site validation" rather than MET.
-- **Score as you go.** Per objective: MET, NOT MET, NOT APPLICABLE (with
-  the justification an assessor would accept), or NEEDS EVIDENCE (mock-only
-  status: the claim is plausible and the artifact was not produced). A
-  practice is MET only when every applicable objective is.
+- **Score as you go.** Per assessment objective: MET, NOT MET, NOT
+  APPLICABLE (with the justification an assessor would accept), or NEEDS
+  EVIDENCE (mock-only status: the claim is plausible and the artifact was
+  not produced). A practice is MET only when every applicable objective
+  is.
 
 ## Step 5: Daily checkpoint
 

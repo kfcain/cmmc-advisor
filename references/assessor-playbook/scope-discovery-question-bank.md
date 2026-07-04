@@ -19,7 +19,7 @@ so every question here is cheaper to answer now than during Phase 1.
   treats an unanswered scoping question as a thread to pull; so does the
   red-team rail.
 - When an answer changes the asset inventory or topology, propose the exact
-  program-data edit and write it on confirmation.
+  edit to the program data file and write it on confirmation.
 - Per-asset hardening depth lives in `references/modern-it/asset-baselines/`;
   this bank finds the assets, the baselines interrogate their configuration.
 

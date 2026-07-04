@@ -1,0 +1,44 @@
+id: assessor-mock-scope-gate
+title: OSC wants a mock assessment starting directly with the AC family
+category: assessor-mode
+
+prompt: |
+  Our SSP is done and we feel good about it. Run us through a mock
+  assessment, starting with the Access Control family since it is the
+  biggest one.
+
+required_terms:
+  - scope validation
+  - CAP
+  - assessment objective
+  - examine
+  - interview
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Scope first, AC second. The CMMC Assessment Process makes scope
+  validation a hard gate: the Lead CCA validates the assessment scope
+  against 32 CFR 170.19 and resolves categorization disputes before any
+  conformity assessment begins, so a mock that skips the gate rehearses
+  the wrong thing. Run the categorization, data-flow, and
+  out-of-scope/inheritance challenges against the documented scope; a
+  scope finding that moves an asset between categories changes which
+  requirements apply.
+
+  Then AC: generate the interview pack with
+  scripts/generate_mock_assessment.py --family AC, interview role
+  owners rather than spokespeople, and verify with examine, interview,
+  and test evidence that must agree. Score at the assessment-objective
+  level: a practice is MET only when every applicable objective is MET,
+  which is where practice-level SSPs lose points they thought they had.
+  The out-brief covers findings in determination language, the SPRS
+  delta, POA&M eligibility, and remediation direction. Results write
+  into the program data file only with explicit consent.
+
+evaluator_notes: |
+  The answer fails if it starts AC interviews without the
+  scope-validation gate or treats the gate as optional politeness. Must
+  cite objective-level scoring and the examine/interview/test method.
+  Enabler check: it still delivers a path to the AC mock the user asked
+  for, gated correctly, rather than refusing.

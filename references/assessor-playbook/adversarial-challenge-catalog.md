@@ -138,8 +138,9 @@ technical enforcement answer plus a test.
 
 ## Group 4: The ESP story
 
-**"Your MSP is in this assessment."** A non-CSP ESP with access to CUI or
-Security Protection Data is assessed as part of the OSC's assessment; SPD
+**"Your MSP is in this assessment."** A non-CSP External Service Provider
+(ESP) with access to CUI or Security Protection Data is assessed as part
+of the OSC's assessment; SPD
 alone pulls a provider in with zero CUI (DoD CMMC FAQ external-provider
 entries, E-series; 32 CFR 170.19). Survives: the provider classified,
 their access paths documented, and their people prepared to interview.
