@@ -48,7 +48,9 @@ def l1_requirements(dataset: dict) -> list[dict]:
 
 def requirement_row(req: dict, entry: dict | None) -> dict:
     entry = entry if isinstance(entry, dict) else {}
-    objectives = entry.get("objectives") or {}
+    objectives = entry.get("objectives")
+    if not isinstance(objectives, dict):
+        objectives = {}
     evidence_names: list[str] = []
     statements = 0
     for obj in objectives.values():
@@ -56,7 +58,8 @@ def requirement_row(req: dict, entry: dict | None) -> dict:
             continue
         if obj.get("statement"):
             statements += 1
-        for ev in obj.get("evidence") or []:
+        evidence_list = obj.get("evidence")
+        for ev in (evidence_list if isinstance(evidence_list, list) else []):
             if isinstance(ev, dict) and ev.get("name"):
                 evidence_names.append(ev["name"])
     conformity = entry.get("conformity") or "not-assessed"
@@ -71,9 +74,13 @@ def requirement_row(req: dict, entry: dict | None) -> dict:
 
 
 def build_package(program: dict, dataset: dict) -> dict:
-    org = program.get("organization") or {}
+    org = program.get("organization")
+    if not isinstance(org, dict):
+        org = {}
     reqs = l1_requirements(dataset)
-    entries = program.get("requirements") or {}
+    entries = program.get("requirements")
+    if not isinstance(entries, dict):
+        entries = {}
     rows = [requirement_row(r, entries.get(r["id"])) for r in reqs]
 
     discovery = program.get("discovery") or {}
@@ -91,7 +98,9 @@ def build_package(program: dict, dataset: dict) -> dict:
 
     roles = org.get("roles") or {}
     has_official = any(
-        "affirming" in str(slug).lower() or "affirming" in str((role or {}).get("title", "")).lower()
+        "affirming" in str(slug).lower()
+        or ("affirming" in str(role.get("title", "")).lower() if isinstance(role, dict)
+            else "affirming" in str(role).lower())
         for slug, role in (roles.items() if isinstance(roles, dict) else [])
     )
 
