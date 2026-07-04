@@ -42,6 +42,15 @@ Full cross-platform notes: [platforms/README.md](platforms/README.md).
 
 ### Claude Code
 
+Plugin (skill plus the assessor-mode slash commands):
+
+```
+/plugin marketplace add kfcain/cmmc-advisor
+/plugin install cmmc-advisor@cmmc-advisor
+```
+
+Or copy the repo as a plain skill:
+
 ```bash
 git clone https://github.com/kfcain/cmmc-advisor.git
 cp -r cmmc-advisor ~/.claude/skills/cmmc-advisor

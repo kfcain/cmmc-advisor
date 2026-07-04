@@ -1,0 +1,14 @@
+{
+  "name": "cmmc-advisor",
+  "description": "Marketplace for the CMMC Advisor plugin: CMMC 2.0 knowledge base, program toolkit, and assessor-mode commands.",
+  "owner": {
+    "name": "Lloyd Evans"
+  },
+  "plugins": [
+    {
+      "name": "cmmc-advisor",
+      "source": "./",
+      "description": "CMMC 2.0 compliance advisor: knowledge base, program toolkit, and assessor-mode commands (/cmmc-advisor:grill, /cmmc-advisor:mock-assess, /cmmc-advisor:red-team-scope)."
+    }
+  ]
+}

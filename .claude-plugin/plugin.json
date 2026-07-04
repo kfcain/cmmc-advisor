@@ -1,0 +1,11 @@
+{
+  "name": "cmmc-advisor",
+  "displayName": "CMMC Advisor",
+  "description": "CMMC 2.0 compliance advisor for defense contractors: all three levels, 320 assessment objectives, GRC program layer, program toolkit, and assessor-mode rails (grill, mock-assess, red-team-scope).",
+  "author": {
+    "name": "Lloyd Evans"
+  },
+  "repository": "https://github.com/kfcain/cmmc-advisor",
+  "license": "MIT",
+  "keywords": ["cmmc", "nist-800-171", "cui", "fedramp", "compliance", "defense-contractor", "assessment"]
+}
