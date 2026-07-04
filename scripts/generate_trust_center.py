@@ -334,7 +334,7 @@ def main() -> int:
             ],
             "included_sections": list(public_payload.keys()),
         }
-        args.manifest.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+        args.manifest.write_text(json.dumps(manifest, indent=2, default=str) + "\n", encoding="utf-8")
         print(f"Wrote {args.manifest}")
 
     org_name = html.escape(str((public_payload.get("organization") or {}).get("name", "Trust Center")))

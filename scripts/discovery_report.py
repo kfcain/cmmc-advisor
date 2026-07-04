@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Report on the discovery (advisor memory) section of a CMMC program data file.
 
-Read-only. Prints phase coverage against the ten interrogation phases in
+Read-only. Prints phase coverage against the twelve interrogation phases in
 references/assessor-playbook/scope-discovery-question-bank.md, open question
 and unretired assumption counts, stale answers, and id integrity (duplicate
 or malformed ids, dangling answer_ref and discovery_refs targets). Exits
@@ -53,8 +53,14 @@ def load_program(path: Path) -> dict:
             import yaml
         except ImportError:
             sys.exit("pyyaml required: pip install pyyaml")
-        return yaml.safe_load(text)
-    return json.loads(text)
+        try:
+            return yaml.safe_load(text)
+        except yaml.YAMLError as exc:
+            sys.exit(f"could not parse {path}: {exc}")
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError as exc:
+        sys.exit(f"could not parse {path}: {exc}")
 
 
 def parse_date(value) -> date | None:
@@ -201,7 +207,7 @@ def main() -> int:
     report = build_report(program, args.stale_days, date.today())
 
     if args.json:
-        print(json.dumps(report, indent=2))
+        print(json.dumps(report, indent=2, default=str))
     else:
         status = "OK" if report["valid"] else "FAIL"
         print(f"Discovery report: {status}")

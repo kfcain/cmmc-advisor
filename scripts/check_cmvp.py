@@ -143,7 +143,7 @@ def verify(args) -> int:
             import yaml
             out.write_text(yaml.safe_dump(program, sort_keys=False, allow_unicode=True), encoding="utf-8")
         else:
-            out.write_text(json.dumps(program, indent=2), encoding="utf-8")
+            out.write_text(json.dumps(program, indent=2, default=str), encoding="utf-8")
         print(f"\nwrote verification results back to {out}")
 
     print(f"\n{len(certs)} certificate(s) checked, {problems} problem(s). "
@@ -153,7 +153,12 @@ def verify(args) -> int:
 
 def find(args) -> int:
     data, used = fetch_json("modules.json", args.source)
-    modules = data.get("modules", data if isinstance(data, list) else [])
+    if isinstance(data, dict):
+        modules = data.get("modules") or []
+    elif isinstance(data, list):
+        modules = data
+    else:
+        modules = []
     q = args.query.lower()
     vendor_q = (args.vendor or "").lower()
     hits = []

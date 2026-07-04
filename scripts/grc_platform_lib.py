@@ -166,7 +166,7 @@ def import_grc_snapshot(
         imports_dir = evidence_root / "imports"
         imports_dir.mkdir(parents=True, exist_ok=True)
         artifact = imports_dir / f"{source}-{collected_at}.json"
-        artifact.write_text(json.dumps(snapshot, indent=2) + "\n", encoding="utf-8")
+        artifact.write_text(json.dumps(snapshot, indent=2, default=str) + "\n", encoding="utf-8")
         snapshot_rel = f"evidence/imports/{artifact.name}"
         result.snapshot_path = snapshot_rel
 

@@ -40,7 +40,7 @@ def load_program(path: Path) -> dict:
 
 def embed(value: dict) -> str:
     # </script> can never appear inside an inline JSON script element
-    return json.dumps(value, separators=(",", ":")).replace("</", "<\\/")
+    return json.dumps(value, separators=(",", ":"), default=str).replace("</", "<\\/")
 
 
 def main() -> int:

@@ -33,8 +33,14 @@ def load_program(path: Path) -> dict:
             import yaml
         except ImportError:
             sys.exit("pyyaml required: pip install pyyaml")
-        return yaml.safe_load(text)
-    return json.loads(text)
+        try:
+            return yaml.safe_load(text)
+        except yaml.YAMLError as exc:
+            sys.exit(f"could not parse {path}: {exc}")
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError as exc:
+        sys.exit(f"could not parse {path}: {exc}")
 
 
 def resolve_link(link: str) -> Path:
@@ -129,7 +135,7 @@ def main() -> int:
         else:
             report["meridian_chain"] = {"error": f"store not found: {store}"}
 
-    text = json.dumps(report, indent=2)
+    text = json.dumps(report, indent=2, default=str)
     if args.out:
         args.out.parent.mkdir(parents=True, exist_ok=True)
         args.out.write_text(text + "\n", encoding="utf-8")

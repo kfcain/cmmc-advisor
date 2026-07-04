@@ -25,8 +25,14 @@ def load_program(path: Path) -> dict:
             import yaml
         except ImportError:
             sys.exit("pyyaml required: pip install pyyaml")
-        return yaml.safe_load(text)
-    return json.loads(text)
+        try:
+            return yaml.safe_load(text)
+        except yaml.YAMLError as exc:
+            sys.exit(f"could not parse {path}: {exc}")
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError as exc:
+        sys.exit(f"could not parse {path}: {exc}")
 
 
 def main() -> int:
@@ -39,7 +45,7 @@ def main() -> int:
     report = validate_asset_baselines(program)
 
     if args.json:
-        print(json.dumps(report, indent=2))
+        print(json.dumps(report, indent=2, default=str))
     else:
         status = "PASS" if report["valid"] else "FAIL"
         print(f"Asset baseline validation: {status} ({report['assets_checked']} profiled assets)")

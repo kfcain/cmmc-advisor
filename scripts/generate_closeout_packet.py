@@ -35,8 +35,14 @@ def load_program(path: Path) -> dict:
             import yaml
         except ImportError:
             sys.exit("pyyaml required: pip install pyyaml")
-        return yaml.safe_load(text)
-    return json.loads(text)
+        try:
+            return yaml.safe_load(text)
+        except yaml.YAMLError as exc:
+            sys.exit(f"could not parse {path}: {exc}")
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError as exc:
+        sys.exit(f"could not parse {path}: {exc}")
 
 
 def poam_requirement_ids(program: dict[str, Any]) -> set[str]:
@@ -122,20 +128,20 @@ def export_closeout_packet(program_path: Path, program: dict, out_dir: Path) -> 
 
     summary = build_closeout_summary(program, dataset, validation)
     summary_path = out_dir / "poam-closeout-summary.json"
-    summary_path.write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
+    summary_path.write_text(json.dumps(summary, indent=2, default=str) + "\n", encoding="utf-8")
     manifest_files.append(
         {"role": "poam_closeout_summary", "path": summary_path.name, "sha256": sha256_file(summary_path)}
     )
 
     validation_path = out_dir / "poam-validation.json"
-    validation_path.write_text(json.dumps(validation, indent=2) + "\n", encoding="utf-8")
+    validation_path.write_text(json.dumps(validation, indent=2, default=str) + "\n", encoding="utf-8")
     manifest_files.append(
         {"role": "poam_validation", "path": validation_path.name, "sha256": sha256_file(validation_path)}
     )
 
     sprs = build_sprs_export(program, dataset)
     sprs_path = out_dir / "sprs-scoresheet.json"
-    sprs_path.write_text(json.dumps(sprs, indent=2) + "\n", encoding="utf-8")
+    sprs_path.write_text(json.dumps(sprs, indent=2, default=str) + "\n", encoding="utf-8")
     manifest_files.append(
         {"role": "sprs_export", "path": sprs_path.name, "sha256": sha256_file(sprs_path)}
     )
@@ -189,7 +195,7 @@ def export_closeout_packet(program_path: Path, program: dict, out_dir: Path) -> 
         "",
     ]
     for item in summary["poam_items"]:
-        checklist_lines.append(f"## {item['requirement_id']} — {item.get('name') or ''}")
+        checklist_lines.append(f"## {item['requirement_id']}: {item.get('name') or ''}")
         checklist_lines.append(f"- Owner: {(item.get('poam') or {}).get('owner', 'unset')}")
         checklist_lines.append(f"- Due: {(item.get('poam') or {}).get('due', 'unset')}")
         for step in item.get("closeout_checklist") or []:
@@ -211,9 +217,9 @@ def export_closeout_packet(program_path: Path, program: dict, out_dir: Path) -> 
         "files": manifest_files,
     }
     manifest_path = out_dir / "package-manifest.json"
-    manifest_path.write_text(json.dumps(package, indent=2) + "\n", encoding="utf-8")
+    manifest_path.write_text(json.dumps(package, indent=2, default=str) + "\n", encoding="utf-8")
     package["manifest_sha256"] = sha256_file(manifest_path)
-    manifest_path.write_text(json.dumps(package, indent=2) + "\n", encoding="utf-8")
+    manifest_path.write_text(json.dumps(package, indent=2, default=str) + "\n", encoding="utf-8")
     return package
 
 
@@ -230,6 +236,8 @@ def main() -> int:
     args = ap.parse_args()
 
     program = load_program(args.program_data)
+    if not isinstance(program, dict):
+        sys.exit("program data did not parse to an object")
     out_dir = args.out or Path("exports") / f"poam-closeout-{date.today().isoformat()}"
     package = export_closeout_packet(args.program_data, program, out_dir)
     print(

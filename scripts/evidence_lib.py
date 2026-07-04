@@ -176,7 +176,7 @@ def build_sprs_export(program: dict, dataset: dict) -> dict[str, Any]:
         requirements_out.append(
             {
                 "requirement_id": rid,
-                "nist_id": req.get("nist_id"),
+                "nist_id": req.get("nist_800_171"),
                 "name": req.get("name"),
                 "conformity": conformity,
                 "sprs_assessment_status": sprs_assessment_status(conformity),

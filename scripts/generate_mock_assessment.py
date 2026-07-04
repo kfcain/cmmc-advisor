@@ -36,8 +36,14 @@ def load_program(path: Path) -> dict:
             import yaml
         except ImportError:
             sys.exit("pyyaml required: pip install pyyaml")
-        return yaml.safe_load(text)
-    return json.loads(text)
+        try:
+            return yaml.safe_load(text)
+        except yaml.YAMLError as exc:
+            sys.exit(f"could not parse {path}: {exc}")
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError as exc:
+        sys.exit(f"could not parse {path}: {exc}")
 
 
 def scoped_requirement_ids(program: dict[str, Any], dataset: dict[str, Any]) -> list[str]:
@@ -275,6 +281,8 @@ def main() -> int:
     args = ap.parse_args()
 
     program = load_program(args.program_data)
+    if not isinstance(program, dict):
+        sys.exit("program data did not parse to an object")
     dataset = load_json(AO_DATASET)
     report = build_mock_assessment(program, dataset, family_filter=args.family)
 
@@ -283,7 +291,7 @@ def main() -> int:
 
     if args.format in ("json", "both"):
         json_path = out_dir / "mock-assessment.json"
-        json_path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+        json_path.write_text(json.dumps(report, indent=2, default=str) + "\n", encoding="utf-8")
         print(f"wrote {json_path}")
 
     if args.format in ("markdown", "both"):

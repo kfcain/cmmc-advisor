@@ -33,8 +33,14 @@ def load_program(path: Path) -> dict:
             import yaml
         except ImportError:
             sys.exit("pyyaml required: pip install pyyaml")
-        return yaml.safe_load(text)
-    return json.loads(text)
+        try:
+            return yaml.safe_load(text)
+        except yaml.YAMLError as exc:
+            sys.exit(f"could not parse {path}: {exc}")
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError as exc:
+        sys.exit(f"could not parse {path}: {exc}")
 
 
 def export_package(program_path: Path, program: dict, out_dir: Path) -> dict:
@@ -50,7 +56,7 @@ def export_package(program_path: Path, program: dict, out_dir: Path) -> dict:
     dataset = load_json(AO_DATASET)
     sprs = build_sprs_export(program, dataset)
     sprs_path = out_dir / "sprs-scoresheet.json"
-    sprs_path.write_text(json.dumps(sprs, indent=2) + "\n", encoding="utf-8")
+    sprs_path.write_text(json.dumps(sprs, indent=2, default=str) + "\n", encoding="utf-8")
     manifest_files.append(
         {"role": "sprs_export", "path": sprs_path.name, "sha256": sha256_file(sprs_path)}
     )
@@ -108,9 +114,9 @@ def export_package(program_path: Path, program: dict, out_dir: Path) -> dict:
         "missing_evidence_count": sum(1 for f in manifest_files if f.get("role") == "evidence_missing"),
     }
     manifest_path = out_dir / "package-manifest.json"
-    manifest_path.write_text(json.dumps(package, indent=2) + "\n", encoding="utf-8")
+    manifest_path.write_text(json.dumps(package, indent=2, default=str) + "\n", encoding="utf-8")
     package["manifest_sha256"] = sha256_file(manifest_path)
-    manifest_path.write_text(json.dumps(package, indent=2) + "\n", encoding="utf-8")
+    manifest_path.write_text(json.dumps(package, indent=2, default=str) + "\n", encoding="utf-8")
     return package
 
 
