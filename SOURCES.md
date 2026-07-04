@@ -707,6 +707,74 @@ compliance documentation and practitioner publications.
 
 ---
 
+## Legal and Enforcement
+
+Enforcement facts are dated: verify amounts and case status against the
+DOJ release before quoting in client-facing material. None of this is
+legal advice; involve counsel on False Claims Act exposure.
+
+### False Claims Act
+- **Title:** 31 U.S.C. 3729-3733 (False Claims Act)
+- **URL:** https://www.law.cornell.edu/uscode/text/31/3729
+- **Used in:** references/level-1-affirmation-readiness.md
+- **Note:** Qui tam shares per 31 U.S.C. 3730(d): 15 to 25 percent when
+  the government intervenes, 25 to 30 percent when it declines.
+
+### DOJ 2025 FCA Penalty Adjustment
+- **Title:** DOJ inflation adjustment: $14,308 to $28,619 per claim
+  (penalties assessed after July 3, 2025)
+- **URL:** https://fcablog.sidley.com/2025/07/07/department-of-justice-announces-2025-inflationary-adjustments-to-fca-penalties/
+- **Used in:** references/level-1-affirmation-readiness.md
+- **Note:** Law-firm summary of the Federal Register adjustment.
+
+### DOJ Civil Cyber-Fraud Initiative
+- **Title:** Civil Cyber-Fraud Initiative, announced October 6, 2021 by
+  Deputy Attorney General Lisa Monaco
+- **URL:** https://www.mofo.com/resources/insights/211012-doj-cyber-fraud-initiative
+- **Used in:** references/level-1-affirmation-readiness.md
+- **Note:** Mirror-verified; the DOJ archive page blocks automated fetch.
+
+### Aerojet Rocketdyne FCA Settlement
+- **Title:** $9M settlement, July 8, 2022 (DFARS 252.204-7012 / NIST
+  800-171 misrepresentation; qui tam)
+- **URL:** https://www.mcguirewoods.com/client-resources/alerts/2022/7/doj-aerojet-settle-9-million-qui-tam-cybersecurity-false-claims-act-case/
+- **Used in:** references/level-1-affirmation-readiness.md
+- **Note:** Mirror-verified.
+
+### Verizon Business FCA Settlement
+- **Title:** Approximately $4.1M settlement, September 5, 2023 (federal
+  internet service security controls; self-disclosed, cooperation credit)
+- **URL:** https://www.crowell.com/en/insights/client-alerts/civil-cyber-fraud-settlement-highlights-potential-for-cooperation-credit
+- **Used in:** references/level-1-affirmation-readiness.md
+- **Note:** Mirror-verified.
+
+### Insight Global FCA Settlement
+- **Title:** $2.7M settlement, May 1, 2024 (contact-tracing data
+  security; qui tam)
+- **URL:** https://oig.hhs.gov/fraud/enforcement/staffing-company-to-pay-27m-for-alleged-failure-to-provide-adequate-cybersecurity-for-covid-19-contact-tracing-data/
+- **Used in:** references/level-1-affirmation-readiness.md
+
+### Penn State FCA Settlement
+- **Title:** $1.25M settlement, October 22, 2024 (SPRS scores and
+  implementation timelines across 15 contracts; qui tam)
+- **URL:** https://www.insidegovernmentcontracts.com/2024/11/penn-state-agrees-to-pay-1-25m-in-settlement-for-cybersecurity-non-compliance-false-claims-act-allegations/
+- **Used in:** references/level-1-affirmation-readiness.md
+- **Note:** Mirror-verified.
+
+### MORSECORP FCA Settlement
+- **Title:** $4.6M settlement, March 26, 2025 (SPRS score of 104 vs
+  consultant-scored -142, uncorrected for years)
+- **URL:** https://www.justice.gov/opa/pr/defense-contractor-morsecorp-inc-agrees-pay-46-million-settle-cybersecurity-fraud
+- **Used in:** references/level-1-affirmation-readiness.md
+
+### Georgia Tech Research Corporation FCA Settlement
+- **Title:** $875,000 settlement, September 30, 2025 (SPRS score
+  premised on a fictitious environment)
+- **URL:** https://www.justice.gov/opa/pr/georgia-tech-research-corporation-agrees-pay-875000-resolve-civil-cyber-fraud-litigation
+- **Used in:** references/level-1-affirmation-readiness.md
+
+---
+
 ## How to Verify Sources
 
 1. **NIST publications:** All NIST SPs are freely available at https://csrc.nist.gov
