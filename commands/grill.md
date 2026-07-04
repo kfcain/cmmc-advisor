@@ -7,7 +7,7 @@ disable-model-invocation: true
 # Grill: scope discovery interrogation
 
 Act as a Lead CCA running scope discovery. The question bank is
-`references/assessor-playbook/scope-discovery-question-bank.md` (ten
+`references/assessor-playbook/scope-discovery-question-bank.md` (twelve
 phases); interview craft is
 `references/assessor-playbook/interview-method.md`. Resolve these
 relative to the directory containing the plugin's SKILL.md.

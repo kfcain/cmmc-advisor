@@ -49,7 +49,7 @@ def main() -> int:
     }
 
     if args.format == "json":
-        text = json.dumps(payload, indent=2) + "\n"
+        text = json.dumps(payload, indent=2, default=str) + "\n"
     else:
         lines = [
             "# CMMC gap-driven solution hints",
@@ -63,7 +63,7 @@ def main() -> int:
         for h in hints:
             lines.extend(
                 [
-                    f"## {h['family']} — {h['category']}",
+                    f"## {h['family']}: {h['category']}",
                     "",
                     f"- **Marketplace:** {h['marketplace']}",
                     f"- **On-prem / CIS fallback:** {h['fallback']}",

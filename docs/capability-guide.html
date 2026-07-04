@@ -66,10 +66,10 @@
     <span class="pill">110 requirements</span>
     <span class="pill">320 assessment objectives</span>
     <span class="pill">14 domains</span>
-    <span class="pill">29 CLI scripts</span>
+    <span class="pill">30 scripts (24 CLI, 6 libraries)</span>
     <span class="pill">18 evidence collectors</span>
     <span class="pill">7 MCP tools</span>
-    <span class="pill">33 eval scenarios</span>
+    <span class="pill">39 eval scenarios</span>
     <span class="pill">Phases 2–10 delivered</span>
   </div>
 </header>
@@ -81,6 +81,7 @@
   <a href="#references">Reference corpus</a>
   <a href="#data">Data layer</a>
   <a href="#toolkit">Program toolkit</a>
+  <a href="#assessor">Assessor rails</a>
   <a href="#html-views">HTML views</a>
   <a href="#evidence">Evidence automation</a>
   <a href="#grc-mcp">GRC MCP bridge</a>
@@ -237,6 +238,20 @@
   </ol>
 </section>
 
+<section id="assessor">
+  <h2>Assessor-mode rails</h2>
+  <p>A Lead CCA persona on the OSC's side of the table, packaged as a Claude Code plugin (<code>.claude-plugin/</code> + <code>commands/</code>) and mirrored as Advisory Workflow rails in <code>SKILL.md</code> so plain skill installs get the same capability. Everything learned persists to the program data file's <code>discovery</code> section (dated Q&amp;A log with answer confidence, assumptions register, open questions, decisions), reported by <code>scripts/discovery_report.py</code> and rendered in the dashboard's Discovery tab.</p>
+  <table>
+    <thead><tr><th>Rail</th><th>Command</th><th>What it does</th><th>Playbook file</th></tr></thead>
+    <tbody>
+      <tr><td>Grill</td><td><code>/cmmc-advisor:grill</code></td><td>Twelve-phase scope interrogation (contracts, people, locations, tenancy seams, endpoints, dev/DevOps/AI, physical media, OT, ESP access paths, audit &amp; SIEM, data flows, backup/DR) with entry/exit criteria and follow-up logic</td><td><code>references/assessor-playbook/scope-discovery-question-bank.md</code></td></tr>
+      <tr><td>Mock assess</td><td><code>/cmmc-advisor:mock-assess</code></td><td>CAP v2.0-ordered dry run: scope-validation hard gate first, E-I-T interviews from <code>generate_mock_assessment.py</code> packs (with the discovery watchlist), objective-level scoring, findings out-brief; conformity writes only with consent</td><td><code>references/assessor-playbook/mock-assessment-conduct.md</code></td></tr>
+      <tr><td>Red-team scope</td><td><code>/cmmc-advisor:red-team-scope</code></td><td>Seven challenge groups in assessor voice (categorization, DFD completeness, enclave leak probes, ESP story, inheritance, physical/OT, audit/egress/AI), each with a citation and the evidence that survives it</td><td><code>references/assessor-playbook/adversarial-challenge-catalog.md</code></td></tr>
+    </tbody>
+  </table>
+  <p>Shared interview craft (role owners not spokespeople, E-I-T triad alignment, focused vs basic answer depth) lives in <code>references/assessor-playbook/interview-method.md</code>. Plugin install: <code>/plugin marketplace add kfcain/cmmc-advisor</code> then <code>/plugin install cmmc-advisor@cmmc-advisor</code>.</p>
+</section>
+
 <section id="html-views">
   <h2>HTML views</h2>
   <p>Three templates under <code>templates/</code> render from program data. All are self-contained (no external CDN requests), with light/dark theme support where applicable.</p>
@@ -333,7 +348,8 @@
   <table>
     <thead><tr><th>Platform</th><th>Install</th><th>Adapter path</th></tr></thead>
     <tbody>
-      <tr><td>Claude Code</td><td>Copy or submodule into <code>~/.claude/skills/cmmc-advisor</code></td><td><code>platforms/claude/</code></td></tr>
+      <tr><td>Claude Code (plugin)</td><td><code>/plugin marketplace add kfcain/cmmc-advisor</code> + <code>/plugin install cmmc-advisor@cmmc-advisor</code>; adds the three assessor commands</td><td><code>.claude-plugin/</code> + <code>commands/</code></td></tr>
+      <tr><td>Claude Code (skill copy)</td><td>Copy or submodule into <code>~/.claude/skills/cmmc-advisor</code></td><td><code>platforms/claude/</code></td></tr>
       <tr><td>Cursor</td><td>Symlink repo to <code>.cursor/skills/cmmc-advisor</code> + rule to <code>.cursor/rules/</code></td><td><code>platforms/cursor/</code></td></tr>
       <tr><td>Codex / OpenAI agents</td><td>Merge bootstrap block from <code>platforms/codex/AGENTS.md</code></td><td><code>platforms/codex/</code></td></tr>
       <tr><td>GRC MCP toolkit</td><td>Combined vendor + cmmc-advisor MCP in compliance repo</td><td><code>platforms/toolkit/mcp.json</code></td></tr>
@@ -349,13 +365,14 @@
 python -m evals.runner.runner evals/scenarios/level-2-scoping-basic.yaml
 python3 evals/runner/lint.py   # CI voice/citation lint on SKILL.md + references/</code></pre>
 
-  <h3>33 eval scenarios (coverage areas)</h3>
+  <h3>39 eval scenarios (coverage areas)</h3>
   <ul class="compact">
     <li>Level 1/2/3 scoping and assessment paths</li>
     <li>Domain practices, assessment objectives, SSP authoring</li>
     <li>POA&amp;M eligibility, GRC continuous monitoring, vendor treatment</li>
     <li>Modern IT (M365 tenancy, AI dev tools, remote access, VDI/IGEL)</li>
     <li>Toolkit: SSP generation, diagrams, FIPS, OSCAL crosswalk, evidence collectors, Meridian import, POA&amp;M validation, mock assessment, asset baselines, responsibility matrix, GRC MCP import, executive brief</li>
+    <li>Assessor mode: grill kickoff, mock scope gate, red-team enclave, ESP access paths, MSSP SIEM, AI egress enforcement</li>
     <li>FedRAMP 20x KSI due diligence, platform routing bootstrap, anti-patterns</li>
   </ul>
   <p>CI workflow <code>.github/workflows/content-lint.yml</code> checks voice discipline, crosswalk integrity, FRMR snapshot, and evidence collector manifest (18 collectors, modules on disk).</p>

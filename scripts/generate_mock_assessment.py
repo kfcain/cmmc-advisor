@@ -36,8 +36,14 @@ def load_program(path: Path) -> dict:
             import yaml
         except ImportError:
             sys.exit("pyyaml required: pip install pyyaml")
-        return yaml.safe_load(text)
-    return json.loads(text)
+        try:
+            return yaml.safe_load(text)
+        except yaml.YAMLError as exc:
+            sys.exit(f"could not parse {path}: {exc}")
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError as exc:
+        sys.exit(f"could not parse {path}: {exc}")
 
 
 def scoped_requirement_ids(program: dict[str, Any], dataset: dict[str, Any]) -> list[str]:
@@ -164,11 +170,50 @@ def build_mock_assessment(
         "assessment": program.get("assessment"),
         "family_filter": family_filter,
         "families": families_out,
+        "discovery_watchlist": build_discovery_watchlist(program),
         "usage_notes": [
             "Use examine lists as document pull requests before interview day.",
             "Score at the assessment-objective level, not practice level only.",
+            "Chase the discovery watchlist first: open questions and unverified answers are where evidence fails.",
             "Cross-check POA&M-eligible gaps with validate_poam.py before conditional planning.",
         ],
+    }
+
+
+def build_discovery_watchlist(program: dict[str, Any]) -> dict[str, Any]:
+    """Items from the discovery section a mock should chase: open questions,
+    answers taken on the OSC's word, and assumptions nobody confirmed."""
+    discovery = program.get("discovery") or {}
+    if not isinstance(discovery, dict):
+        return {}
+
+    def entries(section: str) -> list[dict[str, Any]]:
+        raw = discovery.get(section)
+        if not isinstance(raw, list):
+            return []
+        return [e for e in raw if isinstance(e, dict)]
+
+    open_questions = [
+        {"id": q.get("id"), "question": q.get("question"), "owner": q.get("owner"), "why_it_matters": q.get("why_it_matters")}
+        for q in entries("open_questions")
+        if q.get("status", "open") == "open"
+    ]
+    unverified_answers = [
+        {"id": q.get("id"), "question": q.get("question"), "answer": q.get("answer"), "confidence": q.get("confidence")}
+        for q in entries("qa_log")
+        if q.get("confidence") in ("reported", "assumed")
+    ]
+    open_assumptions = [
+        {"id": a.get("id"), "statement": a.get("statement"), "risk_if_wrong": a.get("risk_if_wrong")}
+        for a in entries("assumptions")
+        if a.get("status", "open") == "open"
+    ]
+    if not (open_questions or unverified_answers or open_assumptions):
+        return {}
+    return {
+        "open_questions": open_questions,
+        "unverified_answers": unverified_answers,
+        "open_assumptions": open_assumptions,
     }
 
 
@@ -180,13 +225,24 @@ def render_markdown(report: dict[str, Any]) -> str:
         f"**Generated:** {report.get('generated_at')}",
         "",
     ]
+    watchlist = report.get("discovery_watchlist") or {}
+    if watchlist:
+        lines.append("## Discovery watchlist (chase these first)")
+        lines.append("")
+        for q in watchlist.get("open_questions") or []:
+            lines.append(f"- **Open {q.get('id')}** ({q.get('owner') or 'no owner'}): {q.get('question')}")
+        for q in watchlist.get("unverified_answers") or []:
+            lines.append(f"- **Unverified {q.get('id')}** (confidence: {q.get('confidence')}): {q.get('question')}")
+        for a in watchlist.get("open_assumptions") or []:
+            lines.append(f"- **Assumption {a.get('id')}**: {a.get('statement')} Risk if wrong: {a.get('risk_if_wrong') or 'not recorded'}")
+        lines.append("")
     for block in report.get("families") or []:
         lines.append(f"## {block['family']} ({block['requirement_count']} practices)")
         lines.append("")
         lines.append(block.get("family_opener") or "")
         lines.append("")
         for req in block.get("requirements") or []:
-            lines.append(f"### {req['requirement_id']} — {req.get('name') or ''}")
+            lines.append(f"### {req['requirement_id']}: {req.get('name') or ''}")
             if req.get("conformity"):
                 lines.append(f"- Program conformity: **{req['conformity']}**")
             if req.get("examine"):
@@ -225,6 +281,8 @@ def main() -> int:
     args = ap.parse_args()
 
     program = load_program(args.program_data)
+    if not isinstance(program, dict):
+        sys.exit("program data did not parse to an object")
     dataset = load_json(AO_DATASET)
     report = build_mock_assessment(program, dataset, family_filter=args.family)
 
@@ -233,7 +291,7 @@ def main() -> int:
 
     if args.format in ("json", "both"):
         json_path = out_dir / "mock-assessment.json"
-        json_path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+        json_path.write_text(json.dumps(report, indent=2, default=str) + "\n", encoding="utf-8")
         print(f"wrote {json_path}")
 
     if args.format in ("markdown", "both"):

@@ -35,8 +35,14 @@ def load_program(path: Path) -> dict:
             import yaml
         except ImportError:
             sys.exit("pyyaml required: pip install pyyaml")
-        return yaml.safe_load(text)
-    return json.loads(text)
+        try:
+            return yaml.safe_load(text)
+        except yaml.YAMLError as exc:
+            sys.exit(f"could not parse {path}: {exc}")
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError as exc:
+        sys.exit(f"could not parse {path}: {exc}")
 
 
 def save_program(path: Path, program: dict) -> None:
@@ -47,7 +53,7 @@ def save_program(path: Path, program: dict) -> None:
             sys.exit("pyyaml required: pip install pyyaml")
         path.write_text(yaml.safe_dump(program, sort_keys=False, allow_unicode=True), encoding="utf-8")
     else:
-        path.write_text(json.dumps(program, indent=2) + "\n", encoding="utf-8")
+        path.write_text(json.dumps(program, indent=2, default=str) + "\n", encoding="utf-8")
 
 
 def control_to_cmmc(control_id: str, crosswalk: dict[str, Any]) -> list[str]:

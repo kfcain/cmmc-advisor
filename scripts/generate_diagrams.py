@@ -150,7 +150,8 @@ def build_svg(program: dict, mode: str) -> str:
     flows = topo.get("flows", [])
     if mode == "cui-flow":
         flows = [f for f in flows if f.get("data") in ("cui", "fci", "spd")]
-        keep = {f["from"] for f in flows} | {f["to"] for f in flows}
+        keep = {f.get("from") for f in flows} | {f.get("to") for f in flows}
+        keep.discard(None)
     else:
         keep = None
     zones, zgeo, ngeo, width, height = layout(topo, keep)
@@ -209,7 +210,8 @@ def build_mermaid(program: dict, mode: str) -> str:
     flows = topo.get("flows", [])
     if mode == "cui-flow":
         flows = [f for f in flows if f.get("data") in ("cui", "fci", "spd")]
-        keep = {f["from"] for f in flows} | {f["to"] for f in flows}
+        keep = {f.get("from") for f in flows} | {f.get("to") for f in flows}
+        keep.discard(None)
     else:
         keep = None
     lines = ["flowchart LR"]
@@ -239,7 +241,10 @@ def build_mermaid(program: dict, mode: str) -> str:
             link = "<==>" if cui else "<-->"
         else:
             link = "==>" if cui else "-->"
-        lines.append(f'  {f["from"]} {link}|"{text}"| {f["to"]}')
+        src, dst = f.get("from"), f.get("to")
+        if not src or not dst:
+            continue
+        lines.append(f'  {src} {link}|"{text}"| {dst}')
     return "\n".join(lines) + "\n"
 
 

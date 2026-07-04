@@ -52,8 +52,14 @@ def load_program(path: Path) -> dict:
             import yaml
         except ImportError:
             sys.exit("pyyaml required: pip install pyyaml")
-        return yaml.safe_load(text)
-    return json.loads(text)
+        try:
+            return yaml.safe_load(text)
+        except yaml.YAMLError as exc:
+            sys.exit(f"could not parse {path}: {exc}")
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError as exc:
+        sys.exit(f"could not parse {path}: {exc}")
 
 
 def save_program(path: Path, program: dict) -> None:
@@ -64,7 +70,7 @@ def save_program(path: Path, program: dict) -> None:
             sys.exit("pyyaml required: pip install pyyaml")
         path.write_text(yaml.safe_dump(program, sort_keys=False, allow_unicode=True), encoding="utf-8")
     else:
-        path.write_text(json.dumps(program, indent=2) + "\n", encoding="utf-8")
+        path.write_text(json.dumps(program, indent=2, default=str) + "\n", encoding="utf-8")
 
 
 def load_collector_module(module_path: str):
@@ -102,7 +108,7 @@ def run_collector(
         out_path = artifact_out_path(evidence_root, rel)
         out_path.parent.mkdir(parents=True, exist_ok=True)
         record = {**payload, "requirement_id": req_id, "objectives": mapping.get("objectives")}
-        out_path.write_text(json.dumps(record, indent=2) + "\n", encoding="utf-8")
+        out_path.write_text(json.dumps(record, indent=2, default=str) + "\n", encoding="utf-8")
 
         merge_collector_result(
             program,
@@ -189,7 +195,7 @@ def main() -> int:
 
     log_path = args.evidence_root / "collect-run.json"
     log_path.parent.mkdir(parents=True, exist_ok=True)
-    log_path.write_text(json.dumps({"collectors": run_log}, indent=2) + "\n", encoding="utf-8")
+    log_path.write_text(json.dumps({"collectors": run_log}, indent=2, default=str) + "\n", encoding="utf-8")
     print(f"wrote {log_path}")
     return 0
 

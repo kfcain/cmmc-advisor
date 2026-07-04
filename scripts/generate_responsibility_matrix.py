@@ -27,8 +27,14 @@ def load_program(path: Path) -> dict:
             import yaml
         except ImportError:
             sys.exit("pyyaml required: pip install pyyaml")
-        return yaml.safe_load(text)
-    return json.loads(text)
+        try:
+            return yaml.safe_load(text)
+        except yaml.YAMLError as exc:
+            sys.exit(f"could not parse {path}: {exc}")
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError as exc:
+        sys.exit(f"could not parse {path}: {exc}")
 
 
 def role_label(program: dict[str, Any], slug: str | None) -> str:
@@ -122,7 +128,7 @@ def main() -> int:
 
     if args.format in ("json", "both"):
         path = out_dir / "responsibility-matrix.json"
-        path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+        path.write_text(json.dumps(report, indent=2, default=str) + "\n", encoding="utf-8")
         print(f"wrote {path}")
 
     if args.format in ("markdown", "both"):

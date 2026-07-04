@@ -47,8 +47,14 @@ def load_program(path: Path) -> dict:
             import yaml
         except ImportError:
             sys.exit("pyyaml required: pip install pyyaml")
-        return yaml.safe_load(text)
-    return json.loads(text)
+        try:
+            return yaml.safe_load(text)
+        except yaml.YAMLError as exc:
+            sys.exit(f"could not parse {path}: {exc}")
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError as exc:
+        sys.exit(f"could not parse {path}: {exc}")
 
 
 def save_program(path: Path, program: dict) -> None:
@@ -59,7 +65,7 @@ def save_program(path: Path, program: dict) -> None:
             sys.exit("pyyaml required: pip install pyyaml")
         path.write_text(yaml.safe_dump(program, sort_keys=False, allow_unicode=True), encoding="utf-8")
     else:
-        path.write_text(json.dumps(program, indent=2) + "\n", encoding="utf-8")
+        path.write_text(json.dumps(program, indent=2, default=str) + "\n", encoding="utf-8")
 
 
 def import_run(
@@ -96,7 +102,7 @@ def import_run(
         fail_checks = [a.get("check_id") for a in assertions if (a.get("status") or "").upper() == "FAIL"]
         name = f"Meridian GCP ConMon {resolved_run_id} ({rollup})"
         if fail_checks:
-            name += f" — {fail_checks[0]}"
+            name += f" ({fail_checks[0]})"
             failures += 1
 
         merge_collector_result(
@@ -167,7 +173,7 @@ def main() -> int:
 
     if args.verify_chain_only:
         result = verify_meridian_chain(store_root)
-        print(json.dumps(result, indent=2))
+        print(json.dumps(result, indent=2, default=str))
         return 0 if result["chain_intact"] else 1
 
     program = load_program(args.program_data)

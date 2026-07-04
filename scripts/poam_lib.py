@@ -60,8 +60,8 @@ def closeout_deadline(conditional_status_date: str | None) -> date | None:
     if not conditional_status_date:
         return None
     try:
-        start = date.fromisoformat(conditional_status_date[:10])
-    except ValueError:
+        start = date.fromisoformat(str(conditional_status_date)[:10])
+    except (ValueError, TypeError):
         return None
     return start + timedelta(days=CLOSEOUT_DAYS)
 
@@ -256,8 +256,8 @@ def validate_poam_program(program: dict[str, Any], dataset: dict[str, Any]) -> d
             poam_due = item["poam"].get("due")
             if poam_due:
                 try:
-                    due = date.fromisoformat(poam_due[:10])
-                except ValueError:
+                    due = date.fromisoformat(str(poam_due)[:10])
+                except (ValueError, TypeError):
                     warnings.append(
                         {
                             "type": "invalid_due_date",

@@ -30,8 +30,14 @@ def load_program(path: Path) -> dict:
             import yaml
         except ImportError:
             sys.exit("pyyaml required: pip install pyyaml")
-        return yaml.safe_load(text)
-    return json.loads(text)
+        try:
+            return yaml.safe_load(text)
+        except yaml.YAMLError as exc:
+            sys.exit(f"could not parse {path}: {exc}")
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError as exc:
+        sys.exit(f"could not parse {path}: {exc}")
 
 
 def write_csv(export: dict, path: Path) -> None:
@@ -60,11 +66,13 @@ def main() -> int:
     args = ap.parse_args()
 
     program = load_program(args.program_data)
+    if not isinstance(program, dict):
+        sys.exit("program data did not parse to an object")
     dataset = load_json(AO_DATASET)
     export = build_sprs_export(program, dataset)
 
     args.out.parent.mkdir(parents=True, exist_ok=True)
-    args.out.write_text(json.dumps(export, indent=2) + "\n", encoding="utf-8")
+    args.out.write_text(json.dumps(export, indent=2, default=str) + "\n", encoding="utf-8")
     print(f"wrote {args.out} (summary score {export['summary_score']})")
 
     if export["ssp_missing"]:
