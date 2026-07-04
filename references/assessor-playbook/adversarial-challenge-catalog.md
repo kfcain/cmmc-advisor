@@ -29,11 +29,12 @@ gate.
 
 **"This CRMA claim rests on paper."** Contractor Risk Managed Assets are
 assets that can, but are not intended to, process CUI, managed by the
-contractor's risk-based policies (32 CFR 170.19(c)). When the documented
-practices are thin, the assessor recategorizes the asset as a CUI asset and
-assesses it fully. Survives: the risk-based policy actually naming the
-asset class, the documented practices, and a spot check showing they are in
-place.
+contractor's risk-based policies (32 CFR 170.19(c)). When the documentation
+raises questions, the assessor conducts a limited check to identify
+deficiencies (170.19(c)(1) Table 3), bounded so it does not materially
+increase assessment duration or cost; deficiencies found there become
+findings. Survives: the risk-based policy actually naming the asset class,
+the documented practices, and a spot check showing they are in place.
 
 **"You forgot your Security Protection Assets."** SPA misses are the most
 common overlooked category: SIEM, EDR console, password manager, RMM,
@@ -95,13 +96,16 @@ removal.
 
 **"This CDN or proxy decrypts CUI."** Anything terminating TLS on a
 CUI-bearing connection has the plaintext: CUI asset. Encrypted
-pass-through, by contrast, does not extend scope (DoD CMMC FAQ, scoping
-entries). Survives: knowing which devices terminate vs pass through, with
-configuration evidence.
+pass-through can stay out of scope, but only under the DoD CMMC FAQ's
+conditions (F-Q4): the environment is otherwise logically separated, has
+no direct internet connection into the enclave, and CUI is properly
+encrypted before it leaves; encryption alone is never separation
+(F-Q3, B-Q8). Survives: knowing which devices terminate vs pass through,
+configuration evidence, and the F-Q4 conditions demonstrably met.
 
 ## Group 3: Enclave integrity
 
-Sixteen probes for the seams of a carve-out. Each survives only with a
+Seventeen probes for the seams of a carve-out. Each survives only with a
 technical enforcement answer plus a test.
 
 1. Clipboard: can a user copy from the enclave session and paste outside?
@@ -130,9 +134,14 @@ technical enforcement answer plus a test.
     the enclave boundary specifically.
 14. Shared admin identities: one admin account spanning enclave and
     corporate collapses the separation at the privileged layer.
-15. SSP-reality divergence: the enclave the SSP describes vs the one users
+15. Leavers and service accounts: pull the last five terminations and
+    show each account's disable date (AC.L1-3.1.1, PS.L2-3.9.2); then
+    the service-account list, non-expiring passwords, and named
+    owners. The HR-list-vs-directory diff is the most reliable live
+    test an assessor runs.
+16. SSP-reality divergence: the enclave the SSP describes vs the one users
     describe (see group 2's narration probe).
-16. The theoretical path: from a corporate host, what actually blocks a
+17. The theoretical path: from a corporate host, what actually blocks a
     connection to an enclave address? "Nothing routes there" needs the
     routing and filtering evidence.
 
@@ -147,9 +156,14 @@ their access paths documented, and their people prepared to interview.
 
 **"Show me the CRM row for this requirement."** Every requirement an ESP
 wholly or partially performs must appear in the customer responsibility
-matrix. A shared requirement with no CRM row scores NOT MET; inheritance
-is never assumed. Survives: the mapped CRM with per-requirement rows the
-provider actually signed.
+matrix (CAP 2.17). A shared requirement with no CRM row cannot be
+validated as inherited; expect NOT MET absent other evidence the OSC can
+produce on its own (CAP 2.17-2.18). One allowance cuts the other way:
+a non-CSP ESP holding its own voluntary CMMC Status certificate gets
+the requirements it performs treated as in a validated state with
+reduced assessment effort (CAP 2.19). Survives: the mapped CRM with
+per-requirement rows the provider actually signed, or the provider's
+own certificate covering the performed requirements.
 
 **"Who at the provider will sit for the interview?"** ESP personnel must
 demonstrate credible ownership of the requirements they perform. "Our
@@ -167,11 +181,15 @@ isolation answer.
 as a multi-tenant instance in their cloud, your logs and alerts
 (Security Protection Data) live in a platform you do not control:
 whose tenancy is it, which other customers' analysts can reach your
-data, where does it physically run, and does the CSP conversation from
-DFARS 252.204-7012(b)(2)(ii)(D) apply to it? The CRM must also cover
-the AU requirements the MSSP performs. Survives: the tenancy answer,
-the named-analyst access list with isolation evidence, the platform's
-location and authorization posture, and mapped AU rows in the CRM.
+data, and where does it physically run? The scoping fork is 32 CFR
+170.19(c)(2)(i) Table 4: a cloud platform holding only SPD is assessed
+as a Security Protection Asset; the FedRAMP Moderate question under
+DFARS 252.204-7012(b)(2)(ii)(D) attaches when CUI itself lands in the
+platform (captured payloads, file names in alerts, ticket
+attachments). The CRM must also cover the AU requirements the MSSP
+performs. Survives: the tenancy answer, the named-analyst access list
+with isolation evidence, a checked answer on whether CUI reaches the
+platform, and mapped AU rows in the CRM.
 
 **"That remote tool is not FIPS validated."** Consumer remote-access tools
 (TeamViewer, Splashtop tiers) generally lack CMVP-validated modules; a CUI
@@ -326,10 +344,15 @@ The rail's report lists challenges in ranked order, each as:
 ```
 CHALLENGE (assessor voice, one sentence)
 CITES: rule / guide / FAQ entry
-STATUS: survived | open thread | finding-in-waiting
+STATUS: survived | not-applicable (nothing claimed) | open thread | finding-in-waiting
 SURVIVES WITH: the artifact or architecture that closes it
-WRITTEN TO: open_questions / assumptions id
+WRITTEN TO: open_questions / assumptions id, or none for survived and not-applicable
 ```
+
+A challenge is not-applicable when the program data makes no claim for
+it to attack (no CRMA assets on file means the CRMA challenge has
+nothing to press); recording it as survived would overstate the
+evidence.
 
 Rank by thread-pull likelihood: scope-boundary claims, then SPA misses,
 then ESP coverage, then per-family depth. The report ends with the three

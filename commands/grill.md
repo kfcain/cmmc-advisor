@@ -19,10 +19,29 @@ relative to the directory containing the plugin's SKILL.md.
    `program-data.yaml`, then any `*.program.yaml`.
 3. If none exists, say so and offer to bootstrap one: ask for the
    organization name, system name, and CMMC level, then write a minimal
-   `program.yaml` (organization, assessment.level, empty requirements,
-   empty discovery scaffold) conforming to
-   `templates/program-data.schema.json`. Never write into the plugin's
-   own `templates/` directory.
+   `program.yaml` conforming to `templates/program-data.schema.json`:
+
+   ```yaml
+   organization:
+     name: <org name>
+     system_name: <system name>
+   assessment:
+     level: "2"
+   requirements: {}
+   discovery:
+     updated: "<today>"
+     phases: {}
+     qa_log: []
+     assumptions: []
+     open_questions: []
+     decisions: []
+   ```
+
+   Leave `phases` empty (the report treats absent phases as
+   not-started). Quote every date as a string; unquoted YAML dates
+   parse as date objects and fail schema validation. The level may be
+   a quoted string or an integer. Never write into the plugin's own
+   `templates/` directory.
 
 ## Session flow
 

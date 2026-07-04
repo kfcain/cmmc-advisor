@@ -45,6 +45,11 @@ ID_PATTERNS = {
 
 DATE_FIELD = {"qa_log": "date", "assumptions": "date", "open_questions": "raised", "decisions": "date"}
 
+# CMMC requirement id shape (e.g. AC.L2-3.1.1, SI.L1-b.1.xv); affects entries
+# matching this are valid targets even before the requirement is tracked in
+# the file's requirements map (early-discovery files start empty by design)
+REQ_ID_RE = re.compile(r"^[A-Z]{2}\.L[123]-")
+
 
 def load_program(path: Path) -> dict:
     text = path.read_text(encoding="utf-8")
@@ -171,10 +176,21 @@ def build_report(program: dict, stale_days: int, today: date) -> dict:
             warnings.append(f"qa_log {qa.get('id')}: affects must be a list, not a string")
             continue
         for target in affects:
-            if target not in known_targets:
+            if target not in known_targets and not (isinstance(target, str) and REQ_ID_RE.match(target)):
                 warnings.append(
                     f"qa_log {qa.get('id')}: affects '{target}' matches no asset, requirement, or topology node"
                 )
+
+    entries_by_phase: dict[str, int] = {}
+    for section in ID_PATTERNS:
+        for entry in discovery.get(section) or []:
+            if isinstance(entry, dict) and entry.get("phase"):
+                entries_by_phase[entry["phase"]] = entries_by_phase.get(entry["phase"], 0) + 1
+    for pid, count in entries_by_phase.items():
+        if phase_status.get(pid) == "not-started":
+            warnings.append(
+                f"phase '{pid}' is not-started but has {count} discovery entr{'y' if count == 1 else 'ies'} tagged to it; update its status"
+            )
 
     return {
         "valid": not errors,

@@ -1,41 +1,90 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "CMMC Program Data File",
-  "description": "Single source of truth for an organization's CMMC program. Consumed by scripts/generate_ssp.py and scripts/generate_dashboard.py together with references/data/assessment-objectives.json. Maintain as YAML or JSON.",
+  "description": "Single source of truth for an organization's CMMC program. Consumed by scripts/generate_ssp.py and scripts/generate_dashboard.py together with references/data/assessment-objectives.json. Maintain as YAML or JSON. Quote all dates as strings in YAML (unquoted dates parse as date objects and fail validation); the assessment level may be a string or an integer.",
   "type": "object",
-  "required": ["organization", "requirements"],
+  "required": [
+    "organization",
+    "requirements"
+  ],
   "properties": {
     "organization": {
       "type": "object",
-      "required": ["name", "system_name"],
+      "required": [
+        "name",
+        "system_name"
+      ],
       "properties": {
-        "name": {"type": "string", "description": "Organization (OSC/OSA) legal name"},
-        "system_name": {"type": "string", "description": "Name of the in-scope information system"},
-        "cage_codes": {"type": "array", "items": {"type": "string"}},
-        "revision": {"type": "string", "description": "SSP revision label, e.g. Rev 3"},
-        "date": {"type": "string", "format": "date", "description": "SSP effective date, ISO 8601"},
-        "purpose": {"type": "string", "description": "Purpose narrative; a default is generated when omitted"},
-        "scope_narrative": {"type": "string"},
-        "environment_narrative": {"type": "string"},
+        "name": {
+          "type": "string",
+          "description": "Organization (OSC/OSA) legal name"
+        },
+        "system_name": {
+          "type": "string",
+          "description": "Name of the in-scope information system"
+        },
+        "cage_codes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "revision": {
+          "type": "string",
+          "description": "SSP revision label, e.g. Rev 3"
+        },
+        "date": {
+          "type": "string",
+          "format": "date",
+          "description": "SSP effective date, ISO 8601"
+        },
+        "purpose": {
+          "type": "string",
+          "description": "Purpose narrative; a default is generated when omitted"
+        },
+        "scope_narrative": {
+          "type": "string"
+        },
+        "environment_narrative": {
+          "type": "string"
+        },
         "roles": {
           "type": "object",
           "description": "Named accountabilities; keys are role slugs",
           "additionalProperties": {
             "type": "object",
-            "required": ["name"],
+            "required": [
+              "name"
+            ],
             "properties": {
-              "name": {"type": "string"},
-              "title": {"type": "string"},
-              "email": {"type": "string"},
-              "phone": {"type": "string"},
-              "responsibilities": {"type": "array", "items": {"type": "string"}}
+              "name": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "phone": {
+                "type": "string"
+              },
+              "responsibilities": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
             }
           }
         }
       }
     },
     "conditional_status_date": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "date",
       "description": "CMMC Status Date of a Conditional status, ISO 8601, or null when no Conditional status exists. Drives the 180-day POA&M closeout clocks."
     },
@@ -43,25 +92,53 @@
       "type": "object",
       "description": "Last SPRS score submitted by the organization; dashboard compares against computed score",
       "properties": {
-        "score": {"type": "number"},
-        "date": {"type": "string", "format": "date"},
-        "submitted_by": {"type": "string"},
-        "notes": {"type": "string"}
+        "score": {
+          "type": "number"
+        },
+        "date": {
+          "type": "string",
+          "format": "date"
+        },
+        "submitted_by": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        }
       }
     },
     "meridian_import": {
       "type": "object",
       "description": "Last Meridian GCP ConMon import metadata (scripts/import_meridian_run.py)",
       "properties": {
-        "last_run_id": {"type": "string"},
-        "last_imported": {"type": "string", "format": "date"},
-        "evidence_root": {"type": "string"},
-        "manifest_path": {"type": "string"},
-        "manifest_sha256": {"type": "string"},
-        "run_status": {"type": "string"},
-        "requirements_linked": {"type": "number"},
-        "requirements_with_fail": {"type": "number"},
-        "chain_intact": {"type": "boolean"}
+        "last_run_id": {
+          "type": "string"
+        },
+        "last_imported": {
+          "type": "string",
+          "format": "date"
+        },
+        "evidence_root": {
+          "type": "string"
+        },
+        "manifest_path": {
+          "type": "string"
+        },
+        "manifest_sha256": {
+          "type": "string"
+        },
+        "run_status": {
+          "type": "string"
+        },
+        "requirements_linked": {
+          "type": "number"
+        },
+        "requirements_with_fail": {
+          "type": "number"
+        },
+        "chain_intact": {
+          "type": "boolean"
+        }
       }
     },
     "grc_integrations": {
@@ -70,11 +147,23 @@
       "additionalProperties": {
         "type": "object",
         "properties": {
-          "last_sync": {"type": "string", "format": "date"},
-          "last_snapshot": {"type": "string", "description": "Repo-relative path to evidence/imports snapshot JSON"},
-          "requirements_linked": {"type": "number"},
-          "unmapped_count": {"type": "number"},
-          "workspace_id": {"type": "string"}
+          "last_sync": {
+            "type": "string",
+            "format": "date"
+          },
+          "last_snapshot": {
+            "type": "string",
+            "description": "Repo-relative path to evidence/imports snapshot JSON"
+          },
+          "requirements_linked": {
+            "type": "number"
+          },
+          "unmapped_count": {
+            "type": "number"
+          },
+          "workspace_id": {
+            "type": "string"
+          }
         }
       }
     },
@@ -82,21 +171,46 @@
       "type": "object",
       "description": "Public trust center metadata for scripts/generate_trust_center.py. Never place internal evidence paths here.",
       "properties": {
-        "published": {"type": "boolean", "description": "When false, generate_trust_center.py exits unless --force"},
-        "last_reviewed": {"type": "string", "format": "date"},
-        "security_contact": {"type": "string", "description": "Public security contact, e.g. security@company.com"},
-        "disclaimer": {"type": "string"},
+        "published": {
+          "type": "boolean",
+          "description": "When false, generate_trust_center.py exits unless --force"
+        },
+        "last_reviewed": {
+          "type": "string",
+          "format": "date"
+        },
+        "security_contact": {
+          "type": "string",
+          "description": "Public security contact, e.g. security@company.com"
+        },
+        "disclaimer": {
+          "type": "string"
+        },
         "attestations": {
           "type": "array",
           "items": {
             "type": "object",
             "properties": {
-              "framework": {"type": "string"},
-              "level": {"type": "string"},
-              "status": {"type": "string"},
-              "status_date": {"type": "string", "format": "date"},
-              "affirmation_current": {"type": "boolean"},
-              "affirmation_date": {"type": "string", "format": "date"}
+              "framework": {
+                "type": "string"
+              },
+              "level": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "status_date": {
+                "type": "string",
+                "format": "date"
+              },
+              "affirmation_current": {
+                "type": "boolean"
+              },
+              "affirmation_date": {
+                "type": "string",
+                "format": "date"
+              }
             }
           }
         },
@@ -104,12 +218,25 @@
           "type": "array",
           "items": {
             "type": "object",
-            "required": ["title", "url"],
+            "required": [
+              "title",
+              "url"
+            ],
             "properties": {
-              "title": {"type": "string"},
-              "type": {"type": "string"},
-              "url": {"type": "string", "format": "uri"},
-              "updated": {"type": "string", "format": "date"}
+              "title": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "updated": {
+                "type": "string",
+                "format": "date"
+              }
             }
           }
         }
@@ -118,32 +245,93 @@
     "assessment": {
       "type": "object",
       "properties": {
-        "level": {"type": "string", "enum": ["1", "2", "3"]},
-        "path": {"type": "string", "enum": ["self", "c3pao", "dibcac"]},
-        "target_date": {"type": "string", "format": "date"},
-        "c3pao": {"type": "string"}
+        "level": {
+          "type": [
+            "string",
+            "integer"
+          ],
+          "enum": [
+            "1",
+            "2",
+            "3",
+            1,
+            2,
+            3
+          ],
+          "description": "CMMC level; string preferred, integer accepted"
+        },
+        "path": {
+          "type": "string",
+          "enum": [
+            "self",
+            "c3pao",
+            "dibcac"
+          ]
+        },
+        "target_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "c3pao": {
+          "type": "string"
+        }
       }
     },
     "responsibility_matrix": {
       "type": "object",
       "description": "Internal RACI (not FedRAMP CRM). Export with scripts/generate_responsibility_matrix.py",
       "properties": {
-        "updated": {"type": "string", "format": "date"},
-        "notes": {"type": "string"},
+        "updated": {
+          "type": "string",
+          "format": "date"
+        },
+        "notes": {
+          "type": "string"
+        },
         "entries": {
           "type": "array",
           "items": {
             "type": "object",
-            "required": ["scope", "accountable"],
+            "required": [
+              "scope",
+              "accountable"
+            ],
             "properties": {
-              "scope": {"type": "string", "description": "Requirement id (AC.L2-3.1.1) or family code (AC, PE, SC)"},
-              "scope_label": {"type": "string"},
-              "accountable": {"type": "string", "description": "Role slug from organization.roles"},
-              "responsible": {"type": "array", "items": {"type": "string"}},
-              "consulted": {"type": "array", "items": {"type": "string"}},
-              "informed": {"type": "array", "items": {"type": "string"}},
-              "evidence_owner": {"type": "string"},
-              "notes": {"type": "string"}
+              "scope": {
+                "type": "string",
+                "description": "Requirement id (AC.L2-3.1.1) or family code (AC, PE, SC)"
+              },
+              "scope_label": {
+                "type": "string"
+              },
+              "accountable": {
+                "type": "string",
+                "description": "Role slug from organization.roles"
+              },
+              "responsible": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "consulted": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "informed": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "evidence_owner": {
+                "type": "string"
+              },
+              "notes": {
+                "type": "string"
+              }
             }
           }
         }
@@ -153,18 +341,34 @@
       "type": "object",
       "description": "Asset inventory by CMMC Level 2 scoping category (32 CFR 170.19(c))",
       "properties": {
-        "cui": {"$ref": "#/$defs/assetList"},
-        "security_protection": {"$ref": "#/$defs/assetList"},
-        "contractor_risk_managed": {"$ref": "#/$defs/assetList"},
-        "specialized": {"$ref": "#/$defs/assetList"},
-        "out_of_scope": {"$ref": "#/$defs/assetList"}
+        "cui": {
+          "$ref": "#/$defs/assetList"
+        },
+        "security_protection": {
+          "$ref": "#/$defs/assetList"
+        },
+        "contractor_risk_managed": {
+          "$ref": "#/$defs/assetList"
+        },
+        "specialized": {
+          "$ref": "#/$defs/assetList"
+        },
+        "out_of_scope": {
+          "$ref": "#/$defs/assetList"
+        }
       }
     },
     "diagrams": {
       "type": "object",
       "properties": {
-        "network": {"type": "string", "description": "Path or URL to the network diagram"},
-        "cui_flow": {"type": "string", "description": "Path or URL to the CUI flow diagram"}
+        "network": {
+          "type": "string",
+          "description": "Path or URL to the network diagram"
+        },
+        "cui_flow": {
+          "type": "string",
+          "description": "Path or URL to the CUI flow diagram"
+        }
       }
     },
     "hardware_software": {
@@ -172,10 +376,18 @@
       "items": {
         "type": "object",
         "properties": {
-          "name": {"type": "string"},
-          "type": {"type": "string"},
-          "version": {"type": "string"},
-          "location": {"type": "string"}
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          }
         }
       }
     },
@@ -184,15 +396,32 @@
       "description": "FIPS 140 validation evidence for SC.L2-3.13.11 claims; verify at the NIST CMVP registry",
       "items": {
         "type": "object",
-        "required": ["certificate", "module"],
+        "required": [
+          "certificate",
+          "module"
+        ],
         "properties": {
-          "certificate": {"type": "string"},
-          "vendor": {"type": "string"},
-          "module": {"type": "string"},
-          "standard": {"type": "string"},
-          "status": {"type": "string"},
-          "sunset": {"type": "string"},
-          "security_policy": {"type": "string"}
+          "certificate": {
+            "type": "string"
+          },
+          "vendor": {
+            "type": "string"
+          },
+          "module": {
+            "type": "string"
+          },
+          "standard": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "sunset": {
+            "type": "string"
+          },
+          "security_policy": {
+            "type": "string"
+          }
         }
       }
     },
@@ -204,12 +433,35 @@
           "type": "array",
           "items": {
             "type": "object",
-            "required": ["id", "label"],
+            "required": [
+              "id",
+              "label"
+            ],
             "properties": {
-              "id": {"type": "string"},
-              "label": {"type": "string"},
-              "kind": {"type": "string", "enum": ["enclave", "corporate", "external", "csp"]},
-              "boundary": {"type": "string", "enum": ["cmmc-scope", "fedramp", "none"], "description": "cmmc-scope zones are wrapped by the dashed CMMC Assessment Scope boundary"}
+              "id": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "enclave",
+                  "corporate",
+                  "external",
+                  "csp"
+                ]
+              },
+              "boundary": {
+                "type": "string",
+                "enum": [
+                  "cmmc-scope",
+                  "fedramp",
+                  "none"
+                ],
+                "description": "cmmc-scope zones are wrapped by the dashed CMMC Assessment Scope boundary"
+              }
             }
           }
         },
@@ -217,13 +469,42 @@
           "type": "array",
           "items": {
             "type": "object",
-            "required": ["id", "label", "zone"],
+            "required": [
+              "id",
+              "label",
+              "zone"
+            ],
             "properties": {
-              "id": {"type": "string"},
-              "label": {"type": "string"},
-              "zone": {"type": "string", "description": "id of a zones entry"},
-              "category": {"type": "string", "enum": ["cui", "security-protection", "contractor-risk-managed", "specialized", "out-of-scope"], "description": "32 CFR 170.19(c) asset category; keep consistent with the assets inventory"},
-              "role": {"type": "string", "enum": ["entity", "process", "store"], "description": "DFD shape for the CUI flow diagram; default process"}
+              "id": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "zone": {
+                "type": "string",
+                "description": "id of a zones entry"
+              },
+              "category": {
+                "type": "string",
+                "enum": [
+                  "cui",
+                  "security-protection",
+                  "contractor-risk-managed",
+                  "specialized",
+                  "out-of-scope"
+                ],
+                "description": "32 CFR 170.19(c) asset category; keep consistent with the assets inventory"
+              },
+              "role": {
+                "type": "string",
+                "enum": [
+                  "entity",
+                  "process",
+                  "store"
+                ],
+                "description": "DFD shape for the CUI flow diagram; default process"
+              }
             }
           }
         },
@@ -231,13 +512,34 @@
           "type": "array",
           "items": {
             "type": "object",
-            "required": ["from", "to"],
+            "required": [
+              "from",
+              "to"
+            ],
             "properties": {
-              "from": {"type": "string"},
-              "to": {"type": "string"},
-              "data": {"type": "string", "enum": ["cui", "fci", "spd", "other"], "description": "cui/fci flows are emphasized; cui/fci/spd flows appear on the CUI flow diagram"},
-              "label": {"type": "string", "description": "protocol/port or description, e.g. HTTPS 443"},
-              "bidirectional": {"type": "boolean"}
+              "from": {
+                "type": "string"
+              },
+              "to": {
+                "type": "string"
+              },
+              "data": {
+                "type": "string",
+                "enum": [
+                  "cui",
+                  "fci",
+                  "spd",
+                  "other"
+                ],
+                "description": "cui/fci flows are emphasized; cui/fci/spd flows appear on the CUI flow diagram"
+              },
+              "label": {
+                "type": "string",
+                "description": "protocol/port or description, e.g. HTTPS 443"
+              },
+              "bidirectional": {
+                "type": "boolean"
+              }
             }
           }
         }
@@ -248,18 +550,45 @@
       "description": "Policy-to-control mapping register (PCMR); see references/grc/policy-mapping.md",
       "items": {
         "type": "object",
-        "required": ["id", "title"],
+        "required": [
+          "id",
+          "title"
+        ],
         "properties": {
-          "id": {"type": "string", "description": "Short key, e.g. pol-ac"},
-          "title": {"type": "string"},
-          "version": {"type": "string"},
-          "owner": {"type": "string"},
-          "reviewed": {"type": "string", "format": "date", "description": "Last review date, ISO 8601"},
-          "location": {"type": "string", "description": "Path or URL to the document"},
-          "procedures": {"type": "array", "items": {"type": "string"}, "description": "Procedure documents operationalizing this policy"},
+          "id": {
+            "type": "string",
+            "description": "Short key, e.g. pol-ac"
+          },
+          "title": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "owner": {
+            "type": "string"
+          },
+          "reviewed": {
+            "type": "string",
+            "format": "date",
+            "description": "Last review date, ISO 8601"
+          },
+          "location": {
+            "type": "string",
+            "description": "Path or URL to the document"
+          },
+          "procedures": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Procedure documents operationalizing this policy"
+          },
           "requirements": {
             "type": "array",
-            "items": {"type": "string"},
+            "items": {
+              "type": "string"
+            },
             "description": "Requirement ids this policy governs (e.g. AC.L2-3.1.1)"
           }
         }
@@ -270,16 +599,41 @@
       "description": "External platforms controls are inherited from; referenced by per-AO inheritance entries",
       "items": {
         "type": "object",
-        "required": ["id", "provider"],
+        "required": [
+          "id",
+          "provider"
+        ],
         "properties": {
-          "id": {"type": "string", "description": "Short key referenced from objectives, e.g. gcch"},
-          "provider": {"type": "string"},
-          "cso": {"type": "string", "description": "Cloud Service Offering name"},
-          "fedramp_status": {"type": "string", "description": "e.g. FedRAMP High Authorized, or Moderate equivalency"},
-          "marketplace_id": {"type": "string"},
-          "crm_document": {"type": "string", "description": "CIS/CRM (Appendix J) document name and version"},
-          "boe_reference": {"type": "string", "description": "Body of evidence index or storage location"},
-          "verified": {"type": "string", "description": "Date the authorization status was last verified"}
+          "id": {
+            "type": "string",
+            "description": "Short key referenced from objectives, e.g. gcch"
+          },
+          "provider": {
+            "type": "string"
+          },
+          "cso": {
+            "type": "string",
+            "description": "Cloud Service Offering name"
+          },
+          "fedramp_status": {
+            "type": "string",
+            "description": "e.g. FedRAMP High Authorized, or Moderate equivalency"
+          },
+          "marketplace_id": {
+            "type": "string"
+          },
+          "crm_document": {
+            "type": "string",
+            "description": "CIS/CRM (Appendix J) document name and version"
+          },
+          "boe_reference": {
+            "type": "string",
+            "description": "Body of evidence index or storage location"
+          },
+          "verified": {
+            "type": "string",
+            "description": "Date the authorization status was last verified"
+          }
         }
       }
     },
@@ -287,16 +641,34 @@
       "type": "object",
       "description": "Advisor memory: what the grill, mock-assess, and red-team-scope rails have learned about the OSC environment. Dated, append-mostly. See references/assessor-playbook/README.md for the memory contract and scripts/discovery_report.py for status and integrity checks.",
       "properties": {
-        "updated": {"type": "string", "format": "date", "description": "Date of the most recent discovery write"},
+        "updated": {
+          "type": "string",
+          "format": "date",
+          "description": "Date of the most recent discovery write"
+        },
         "phases": {
           "type": "object",
           "description": "Keyed by interrogation phase id from references/assessor-playbook/scope-discovery-question-bank.md (contracts-cui, people, locations, platforms-tenants, endpoints, dev-ai, physical-media, specialized-ot, esps-access-paths, audit-siem, data-flows, backup-dr)",
           "additionalProperties": {
             "type": "object",
             "properties": {
-              "status": {"type": "string", "enum": ["not-started", "in-progress", "complete", "revisit"]},
-              "last_touched": {"type": "string", "format": "date"},
-              "summary": {"type": "string", "description": "One-paragraph state of knowledge for this phase"}
+              "status": {
+                "type": "string",
+                "enum": [
+                  "not-started",
+                  "in-progress",
+                  "complete",
+                  "revisit"
+                ]
+              },
+              "last_touched": {
+                "type": "string",
+                "format": "date"
+              },
+              "summary": {
+                "type": "string",
+                "description": "One-paragraph state of knowledge for this phase"
+              }
             }
           }
         },
@@ -305,16 +677,52 @@
           "description": "Question and answer record; every grill or mock-assess answer lands here with a date",
           "items": {
             "type": "object",
-            "required": ["id", "date", "question", "answer"],
+            "required": [
+              "id",
+              "date",
+              "question",
+              "answer"
+            ],
             "properties": {
-              "id": {"type": "string", "description": "QA-NNNN, unique within the file"},
-              "date": {"type": "string", "format": "date"},
-              "phase": {"type": "string", "description": "Interrogation phase id the question belongs to"},
-              "question": {"type": "string"},
-              "answer": {"type": "string"},
-              "answered_by": {"type": "string", "description": "Role or name; assessors interview role owners, not spokespeople"},
-              "confidence": {"type": "string", "enum": ["verified", "reported", "assumed"], "description": "verified = evidence seen; reported = asserted by the OSC; assumed = inferred"},
-              "affects": {"type": "array", "items": {"type": "string"}, "description": "Asset names, requirement ids, or topology node ids this answer bears on"}
+              "id": {
+                "type": "string",
+                "description": "QA-NNNN, unique within the file",
+                "pattern": "^QA-\\d{4,}$"
+              },
+              "date": {
+                "type": "string",
+                "format": "date"
+              },
+              "phase": {
+                "type": "string",
+                "description": "Interrogation phase id the question belongs to"
+              },
+              "question": {
+                "type": "string"
+              },
+              "answer": {
+                "type": "string"
+              },
+              "answered_by": {
+                "type": "string",
+                "description": "Role or name; assessors interview role owners, not spokespeople"
+              },
+              "confidence": {
+                "type": "string",
+                "enum": [
+                  "verified",
+                  "reported",
+                  "assumed"
+                ],
+                "description": "verified = evidence seen; reported = asserted by the OSC; assumed = inferred"
+              },
+              "affects": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Asset names, requirement ids, or topology node ids this answer bears on. Contract facts belong in the answer text or organization.scope_narrative, not here."
+              }
             }
           }
         },
@@ -323,15 +731,44 @@
           "description": "Inferred facts the advisor is operating on until confirmed or retired",
           "items": {
             "type": "object",
-            "required": ["id", "date", "statement"],
+            "required": [
+              "id",
+              "date",
+              "statement"
+            ],
             "properties": {
-              "id": {"type": "string", "description": "AS-NNNN, unique within the file"},
-              "date": {"type": "string", "format": "date"},
-              "statement": {"type": "string"},
-              "basis": {"type": "string", "description": "What the assumption was inferred from"},
-              "risk_if_wrong": {"type": "string", "description": "What an assessor finds if the assumption fails"},
-              "status": {"type": "string", "enum": ["open", "confirmed", "retired"]},
-              "resolution": {"type": "string", "description": "How the assumption was confirmed or retired"}
+              "id": {
+                "type": "string",
+                "description": "AS-NNNN, unique within the file",
+                "pattern": "^AS-\\d{4,}$"
+              },
+              "date": {
+                "type": "string",
+                "format": "date"
+              },
+              "statement": {
+                "type": "string"
+              },
+              "basis": {
+                "type": "string",
+                "description": "What the assumption was inferred from"
+              },
+              "risk_if_wrong": {
+                "type": "string",
+                "description": "What an assessor finds if the assumption fails"
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "open",
+                  "confirmed",
+                  "retired"
+                ]
+              },
+              "resolution": {
+                "type": "string",
+                "description": "How the assumption was confirmed or retired"
+              }
             }
           }
         },
@@ -340,16 +777,47 @@
           "description": "Unanswered items an assessor would pull on; grill sessions open them, answers close them",
           "items": {
             "type": "object",
-            "required": ["id", "raised", "question"],
+            "required": [
+              "id",
+              "raised",
+              "question"
+            ],
             "properties": {
-              "id": {"type": "string", "description": "OQ-NNNN, unique within the file"},
-              "raised": {"type": "string", "format": "date"},
-              "phase": {"type": "string"},
-              "question": {"type": "string"},
-              "why_it_matters": {"type": "string", "description": "What an assessor does with the unanswered version"},
-              "owner": {"type": "string", "description": "Who in the OSC owes the answer"},
-              "status": {"type": "string", "enum": ["open", "answered"]},
-              "answer_ref": {"type": "string", "description": "qa_log id once answered"}
+              "id": {
+                "type": "string",
+                "description": "OQ-NNNN, unique within the file",
+                "pattern": "^OQ-\\d{4,}$"
+              },
+              "raised": {
+                "type": "string",
+                "format": "date"
+              },
+              "phase": {
+                "type": "string"
+              },
+              "question": {
+                "type": "string"
+              },
+              "why_it_matters": {
+                "type": "string",
+                "description": "What an assessor does with the unanswered version"
+              },
+              "owner": {
+                "type": "string",
+                "description": "Who in the OSC owes the answer"
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "open",
+                  "answered"
+                ]
+              },
+              "answer_ref": {
+                "type": "string",
+                "description": "qa_log id once answered",
+                "pattern": "^QA-\\d{4,}$"
+              }
             }
           }
         },
@@ -358,14 +826,34 @@
           "description": "Scoping and architecture decisions with rationale, so later sessions do not relitigate them",
           "items": {
             "type": "object",
-            "required": ["id", "date", "decision"],
+            "required": [
+              "id",
+              "date",
+              "decision"
+            ],
             "properties": {
-              "id": {"type": "string", "description": "DE-NNNN, unique within the file"},
-              "date": {"type": "string", "format": "date"},
-              "decision": {"type": "string"},
-              "rationale": {"type": "string"},
-              "decided_by": {"type": "string"},
-              "supersedes": {"type": "string", "description": "id of an earlier decision this replaces"}
+              "id": {
+                "type": "string",
+                "description": "DE-NNNN, unique within the file",
+                "pattern": "^DE-\\d{4,}$"
+              },
+              "date": {
+                "type": "string",
+                "format": "date"
+              },
+              "decision": {
+                "type": "string"
+              },
+              "rationale": {
+                "type": "string"
+              },
+              "decided_by": {
+                "type": "string"
+              },
+              "supersedes": {
+                "type": "string",
+                "description": "id of an earlier decision this replaces"
+              }
             }
           }
         }
@@ -377,40 +865,104 @@
       "additionalProperties": {
         "type": "object",
         "properties": {
-          "conformity": {"type": "string", "enum": ["met", "not-met", "partially-met", "not-applicable", "not-assessed"]},
+          "conformity": {
+            "type": "string",
+            "enum": [
+              "met",
+              "not-met",
+              "partially-met",
+              "not-applicable",
+              "not-assessed"
+            ]
+          },
           "objectives": {
             "type": "object",
             "description": "Keyed by objective letter (a, b, c...)",
             "additionalProperties": {
               "type": "object",
               "properties": {
-                "conformity": {"type": "string", "enum": ["met", "not-met", "not-applicable", "inherited", "shared", "not-assessed"]},
-                "statement": {"type": "string", "description": "Assessment Objective Conformity Statement: how this objective is satisfied, in this system, with named mechanisms"},
+                "conformity": {
+                  "type": "string",
+                  "enum": [
+                    "met",
+                    "not-met",
+                    "not-applicable",
+                    "inherited",
+                    "shared",
+                    "not-assessed"
+                  ]
+                },
+                "statement": {
+                  "type": "string",
+                  "description": "Assessment Objective Conformity Statement: how this objective is satisfied, in this system, with named mechanisms"
+                },
                 "evidence": {
                   "type": "array",
                   "items": {
                     "type": "object",
-                    "required": ["name"],
+                    "required": [
+                      "name"
+                    ],
                     "properties": {
-                      "name": {"type": "string"},
-                      "link": {"type": "string", "description": "URL or repository path to the artifact"},
-                      "collected": {"type": "string", "format": "date"},
-                      "collector": {"type": "string", "description": "Collector id from evidence-collector-manifest.json"},
-                      "source_system": {"type": "string"},
-                      "refresh_bucket": {"type": "string", "enum": ["machine", "periodic", "document"]},
-                      "sha256": {"type": "string", "description": "SHA-256 of artifact file for integrity tracking"}
+                      "name": {
+                        "type": "string"
+                      },
+                      "link": {
+                        "type": "string",
+                        "description": "URL or repository path to the artifact"
+                      },
+                      "collected": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "collector": {
+                        "type": "string",
+                        "description": "Collector id from evidence-collector-manifest.json"
+                      },
+                      "source_system": {
+                        "type": "string"
+                      },
+                      "refresh_bucket": {
+                        "type": "string",
+                        "enum": [
+                          "machine",
+                          "periodic",
+                          "document"
+                        ]
+                      },
+                      "sha256": {
+                        "type": "string",
+                        "description": "SHA-256 of artifact file for integrity tracking"
+                      }
                     }
                   }
                 },
                 "inheritance": {
                   "type": "object",
                   "description": "Present when the objective is inherited from or shared with a platform",
-                  "required": ["source"],
+                  "required": [
+                    "source"
+                  ],
                   "properties": {
-                    "source": {"type": "string", "description": "id of an inheritance_sources entry"},
-                    "type": {"type": "string", "enum": ["inherited", "shared"]},
-                    "crm_ref": {"type": "string", "description": "Row or control reference in the provider CRM / Appendix J"},
-                    "customer_note": {"type": "string", "description": "The customer-side share of a shared objective"}
+                    "source": {
+                      "type": "string",
+                      "description": "id of an inheritance_sources entry"
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "inherited",
+                        "shared"
+                      ]
+                    },
+                    "crm_ref": {
+                      "type": "string",
+                      "description": "Row or control reference in the provider CRM / Appendix J"
+                    },
+                    "customer_note": {
+                      "type": "string",
+                      "description": "The customer-side share of a shared objective"
+                    }
                   }
                 }
               }
@@ -419,13 +971,37 @@
           "poam": {
             "type": "object",
             "properties": {
-              "priority": {"type": "string"},
-              "description": {"type": "string"},
-              "opened": {"type": "string", "format": "date"},
-              "due": {"type": "string", "format": "date"},
-              "owner": {"type": "string"},
-              "actions": {"type": "array", "items": {"type": "string"}},
-              "status": {"type": "string", "enum": ["open", "in-progress", "closed"]}
+              "priority": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "opened": {
+                "type": "string",
+                "format": "date"
+              },
+              "due": {
+                "type": "string",
+                "format": "date"
+              },
+              "owner": {
+                "type": "string"
+              },
+              "actions": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "open",
+                  "in-progress",
+                  "closed"
+                ]
+              }
             }
           },
           "grc_monitoring": {
@@ -434,15 +1010,29 @@
             "items": {
               "type": "object",
               "properties": {
-                "source": {"type": "string"},
-                "collector": {"type": "string"},
-                "external_id": {"type": "string"},
-                "status": {"type": "string"},
-                "collected": {"type": "string", "format": "date"}
+                "source": {
+                  "type": "string"
+                },
+                "collector": {
+                  "type": "string"
+                },
+                "external_id": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "collected": {
+                  "type": "string",
+                  "format": "date"
+                }
               }
             }
           },
-          "remediation_plan": {"type": "string", "description": "Gap remediation narrative for not-met or partially-met requirements"}
+          "remediation_plan": {
+            "type": "string",
+            "description": "Gap remediation narrative for not-met or partially-met requirements"
+          }
         }
       }
     }
@@ -452,14 +1042,33 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["name"],
+        "required": [
+          "name"
+        ],
         "properties": {
-          "name": {"type": "string"},
-          "description": {"type": "string"},
-          "vendor": {"type": "string"},
-          "location": {"type": "string"},
-          "notes": {"type": "string", "description": "Free-form discovery notes for this asset"},
-          "discovery_refs": {"type": "array", "items": {"type": "string"}, "description": "discovery qa_log / open_questions ids about this asset"},
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "vendor": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Free-form discovery notes for this asset"
+          },
+          "discovery_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "discovery entry ids about this asset (qa_log QA-, open_questions OQ-, assumptions AS-, decisions DE-)"
+          },
           "baseline_profile": {
             "type": "string",
             "description": "Profile id from references/data/asset-baseline-manifest.json"
@@ -468,20 +1077,54 @@
             "type": "object",
             "description": "Dated attestation and checklist answers; see references/modern-it/asset-baselines/",
             "properties": {
-              "validated": {"type": "string", "format": "date"},
-              "checklist_id": {"type": "string"},
-              "clipboard_blocked": {"type": "boolean"},
-              "printing_blocked": {"type": "boolean"},
-              "usb_storage_blocked": {"type": "boolean"},
-              "no_local_cui_storage": {"type": "boolean"},
-              "fips_cc_mode": {"type": "boolean"},
-              "cmvp_certificate": {"type": "string"},
-              "fedramp_package_id": {"type": "string", "description": "FedRAMP Marketplace package id for CSP/RMM tools"},
-              "authorization": {"type": "string", "description": "e.g. FedRAMP Moderate Rev5 Class C"},
-              "cui_agents": {"type": "number"},
-              "commercial_tenant_segregated": {"type": "boolean"},
-              "controls": {"type": "array", "items": {"type": "string"}},
-              "notes": {"type": "string"}
+              "validated": {
+                "type": "string",
+                "format": "date"
+              },
+              "checklist_id": {
+                "type": "string"
+              },
+              "clipboard_blocked": {
+                "type": "boolean"
+              },
+              "printing_blocked": {
+                "type": "boolean"
+              },
+              "usb_storage_blocked": {
+                "type": "boolean"
+              },
+              "no_local_cui_storage": {
+                "type": "boolean"
+              },
+              "fips_cc_mode": {
+                "type": "boolean"
+              },
+              "cmvp_certificate": {
+                "type": "string"
+              },
+              "fedramp_package_id": {
+                "type": "string",
+                "description": "FedRAMP Marketplace package id for CSP/RMM tools"
+              },
+              "authorization": {
+                "type": "string",
+                "description": "e.g. FedRAMP Moderate Rev5 Class C"
+              },
+              "cui_agents": {
+                "type": "number"
+              },
+              "commercial_tenant_segregated": {
+                "type": "boolean"
+              },
+              "controls": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "notes": {
+                "type": "string"
+              }
             }
           }
         }
