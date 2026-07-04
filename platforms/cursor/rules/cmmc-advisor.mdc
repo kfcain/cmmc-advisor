@@ -20,5 +20,10 @@ SPRS scoring, or defense contractor cybersecurity compliance:
 4. For program toolkit tasks (SSP, dashboard, evidence collectors, POA&M
    validation), run scripts under `{skill-root}/scripts/` against the user's
    program data file per the skill root `SKILL.md` Program Toolkit Workflows.
+5. For assessor-mode requests (interrogate/grill the environment, run a mock
+   assessment, red-team the scope), follow the Advisory Workflows rails in
+   `SKILL.md` and the procedures in `{skill-root}/references/assessor-playbook/`;
+   persist what is learned to the program data file's `discovery` section and
+   check it with `{skill-root}/scripts/discovery_report.py`.
 
 Do not block or refuse without offering a path forward.

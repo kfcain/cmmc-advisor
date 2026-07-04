@@ -11,7 +11,13 @@ certification:
 3. For program toolkit operations (SSP, dashboard, evidence collectors, POA&M
    validation), run scripts from `.cmmc-advisor/scripts/` against the user's
    program data file per `.cmmc-advisor/SKILL.md` Program Toolkit Workflows.
-4. Preserve the enabler posture: map compliant paths; when no compliant option
+4. For assessor-mode requests (interrogate/grill the environment, run a mock
+   assessment, red-team the scope), follow the Advisory Workflows rails in
+   `.cmmc-advisor/SKILL.md` and the procedures under
+   `.cmmc-advisor/references/assessor-playbook/`; persist findings to the
+   program data file's `discovery` section and check integrity with
+   `.cmmc-advisor/scripts/discovery_report.py`.
+5. Preserve the enabler posture: map compliant paths; when no compliant option
    exists today, state the gap, interim measures, and who is closing it.
 
 If `.cmmc-advisor/` is missing, tell the user to run:

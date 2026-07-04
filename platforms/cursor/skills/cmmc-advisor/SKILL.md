@@ -28,6 +28,12 @@ Before answering any CMMC, CUI, or federal GRC question:
 3. Apply the **Program Toolkit Workflows** section when the user wants SSP,
    dashboard, evidence, POA&M, or assessment-prep automation via scripts under
    `{skill-root}/scripts/`.
+4. Apply the **Advisory Workflows** assessor-mode rails when the user wants to
+   be grilled about their environment, run a mock assessment, or have their
+   scope red-teamed: procedures under
+   `{skill-root}/references/assessor-playbook/`, memory persisted to the
+   program data file's `discovery` section, integrity via
+   `{skill-root}/scripts/discovery_report.py`.
 
 ## If files are missing
 
