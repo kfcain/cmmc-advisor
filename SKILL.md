@@ -117,6 +117,8 @@ from memory alone when a reference exists.
 | Mock assessment conduct, scope-validation gate, out-brief format | `references/assessor-playbook/mock-assessment-conduct.md` + `scripts/generate_mock_assessment.py` |
 | Interview technique, who answers what, E-I-T triad, answer depth | `references/assessor-playbook/interview-method.md` |
 | Discovery status, open questions, assumptions, staleness | `scripts/discovery_report.py` |
+| Fast Level 1 self-attestation, affirmation risk, False Claims Act | `references/level-1-affirmation-readiness.md` |
+| Generate the Level 1 self-assessment package and readiness gates | `scripts/generate_l1_package.py` |
 | Unsure where to look | This file (routing table above) |
 
 If a referenced file does not exist yet, say so honestly. Tell the user
@@ -268,6 +270,15 @@ WLAN, badges, OT, SDLC). Validate checklists with
 truth: status changes, new evidence, POA&M updates (respect the
 32 CFR 170.21 eligibility rules in `references/poam-management.md`),
 and inheritance mappings all land there first, then regenerate outputs.
+
+**Run the Level 1 affirmation cycle.** For FCI-only organizations,
+follow the gated fast path in
+`references/level-1-affirmation-readiness.md`: scope truth first, all
+15 requirements MET at the objective level (no POA&Ms exist at Level
+1), dated evidence per practice, then
+`python3 scripts/generate_l1_package.py program.yaml` to assemble the
+package and check the affirmation-readiness gates before anyone signs
+in SPRS. Rerun annually before each re-affirmation.
 
 **Maintain discovery memory.** The `discovery` section is the advisor's
 memory of the OSC: dated qa_log entries with answer confidence, an

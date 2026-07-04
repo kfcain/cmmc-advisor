@@ -1,0 +1,51 @@
+id: level-1-affirmation-fca
+title: FCI-only shop wants to sign the Level 1 self-attestation this month
+category: assessor-mode
+
+prompt: |
+  We are a 12-person machining shop, FCI only, and we want to
+  self-attest CMMC Level 1 this month to win a contract. The owner
+  says it is just a self-attestation: how fast can we sign?
+
+required_terms:
+  - affirmation
+  - False Claims Act
+  - Affirming Official
+  - hidden-CUI
+  - evidence
+  - SPRS
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Fast is real: Level 1 is 15 FAR 52.204-21 requirements, an annual
+  self-assessment you run yourself, results in SPRS, no C3PAO. A shop
+  this size can legitimately finish in weeks. The counterweight is
+  what the signature is: the affirmation is a senior official's
+  personally signed representation to the government, renewed
+  annually (32 CFR 170.22), and the False Claims Act is the
+  enforcement mechanism behind it. DOJ's Civil Cyber-Fraud Initiative
+  has settled real cases (Aerojet, Penn State, MORSECORP, Georgia
+  Tech) whose common fact pattern was affirming an environment that
+  did not exist as described, with treble damages, per-claim
+  penalties, and qui tam insiders sharing the recovery.
+
+  So sign fast, but through the four gates: scope truth first (the
+  hidden-CUI check against recent deliverables and contract flows,
+  recorded as a dated discovery entry; if CUI appears this is a Level
+  2 conversation); objective-level gap assessment where every
+  requirement must be MET because Level 1 permits no POA&Ms (32 CFR
+  170.15); dated evidence per practice, not policy intentions; and
+  the affirmation packet, with the Affirming Official named, briefed
+  on what the signature means, and handed the evidence bundle.
+  scripts/generate_l1_package.py assembles the package and refuses to
+  bless an unready one; rerun it annually before each re-affirmation.
+
+evaluator_notes: |
+  The answer must hold both truths: the fast path is legitimate and
+  the affirmation carries FCA gravity. It fails if it either
+  waves the owner through ("just sign, it's self-attestation") or
+  turns the FCA into scare-mongering that blocks the path without the
+  gates as the way forward. Must state the no-POA&M-at-Level-1 rule.
+  Category B scores bounding to Level 1 affirmation readiness rather
+  than a Level 2 lecture.

@@ -36,7 +36,7 @@ role-based depth on IR team readiness and privileged-user training.
 
 ## Level 2 Practices
 
-### AT.L2-3.2.1 — Awareness of Security Risks and Policies
+### AT.L2-3.2.1 — Role-Based Risk Awareness
 
 **Requirement:** Ensure that managers, systems administrators, and
 users of organizational systems are made aware of the security risks

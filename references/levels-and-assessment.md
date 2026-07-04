@@ -74,13 +74,15 @@ requires implementation of all 110 security requirements from NIST SP
 800-171 Revision 2, organized across 14 domains.
 
 **Self-assessment vs. C3PAO:**
-- **Non-prioritized CUI contracts:** Annual self-assessment permitted
-- **Prioritized CUI contracts:** Third-party C3PAO assessment required every three years
+- **Level 2 (Self):** self-assessment every three years with results
+  submitted in SPRS, plus an annual affirmation (32 CFR 170.16)
+- **Level 2 (C3PAO):** third-party C3PAO assessment every three years,
+  plus an annual affirmation (32 CFR 170.17)
 
-The distinction between prioritized and non-prioritized is made by the
-DoD program manager in the contract solicitation. DoD has stated that
-Level 2 self-assessments are the exception, not the rule; most CUI
-contracts will require C3PAO assessment.
+Which status a contract requires is set by the CMMC level identified in
+the solicitation. DoD has stated that Level 2 self-assessments are the
+exception, not the rule; most CUI contracts will require C3PAO
+assessment.
 
 > Source: Summit 7 Blog, "DoD Says CMMC Level 2 Self-Assessments Are the
 > Exception, Not the Rule"
@@ -190,7 +192,7 @@ contracting officers.
 If an organization achieves at least 80% but does not meet all 110 practices:
 
 1. All practices scored as NOT MET must be **non-critical** (1-point items only) per 32 CFR 170.21
-2. One exception per 32 CFR 170.21/170.23: SC.L2-3.13.11 (CUI encryption)
+2. One exception per 32 CFR 170.21(a)(2)(ii): SC.L2-3.13.11 (CUI encryption)
    can be on a POA&M when encryption exists but is not FIPS-validated (the
    3-point-deduction state of a 5-point practice per the DoD Assessment
    Methodology v1.2.1 partial-credit structure)

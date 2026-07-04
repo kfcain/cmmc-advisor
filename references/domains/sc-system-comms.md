@@ -365,9 +365,12 @@ be FIPS 140-2 or FIPS 140-3 validated. Check the NIST CMVP list.
   TLS, VPN, email encryption, database encryption)
 - Verify each cryptographic module against the NIST CMVP list:
   https://csrc.nist.gov/projects/cryptographic-module-validation-program
-- Common FIPS-validated modules: Windows BitLocker (with TPM), Apple
-  FileVault (with Apple corecrypto), OpenSSL FIPS Object Module,
-  AWS encryption services (in GovCloud)
+- Common validated modules (verify the current certificate before
+  citing; validations move to Historical status): the Windows
+  cryptographic libraries BitLocker relies on, Apple corecrypto behind
+  FileVault, the OpenSSL 3.x FIPS Provider (the older OpenSSL FIPS
+  Object Module certificates are Historical), AWS encryption services
+  in GovCloud. Check each with `scripts/check_cmvp.py verify`
 - Document FIPS validation certificate numbers for each module
 
 **Evidence to collect:**
@@ -377,10 +380,11 @@ be FIPS 140-2 or FIPS 140-3 validated. Check the NIST CMVP list.
 - Configuration showing FIPS mode is enabled where applicable
 
 **POA&M note:** This practice has a special carve-out. It can be placed
-on a POA&M if encryption exists but is not FIPS-validated, provided
-you are actively pursuing FIPS-validated alternatives. This is the only
-5-point practice with a 3-point-deduction state eligible for POA&M.
-See `poam-management.md`.
+on a POA&M when encryption is employed but is not FIPS-validated
+(32 CFR 170.21(a)(2)(ii)); that is the only condition the rule sets.
+Two practices carry the 3-point partial-deduction state (IA.L2-3.5.3
+and SC.L2-3.13.11), but only SC.L2-3.13.11 is POA&M eligible in that
+state. See `poam-management.md`.
 
 **Common mistakes:**
 - Assuming the algorithm name (AES-256) equals FIPS validation. It does not

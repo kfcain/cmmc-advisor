@@ -180,7 +180,7 @@ if residual permissions exist.
 
 ---
 
-### IA.L2-3.5.6 — Identifier Disabling
+### IA.L2-3.5.6 — Identifier Handling
 
 **Requirement:** Disable identifiers after a defined period of inactivity.
 
@@ -382,10 +382,11 @@ for it early.
   (FIPS-validated cryptography)
 - Federal Risk and Authorization Management Program (FedRAMP)
   inheritance: IA.L2-3.5.3 (MFA) overlaps with FedRAMP Moderate
-  baseline controls derived from NIST SP 800-53 IA-2(1), IA-2(2),
-  and IA-2(3). IA.L2-3.5.4 (replay-resistant authentication) maps
-  to NIST SP 800-53 IA-2(8) and IA-2(9); IA-2(8) was added to the
-  FedRAMP Rev. 5 Moderate baseline and was not in the FedRAMP Rev. 4
-  Moderate baseline. See `references/fedramp-gap.md` "Multi-factor
-  authentication" family deep-dive for the inheritance pattern and
-  the FedRAMP Rev. 4/Rev. 5 baseline delta
+  baseline controls derived from NIST SP 800-53 IA-2(1) and IA-2(2)
+  (800-171 Rev 2's Appendix D mapping also lists the Rev 4-era
+  IA-2(3), withdrawn into IA-2(1) in Rev 5). IA.L2-3.5.4
+  (replay-resistant authentication) maps to NIST SP 800-53 IA-2(8);
+  the Rev 4 Moderate baseline already included IA-2(8) for privileged
+  accounts, the High-only IA-2(9) covered non-privileged accounts,
+  and Rev 5 withdrew IA-2(9) into a broadened IA-2(8). See
+  `references/fedramp-gap.md` for the inheritance pattern

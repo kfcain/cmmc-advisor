@@ -67,12 +67,17 @@ Government.
 
 FCI is broadly defined; almost any non-public contract information qualifies.
 CUI is specifically designated by the Government and carries marking
-requirements. If your contract specifies DFARS 252.204-7012, you are handling
-CUI and need at least Level 2.
+requirements. DFARS 252.204-7012 appears in nearly all DoD contracts
+except COTS-only procurements (DFARS 204.7304(c)), so the clause alone
+does not prove you handle CUI; it is the signal to investigate. The
+required level comes from the CMMC status identified in the
+solicitation.
 
-**Common mistake:** Assuming you only handle FCI when your contract actually
-involves CUI. Review your contract clauses carefully. If DFARS 7012 is
-present, plan for Level 2.
+**Common mistake:** Assuming you only handle FCI when your contract
+actually involves CUI. Review the contract's CMMC level, the CUI
+designations and markings in your deliverables, and what actually
+arrives from the government or the prime; when 7012 is present and CUI
+plausibly flows, plan for Level 2.
 
 > Source: 32 CFR 2002 (CUI Registry); FAR 52.204-21 (FCI safeguarding)
 
@@ -125,8 +130,11 @@ requirements. Document how you manage the risk of CUI exposure on each.
 
 ### 4. Specialized Assets
 
-Government property, IoT devices, operational technology, and test equipment
-that may interact with CUI but cannot implement standard security controls.
+The regulatory list (Table 3 to 32 CFR 170.19(c)(1)): government
+property, Internet of Things (IoT) and Industrial IoT (IIoT) devices,
+operational technology, Restricted Information Systems (systems
+configured per contract requirements), and test equipment: assets that
+can process, store, or transmit CUI but are unable to be fully secured.
 
 **Examples:**
 - Government-furnished equipment (GFE)
@@ -139,8 +147,11 @@ controls can and cannot be applied, and what compensating measures are in place.
 
 ### 5. Out-of-Scope Assets
 
-Assets that do not process, store, or transmit CUI and do not provide
-security functions for CUI assets.
+Assets that cannot process, store, or transmit CUI and do not provide
+security protections for CUI assets. The hinge with Contractor Risk
+Managed Assets is capability: an asset that could handle CUI but is not
+intended to is CRMA, not out of scope, and the OSA must be prepared to
+justify the inability (Table 3 to 32 CFR 170.19(c)(1)).
 
 **Examples:**
 - Public-facing marketing website

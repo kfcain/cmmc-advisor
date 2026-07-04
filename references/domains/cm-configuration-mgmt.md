@@ -250,9 +250,11 @@ You must actively prevent its use.
 
 ### CM.L2-3.4.8 — Application Execution Policy
 
-**Requirement:** Apply deny-by-exception (blocklist) policy to prevent
-the use of unauthorized software or deny-all, permit-by-exception
-(allowlist) policy to allow the execution of authorized software.
+**Requirement:** Apply deny-by-exception (blacklisting) policy to
+prevent the use of unauthorized software or deny-all,
+permit-by-exception (whitelisting) policy to allow the execution of
+authorized software. (The requirement text uses the original NIST
+terms; current usage says blocklist and allowlist.)
 
 **Why it matters:** Controlling which software can execute prevents
 malware, unauthorized tools, and unapproved applications from running

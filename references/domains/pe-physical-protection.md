@@ -161,9 +161,11 @@ to verify the other PE practices are real.
   correlated with logical access events during an investigation
 - Manual logs for spaces without EACS (paper sign-in at server rooms);
   logs reviewed for completeness rather than filed and forgotten
-- Retention commonly 1 to 3 years, guided by contract requirements and
-  the DFARS 252.204-7012(e) 90-day media preservation obligation during
-  incident response
+- Retention commonly 1 to 3 years, guided by contract requirements
+  and the organization's audit-retention policy; note the separate,
+  incident-triggered DFARS 252.204-7012(e) duty to preserve images and
+  monitoring data of affected systems for 90 days from the report date
+  (see `ir-incident-response.md`)
 - Periodic review cadence defined in policy, with a designated reviewer
   who attests to the review in writing
 

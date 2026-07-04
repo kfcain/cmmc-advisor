@@ -95,10 +95,12 @@ process does not exist in any reviewable form.
   configuration change. It flows through the change-control process
   with test, approve, deploy, verify stages. Emergency patches follow
   a compressed but documented path, not a bypass
-- POA&M eligibility: gaps in SI.L2-3.14.1 become POA&M entries only
-  under weight-1 practices plus the SC.L2-3.13.11 encryption carve-out
-  per references/poam-management.md. NIST SP 800-171A scores practices
-  MET or NOT MET; partial implementations score NOT MET
+- POA&M eligibility: SI.L2-3.14.1 carries 5 SPRS points, so a gap
+  here is never eligible for a certification POA&M (only 1-point
+  practices qualify, with the SC.L2-3.13.11 carve-out as the sole
+  exception per references/poam-management.md); it must be MET before
+  the assessment. CMMC scores each practice MET or NOT MET (32 CFR
+  170.24); partial implementations score NOT MET
 - Verification scan to close: a remediation ticket closes only when a
   follow-up scan confirms the flaw is no longer detected. Ticket
   closure on patch deployment without verification is the most common
