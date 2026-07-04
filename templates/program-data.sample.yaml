@@ -272,7 +272,7 @@ discovery:
         CTI plus export-controlled drawings received through GCC High email.
       answered_by: Contracts manager
       confidence: verified
-      affects: [M365 GCC High tenant (Exchange, SharePoint, Teams)]
+      affects: ["M365 GCC High tenant (Exchange, SharePoint, Teams)"]
     - id: QA-0002
       date: "2026-07-02"
       phase: physical-media
