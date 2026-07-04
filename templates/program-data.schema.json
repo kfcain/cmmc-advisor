@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "CMMC Program Data File",
-  "description": "Single source of truth for an organization's CMMC program. Consumed by scripts/generate_ssp.py and scripts/generate_dashboard.py together with references/data/assessment-objectives.json. Maintain as YAML or JSON. Quote all dates and the assessment level as strings in YAML (unquoted dates parse as date objects and fail validation).",
+  "description": "Single source of truth for an organization's CMMC program. Consumed by scripts/generate_ssp.py and scripts/generate_dashboard.py together with references/data/assessment-objectives.json. Maintain as YAML or JSON. Quote all dates as strings in YAML (unquoted dates parse as date objects and fail validation); the assessment level may be a string or an integer.",
   "type": "object",
   "required": [
     "organization",

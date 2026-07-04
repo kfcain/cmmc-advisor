@@ -38,9 +38,10 @@ relative to the directory containing the plugin's SKILL.md.
    ```
 
    Leave `phases` empty (the report treats absent phases as
-   not-started). Quote every date and the level as strings; unquoted
-   YAML dates and integers fail schema validation. Never write into
-   the plugin's own `templates/` directory.
+   not-started). Quote every date as a string; unquoted YAML dates
+   parse as date objects and fail schema validation. The level may be
+   a quoted string or an integer. Never write into the plugin's own
+   `templates/` directory.
 
 ## Session flow
 
