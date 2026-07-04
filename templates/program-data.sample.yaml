@@ -120,6 +120,8 @@ assets:
     - name: HP MFP Floor-2
       location: Building A, adjacent to CUI floor
       baseline_profile: printer-mfp
+      notes: Scan-to-email path unverified; CRMA claim rests on VLAN ACL plus no-CUI-print policy
+      discovery_refs: [QA-0002, OQ-0001]
       baseline_validation:
         validated: "2026-06-15"
         controls: [vlan_acl, admin_mfa, no_cui_print]
@@ -244,6 +246,73 @@ inheritance_sources:
     crm_document: Microsoft 365 GCC High CIS/CRM Appendix J, 2026-03 edition
     boe_reference: vendor-boe/microsoft/2026-03/
     verified: "2026-06-15"
+
+discovery:
+  updated: "2026-07-02"
+  phases:
+    contracts-cui:
+      status: complete
+      last_touched: "2026-06-24"
+      summary: >
+        Two active DoD contracts with 252.204-7012 and 252.204-7021; CUI
+        types are CTI and export-controlled drawings. No DoD SAFE flows.
+    physical-media:
+      status: in-progress
+      last_touched: "2026-07-02"
+      summary: >
+        Print path mapped; scan-to-email path on the Floor-2 MFP still
+        unverified. Paper CUI handling and mail procedures not yet covered.
+  qa_log:
+    - id: QA-0001
+      date: "2026-06-24"
+      phase: contracts-cui
+      question: Which contract clauses obligate CUI safeguarding, and what CUI types flow under them?
+      answer: >
+        Both active contracts carry 252.204-7012 and 252.204-7021. CUI is
+        CTI plus export-controlled drawings received through GCC High email.
+      answered_by: Contracts manager
+      confidence: verified
+      affects: [M365 GCC High tenant (Exchange, SharePoint, Teams)]
+    - id: QA-0002
+      date: "2026-07-02"
+      phase: physical-media
+      question: Can the Floor-2 MFP scan to email, and if so, to which mail system?
+      answer: >
+        Scan-to-email is enabled. The relay target was not known in the
+        session; IT believes it points at the commercial smart host used
+        before the GCC High migration.
+      answered_by: IT lead
+      confidence: reported
+      affects: [HP MFP Floor-2]
+  assumptions:
+    - id: AS-0001
+      date: "2026-07-02"
+      statement: No CUI is scanned at the Floor-2 MFP because signage and policy prohibit it.
+      basis: Policy statement only; no technical control on the scan path was described.
+      risk_if_wrong: >
+        An assessor treats policy-only separation as no separation; a CUI
+        scan through a commercial relay recategorizes the MFP as a CUI
+        asset and pulls its network segment into scope.
+      status: open
+  open_questions:
+    - id: OQ-0001
+      raised: "2026-07-02"
+      phase: physical-media
+      question: What SMTP relay does the Floor-2 MFP scan-to-email path use, and does it transit a commercial mail system?
+      why_it_matters: >
+        A commercial relay in a CUI scan path is an unassessed CSP in the
+        data flow; the assessor follows the flow, not the policy.
+      owner: IT lead
+      status: open
+  decisions:
+    - id: DE-0001
+      date: "2026-06-24"
+      decision: Keep the IGEL thin clients out of scope on the KVM-only VDI pattern.
+      rationale: >
+        Clipboard, drive mapping, printing, and local storage are blocked
+        and validated per the vdi-thin-client-igel baseline checklist;
+        revisit if any redirection setting changes.
+      decided_by: ISSM
 
 requirements:
   AC.L2-3.1.1:
