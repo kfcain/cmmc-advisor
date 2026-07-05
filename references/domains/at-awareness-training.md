@@ -258,6 +258,29 @@ path the reporter trusts.
 
 ---
 
+## FedRAMP-authorized training (SaaS LMS)
+
+When training records, phishing simulations, or curriculum metadata
+live in a **vendor SaaS plane** that touches the CUI workforce, require
+a **Rev 5 Moderate (Class C)** or **High (Class D)** Marketplace package.
+
+**KnowBe4 Platform** (FR2201340492, Rev5 Moderate, FedRAMP Authorized)
+is the common DIB choice for AT.L2-3.2.1 general awareness, AT.L2-3.2.2
+role-based modules, and AT.L2-3.2.3 insider-threat content. Export
+completion reports and campaign results into program data evidence.
+
+**GCC High path:** Training delivered entirely inside Microsoft 365 GCC
+High (compliance/security training plus internal LMS) can satisfy AT
+practices when completion proof is exported from the authorized tenancy
+and mapped objective by objective.
+
+Catalog and package IDs:
+`references/modern-it/security-operations/dib-fedramp-security-tools.md`.
+Marketplace search patterns:
+`references/fedramp-marketplace-guide.md` (security awareness training).
+
+---
+
 ## Domain Summary
 
 | Practices | Level 1 | Level 2 | Total |

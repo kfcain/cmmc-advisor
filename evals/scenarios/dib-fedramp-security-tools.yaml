@@ -4,7 +4,7 @@ category: modern-it
 
 prompt: |
   We run GCC High plus SentinelOne, Tenable, Duo, Palo Alto SASE, Varonis,
-  and Datadog for Government on our CUI enclave. Our ISSM wants to know how
+  Datadog for Government, and KnowBe4 on our CUI enclave. Our ISSM wants to know how
   this skill treats FedRAMP Rev 5 Class C and Class D certified tools common
   in the DIB, and how to map them to CMMC assessment objectives without
   over-claiming inheritance. Where do we look?
@@ -23,7 +23,7 @@ expected_recommendation: |
   for the DIB-common catalog with Marketplace package IDs (SentinelOne High
   FR1919071020A, Tenable Government Solutions FR1814276801, Duo Federal
   FR1823149273, Palo Alto GCS, Varonis, Datadog for Government FR2023864279,
-  etc.) and CMMC family mapping.
+  KnowBe4 Platform FR2201340492, etc.) and CMMC family mapping.
 
   Pair with references/grc/solution-selection.md for Rev5 Moderate = Class C
   floor and Rev5 High = Class D path rules, and references/data/fedramp-snapshot.json

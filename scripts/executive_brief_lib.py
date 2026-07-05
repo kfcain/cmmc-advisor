@@ -17,7 +17,7 @@ FAMILY_SOLUTIONS: dict[str, dict[str, str]] = {
     },
     "AT": {
         "category": "Security awareness / training platform",
-        "marketplace": "FedRAMP-authorized LMS or training record systems where CUI training is tracked in SaaS",
+        "marketplace": "KnowBe4 Platform FR2201340492 (Rev5 Moderate); dib-fedramp-security-tools.md",
         "fallback": "Documented AT program with LMS export; no FedRAMP required if no CUI in vendor",
     },
     "AU": {

@@ -1,6 +1,6 @@
 {
   "schema_version": "1.1",
-  "generated_at": "2026-07-05T22:17:20+00:00",
+  "generated_at": "2026-07-05T22:21:18+00:00",
   "scope_note": "Curated vendor list for productivity, AI services, and DIB security operations tools in the cmmc-advisor corpus. Authorization fields marked marketplace_live are refreshed from the official FedRAMP Marketplace export; DoD IL, CUI suitability, and practitioner notes remain corpus guidance and must still be verified before SSP citation.",
   "marketplace_data_url": "https://raw.githubusercontent.com/FedRAMP/marketplace-fedramp-gov-data/main/fedramp-products.json",
   "marketplace_export_timestamp": "2026-06-02T19:28:40.831Z",
@@ -599,6 +599,29 @@
       "authorization_date": "",
       "status_updated_date": "2026-05-01T04:00:00.000Z",
       "marketplace_website": "atxdefense.com"
+    },
+    {
+      "id": "knowbe4-platform",
+      "product": "KnowBe4 Platform",
+      "vendor": "KnowBe4, Inc.",
+      "dod_impact_level": [],
+      "cui_suitability": "Security awareness training for CUI workforce when records stay in authorized SaaS",
+      "primary_source": "https://marketplace.fedramp.gov; https://www.knowbe4.com/industries/federal",
+      "corpus_references": [
+        "references/modern-it/security-operations/dib-fedramp-security-tools.md",
+        "references/domains/at-awareness-training.md"
+      ],
+      "notes": "Rev5 Class C (Moderate). Maps to AT.L2-3.2.1, 3.2.2, 3.2.3; export completion and simulation evidence.",
+      "authorization_scope": "direct_package",
+      "marketplace_package_id": "FR2201340492",
+      "marketplace_product_name": "KnowBe4 Platform",
+      "marketplace_vendor_name": "KnowBe4, Inc.",
+      "fedramp_impact_level": "Moderate",
+      "authorization_status": "FedRAMP Authorized",
+      "authorization_type": "Agency (Rev5)",
+      "authorization_date": "2023-11-14T05:00:00.000Z",
+      "status_updated_date": "2023-11-14T05:00:00.000Z",
+      "marketplace_website": "https://www.knowbe4.com/federal"
     }
   ]
 }

@@ -25,6 +25,7 @@ Method: `references/grc/evidence-automation.md`
 | Capability | Primary CMMC families | Typical platforms | Collector ids |
 |------------|----------------------|-------------------|---------------|
 | **MFA / identity** | IA (3.5.x), AC (3.1.8, 3.1.12–15) | Entra CA, Duo, IAM Identity Center | `entra-conditional-access`, `entra-signins`, `duo-auth-logs` |
+| **Security awareness** | AT (3.2.x) | KnowBe4 Platform, GCC High training | Completion exports; see at-awareness-training.md |
 | **EDR / XDR** | SI (3.14.x), partial AU (3.3.1) | Defender, CrowdStrike, SentinelOne | `defender-endpoint`, `crowdstrike-hosts` |
 | **SIEM / correlation** | AU (3.3.x), SI (3.14.6) | Sentinel, Splunk, Datadog Gov | `sentinel-health`, `splunk-ingest-health` |
 | **SASE / ZTNA** | SC (3.13.1, 3.13.6–8), AC (3.1.3) | Zscaler ZIA, Prisma Access, Entra Private Access | `zscaler-policy`, `prisma-access-rules` |

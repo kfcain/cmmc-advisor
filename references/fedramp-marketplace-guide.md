@@ -35,7 +35,7 @@ sequencing per contractor size).
 
 For **named DIB security tools** (SentinelOne, Tenable, Duo, Palo
 Alto, Varonis, Datadog, AvePoint, ThousandEyes, Deltek, RSA ID Plus,
-ATX Defense CMMC Space) with Rev 5 Class C/D package IDs and CMMC
+KnowBe4, ATX Defense CMMC Space) with Rev 5 Class C/D package IDs and CMMC
 practice mapping, read
 `references/modern-it/security-operations/dib-fedramp-security-tools.md`.
 
@@ -55,10 +55,11 @@ need.
 Covered:
 
 - Search patterns and filters for marketplace.fedramp.gov.
-- Curated category short-lists for ~10 capability areas where
+- Curated category short-lists for capability areas where
   DIB contractors commonly need tooling: email security, file
   collaboration, SIEM, EDR/endpoint, vulnerability management,
-  IAM/PAM, DLP, network security/SASE, backup and recovery, GRC.
+  IAM/PAM, DLP, network security/SASE, backup and recovery, GRC,
+  security awareness training (KnowBe4 and peers).
 - Coverage-gap analysis: categories where FedRAMP High supply is
   constrained and the industry is still building options.
 - Sequencing recommendations: how to order tooling investment
@@ -474,6 +475,32 @@ customers.
 have retired or transitioned; current-generation vendors
 (Kiteworks, Axway, IBM Sterling) hold active packages but
 coverage at High is narrower than at Moderate.
+
+### Security awareness training
+
+**In scope.** Security awareness and role-based training platforms
+where training records, phishing simulations, or curriculum content
+touch CUI systems or the CUI workforce. CMMC **AT** family (3.2.1,
+3.2.2, 3.2.3).
+
+**Representative vendors.**
+
+- **KnowBe4 Platform** FR2201340492 (Rev5 Moderate, FedRAMP
+  Authorized). Common DIB choice for AT.L2-3.2.1 general awareness,
+  3.2.2 role-based training, and 3.2.3 insider-threat modules.
+  Export completion reports and campaign results; map to assessment
+  objectives in `references/domains/at-awareness-training.md`.
+- Primary-suite training (Microsoft Viva Learning / compliance
+  training in GCC High) when curriculum and records stay inside the
+  authorized tenancy and satisfy all AT objectives.
+
+**Gap note.** Many commercial LMS products are not FedRAMP-authorized.
+If training records live in SaaS, require Rev5 Moderate (Class C) or
+High (Class D) package scope. On-prem LMS with no CUI in the vendor
+plane is a fit decision, not a Marketplace search.
+
+**Cross-reference:** `references/modern-it/security-operations/dib-fedramp-security-tools.md`
+(AT catalog row).
 
 ---
 

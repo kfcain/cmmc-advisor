@@ -134,6 +134,23 @@ On-premises **PAN-OS** NGFW is not FedRAMP-authorized as bare metal; use
 `on-prem-inspectors.md` and CIS/STIG baselines. **Strata Cloud Manager** applies
 to cloud-managed Palo Alto services in authorized packages.
 
+### Security awareness training (AT family)
+
+| Product | Package ID | Level | Rev | Primary CMMC families | Evidence notes |
+|---------|------------|-------|-----|----------------------|----------------|
+| **KnowBe4 Platform** | FR2201340492 | Moderate | Rev5 | AT (3.2.1, 3.2.2, 3.2.3) | Completion reports; phishing simulation results; role-based module assignments |
+
+KnowBe4 is a common DIB choice when training records and simulations run in
+**authorized SaaS** rather than spreadsheets or a non-FedRAMP LMS. Pair with
+`references/domains/at-awareness-training.md` for objective-level narratives.
+
+**GCC High alternative:** Microsoft compliance and security training delivered
+entirely inside GCC High may satisfy AT practices when completion proof comes
+from Purview/Entra reports; document which objectives each curriculum covers.
+
+Do not store **CUI-bearing job content** in the LMS unless the package scope
+explicitly includes that data class.
+
 ### ERP, GovCon systems, and program data
 
 | Product | Package ID | Level | Rev | Primary CMMC families | Evidence notes |
@@ -211,6 +228,12 @@ SASE + CrowdStrike Falcon Gov + Qualys Gov.
 GCC High + Varonis or AvePoint for SharePoint/file governance + on-prem PAN-OS
 (collector) + ThousandEyes for supplier portal path monitoring + Deltek
 Costpoint (when Authorized) for contract data.
+
+**Pattern D: Awareness training in authorized SaaS**
+
+GCC High + **KnowBe4 Platform** FR2201340492 for AT.L2-3.2.x completion and
+phishing simulation evidence, or primary-suite training when records stay in
+GCC High and cover all objectives.
 
 Each pattern still requires **scope diagrams** from `generate_diagrams.py` and
 **CRM rows** for every inherited SaaS control.

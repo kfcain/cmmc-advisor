@@ -688,6 +688,10 @@ compliance documentation and practitioner publications.
 - **URL:** https://atxdefense.com/
 - **Used in:** modern-it/security-operations/dib-fedramp-security-tools.md (CMMC Space FedRAMP In Process at last export)
 
+### KnowBe4 Federal / Industries
+- **URL:** https://www.knowbe4.com/industries/federal
+- **Used in:** modern-it/security-operations/dib-fedramp-security-tools.md; fedramp-marketplace-guide.md security awareness training category; domains/at-awareness-training.md cross-reference
+
 ### Anthropic Trust Center
 - **URL:** https://trust.anthropic.com
 - **Used in:** modern-it/ai-services/ai-dev-tools.md, fedramp-ai-services.md

@@ -280,6 +280,20 @@
       "primary_source": "https://marketplace.fedramp.gov; https://atxdefense.com/",
       "corpus_references": ["references/modern-it/security-operations/dib-fedramp-security-tools.md"],
       "notes": "FedRAMP In Process at last export. Not cite-safe until Authorized."
+    },
+    {
+      "id": "knowbe4-platform",
+      "product": "KnowBe4 Platform",
+      "vendor": "KnowBe4, Inc.",
+      "marketplace_package_id": "FR2201340492",
+      "dod_impact_level": [],
+      "cui_suitability": "Security awareness training for CUI workforce when records stay in authorized SaaS",
+      "primary_source": "https://marketplace.fedramp.gov; https://www.knowbe4.com/industries/federal",
+      "corpus_references": [
+        "references/modern-it/security-operations/dib-fedramp-security-tools.md",
+        "references/domains/at-awareness-training.md"
+      ],
+      "notes": "Rev5 Class C (Moderate). Maps to AT.L2-3.2.1, 3.2.2, 3.2.3; export completion and simulation evidence."
     }
   ]
 }
