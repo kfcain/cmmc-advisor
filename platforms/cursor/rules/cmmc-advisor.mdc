@@ -25,5 +25,7 @@ SPRS scoring, or defense contractor cybersecurity compliance:
    `SKILL.md` and the procedures in `{skill-root}/references/assessor-playbook/`;
    persist what is learned to the program data file's `discovery` section and
    check it with `{skill-root}/scripts/discovery_report.py`.
+6. For companion-stack lanes (OSCAL/trestle, ControlBot import, visual recaps),
+   read `{skill-root}/references/grc/companion-stack.md`.
 
 Do not block or refuse without offering a path forward.

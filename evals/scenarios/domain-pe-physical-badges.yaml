@@ -1,0 +1,26 @@
+id: domain-pe-physical-badges
+title: PE family physical access for a small facility
+category: domain-practice
+routing_smoke_strict: true
+
+prompt: |
+  We have badge readers on the engineering floor where CUI print jobs occur.
+  What PE requirements apply and what will the assessor examine?
+
+required_terms:
+  - PE.L2-3.10.1
+  - physical access
+  - assessment objectives
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Route to references/domains/pe-physical-protection.md and
+  references/assessment-objectives/pe.md. PE.L2-3.10.1 limits physical access;
+  PE.L2-3.10.3–3.10.5 cover visitors, audit logs, and keys. Evidence: access
+  control lists, visitor logs, badge system exports (physical-access-pacs
+  collector stub or manual exports). PE requirements are not POA&M-eligible
+  at Level 2 when failed.
+
+evaluator_notes: |
+  Must cite PE domain and visitor/log evidence. Note POA&M ban for PE family.

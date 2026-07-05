@@ -61,15 +61,21 @@ fi
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 OSCAL_ABS="$(cd "$(dirname "${OSCAL_FILE}")" && pwd)/$(basename "${OSCAL_FILE}")"
 
-mkdir -p "${WORKSPACE}"
-cd "${REPO_ROOT}/${WORKSPACE}"
+if [[ "${WORKSPACE}" = /* ]]; then
+  WS_DIR="${WORKSPACE}"
+else
+  WS_DIR="${REPO_ROOT}/${WORKSPACE#./}"
+fi
+
+mkdir -p "${WS_DIR}"
+cd "${WS_DIR}"
 
 if [[ ! -f .trestle/config.json ]]; then
-  echo "initializing trestle workspace at ${WORKSPACE}"
+  echo "initializing trestle workspace at ${WS_DIR}"
   trestle init
 fi
 
-IMPORT_NAME="cmmc-imported-ssp"
+IMPORT_NAME="cmmc-imported-ssp-$(date +%Y%m%d%H%M%S)"
 echo "importing ${OSCAL_ABS} as ${IMPORT_NAME}"
 trestle import -f "${OSCAL_ABS}" -o "${IMPORT_NAME}"
 

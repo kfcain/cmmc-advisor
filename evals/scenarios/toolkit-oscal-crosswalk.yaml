@@ -51,6 +51,6 @@ expected_recommendation: |
 evaluator_notes: |
   Accuracy essentials: 800-53-crosswalk.json as the lookup mechanism,
   Appendix D as the mapping source, generate_oscal_ssp.py for OSCAL,
-  program data as single source, CRM inheritance caveats, compliance-
-  trestle as validation reference. Enabler posture: concrete workflow
+  validate_oscal_ssp.sh or trestle-skills validate, companion-stack doc,
+  program data as single source, CRM inheritance caveats. Enabler posture: concrete workflow
   for GCC High CRM row to CMMC objective tracing.

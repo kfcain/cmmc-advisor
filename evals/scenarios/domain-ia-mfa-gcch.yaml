@@ -1,0 +1,29 @@
+id: domain-ia-mfa-gcch
+title: IA MFA and phishing-resistant auth in GCC High
+category: domain-practice
+routing_smoke_strict: true
+
+prompt: |
+  We require phishing-resistant MFA for CUI users via Conditional Access in
+  GCC High. Map this to IA requirements and the assessment objectives an
+  assessor will test.
+
+required_terms:
+  - IA.L2-3.5.3
+  - MFA
+  - Conditional Access
+  - assessment objectives
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Read references/domains/ia-identification-auth.md,
+  references/assessment-objectives/ia.md, and
+  references/modern-it/productivity/gcch-implementation-workbook.md
+  Phase 2 Identity. IA.L2-3.5.3 MFA and Conditional Access map to objectives 3.5.3[a–d]; partial
+  credit applies under DoD methodology when implemented but not fully
+  assessed. Evidence: CA policy exports, auth method registration reports,
+  entra-signins collector output. Connect-MgGraph -Environment USGov for GCC High.
+
+evaluator_notes: |
+  Must cite IA objectives and GCC High identity routing. Enabler posture.

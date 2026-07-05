@@ -908,6 +908,8 @@ cutting files and domain practice files:
   "Inherited vs shared-responsibility controls."
 - **CUI scoping.** `references/scoping-and-cui.md`.
 - **SSP authoring.** `references/ssp-guidance.md`.
+- **GCC High phased rollout.** `references/modern-it/productivity/gcch-implementation-workbook.md`
+  (workbook workstreams mapped to assessment objectives).
 
 Domain practice files used for requirement text and evidence
 lists:

@@ -11,6 +11,8 @@ SSP/POA&M, or defense contractor compliance **content** (not harness code):
 1. Read `SKILL.md` and follow its Knowledge Base Routing table.
 2. Read referenced files under `references/` before answering from memory.
 3. Preserve the enabler posture from `SKILL.md`.
+4. For OSCAL/trestle validation, ControlBot import, or visual recaps, read
+   `references/grc/companion-stack.md`.
 
 Full contributor rules: `CLAUDE.md`.
 

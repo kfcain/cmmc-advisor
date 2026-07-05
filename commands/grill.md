@@ -72,6 +72,9 @@ relative to the directory containing the plugin's SKILL.md.
    nodes and flows) and apply it only on confirmation.
 6. Close the session with: the discovery report summary, the phase's exit
    criteria met or missed, and the top three open questions with owners.
+7. When the session summary exceeds terminal-friendly size (roughly 4+ rows
+   in a table), offer a visual-explainer HTML recap per
+   `references/grc/companion-stack.md` and `platforms/visual-explainer/`.
 
 ## Rules
 

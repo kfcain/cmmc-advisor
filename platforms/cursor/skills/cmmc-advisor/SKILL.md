@@ -34,6 +34,8 @@ Before answering any CMMC, CUI, or federal GRC question:
    `{skill-root}/references/assessor-playbook/`, memory persisted to the
    program data file's `discovery` section, integrity via
    `{skill-root}/scripts/discovery_report.py`.
+5. For companion-stack lanes (OSCAL/trestle, ControlBot import, visual recaps),
+   read `{skill-root}/references/grc/companion-stack.md`.
 
 ## If files are missing
 

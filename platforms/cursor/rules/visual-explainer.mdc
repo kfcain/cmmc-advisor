@@ -8,10 +8,10 @@ When the user asks for a visual gap analysis, mock-assessment recap, scope-disco
 summary, architecture diagram, plan review, or complex comparison table during
 CMMC advisory work:
 
-1. Read `references/grc/companion-stack.md` in the CMMC Advisor skill root to
-   confirm visual-explainer is appropriate (ad hoc recap) vs
-   `scripts/generate_dashboard.py` or `scripts/generate_diagrams.py` (authoritative
-   program views).
+1. Read `{skill-root}/references/grc/companion-stack.md` in the CMMC Advisor
+   skill root to confirm visual-explainer is appropriate (ad hoc recap) vs
+   `{skill-root}/scripts/generate_dashboard.py` or
+   `{skill-root}/scripts/generate_diagrams.py` (authoritative program views).
 2. Read the canonical `visual-explainer` skill at
    `.visual-explainer/plugins/visual-explainer/SKILL.md` (or
    `.cursor/skills/visual-explainer/SKILL.md` when symlinked). Follow its workflow

@@ -108,12 +108,11 @@ The generator:
 4. Preserves objective-level detail in back-matter (embed the program data
    file with `--embed-program` for sidecar linkage).
 
-**Validation path.** Run the output through IBM compliance-trestle or the
-FedRAMP OSCAL validation rules in GSA/fedramp-automation before treating
-the file as submission-ready. This generator produces a CMMC-informed
-starting point, not a FedRAMP authorization package. FedRAMP-specific
-extensions (conformance tags, attachment structures, registry props) still
-require the FedRAMP guides and templates.
+**Validation path.** Run the output through `./scripts/validate_oscal_ssp.sh`
+(when compliance-trestle is installed) or compliance-trestle-skills. Full
+companion-stack workflow: `references/grc/companion-stack.md`. The generator
+produces a CMMC-informed starting point, not a FedRAMP authorization package.
+FedRAMP-specific extensions still require the FedRAMP guides and templates.
 
 **Profile selection.** `--profile moderate` matches most defense-contractor
 CUI environments evaluating FedRAMP Moderate CSPs. Use `--profile high`

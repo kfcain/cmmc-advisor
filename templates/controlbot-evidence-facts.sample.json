@@ -1,0 +1,41 @@
+{
+  "schema": "controlbot.evidence-facts.v1",
+  "generated_at": "2026-07-04T12:00:00.000Z",
+  "summary": {
+    "total": 2,
+    "observed": 1,
+    "missing": 0,
+    "warnings": 1,
+    "not_applicable": 0,
+    "by_source": { "terraform": 2 },
+    "by_control_family": { "SC": 2, "AC": 1 }
+  },
+  "facts": [
+    {
+      "id": "terraform.aws_s3_bucket.cui_exports.public_ingress",
+      "type": "network_exposure",
+      "source": "terraform",
+      "path": "terraform/storage.tf",
+      "line": 12,
+      "subject": "aws_s3_bucket.cui_exports",
+      "summary": "Bucket policy allows public read access.",
+      "controls": ["SC-7", "AC-4"],
+      "confidence": "deterministic",
+      "disposition": "warning",
+      "metadata": {}
+    },
+    {
+      "id": "terraform.aws_s3_bucket.cui_exports.inventory",
+      "type": "resource_inventory",
+      "source": "terraform",
+      "path": "terraform/storage.tf",
+      "line": 12,
+      "subject": "aws_s3_bucket.cui_exports",
+      "summary": "Terraform declares aws_s3_bucket.cui_exports.",
+      "controls": ["CM-8"],
+      "confidence": "deterministic",
+      "disposition": "observed",
+      "metadata": {}
+    }
+  ]
+}

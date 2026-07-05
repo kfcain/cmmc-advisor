@@ -6,8 +6,8 @@ Reads ControlBot artifacts (external repo: github.com/ethanolivertroy/controlbot
   - evidence-facts.json (schema controlbot.evidence-facts.v1, optional)
 
 Maps NIST SP 800-53 controls through references/data/800-53-crosswalk.json,
-writes per-requirement poam blocks and evidence links. Does not auto-set
-conformity MET; ISSM review and validate_poam.py still apply.
+writes per-requirement poam blocks and evidence links. Does not set conformity
+unless --write-conformity is passed. ISSM review and validate_poam.py apply.
 
 Usage (from repo root):
     python3 scripts/import_controlbot_seeds.py poam-seeds.json program-data.yaml
@@ -27,7 +27,7 @@ from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from crosswalk_lib import control_to_cmmc, controls_to_cmmc, load_crosswalk  # noqa: E402
+from crosswalk_lib import controls_to_cmmc, load_crosswalk  # noqa: E402
 from evidence_lib import merge_collector_result  # noqa: E402
 from merge_findings import load_program, save_program  # noqa: E402
 
@@ -36,6 +36,13 @@ SEVERITY_PRIORITY = {
     "HIGH": "High",
     "MEDIUM": "Medium",
     "LOW": "Low",
+}
+
+STATUS_MAP = {
+    "open": "open",
+    "closed": "closed",
+    "in-progress": "in-progress",
+    "in progress": "in-progress",
 }
 
 
@@ -47,9 +54,7 @@ def _existing_seed_ids(program: dict) -> set[str]:
     seen: set[str] = set()
     for entry in (program.get("requirements") or {}).values():
         poam = entry.get("poam") or {}
-        desc = poam.get("description") or ""
-        plan = entry.get("remediation_plan") or ""
-        for text in (desc, plan):
+        for text in (poam.get("description") or "", entry.get("remediation_plan") or ""):
             start = text.find("[controlbot:")
             if start >= 0:
                 end = text.find("]", start)
@@ -59,8 +64,11 @@ def _existing_seed_ids(program: dict) -> set[str]:
 
 
 def _ensure_requirement(program: dict, req_id: str) -> dict:
-    reqs = program.setdefault("requirements", {})
-    return reqs.setdefault(req_id, {})
+    return program.setdefault("requirements", {}).setdefault(req_id, {})
+
+
+def _poam_status(raw: str) -> str:
+    return STATUS_MAP.get(raw.strip().lower().replace("_", "-"), "open")
 
 
 def _apply_poam_seed(
@@ -69,27 +77,35 @@ def _apply_poam_seed(
     seed: dict[str, Any],
     *,
     seen: set[str],
+    existing_ids: set[str],
     generated_at: str,
+    write_conformity: bool,
+    force_overwrite: bool,
 ) -> bool:
     seed_id = str(seed.get("id") or "")
     dedup_key = f"{req_id}:{seed_id}"
-    if dedup_key in seen or seed_id in _existing_seed_ids(program):
+    if dedup_key in seen or seed_id in existing_ids:
         return False
 
     entry = _ensure_requirement(program, req_id)
+    existing = entry.get("poam") or {}
+    if existing and not force_overwrite:
+        desc = existing.get("description") or ""
+        if _seed_marker(seed_id) not in desc and "[controlbot:" not in desc:
+            return False
+
     severity = str(seed.get("severity") or "MEDIUM").upper()
     weakness = str(seed.get("weakness") or "ControlBot finding")
     remediation = str(seed.get("recommended_remediation") or "")
     marker = _seed_marker(seed_id)
-    description = f"{weakness} {marker}".strip()
 
     entry["poam"] = {
         "priority": SEVERITY_PRIORITY.get(severity, "Medium"),
-        "description": description[:500],
+        "description": f"{weakness} {marker}".strip()[:500],
         "opened": generated_at[:10],
         "due": str(seed.get("due_date") or "")[:10] or None,
         "owner": str(seed.get("owner") or "TBD"),
-        "status": "open" if str(seed.get("status", "Open")).lower() == "open" else "in-progress",
+        "status": _poam_status(str(seed.get("status", "Open"))),
         "actions": [remediation[:500]] if remediation else [],
     }
     if entry["poam"].get("due") is None:
@@ -100,12 +116,20 @@ def _apply_poam_seed(
         plan_parts.append("Merge-blocking in IaC pipeline.")
     entry["remediation_plan"] = " ".join(p for p in plan_parts if p).strip()
 
-    conf = entry.get("conformity")
-    if conf not in ("met", "not-applicable", "inherited"):
-        entry["conformity"] = "not-met" if seed.get("merge_blocking") else "partially-met"
+    if write_conformity:
+        conf = entry.get("conformity")
+        if conf not in ("met", "not-applicable", "inherited"):
+            entry["conformity"] = "not-met" if seed.get("merge_blocking") else "partially-met"
 
     seen.add(dedup_key)
+    existing_ids.add(seed_id)
     return True
+
+
+def _fact_collector_id(fact: dict[str, Any]) -> str:
+    raw = fact.get("id") or f"{fact.get('path')}:{fact.get('line')}:{fact.get('subject')}"
+    digest = hashlib.sha256(str(raw).encode()).hexdigest()[:12]
+    return f"controlbot-{fact.get('source', 'evidence')}-{digest}"
 
 
 def _merge_evidence_fact(
@@ -114,7 +138,7 @@ def _merge_evidence_fact(
     crosswalk: dict[str, Any],
     collected_at: str,
 ) -> int:
-    disposition = str(fact.get("disposition") or "")
+    disposition = str(fact.get("disposition") or "observed")
     if disposition not in ("observed", "warning"):
         return 0
 
@@ -126,7 +150,7 @@ def _merge_evidence_fact(
     path = str(fact.get("path") or "unknown")
     line = fact.get("line")
     link = f"{path}:{line}" if line else path
-    name = str(fact.get("summary") or fact.get("subject") or "ControlBot evidence")[:200]
+    name = str(fact.get("summary") or fact.get("detail") or fact.get("subject") or "ControlBot evidence")[:200]
     merged = 0
     for req_id in cmmc_ids:
         merge_collector_result(
@@ -135,7 +159,7 @@ def _merge_evidence_fact(
                 "requirement_id": req_id,
                 "objectives": ["a"],
                 "artifact_name": name,
-                "collector": f"controlbot-{fact.get('source', 'evidence')}",
+                "collector": _fact_collector_id(fact),
                 "source_system": "ControlBot",
                 "refresh_bucket": "machine",
             },
@@ -146,20 +170,41 @@ def _merge_evidence_fact(
     return merged
 
 
+def _seed_inline_facts(seed: dict[str, Any]) -> list[dict[str, Any]]:
+    controls = seed.get("controls") or []
+    if isinstance(seed.get("control"), str) and not controls:
+        controls = [c.strip() for c in seed["control"].split(",") if c.strip()]
+    facts: list[dict[str, Any]] = []
+    for ev in seed.get("evidence") or []:
+        facts.append(
+            {
+                **ev,
+                "controls": controls,
+                "source": seed.get("source", "checkov"),
+                "disposition": "observed",
+                "id": f"{seed.get('id')}-ev-{ev.get('path')}-{ev.get('line')}",
+            }
+        )
+    return facts
+
+
 def import_controlbot(
     program: dict,
     seeds_doc: dict[str, Any],
     crosswalk: dict[str, Any],
     evidence_doc: dict[str, Any] | None = None,
+    *,
+    write_conformity: bool = False,
+    force_overwrite: bool = False,
 ) -> dict[str, Any]:
     if seeds_doc.get("schema") != "controlbot.poam-seeds.v1":
         raise ValueError(f"unexpected poam-seeds schema: {seeds_doc.get('schema')}")
 
     seen: set[str] = set()
+    existing_ids = _existing_seed_ids(program)
     poam_applied = 0
     unmapped_seeds: list[str] = []
     requirements_touched: set[str] = set()
-
     generated_at = str(seeds_doc.get("generated_at") or date.today().isoformat())[:10]
 
     for seed in seeds_doc.get("seeds") or []:
@@ -171,17 +216,35 @@ def import_controlbot(
             unmapped_seeds.append(str(seed.get("id") or seed.get("weakness")))
             continue
         for req_id in cmmc_ids:
-            if _apply_poam_seed(program, req_id, seed, seen=seen, generated_at=generated_at):
+            if _apply_poam_seed(
+                program,
+                req_id,
+                seed,
+                seen=seen,
+                existing_ids=existing_ids,
+                generated_at=generated_at,
+                write_conformity=write_conformity,
+                force_overwrite=force_overwrite,
+            ):
                 poam_applied += 1
                 requirements_touched.add(req_id)
 
     evidence_links = 0
+    inline_facts: list[dict[str, Any]] = []
+    for seed in seeds_doc.get("seeds") or []:
+        inline_facts.extend(_seed_inline_facts(seed))
+
+    facts_to_merge: list[dict[str, Any]] = list(inline_facts)
     if evidence_doc:
         if evidence_doc.get("schema") != "controlbot.evidence-facts.v1":
             raise ValueError(f"unexpected evidence-facts schema: {evidence_doc.get('schema')}")
-        collected_at = str(evidence_doc.get("generated_at") or date.today().isoformat())[:10]
-        for fact in evidence_doc.get("facts") or []:
-            evidence_links += _merge_evidence_fact(program, fact, crosswalk, collected_at)
+        facts_to_merge.extend(evidence_doc.get("facts") or [])
+
+    collected_at = str(
+        (evidence_doc or {}).get("generated_at") or seeds_doc.get("generated_at") or date.today().isoformat()
+    )[:10]
+    for fact in facts_to_merge:
+        evidence_links += _merge_evidence_fact(program, fact, crosswalk, collected_at)
 
     summary = seeds_doc.get("summary") or {}
     program["controlbot_import"] = {
@@ -218,6 +281,16 @@ def main() -> int:
     ap.add_argument("program_data", type=Path, help="program data YAML or JSON to update")
     ap.add_argument("--evidence", type=Path, help="optional ControlBot evidence-facts.json")
     ap.add_argument("--dry-run", action="store_true", help="report mapping only; do not write program data")
+    ap.add_argument(
+        "--write-conformity",
+        action="store_true",
+        help="opt-in: set not-met/partially-met from merge-blocking seeds (default: POA&M only)",
+    )
+    ap.add_argument(
+        "--force-poam-overwrite",
+        action="store_true",
+        help="replace existing POA&M blocks even when not ControlBot-sourced",
+    )
     args = ap.parse_args()
 
     seeds_doc = load_json(args.poam_seeds)
@@ -225,7 +298,17 @@ def main() -> int:
     program = load_program(args.program_data)
     crosswalk = load_crosswalk()
 
-    result = import_controlbot(program, seeds_doc, crosswalk, evidence_doc)
+    try:
+        result = import_controlbot(
+            program,
+            seeds_doc,
+            crosswalk,
+            evidence_doc,
+            write_conformity=args.write_conformity,
+            force_overwrite=args.force_poam_overwrite,
+        )
+    except ValueError as exc:
+        sys.exit(str(exc))
 
     print(f"baseline: {seeds_doc.get('baseline', 'unknown')}")
     print(f"poam entries applied: {result['poam_applied']}")

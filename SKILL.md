@@ -64,7 +64,7 @@ from memory alone when a reference exists.
 | Mapping inherited controls from a FedRAMP CRM / CIS Appendix J / BoE | `references/grc/inherited-controls-mapping.md` |
 | Which policy covers which requirement, policy coverage gaps | `references/grc/policy-mapping.md` |
 | Compliance roles, policy lifecycle, change management, 72-hour incident reporting | `references/grc/program-governance.md` |
-| Specific domain practices (AC, IA, SC, etc.) | `references/domains/{domain}.md` |
+| Specific domain practices (AC, IA, SC, etc.) | `references/domains/README.md` (family index) + `references/domains/{family-file}.md` |
 | Assessment objectives for a practice, what the assessor will examine, interview, or test | `references/assessment-objectives/{ac,at,au,ca,cm,ia,ir,ma,mp,pe,ps,ra,sc,si}.md` |
 | SPRS point value of a requirement, partial credit rules | `references/assessment-objectives/{domain}.md` |
 | AWS GovCloud compliance | `references/modern-it/cloud-platforms/aws-govcloud.md` |
@@ -73,6 +73,7 @@ from memory alone when a reference exists.
 | Cloud platform selection | `references/modern-it/cloud-platforms/cloud-selection.md` |
 | Productivity suite overview, vendor selection, tier-level authorization snapshot | `references/modern-it/productivity/README.md` |
 | Microsoft 365 GCC or GCC High | `references/modern-it/productivity/microsoft-365-gcc.md` |
+| GCC High phased implementation mapped to AOs | `references/modern-it/productivity/gcch-implementation-workbook.md` + `references/data/gcch-workbook-manifest.json` |
 | Google Workspace compliance | `references/modern-it/productivity/google-workspace.md` |
 | Atlassian, ServiceNow, legacy tools | `references/modern-it/productivity/legacy-dib-tools.md` |
 | AI services overview, decisions, capability crosswalk | `references/modern-it/ai-services/README.md` |
@@ -219,26 +220,12 @@ in back-matter. Validate with compliance-trestle or FedRAMP OSCAL rules
 before treating the file as submission-ready; it is a CMMC-informed
 starting point, not a complete FedRAMP authorization package.
 
-**Validate OSCAL and trestle roundtrip.** After emitting OSCAL, run
-`./scripts/validate_oscal_ssp.sh <ssp.oscal.json>` when
-compliance-trestle is installed, or follow
-`references/grc/companion-stack.md` to import and validate with
-compliance-trestle-skills (`/compliance-trestle:workspace-validate`).
-Regenerate OSCAL from program data before each trestle import.
-
-**Import ControlBot IaC findings.** When engineering runs ControlBot on
-Terraform PRs, import `poam-seeds.json` (and optional
-`evidence-facts.json`) with
-`python3 scripts/import_controlbot_seeds.py <seeds> <program-data>`
-then `python3 scripts/validate_poam.py`. Map inherited controls in
-`.controlbot/profile.yaml` from program data `inheritance_sources`. See
-`references/grc/companion-stack.md`.
-
-**Visual advisory recaps.** For grill, mock-assess, or red-team output
-that exceeds terminal-friendly tables, offer visual-explainer HTML per
-`references/grc/companion-stack.md` and `platforms/visual-explainer/`.
-Use `generate_dashboard.py` and `generate_diagrams.py` for authoritative
-program views; visual-explainer is for working notes.
+**Validate OSCAL and companion handoffs.** After emitting OSCAL, run
+`./scripts/validate_oscal_ssp.sh` when trestle is installed, or follow
+`references/grc/companion-stack.md` for trestle-skills, ControlBot import
+(`import_controlbot_seeds.py`), ControlBot profile export
+(`export_controlbot_profile.py`), and visual-explainer recaps. Regenerate OSCAL
+from program data before each trestle import.
 
 **Build a public trust center.** When the user needs an outward-facing
 security page for customers or primes, populate the `trust_center` section
@@ -270,7 +257,9 @@ Engineering Club Finding JSON (external dependency) via
 `python3 scripts/export_sprs.py` and C3PAO bundles with
 `python3 scripts/export_evidence_package.py` before assessment; regenerate the
 dashboard to review the Evidence freshness tab and SPRS diff against
-`sprs_submission`. Never store API secrets in the program data file.
+`sprs_submission`. Most collectors emit `live_stub` envelopes until the org
+wires live APIs or external GRC inspector plugins; Meridian covers live GCP
+ConMon. Never store API secrets in the program data file.
 
 **Prepare for assessment and POA&M closeout.** Generate mock-assessment packs
 with `python3 scripts/generate_mock_assessment.py` (examine/interview/test lists
@@ -362,7 +351,8 @@ the same procedures when the user asks for them in their own words:
   out-of-scope and CRMA claims, inheritance assertions, reported or
   assumed answers, and stale entries. Ranked challenge report with a
   citation and the surviving evidence per challenge; writes
-  open_questions by default and never conformity.
+   open_questions by default and never conformity. When the challenge report is
+   large, offer visual-explainer HTML per `references/grc/companion-stack.md`.
 
 ## Audience Adaptation
 

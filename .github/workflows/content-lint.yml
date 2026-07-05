@@ -80,6 +80,47 @@ jobs:
           assert len(snap["vendors"]) >= 1
           print("FRMR snapshot ok")
           EOF
+      - name: Eval routing smoke
+        run: python3 scripts/eval_routing_smoke.py
+      - name: ControlBot profile export smoke
+        run: |
+          pip install pyyaml
+          python3 scripts/export_controlbot_profile.py templates/program-data.sample.yaml --stdout | head -5
+      - name: ControlBot import smoke
+        run: |
+          pip install pyyaml
+          cp templates/program-data.sample.yaml /tmp/program-import-test.yaml
+          python3 scripts/import_controlbot_seeds.py \
+            templates/controlbot-poam-seeds.sample.json \
+            /tmp/program-import-test.yaml --dry-run
+          python3 scripts/import_controlbot_seeds.py \
+            templates/controlbot-poam-seeds.sample.json \
+            /tmp/program-import-test.yaml \
+            --evidence templates/controlbot-evidence-facts.sample.json
+          python3 scripts/validate_poam.py /tmp/program-import-test.yaml
+          python3 - <<'EOF'
+          import yaml
+          p = yaml.safe_load(open("/tmp/program-import-test.yaml"))
+          assert p.get("controlbot_import", {}).get("poam_applied", 0) >= 1
+          touched = False
+          for rid, entry in (p.get("requirements") or {}).items():
+              poam = (entry or {}).get("poam") or {}
+              if "[controlbot:" in poam.get("description", ""):
+                  touched = True
+                  break
+          assert touched, "expected controlbot poam marker on a requirement"
+          print("controlbot import ok")
+          EOF
+      - name: OSCAL SSP emit smoke
+        run: |
+          pip install pyyaml
+          python3 scripts/generate_oscal_ssp.py templates/program-data.sample.yaml -o /tmp/ssp.oscal.json --embed-program
+          python3 - <<'EOF'
+          import json
+          ssp = json.load(open("/tmp/ssp.oscal.json"))
+          assert ssp.get("system-security-plan") or ssp.get("uuid")
+          print("oscal emit ok")
+          EOF
       - name: Evidence collector manifest integrity
         run: |
           python3 - <<'EOF'

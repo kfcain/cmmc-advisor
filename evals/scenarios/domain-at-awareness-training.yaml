@@ -1,0 +1,29 @@
+id: domain-at-awareness-training
+title: Security awareness training cadence for CMMC AT family
+category: domain-practice
+routing_smoke_strict: true
+
+prompt: |
+  Our assessor asked how we satisfy security awareness training for CUI
+  users in GCC High. We use Microsoft 365 attack simulation and annual
+  SAT modules. What AT requirements apply and what evidence do we need?
+
+required_terms:
+  - AT.L2-3.2.1
+  - awareness
+  - training
+  - assessment objectives
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Route to references/domains/at-awareness-training.md and
+  references/assessment-objectives/at.md. AT.L2-3.2.1 requires security
+  awareness training for managers, sysadmins, and users; AT.L2-3.2.2
+  requires role-based training and insider threat awareness. Evidence:
+  training completion records, curriculum, and annual refresh cadence tied
+  to objective-level conformity in program-data.yaml.
+
+evaluator_notes: |
+  Must cite AT domain file or assessment-objectives/at.md. Enabler: concrete
+  evidence list, not generic "do training."

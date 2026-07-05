@@ -1,0 +1,11 @@
+# Sample ControlBot profile aligned with CMMC program data
+# Copy to .controlbot/profile.yaml in your IaC repository.
+# Populate inherited_controls from program-data.yaml inheritance_sources.
+
+baseline: fedramp-moderate
+inherited_controls: []
+block_on_severity:
+  - HIGH
+  - CRITICAL
+inline_comments: true
+bot_name: ControlBot

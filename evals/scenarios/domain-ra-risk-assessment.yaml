@@ -1,0 +1,26 @@
+id: domain-ra-risk-assessment
+title: RA family risk assessment for a new CUI enclave
+category: domain-practice
+routing_smoke_strict: true
+
+prompt: |
+  We stood up a GCC High enclave for a new contract. What RA requirements
+  apply and how often must we update the risk assessment?
+
+required_terms:
+  - RA.L2-3.11.1
+  - risk assessment
+  - RA.L2-3.11.2
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Route to references/domains/ra-risk-assessment.md,
+  references/assessment-objectives/ra.md, and references/grc/risk-management.md.
+  RA.L2-3.11.1 requires periodic risk assessment; RA.L2-3.11.2 vulnerability
+  scanning; RA.L2-3.11.3 remediate vulnerabilities. Document enclave threat
+  scenarios, scan cadence, and POA&M links in program-data.yaml. Regenerate
+  dashboard for open RA gaps ordered by SPRS impact.
+
+evaluator_notes: |
+  Must reference RA domain and periodic assessment obligation.

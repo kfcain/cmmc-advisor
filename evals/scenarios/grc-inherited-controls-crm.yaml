@@ -1,0 +1,29 @@
+id: grc-inherited-controls-crm
+title: Map FedRAMP CRM rows to CMMC assessment objectives
+category: grc-program
+routing_smoke_strict: true
+
+prompt: |
+  We have Microsoft 365 GCC High CRM Appendix J rows for SC-13 and IA-2.
+  Walk through mapping inherited and shared controls into program-data.yaml
+  and what we must still implement ourselves.
+
+required_terms:
+  - inherited-controls-mapping
+  - CRM
+  - assessment objectives
+  - program data
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Follow references/grc/inherited-controls-mapping.md: declare the platform
+  under inheritance_sources, classify each affected objective as inherited,
+  shared (with customer share documented), or customer, always with a CRM
+  row citation. Use references/data/800-53-crosswalk.json control_index to
+  trace CRM 800-53 controls back to CMMC requirements and read objective-
+  level entries in references/assessment-objectives/. Never mark MET without
+  a citable CRM row. Regenerate SSP and dashboard after updates.
+
+evaluator_notes: |
+  Must forbid inherited control fantasy. Must mention control_index crosswalk.

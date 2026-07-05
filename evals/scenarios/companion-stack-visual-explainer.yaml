@@ -1,6 +1,7 @@
 id: companion-stack-visual-explainer
 title: Choose visual-explainer vs program dashboard for CMMC recap
 category: program-toolkit
+routing_smoke_strict: true
 
 prompt: |
   After a mock assessment dry run the agent dumped a 20-row gap table in

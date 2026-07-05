@@ -1,0 +1,31 @@
+id: modern-it-gcch-workbook-routing
+title: GCC High workbook phase maps to assessment objectives
+category: modern-it
+routing_smoke_strict: true
+
+prompt: |
+  We are following a GCC High implementation workbook phase plan: scoping,
+  identity, devices, data, then security monitoring. Where in CMMC Advisor
+  do we map each phase to assessment objectives and GCC High PowerShell evidence?
+
+required_terms:
+  - gcch-implementation-workbook
+  - assessment objectives
+  - GCC High
+  - Connect-MgGraph
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Read references/modern-it/productivity/gcch-implementation-workbook.md and
+  references/data/gcch-workbook-manifest.json. Phase 1 scoping maps to
+  AC.L2-3.1.3 and CM.L2-3.4.1; Phase 2 identity to IA.L2-3.5.x and
+  AC.L2-3.1.x with Connect-MgGraph -Environment USGov; Phase 3 devices to
+  CM/SI/SC with Intune exports; Phase 4 data to MP/AC with Purview labels
+  and DLP; Phase 5 to AU.L2-3.3.5 and SI.L2-3.14.6 with Sentinel. Tie each
+  workbook evidence snippet to objective letters in references/assessment-objectives/.
+  Tenancy depth remains in microsoft-365-gcc.md.
+
+evaluator_notes: |
+  Must cite gcch-implementation-workbook.md and manifest. Must map phases to
+  requirement families, not generic "use Microsoft."

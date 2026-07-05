@@ -1,0 +1,33 @@
+id: scoring-sprs-conditional
+title: SPRS scoring rules including -203 floor and conditional path
+category: level-selection
+routing_smoke_strict: true
+
+prompt: |
+  We are preparing for a Level 2 C3PAO assessment with several partially
+  met IA and SC objectives and one open POA&M. What SPRS score should we
+  expect, what is the -203 floor, and can we still get Conditional status
+  at 80%?
+
+required_terms:
+  - SPRS
+  - POA&M
+  - conditional
+  - assessment objectives
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  SPRS follows the DoD Assessment Methodology from program-data conformity
+  at the assessment-objective level (assessor-tested assessment objectives): partial credit applies to IA.L2-3.5.3
+  and SC.L2-3.13.11 when implemented but not fully assessed; the computed
+  score floors at -203; missing SSP (CA.L2-3.12.4 not met) drives a failing
+  posture. Conditional certification requires meeting the 80% score ratio
+  with eligible POA&M items per 32 CFR 170.21; banned practices and
+  1-point limits apply. Run validate_poam.py and generate_dashboard.py on
+  program data for live clocks and family progress. Reference
+  references/levels-and-assessment.md and references/poam-management.md.
+
+evaluator_notes: |
+  Must mention -203 floor, 80% conditional path, objective-level scoring,
+  validate_poam or dashboard tooling. Enabler posture with concrete next steps.

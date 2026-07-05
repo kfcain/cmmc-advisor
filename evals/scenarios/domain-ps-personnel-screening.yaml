@@ -1,0 +1,26 @@
+id: domain-ps-personnel-screening
+title: PS family personnel screening for CUI roles
+category: domain-practice
+routing_smoke_strict: true
+
+prompt: |
+  HR runs background checks before CUI access. How does PS.L2-3.9.1 map to
+  our GCC High onboarding and what evidence satisfies the objectives?
+
+required_terms:
+  - PS.L2-3.9.1
+  - PS.L2-3.9.2
+  - screening
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Read references/domains/ps-personnel-security.md and
+  references/assessment-objectives/ps.md. PS.L2-3.9.1 screening and
+  PS.L2-3.9.2 transfer/termination are customer responsibilities even when
+  Microsoft personnel screening is inherited for CSP staff (see microsoft-365-gcc.md).
+  Evidence: HR policy, screening completion records, termination checklists
+  tied to Entra account disable dates.
+
+evaluator_notes: |
+  Distinguish customer PS obligations from CSP inherited screening claims.

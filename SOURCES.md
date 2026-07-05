@@ -549,7 +549,8 @@ compliance documentation and practitioner publications.
 
 ### Microsoft CMMC Page
 - **URL:** https://learn.microsoft.com/en-us/compliance/us-government/gov-cmmc
-- **Used in:** modern-it/productivity/microsoft-365-gcc.md
+- **Used in:** modern-it/productivity/microsoft-365-gcc.md,
+  references/modern-it/productivity/gcch-implementation-workbook.md (phased rollout context)
 
 ### Google Workspace Security and Compliance
 - **URL:** https://workspace.google.com/security/

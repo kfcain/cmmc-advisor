@@ -1,6 +1,7 @@
 id: companion-stack-controlbot-import
 title: Import ControlBot Terraform POA&M seeds into program data
 category: program-toolkit
+routing_smoke_strict: true
 
 prompt: |
   Our platform team runs ControlBot on every Terraform PR. We got

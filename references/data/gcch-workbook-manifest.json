@@ -1,0 +1,134 @@
+{
+  "title": "GCC High implementation workbook workstream index",
+  "source": "Interpretive phased GCC High rollout mapping (CMMC Advisor)",
+  "companion_prose": "references/modern-it/productivity/gcch-implementation-workbook.md",
+  "verified": "2026-07-05: workbook phase-to-AO mapping for CMMC Advisor routing",
+  "phases": [
+    {
+      "id": "phase-1-scoping",
+      "workbook_sections": ["2-8"],
+      "summary": "CUI boundary, asset inventory, DFD, ESP/LOB intake before technical config",
+      "primary_requirements": [
+        "AC.L2-3.1.3",
+        "CM.L2-3.4.1",
+        "CM.L2-3.4.2",
+        "MP.L2-3.8.1"
+      ],
+      "key_objectives": ["3.1.3[a]", "3.1.3[b]", "3.4.1[a]", "3.4.1[b]"],
+      "gcch_mechanisms": [
+        "tenant-boundary-export",
+        "cui-data-flow-diagram",
+        "mailbox-forwarding-review",
+        "asset-category-register"
+      ]
+    },
+    {
+      "id": "phase-2-identity",
+      "workbook_sections": ["9-18"],
+      "summary": "Entra ID, MFA, CA, PIM, cross-tenant, sovereign cloud endpoints",
+      "primary_requirements": [
+        "IA.L2-3.5.1",
+        "IA.L2-3.5.2",
+        "IA.L2-3.5.3",
+        "AC.L2-3.1.1",
+        "AC.L2-3.1.5",
+        "AC.L2-3.1.7",
+        "AC.L2-3.1.8"
+      ],
+      "key_objectives": ["3.5.3[a]", "3.5.3[b]", "3.1.5[a]", "3.1.8[a]"],
+      "gcch_mechanisms": [
+        "connect-mggraph-usgov",
+        "conditional-access-policies",
+        "phishing-resistant-mfa",
+        "entra-pim",
+        "cross-tenant-access-settings",
+        "break-glass-accounts"
+      ]
+    },
+    {
+      "id": "phase-3-devices",
+      "workbook_sections": ["19-42"],
+      "summary": "Intune, Autopilot, AVD, Open Intune Baseline, Defender for Endpoint",
+      "primary_requirements": [
+        "CM.L2-3.4.1",
+        "CM.L2-3.4.2",
+        "CM.L2-3.4.6",
+        "CM.L2-3.4.7",
+        "AC.L2-3.1.18",
+        "SI.L2-3.14.2",
+        "SI.L2-3.14.4",
+        "SC.L2-3.13.11"
+      ],
+      "key_objectives": ["3.4.2[a]", "3.13.11[a]", "3.14.2[a]", "3.1.18[a]"],
+      "gcch_mechanisms": [
+        "intune-compliance-gates",
+        "bitlocker-fips-mode",
+        "defender-endpoint-onboarding",
+        "avd-session-hosts",
+        "open-intune-baseline",
+        "device-inventory-export"
+      ]
+    },
+    {
+      "id": "phase-4-data",
+      "workbook_sections": ["43-57"],
+      "summary": "Purview labels, DLP, structured governance, insider risk",
+      "primary_requirements": [
+        "MP.L2-3.8.1",
+        "MP.L2-3.8.2",
+        "MP.L2-3.8.3",
+        "AC.L2-3.1.3",
+        "AU.L2-3.3.1",
+        "AU.L2-3.3.2",
+        "SC.L2-3.13.8",
+        "SC.L2-3.13.16"
+      ],
+      "key_objectives": ["3.8.1[a]", "3.8.2[a]", "3.3.1[a]", "3.3.2[a]"],
+      "gcch_mechanisms": [
+        "sensitivity-labels",
+        "auto-labeling-policies",
+        "dlp-policies",
+        "purview-audit-unified",
+        "information-protection-scanner"
+      ]
+    },
+    {
+      "id": "phase-5-m365-security",
+      "workbook_sections": ["58-61"],
+      "summary": "Defender suite, Sentinel SIEM, audit readiness packages",
+      "primary_requirements": [
+        "SI.L2-3.14.3",
+        "SI.L2-3.14.6",
+        "SI.L2-3.14.7",
+        "AU.L2-3.3.5",
+        "AU.L2-3.3.6",
+        "CA.L2-3.12.3"
+      ],
+      "key_objectives": ["3.3.5[a]", "3.14.6[a]", "3.14.7[a]", "3.12.3[a]"],
+      "gcch_mechanisms": [
+        "microsoft-sentinel",
+        "defender-xdr",
+        "unified-audit-log-export",
+        "assessor-evidence-package"
+      ]
+    }
+  ],
+  "evidence_snippets": {
+    "GraphConnect": {
+      "endpoint": "Connect-MgGraph -Environment USGov",
+      "requirements": ["IA.L2-3.5.1", "AU.L2-3.3.1"]
+    },
+    "MailboxForwarding": {
+      "endpoint": "Connect-ExchangeOnline -ExchangeEnvironmentName O365USGovGCCHigh",
+      "requirements": ["AC.L2-3.1.3", "SC.L2-3.13.1"]
+    },
+    "InventoryDevices": {
+      "endpoint": "Get-MgDeviceManagementManagedDevice",
+      "requirements": ["CM.L2-3.4.1", "AC.L2-3.1.18"]
+    },
+    "IntunePolicies": {
+      "endpoint": "Get-MgDeviceManagementDeviceConfiguration",
+      "requirements": ["CM.L2-3.4.1", "CM.L2-3.4.2"]
+    }
+  }
+}

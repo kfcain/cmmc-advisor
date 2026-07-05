@@ -13,6 +13,9 @@ git submodule add https://github.com/kfcain/cmmc-advisor.git .cmmc-advisor
 mkdir -p .cursor/skills .cursor/rules
 ln -sf ../../.cmmc-advisor .cursor/skills/cmmc-advisor
 ln -sf ../../.cmmc-advisor/platforms/cursor/rules/cmmc-advisor.mdc .cursor/rules/cmmc-advisor.mdc
+# Optional companions — see references/grc/companion-stack.md
+# ln -sf ../../.visual-explainer/plugins/visual-explainer .cursor/skills/visual-explainer
+# ln -sf ../../.cmmc-advisor/platforms/cursor/rules/visual-explainer.mdc .cursor/rules/visual-explainer.mdc
 ```
 
 Open **Customize > Skills** and confirm `cmmc-advisor` appears. The rule loads
