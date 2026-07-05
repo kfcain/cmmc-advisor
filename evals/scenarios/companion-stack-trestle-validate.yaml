@@ -1,0 +1,32 @@
+id: companion-stack-trestle-validate
+title: Validate OSCAL SSP with compliance-trestle after generate_oscal_ssp
+category: program-toolkit
+
+prompt: |
+  We generated ssp.oscal.json from program-data.yaml with generate_oscal_ssp.py
+  for our FedRAMP CRM package. What is the validation path before we push
+  this into Paramify or a trestle workspace? Do you have a script or
+  compliance-trestle-skills workflow?
+
+required_terms:
+  - validate_oscal_ssp
+  - compliance-trestle
+  - companion-stack
+  - generate_oscal_ssp
+  - OSCAL
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Emit with scripts/generate_oscal_ssp.py (--embed-program for AO sidecar),
+  then validate before GRC push. CLI path: ./scripts/validate_oscal_ssp.sh
+  dist/ssp.oscal.json (requires pip install compliance-trestle). Agent path:
+  compliance-trestle-skills commands such as /compliance-trestle:model-import
+  and /compliance-trestle:workspace-validate. Regenerate OSCAL from program
+  data before each import. Output is a CMMC-informed starting point, not a
+  complete FedRAMP authorization package. See references/grc/companion-stack.md
+  and references/multi-framework-crosswalk.md.
+
+evaluator_notes: |
+  Must mention validate_oscal_ssp.sh or trestle validate, generate_oscal_ssp.py,
+  companion-stack doc, and submission-ready caveat.

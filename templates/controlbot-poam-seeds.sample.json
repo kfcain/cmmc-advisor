@@ -1,0 +1,41 @@
+{
+  "schema": "controlbot.poam-seeds.v1",
+  "generated_at": "2026-07-04T12:00:00.000Z",
+  "baseline": "fedramp-moderate",
+  "summary": {
+    "total": 1,
+    "checkov": 1,
+    "custom_compliance": 0,
+    "merge_blocking": 1
+  },
+  "seeds": [
+    {
+      "id": "checkov-ckv-aws-019-terraform-aws-s3-bucket-public-acl",
+      "control": "SC-7",
+      "controls": ["SC-7", "AC-4"],
+      "weakness": "S3 bucket ACL allows public access",
+      "source": "checkov",
+      "severity": "HIGH",
+      "evidence": [
+        {
+          "path": "terraform/storage.tf",
+          "line": 12,
+          "end_line": 24,
+          "resource": "aws_s3_bucket.cui_exports",
+          "detail": "Bucket ACL or policy exposes object reads to the internet."
+        }
+      ],
+      "recommended_remediation": "Block public ACLs and restrict bucket policy to the enclave VPC endpoints.",
+      "owner": "TBD",
+      "status": "Open",
+      "due_date": "2026-08-03",
+      "merge_blocking": true,
+      "provenance": {
+        "check_id": "CKV_AWS_19",
+        "check_name": "S3 bucket public ACL",
+        "mapped": true,
+        "nist_family": "SC"
+      }
+    }
+  ]
+}

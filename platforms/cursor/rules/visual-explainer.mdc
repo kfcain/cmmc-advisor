@@ -1,0 +1,26 @@
+---
+description: Use visual-explainer for agent-driven HTML diagrams and advisory recap pages alongside CMMC Advisor
+globs: "**/*"
+alwaysApply: false
+---
+
+When the user asks for a visual gap analysis, mock-assessment recap, scope-discovery
+summary, architecture diagram, plan review, or complex comparison table during
+CMMC advisory work:
+
+1. Read `references/grc/companion-stack.md` in the CMMC Advisor skill root to
+   confirm visual-explainer is appropriate (ad hoc recap) vs
+   `scripts/generate_dashboard.py` or `scripts/generate_diagrams.py` (authoritative
+   program views).
+2. Read the canonical `visual-explainer` skill at
+   `.visual-explainer/plugins/visual-explainer/SKILL.md` (or
+   `.cursor/skills/visual-explainer/SKILL.md` when symlinked). Follow its workflow
+   and command templates under `commands/`.
+3. Write generated HTML to `~/.agent/diagrams/` unless the user requests another
+   path; open in a browser when shell access permits.
+
+CMMC assessor rails (grill, mock-assess, red-team-scope): offer visual-explainer
+when terminal output would exceed roughly 4 rows or 3 columns.
+
+Do not treat visual-explainer HTML as assessment evidence without copying
+conclusions into program data and regenerating the dashboard/SSP.

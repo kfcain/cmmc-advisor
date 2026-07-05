@@ -141,6 +141,37 @@
         }
       }
     },
+    "controlbot_import": {
+      "type": "object",
+      "description": "Last ControlBot POA&M seed import metadata (scripts/import_controlbot_seeds.py)",
+      "properties": {
+        "last_imported": {
+          "type": "string",
+          "format": "date"
+        },
+        "baseline": {
+          "type": "string"
+        },
+        "seeds_total": {
+          "type": "number"
+        },
+        "poam_applied": {
+          "type": "number"
+        },
+        "requirements_touched": {
+          "type": "number"
+        },
+        "evidence_links_added": {
+          "type": "number"
+        },
+        "unmapped_seed_count": {
+          "type": "number"
+        },
+        "source_digest": {
+          "type": "string"
+        }
+      }
+    },
     "grc_integrations": {
       "type": "object",
       "description": "Last sync metadata per GRC platform (Vanta, Drata, etc.); see references/grc/grc-platform-mcp-bridge.md",

@@ -121,6 +121,44 @@ when the environment or CSP authorization aligns to High.
 
 ---
 
+## Trestle validation and roundtrip
+
+After `generate_oscal_ssp.py`, validate before pushing to GRC platforms or
+FedRAMP tooling consumers.
+
+**CLI wrapper (compliance-trestle required):**
+
+```bash
+chmod +x scripts/validate_oscal_ssp.sh
+./scripts/validate_oscal_ssp.sh output/ssp.oscal.json --workspace ./trestle-workspace
+```
+
+The script initializes a trestle workspace when missing, imports the SSP as
+`cmmc-imported-ssp`, and runs `trestle validate`.
+
+**CI pattern (GitHub Actions):**
+
+```yaml
+- name: Validate OSCAL SSP
+  run: |
+    pip install compliance-trestle
+    python3 scripts/generate_oscal_ssp.py program-data.yaml -o dist/ssp.oscal.json --embed-program
+    ./scripts/validate_oscal_ssp.sh dist/ssp.oscal.json --workspace ./trestle-workspace
+```
+
+**Agent roundtrip (compliance-trestle-skills).** For markdown authoring,
+assessment plans, and POA&M workflows after import:
+
+```
+/compliance-trestle:model-import dist/ssp.oscal.json
+/compliance-trestle:workspace-validate
+/compliance-trestle:workflow-ssp-roundtrip my-ssp
+```
+
+Full companion-stack layout: `references/grc/companion-stack.md`.
+
+---
+
 ## Toolkit Workflow Integration
 
 The multi-framework path reuses the same program data maintenance rules

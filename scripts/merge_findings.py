@@ -22,7 +22,8 @@ from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from evidence_lib import load_json, merge_collector_result, normalize_control_id  # noqa: E402
+from crosswalk_lib import control_to_cmmc  # noqa: E402
+from evidence_lib import load_json, merge_collector_result  # noqa: E402
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 CROSSWALK = REPO_ROOT / "references" / "data" / "800-53-crosswalk.json"
@@ -54,17 +55,6 @@ def save_program(path: Path, program: dict) -> None:
         path.write_text(yaml.safe_dump(program, sort_keys=False, allow_unicode=True), encoding="utf-8")
     else:
         path.write_text(json.dumps(program, indent=2, default=str) + "\n", encoding="utf-8")
-
-
-def control_to_cmmc(control_id: str, crosswalk: dict[str, Any]) -> list[str]:
-    idx = crosswalk.get("control_index") or {}
-    raw = control_id.strip()
-    candidates = {raw.upper(), raw.lower()}
-    candidates.add(normalize_control_id(raw))
-    for human, entry in idx.items():
-        if human.upper() in candidates or entry.get("oscal_id") in candidates:
-            return entry.get("cmmc_requirements") or []
-    return []
 
 
 def merge_finding(program: dict, finding: dict[str, Any], crosswalk: dict[str, Any]) -> int:

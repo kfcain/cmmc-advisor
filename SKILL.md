@@ -108,6 +108,9 @@ from memory alone when a reference exists.
 | Machine-readable FedRAMP vendor snapshot (generate first) | `references/data/fedramp-snapshot.json` via `scripts/build_fedramp_snapshot.py` |
 | Generate or review an SSP, AO-level conformity statements | `templates/ssp-structure.md` + `scripts/generate_ssp.py` |
 | OSCAL SSP for FedRAMP/GRC tooling from program data | `references/multi-framework-crosswalk.md` + `scripts/generate_oscal_ssp.py` |
+| OSCAL validation and trestle workspace roundtrip | `references/grc/companion-stack.md` + `scripts/validate_oscal_ssp.sh` + compliance-trestle-skills (external) |
+| Terraform/IaC PR compliance, Checkov POA&M seeds | `references/grc/companion-stack.md` + ControlBot (external) + `scripts/import_controlbot_seeds.py` |
+| Agent HTML recap for gap tables, mock-assessment, scope discovery | `references/grc/companion-stack.md` + visual-explainer (external) + `platforms/visual-explainer/` |
 | Visual program dashboard, POA&M clocks, SPRS tracking | `templates/program-dashboard.html` + `scripts/generate_dashboard.py` |
 | Network and CUI flow diagrams, boundary drawing, topology | `references/diagram-guide.md` + `scripts/generate_diagrams.py` |
 | FIPS validation, CMVP certificates, sunset dates | `scripts/check_cmvp.py` + `references/assessment-objectives/sc.md` (SC.L2-3.13.11) |
@@ -216,6 +219,27 @@ in back-matter. Validate with compliance-trestle or FedRAMP OSCAL rules
 before treating the file as submission-ready; it is a CMMC-informed
 starting point, not a complete FedRAMP authorization package.
 
+**Validate OSCAL and trestle roundtrip.** After emitting OSCAL, run
+`./scripts/validate_oscal_ssp.sh <ssp.oscal.json>` when
+compliance-trestle is installed, or follow
+`references/grc/companion-stack.md` to import and validate with
+compliance-trestle-skills (`/compliance-trestle:workspace-validate`).
+Regenerate OSCAL from program data before each trestle import.
+
+**Import ControlBot IaC findings.** When engineering runs ControlBot on
+Terraform PRs, import `poam-seeds.json` (and optional
+`evidence-facts.json`) with
+`python3 scripts/import_controlbot_seeds.py <seeds> <program-data>`
+then `python3 scripts/validate_poam.py`. Map inherited controls in
+`.controlbot/profile.yaml` from program data `inheritance_sources`. See
+`references/grc/companion-stack.md`.
+
+**Visual advisory recaps.** For grill, mock-assess, or red-team output
+that exceeds terminal-friendly tables, offer visual-explainer HTML per
+`references/grc/companion-stack.md` and `platforms/visual-explainer/`.
+Use `generate_dashboard.py` and `generate_diagrams.py` for authoritative
+program views; visual-explainer is for working notes.
+
 **Build a public trust center.** When the user needs an outward-facing
 security page for customers or primes, populate the `trust_center` section
 of the program data file (attestations, public document URLs, security
@@ -323,14 +347,16 @@ the same procedures when the user asks for them in their own words:
   program data file's `discovery` section (qa_log, assumptions,
   open_questions, decisions); asset and topology edits apply on
   confirmation. End with `scripts/discovery_report.py` output and the
-  top open questions.
+  top open questions. When the session summary is large, offer a
+  visual-explainer HTML recap per `references/grc/companion-stack.md`.
 - **Mock assess** ("run us through a dry run"): conduct per
   `assessor-playbook/mock-assessment-conduct.md`. Scope-validation gate
   before any family interview, packs from
   `scripts/generate_mock_assessment.py`, objective-level scoring,
   findings out-brief. Conformity fields are written only with explicit
   consent at the out-brief; each mock-sourced write gets a dated qa_log
-  stamp.
+  stamp. When the out-brief or gap table is large (4+ rows), offer a
+  visual-explainer HTML recap per `references/grc/companion-stack.md`.
 - **Red-team scope** ("poke holes in our scope"): adversarial pass per
   `assessor-playbook/adversarial-challenge-catalog.md`, prioritizing
   out-of-scope and CRMA claims, inheritance assertions, reported or

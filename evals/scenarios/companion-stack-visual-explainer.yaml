@@ -1,0 +1,31 @@
+id: companion-stack-visual-explainer
+title: Choose visual-explainer vs program dashboard for CMMC recap
+category: program-toolkit
+
+prompt: |
+  After a mock assessment dry run the agent dumped a 20-row gap table in
+  the terminal. We already have program-data.yaml and a dashboard. Should
+  we use visual-explainer or regenerate the dashboard? What is the rule?
+
+required_terms:
+  - visual-explainer
+  - companion-stack
+  - generate_dashboard
+  - program data
+
+factual_claims_expected: false
+
+expected_recommendation: |
+  Use both for different jobs. generate_dashboard.py renders authoritative
+  SPRS, POA&M clocks, and family progress from program-data.yaml. visual-explainer
+  (external companion skill) is for ad hoc agent recaps: large gap tables,
+  mock-assessment out-briefs, scope-discovery summaries. After mock-assess,
+  offer visual-explainer when output exceeds terminal-friendly size; persist
+  conformity and discovery updates in program data, then regenerate the
+  dashboard for the official program view. visual-explainer HTML is working
+  notes, not assessment evidence alone. See references/grc/companion-stack.md
+  and platforms/visual-explainer/README.md.
+
+evaluator_notes: |
+  Must distinguish data-bound dashboard/diagrams from agent HTML recaps.
+  Must reference companion-stack.md. Enabler posture: concrete routing rule.
