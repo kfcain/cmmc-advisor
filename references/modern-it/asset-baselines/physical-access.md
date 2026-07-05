@@ -31,7 +31,10 @@ Cross-domain: PS (personnel eligibility), IA (badge-to-account binding), MP
 ### Badge readers and API evidence
 
 Modern PACS (Lenel, CCURE, Genetec, Honeywell, etc.) expose REST or ODBC
-exports. Collector stub: `physical-access-pacs`.
+exports. **Verkada Command Platform** (Marketplace FR2416859101) was **In
+Process** at last export; when Authorized, treat as cloud PACS/video with CRM
+mapping per `../security-operations/dib-fedramp-security-tools.md`. Collector
+stub: `physical-access-pacs`.
 
 Collect:
 

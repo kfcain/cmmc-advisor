@@ -1,6 +1,6 @@
 {
   "schema_version": "1.1",
-  "generated_at": "2026-07-05T22:21:18+00:00",
+  "generated_at": "2026-07-05T23:18:48+00:00",
   "scope_note": "Curated vendor list for productivity, AI services, and DIB security operations tools in the cmmc-advisor corpus. Authorization fields marked marketplace_live are refreshed from the official FedRAMP Marketplace export; DoD IL, CUI suitability, and practitioner notes remain corpus guidance and must still be verified before SSP citation.",
   "marketplace_data_url": "https://raw.githubusercontent.com/FedRAMP/marketplace-fedramp-gov-data/main/fedramp-products.json",
   "marketplace_export_timestamp": "2026-06-02T19:28:40.831Z",
@@ -622,6 +622,160 @@
       "authorization_date": "2023-11-14T05:00:00.000Z",
       "status_updated_date": "2023-11-14T05:00:00.000Z",
       "marketplace_website": "https://www.knowbe4.com/federal"
+    },
+    {
+      "id": "keeper-security-government",
+      "product": "Keeper Security Government Cloud Password Manager and Privileged Access Manager",
+      "vendor": "Keeper Security",
+      "dod_impact_level": [],
+      "cui_suitability": "Privileged credentials and secrets for CUI admins when using Gov High package",
+      "primary_source": "https://marketplace.fedramp.gov; https://www.keepersecurity.com/federal/",
+      "corpus_references": [
+        "references/modern-it/security-operations/dib-fedramp-security-tools.md"
+      ],
+      "notes": "Rev5 Class D (High). Password vault and PAM audit exports for IA/AC.",
+      "authorization_scope": "direct_package",
+      "marketplace_package_id": "FR2116544598A",
+      "marketplace_product_name": "Keeper Security Government Cloud Password Manager and Privileged Access Manager",
+      "marketplace_vendor_name": "Keeper Security",
+      "fedramp_impact_level": "High",
+      "authorization_status": "FedRAMP Authorized",
+      "authorization_type": "Agency (Rev5)",
+      "authorization_date": "2025-12-18T05:00:00.000Z",
+      "status_updated_date": "2025-12-18T05:00:00.000Z",
+      "marketplace_website": "https://www.keepersecurity.com/industries/public-sector.html"
+    },
+    {
+      "id": "snowflake-govcloud-high",
+      "product": "Snowflake Data Cloud on AWS GovCloud (High)",
+      "vendor": "Snowflake Inc.",
+      "dod_impact_level": [
+        "IL4",
+        "IL5"
+      ],
+      "cui_suitability": "CUI analytics/data warehouse on GovCloud High boundary",
+      "primary_source": "https://marketplace.fedramp.gov; https://www.snowflake.com/en/solutions/industries/federal-government/",
+      "corpus_references": [
+        "references/modern-it/security-operations/dib-fedramp-security-tools.md"
+      ],
+      "notes": "Rev5 Class D (High). Also see Moderate commercial FR1809360201 and Azure Gov FR1809360202A.",
+      "authorization_scope": "direct_package",
+      "marketplace_package_id": "FR2308159208",
+      "marketplace_product_name": "The Data Cloud on AWS GovCloud (High)",
+      "marketplace_vendor_name": "Snowflake Inc.",
+      "fedramp_impact_level": "High",
+      "authorization_status": "FedRAMP Authorized",
+      "authorization_type": "Agency (Rev5)",
+      "authorization_date": "2023-12-08T05:00:00.000Z",
+      "status_updated_date": "2023-12-08T05:00:00.000Z",
+      "marketplace_website": "https://www.snowflake.com/"
+    },
+    {
+      "id": "databricks-aws-govcloud",
+      "product": "Databricks on AWS GovCloud",
+      "vendor": "Databricks, Inc.",
+      "dod_impact_level": [
+        "IL4",
+        "IL5"
+      ],
+      "cui_suitability": "CUI analytics/ML on GovCloud when workspace isolation documented",
+      "primary_source": "https://marketplace.fedramp.gov; https://www.databricks.com/solutions/industry/federal",
+      "corpus_references": [
+        "references/modern-it/security-operations/dib-fedramp-security-tools.md"
+      ],
+      "notes": "Rev5 Class D (High). Databricks on Azure Commercial FR2525247858 is not Azure Government.",
+      "authorization_scope": "direct_package",
+      "marketplace_package_id": "FR2324740262",
+      "marketplace_product_name": "Databricks on AWS GovCloud",
+      "marketplace_vendor_name": "Databricks, Inc.",
+      "fedramp_impact_level": "High",
+      "authorization_status": "FedRAMP Authorized",
+      "authorization_type": "Agency (Rev5)",
+      "authorization_date": "2025-02-26T05:00:00.000Z",
+      "status_updated_date": "2025-02-26T05:00:00.000Z",
+      "marketplace_website": "https://www.databricks.com/solutions/industries/federal-government"
+    },
+    {
+      "id": "canon-office-cloud-mps",
+      "product": "Canon Office Cloud Managed Print Services",
+      "vendor": "Canon U.S.A., Inc.",
+      "dod_impact_level": [],
+      "cui_suitability": "Managed print services plane for CUI-adjacent fleets",
+      "primary_source": "https://marketplace.fedramp.gov; https://www.usa.canon.com/industry/government",
+      "corpus_references": [
+        "references/modern-it/security-operations/dib-fedramp-security-tools.md",
+        "references/modern-it/asset-baselines/printers-mfp.md"
+      ],
+      "notes": "Rev5 Class C (Moderate). Device compliance still documented per printers-mfp.md.",
+      "authorization_scope": "direct_package",
+      "marketplace_package_id": "FR1923039219",
+      "marketplace_product_name": "Canon Office Cloud ? Managed Print Services",
+      "marketplace_vendor_name": "Canon U.S.A., Inc.",
+      "fedramp_impact_level": "Moderate",
+      "authorization_status": "FedRAMP Authorized",
+      "authorization_type": "Agency (Rev5)",
+      "authorization_date": "2020-09-04T04:00:00.000Z",
+      "status_updated_date": "2020-09-04T04:00:00.000Z",
+      "marketplace_website": "https://usa.canon.com/officecloud"
+    },
+    {
+      "id": "xerox-mps-government",
+      "product": "Xerox Managed Print Services for US Government",
+      "vendor": "Xerox Corporation",
+      "dod_impact_level": [],
+      "cui_suitability": "Gov MPS boundary for fleet management",
+      "primary_source": "https://marketplace.fedramp.gov; https://www.xerox.com/en-us/small-business/trends-insights/enterprise/content-hub/fedramp",
+      "corpus_references": [
+        "references/modern-it/security-operations/dib-fedramp-security-tools.md",
+        "references/modern-it/asset-baselines/printers-mfp.md"
+      ],
+      "notes": "Rev5 Class C (Moderate). Pair with PaperCut on-prem for release policy if used.",
+      "authorization_scope": "direct_package",
+      "marketplace_package_id": "FR1730334049",
+      "marketplace_product_name": "Xerox Managed Print Services for US Government",
+      "marketplace_vendor_name": "Xerox Corporation",
+      "fedramp_impact_level": "Moderate",
+      "authorization_status": "FedRAMP Authorized",
+      "authorization_type": "JAB (Rev5)",
+      "authorization_date": "2018-09-10T04:00:00.000Z",
+      "status_updated_date": "2018-09-10T04:00:00.000Z",
+      "marketplace_website": "https://www.xerox.com/en-us/services/government-solutions/insights/fedramp-approved-cloud-mps"
+    },
+    {
+      "id": "verkada-command-platform",
+      "product": "Verkada Command Platform",
+      "vendor": "Verkada Inc",
+      "dod_impact_level": [],
+      "cui_suitability": "Cloud PACS/video for CUI facilities when Authorized",
+      "primary_source": "https://marketplace.fedramp.gov; https://www.verkada.com/federal/",
+      "corpus_references": [
+        "references/modern-it/security-operations/dib-fedramp-security-tools.md",
+        "references/modern-it/asset-baselines/physical-access.md"
+      ],
+      "notes": "FedRAMP In Process at last export. Not cite-safe until Authorized.",
+      "authorization_scope": "direct_package",
+      "marketplace_package_id": "FR2416859101",
+      "marketplace_product_name": "Verkada Command Platform",
+      "marketplace_vendor_name": "Verkada Inc",
+      "fedramp_impact_level": "Moderate",
+      "authorization_status": "FedRAMP In Process",
+      "authorization_type": "Agency (Rev5)",
+      "authorization_date": "2026-05-12T04:00:00.000Z",
+      "status_updated_date": "2026-05-12T04:00:00.000Z",
+      "marketplace_website": "https://verkada.com/government"
+    },
+    {
+      "id": "papercut-mf",
+      "product": "PaperCut MF / Hive (customer-hosted)",
+      "vendor": "PaperCut Software",
+      "dod_impact_level": [],
+      "cui_suitability": "Print release on OSC-operated server; no FedRAMP SaaS inheritance",
+      "primary_source": "https://www.papercut.com/; references/modern-it/asset-baselines/printers-mfp.md",
+      "corpus_references": [
+        "references/modern-it/asset-baselines/printers-mfp.md"
+      ],
+      "notes": "No Marketplace package at last export. Corpus guidance only; CIS-hardened self-host path.",
+      "authorization_scope": "corpus_guidance_only"
     }
   ]
 }

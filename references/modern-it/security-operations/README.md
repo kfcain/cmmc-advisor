@@ -31,7 +31,9 @@ Method: `references/grc/evidence-automation.md`
 | **SASE / ZTNA** | SC (3.13.1, 3.13.6–8), AC (3.1.3) | Zscaler ZIA, Prisma Access, Entra Private Access | `zscaler-policy`, `prisma-access-rules` |
 | **Cloud posture** | CM, SC, AU, SI | AWS Config/Security Hub, Azure, GCP SCC | `aws-config-compliance`, `gcp-scc-findings`, etc. |
 | **Endpoint management** | AC, CM, SC | Intune, Jamf (manual) | `intune-compliance` |
-| **On-prem network / physical** | SC, AC, PE | FortiGate, PAN-OS, WLAN, PACS | `fortinet-firewall`, `palo-alto-ngfw-onprem`, `wlan-controller`, `physical-access-pacs` |
+| **On-prem network / physical** | SC, AC, PE | FortiGate, PAN-OS, WLAN, PACS, Verkada | `fortinet-firewall`, `palo-alto-ngfw-onprem`, `wlan-controller`, `physical-access-pacs` |
+| **Print / MFP** | MP, PE, SC | Canon/Xerox FedRAMP MPS, PaperCut on-prem | Fleet policy exports; see printers-mfp.md |
+| **Data analytics** | AC, AU, SC, MP | Snowflake Gov, Databricks GovCloud | RBAC and query audit exports |
 
 Detailed API guidance:
 

@@ -52,13 +52,13 @@ FAMILY_SOLUTIONS: dict[str, dict[str, str]] = {
     },
     "MP": {
         "category": "Media protection / DLP",
-        "marketplace": "Varonis, AvePoint AOS-UG, Forcepoint SSE, Purview; dib-fedramp-security-tools.md",
-        "fallback": "Encrypted removable media policy; M365 DLP in GCC High",
+        "marketplace": "Varonis, AvePoint AOS-UG, Canon/Xerox FedRAMP MPS; dib-fedramp-security-tools.md",
+        "fallback": "PaperCut on-prem release policy; encrypted removable media; M365 DLP in GCC High",
     },
     "PE": {
         "category": "Physical access control (PACS)",
-        "marketplace": "Rare at FedRAMP Moderate; usually on-prem PACS vendor",
-        "fallback": "CIS physical security controls; badge system exports via on-prem-inspectors",
+        "marketplace": "Verkada Command Platform (when Authorized); dib-fedramp-security-tools.md",
+        "fallback": "CIS physical security controls; on-prem PACS via physical-access-pacs collector",
     },
     "PS": {
         "category": "Personnel screening records",

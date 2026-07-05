@@ -35,7 +35,8 @@ sequencing per contractor size).
 
 For **named DIB security tools** (SentinelOne, Tenable, Duo, Palo
 Alto, Varonis, Datadog, AvePoint, ThousandEyes, Deltek, RSA ID Plus,
-KnowBe4, ATX Defense CMMC Space) with Rev 5 Class C/D package IDs and CMMC
+KnowBe4, Keeper, Snowflake, Databricks, Canon/Xerox MPS, Verkada,
+PaperCut on-prem, ATX Defense CMMC Space) with Rev 5 Class C/D package IDs and CMMC
 practice mapping, read
 `references/modern-it/security-operations/dib-fedramp-security-tools.md`.
 
@@ -59,7 +60,9 @@ Covered:
   DIB contractors commonly need tooling: email security, file
   collaboration, SIEM, EDR/endpoint, vulnerability management,
   IAM/PAM, DLP, network security/SASE, backup and recovery, GRC,
-  security awareness training (KnowBe4 and peers).
+  security awareness training (KnowBe4 and peers), data analytics
+  (Snowflake, Databricks), managed print (Canon, Xerox), physical
+  access/video (Verkada).
 - Coverage-gap analysis: categories where FedRAMP High supply is
   constrained and the industry is still building options.
 - Sequencing recommendations: how to order tooling investment
@@ -326,6 +329,8 @@ identity governance.
   vendor page; verify current.
 - CyberArk. FedRAMP authorization on the Privilege Cloud
   product; verify current scope.
+- **Keeper Security Government Cloud** FR2116544598A (Rev5 High).
+  Password manager and privileged access manager for Class D paths.
 - **Cisco Duo Federal** FR1823149273 (Rev5 Moderate). Common
   MFA overlay alongside Entra; verify EAM vs standalone deployment.
 - **RSA ID Plus for Government** FR2102652499 (Rev5 Moderate).
@@ -501,6 +506,46 @@ plane is a fit decision, not a Marketplace search.
 
 **Cross-reference:** `references/modern-it/security-operations/dib-fedramp-security-tools.md`
 (AT catalog row).
+
+### Data analytics and warehouse
+
+**In scope.** Snowflake, Databricks, and similar platforms when CUI or
+export-controlled analytics land in a vendor-managed data plane.
+
+**Representative vendors.**
+
+- **Snowflake Data Cloud on AWS GovCloud (High)** FR2308159208; Azure
+  Government High FR1809360202A; Moderate commercial FR1809360201.
+- **Databricks on AWS GovCloud** FR2324740262 (High); Moderate commercial
+  FR1834740315. **Databricks on Azure Commercial** FR2525247858 is High but
+  not Azure Government; verify tenancy fit before CUI loads.
+
+Require GovCloud/High packages for typical DFARS 7012 CUI analytics. Map RBAC,
+encryption, and query audit logs to AC and AU families.
+
+### Managed print services
+
+**In scope.** Vendor-managed print fleet services where job metadata or
+management traffic touches CUI workflows.
+
+**Representative vendors.**
+
+- **Canon Office Cloud Managed Print Services** FR1923039219 (Rev5 Moderate).
+- **Xerox Managed Print Services for US Government** FR1730334049 (Rev5 Moderate).
+
+**PaperCut MF / Hive:** no FedRAMP listing; on-prem or customer-hosted print
+release layer. See `references/modern-it/asset-baselines/printers-mfp.md`.
+
+### Physical access and video
+
+**In scope.** Cloud PACS, cameras, and door controllers for CUI facilities.
+
+**Representative vendors.**
+
+- **Verkada Command Platform** FR2416859101 (Rev5 Moderate, **In Process** at
+  last export). Not cite-safe until Authorized.
+- On-prem Lenel/CCURE/Genetec: no FedRAMP; CIS/STIG and
+  `references/modern-it/asset-baselines/physical-access.md`.
 
 ---
 

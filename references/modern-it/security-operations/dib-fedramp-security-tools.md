@@ -86,6 +86,7 @@ decision; Moderate EDR on a High enclave is a common assessor finding.
 | **RSA ID Plus for Government** | FR2102652499 | Moderate | Rev5 | IA, AC | MFA and identity governance; not a full GRC suite |
 | **Okta IDaaS Government High Cloud** | FR2131856836 | High | Rev5 | IA, AC | High-tier IdP |
 | **BeyondTrust Identity Security for Government** | FR2231070252 | Moderate | Rev5 | IA, AC, PAM | PAM/session evidence where licensed |
+| **Keeper Security Government Cloud** | FR2116544598A | High | Rev5 | IA (3.5.x), AC | Password vault and privileged access; export audit logs |
 | **Palo Alto Idira Identity Security Government** | FR2001619337 | High | Rev5 | IA, AC | Identity security platform (verify module scope) |
 
 **RSA Archer GRC:** RSA **ID Plus** holds a current Rev5 Moderate package.
@@ -150,6 +151,54 @@ from Purview/Entra reports; document which objectives each curriculum covers.
 
 Do not store **CUI-bearing job content** in the LMS unless the package scope
 explicitly includes that data class.
+
+### Data analytics and warehouse (Snowflake, Databricks)
+
+| Product | Package ID | Level | Rev | Primary CMMC families | Evidence notes |
+|---------|------------|-------|-----|----------------------|----------------|
+| **Snowflake Data Cloud on AWS GovCloud (High)** | FR2308159208 | High | Rev5 | AC, AU, SC, MP | CUI analytics in GovCloud boundary; RBAC and query audit exports |
+| **Snowflake Data Cloud on Azure Government (High)** | FR1809360202A | High | Rev5 | AC, AU, SC, MP | Azure Gov tenancy path |
+| **Snowflake Data Cloud on AWS US East/West** | FR1809360201 | Moderate | Rev5 | AC, AU, SC | Moderate commercial regions; confirm contract accepts Moderate |
+| **Databricks on AWS GovCloud** | FR2324740262 | High | Rev5 | AC, AU, SC, CM | ML/analytics on GovCloud; workspace isolation evidence |
+| **Databricks on AWS US East/West** | FR1834740315 | Moderate | Rev5 | AC, AU, SC | Moderate commercial path |
+| **Databricks on Azure Commercial** | FR2525247858 | High | Rev5 | AC, AU, SC | **Azure Commercial**, not Azure Government; verify tenancy fit for CUI |
+
+Snowflake and Databricks hold **CUI when you load CUI into them**. Treat like any
+CUI datastore: correct impact package, network isolation, encryption at rest/in
+transit, account RBAC, and query/audit logs mapped to AC.L2-3.1.x and AU.L2-3.3.x.
+Do not route production CUI through a **Moderate commercial** package when the
+enclave requires GovCloud High / Class D.
+
+### Physical access and video (PE family)
+
+| Product | Package ID | Level | Rev | Status / notes | Primary CMMC families |
+|---------|------------|-------|-----|----------------|------------------------|
+| **Verkada Command Platform** | FR2416859101 | Moderate | Rev5 | **In Process** at last export | PE (3.10.x), partial AU |
+
+Verkada covers **cloud-managed cameras, access control, and environmental
+sensors** in one platform. Not cite-safe until Authorized. When deployed,
+collect door event exports, visitor logs, and retention settings per
+`references/modern-it/asset-baselines/physical-access.md`. On-prem Lenel/CCURE
+remains the common PACS pattern; Verkada is an alternative **when the
+authorized package scope matches** your facility design.
+
+### Managed print and MFP services
+
+| Product | Package ID | Level | Rev | Primary CMMC families | Evidence notes |
+|---------|------------|-------|-----|----------------------|----------------|
+| **Canon Office Cloud Managed Print Services** | FR1923039219 | Moderate | Rev5 | MP (3.8.x), PE, SC | Fleet management plane; secure print release where offered |
+| **Xerox Managed Print Services for US Government** | FR1730334049 | Moderate | Rev5 | MP, PE, SC | Gov MPS boundary; map scan/print paths in SSP |
+
+FedRAMP MPS covers the **vendor-managed print services plane**, not every device
+on your floor. Document which MFPs use authorized MPS vs local USB/VDI
+redirection. Pair with `references/modern-it/asset-baselines/printers-mfp.md`.
+
+**PaperCut MF / Hive (on-prem or customer-hosted):** No FedRAMP Marketplace
+package at last export. Common DIB **print management** layer in front of
+Canon/Xerox/other MFPs. Compliance path is **customer-operated**: CIS-hardened
+print server, MP.L2-3.8.x hardcopy controls, network segmentation, and audit
+exports from PaperCut admin. Do not claim FedRAMP inheritance for PaperCut; cite
+baselines and configuration evidence instead.
 
 ### ERP, GovCon systems, and program data
 
@@ -235,6 +284,12 @@ GCC High + **KnowBe4 Platform** FR2201340492 for AT.L2-3.2.x completion and
 phishing simulation evidence, or primary-suite training when records stay in
 GCC High and cover all objectives.
 
+**Pattern E: Analytics and controlled print**
+
+Snowflake GovCloud High or Databricks on AWS GovCloud for CUI analytics +
+**Canon** or **Xerox** FedRAMP MPS for fleet management + **PaperCut** on-prem
+for queue/release policy, or secure-release without PaperCut when MPS covers it.
+
 Each pattern still requires **scope diagrams** from `generate_diagrams.py` and
 **CRM rows** for every inherited SaaS control.
 
@@ -266,6 +321,8 @@ collectors are added.
 - **ESP / subcontractor flowdown:** `references/grc/vendor-and-supply-chain.md`
 - **Evidence automation:** `references/grc/evidence-automation.md`
 - **Endpoint hub:** `references/modern-it/endpoints/README.md`
+- **Print/MFP baselines:** `references/modern-it/asset-baselines/printers-mfp.md`
+- **Physical access:** `references/modern-it/asset-baselines/physical-access.md`
 
 Content aligned to Marketplace export embedded in `fedramp-snapshot.json`
 generated_at timestamp. Re-verify vendor status at procurement and SSP refresh.

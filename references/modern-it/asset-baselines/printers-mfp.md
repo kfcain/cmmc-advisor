@@ -1,7 +1,8 @@
 # Printer and MFP Baselines
 
 > Source: NIST SP 800-171 Rev 2 (MP, SC, AC, PE); CMMC scoping guidance
-> (contractor risk managed assets)
+> (contractor risk managed assets); FedRAMP Marketplace (Canon, Xerox MPS packages);
+> PaperCut MF/Hive product documentation (customer-hosted; no FedRAMP package)
 
 ## Scoping
 
@@ -16,6 +17,35 @@ egress path** and often sit on the same VLAN as CUI workstations.
 | Secure print release in enclave | CUI | Queue encryption, badge release |
 
 See `../endpoints/remote-work.md` for VDI printer redirection.
+
+## FedRAMP managed print services (Canon, Xerox)
+
+When the **print services management plane** is SaaS and touches CUI job metadata,
+use a Rev 5 Moderate (Class C) Marketplace package:
+
+| Vendor | Package ID | Notes |
+|--------|------------|-------|
+| **Canon Office Cloud Managed Print Services** | FR1923039219 | Rev5 Moderate; fleet/usage plane |
+| **Xerox Managed Print Services for US Government** | FR1730334049 | Rev5 Moderate; Gov MPS boundary |
+
+FedRAMP covers the **vendor cloud**, not automatic compliance of every device.
+Document which MFPs are under MPS vs local print. Full catalog:
+`../security-operations/dib-fedramp-security-tools.md` (Managed print section).
+
+## PaperCut MF / Hive (on-prem or customer-hosted)
+
+**PaperCut** has **no FedRAMP Marketplace listing** at last export. It is widely
+used as a **print release and quota layer** in front of Canon, Xerox, HP, and
+other MFPs. Compliance is **OSC-operated**:
+
+1. Host PaperCut on a hardened print server (CIS benchmark, patching, MFA on admin).
+2. Block VDI/home USB print paths that bypass PaperCut when CUI hardcopy is prohibited.
+3. Export job logs and secure-release configuration for MP.L2-3.8.x evidence.
+4. Do not cite FedRAMP for PaperCut; cite configuration and audit exports.
+
+Hosted PaperCut offerings run in the **vendor's cloud** unless you self-host;
+treat non-FedRAMP hosted PaperCut like any other non-authorized SaaS touching CUI
+metadata (generally avoid for CUI, or keep CUI print off that path).
 
 ## Baseline expectations
 

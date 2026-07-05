@@ -294,6 +294,91 @@
         "references/domains/at-awareness-training.md"
       ],
       "notes": "Rev5 Class C (Moderate). Maps to AT.L2-3.2.1, 3.2.2, 3.2.3; export completion and simulation evidence."
+    },
+    {
+      "id": "keeper-security-government",
+      "product": "Keeper Security Government Cloud Password Manager and Privileged Access Manager",
+      "vendor": "Keeper Security",
+      "marketplace_package_id": "FR2116544598A",
+      "dod_impact_level": [],
+      "cui_suitability": "Privileged credentials and secrets for CUI admins when using Gov High package",
+      "primary_source": "https://marketplace.fedramp.gov; https://www.keepersecurity.com/federal/",
+      "corpus_references": ["references/modern-it/security-operations/dib-fedramp-security-tools.md"],
+      "notes": "Rev5 Class D (High). Password vault and PAM audit exports for IA/AC."
+    },
+    {
+      "id": "snowflake-govcloud-high",
+      "product": "Snowflake Data Cloud on AWS GovCloud (High)",
+      "vendor": "Snowflake Inc.",
+      "marketplace_package_id": "FR2308159208",
+      "dod_impact_level": ["IL4", "IL5"],
+      "cui_suitability": "CUI analytics/data warehouse on GovCloud High boundary",
+      "primary_source": "https://marketplace.fedramp.gov; https://www.snowflake.com/en/solutions/industries/federal-government/",
+      "corpus_references": ["references/modern-it/security-operations/dib-fedramp-security-tools.md"],
+      "notes": "Rev5 Class D (High). Also see Moderate commercial FR1809360201 and Azure Gov FR1809360202A."
+    },
+    {
+      "id": "databricks-aws-govcloud",
+      "product": "Databricks on AWS GovCloud",
+      "vendor": "Databricks, Inc.",
+      "marketplace_package_id": "FR2324740262",
+      "dod_impact_level": ["IL4", "IL5"],
+      "cui_suitability": "CUI analytics/ML on GovCloud when workspace isolation documented",
+      "primary_source": "https://marketplace.fedramp.gov; https://www.databricks.com/solutions/industry/federal",
+      "corpus_references": ["references/modern-it/security-operations/dib-fedramp-security-tools.md"],
+      "notes": "Rev5 Class D (High). Databricks on Azure Commercial FR2525247858 is not Azure Government."
+    },
+    {
+      "id": "canon-office-cloud-mps",
+      "product": "Canon Office Cloud Managed Print Services",
+      "vendor": "Canon U.S.A., Inc.",
+      "marketplace_package_id": "FR1923039219",
+      "dod_impact_level": [],
+      "cui_suitability": "Managed print services plane for CUI-adjacent fleets",
+      "primary_source": "https://marketplace.fedramp.gov; https://www.usa.canon.com/industry/government",
+      "corpus_references": [
+        "references/modern-it/security-operations/dib-fedramp-security-tools.md",
+        "references/modern-it/asset-baselines/printers-mfp.md"
+      ],
+      "notes": "Rev5 Class C (Moderate). Device compliance still documented per printers-mfp.md."
+    },
+    {
+      "id": "xerox-mps-government",
+      "product": "Xerox Managed Print Services for US Government",
+      "vendor": "Xerox Corporation",
+      "marketplace_package_id": "FR1730334049",
+      "dod_impact_level": [],
+      "cui_suitability": "Gov MPS boundary for fleet management",
+      "primary_source": "https://marketplace.fedramp.gov; https://www.xerox.com/en-us/small-business/trends-insights/enterprise/content-hub/fedramp",
+      "corpus_references": [
+        "references/modern-it/security-operations/dib-fedramp-security-tools.md",
+        "references/modern-it/asset-baselines/printers-mfp.md"
+      ],
+      "notes": "Rev5 Class C (Moderate). Pair with PaperCut on-prem for release policy if used."
+    },
+    {
+      "id": "verkada-command-platform",
+      "product": "Verkada Command Platform",
+      "vendor": "Verkada Inc",
+      "marketplace_package_id": "FR2416859101",
+      "dod_impact_level": [],
+      "cui_suitability": "Cloud PACS/video for CUI facilities when Authorized",
+      "primary_source": "https://marketplace.fedramp.gov; https://www.verkada.com/federal/",
+      "corpus_references": [
+        "references/modern-it/security-operations/dib-fedramp-security-tools.md",
+        "references/modern-it/asset-baselines/physical-access.md"
+      ],
+      "notes": "FedRAMP In Process at last export. Not cite-safe until Authorized."
+    },
+    {
+      "id": "papercut-mf",
+      "product": "PaperCut MF / Hive (customer-hosted)",
+      "vendor": "PaperCut Software",
+      "dod_impact_level": [],
+      "cui_suitability": "Print release on OSC-operated server; no FedRAMP SaaS inheritance",
+      "primary_source": "https://www.papercut.com/; references/modern-it/asset-baselines/printers-mfp.md",
+      "corpus_references": ["references/modern-it/asset-baselines/printers-mfp.md"],
+      "notes": "No Marketplace package at last export. Corpus guidance only; CIS-hardened self-host path."
     }
   ]
 }

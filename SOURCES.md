@@ -692,6 +692,34 @@ compliance documentation and practitioner publications.
 - **URL:** https://www.knowbe4.com/industries/federal
 - **Used in:** modern-it/security-operations/dib-fedramp-security-tools.md; fedramp-marketplace-guide.md security awareness training category; domains/at-awareness-training.md cross-reference
 
+### Keeper Security Federal
+- **URL:** https://www.keepersecurity.com/federal/
+- **Used in:** modern-it/security-operations/dib-fedramp-security-tools.md (FR2116544598A Gov High PAM/password manager)
+
+### Snowflake Federal Government
+- **URL:** https://www.snowflake.com/en/solutions/industries/federal-government/
+- **Used in:** modern-it/security-operations/dib-fedramp-security-tools.md; fedramp-marketplace-guide.md data analytics category
+
+### Databricks Federal Solutions
+- **URL:** https://www.databricks.com/solutions/industry/federal
+- **Used in:** modern-it/security-operations/dib-fedramp-security-tools.md; fedramp-marketplace-guide.md data analytics category
+
+### Canon U.S.A. Government
+- **URL:** https://www.usa.canon.com/industry/government
+- **Used in:** modern-it/asset-baselines/printers-mfp.md; dib-fedramp-security-tools.md (Canon Office Cloud MPS FR1923039219)
+
+### Xerox FedRAMP / Government
+- **URL:** https://www.xerox.com/en-us/small-business/trends-insights/enterprise/content-hub/fedramp
+- **Used in:** modern-it/asset-baselines/printers-mfp.md; dib-fedramp-security-tools.md (Xerox MPS FR1730334049)
+
+### PaperCut Software
+- **URL:** https://www.papercut.com/
+- **Used in:** modern-it/asset-baselines/printers-mfp.md (on-prem/hosted; no FedRAMP package)
+
+### Verkada Federal
+- **URL:** https://www.verkada.com/federal/
+- **Used in:** modern-it/security-operations/dib-fedramp-security-tools.md; physical-access.md (In Process at last export)
+
 ### Anthropic Trust Center
 - **URL:** https://trust.anthropic.com
 - **Used in:** modern-it/ai-services/ai-dev-tools.md, fedramp-ai-services.md
