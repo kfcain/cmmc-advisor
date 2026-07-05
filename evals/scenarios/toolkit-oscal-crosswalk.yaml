@@ -37,9 +37,10 @@ expected_recommendation: |
   OSCAL emission: run scripts/generate_oscal_ssp.py on the program data
   file to produce an OSCAL System Security Plan importing the NIST SP
   800-53 Rev 5 Moderate baseline profile, with inheritance sources as
-  OSCAL components. Validate with compliance-trestle or FedRAMP OSCAL
-  rules before submission; the output is a CMMC-informed starting point,
-  not a complete FedRAMP authorization package.
+  OSCAL components. Validate with ./scripts/validate_oscal_ssp.sh or
+  compliance-trestle-skills (/compliance-trestle:workspace-validate);
+  see references/grc/companion-stack.md. The output is a CMMC-informed
+  starting point, not a complete FedRAMP authorization package.
 
   ISO 27001: use the NIST OLIR crosswalk from 800-53 to ISO/IEC 27001:2022
   at the control layer, then bridge to CMMC via control_index. Do not

@@ -16,7 +16,8 @@ Three paths feed evidence:
 2. **Meridian GCP ConMon** (`scripts/import_meridian_run.py`, external repo for live GCP)
 3. **GRC Engineering Club inspectors** (`scripts/merge_findings.py`, external dependency)
 4. **GRC platform MCP import** (`scripts/import_grc_snapshot.py`, Vanta/Drata/Secureframe/Paramify via multi-MCP workflow; see `grc-platform-mcp-bridge.md`)
-5. **Manual exports** (human drops files under `evidence/` and links them)
+5. **ControlBot IaC import** (`scripts/import_controlbot_seeds.py`, Checkov POA&M seeds and evidence facts from Terraform PRs; see `companion-stack.md`)
+6. **Manual exports** (human drops files under `evidence/` and links them)
 
 ---
 

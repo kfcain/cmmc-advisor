@@ -1,0 +1,39 @@
+id: companion-stack-controlbot-import
+title: Import ControlBot Terraform POA&M seeds into program data
+category: program-toolkit
+
+prompt: |
+  Our platform team runs ControlBot on every Terraform PR. We got
+  poam-seeds.json from a merge-blocking Checkov finding on SC-7. How do
+  we pull those seeds into our CMMC program-data.yaml, map them to the
+  right 800-171 requirements, and validate POA&M eligibility before we
+  accept Conditional status?
+
+required_terms:
+  - import_controlbot_seeds
+  - companion-stack
+  - 800-53
+  - validate_poam
+  - program data
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  ControlBot is the external IaC lane; CMMC Advisor imports its output via
+  scripts/import_controlbot_seeds.py. The script maps NIST SP 800-53 controls
+  in each seed through references/data/800-53-crosswalk.json control_index
+  to CMMC requirement IDs, writes per-requirement poam blocks and optional
+  evidence links from evidence-facts.json, and records controlbot_import
+  metadata. Configure .controlbot/profile.yaml with fedramp-moderate baseline
+  and inherited_controls from program-data inheritance_sources.
+
+  Workflow: npm run poam in the IaC repo, then
+  python3 scripts/import_controlbot_seeds.py poam-seeds.json program-data.yaml,
+  then python3 scripts/validate_poam.py program-data.yaml, then regenerate
+  dashboard/SSP. Import does not auto-set conformity MET; ISSM review and
+  32 CFR 170.21 eligibility rules still apply. Reference
+  references/grc/companion-stack.md.
+
+evaluator_notes: |
+  Must name import_controlbot_seeds.py, crosswalk mapping, validate_poam.py,
+  and companion-stack doc. Must not claim Checkov pass equals assessment MET.

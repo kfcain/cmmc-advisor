@@ -79,7 +79,29 @@ compliance documentation and practitioner publications.
 - **Publisher:** OSCAL Compass / IBM (open source)
 - **URL:** https://github.com/oscal-compass/compliance-trestle
 - **Used in:** references/multi-framework-crosswalk.md (validation path for
-  generated OSCAL SSPs; not bundled in this repo)
+  generated OSCAL SSPs; not bundled in this repo),
+  scripts/validate_oscal_ssp.sh, references/grc/companion-stack.md
+
+### compliance-trestle-skills (reference tooling)
+- **Title:** compliance-trestle-skills — Agent skill/plugin for OSCAL workspace workflows
+- **Publisher:** ethanolivertroy (community, Apache-2.0)
+- **URL:** https://github.com/ethanolivertroy/compliance-trestle-skills
+- **Used in:** references/grc/companion-stack.md (OSCAL import/validate roundtrip;
+  external install, not bundled)
+
+### ControlBot (reference tooling)
+- **Title:** ControlBot — Checkov-based IaC compliance review and POA&M seeds
+- **Publisher:** ethanolivertroy (community, MIT)
+- **URL:** https://github.com/ethanolivertroy/controlbot
+- **Used in:** references/grc/companion-stack.md, scripts/import_controlbot_seeds.py
+  (external install, not bundled)
+
+### visual-explainer (reference tooling)
+- **Title:** visual-explainer — Agent skill for HTML diagrams and review pages
+- **Publisher:** ethanolivertroy / nicobailon lineage (community, MIT)
+- **URL:** https://github.com/ethanolivertroy/visual-explainer
+- **Used in:** references/grc/companion-stack.md, platforms/visual-explainer/
+  (external install, not bundled)
 
 ### NIST SP 800-61 Rev 2
 - **Title:** Computer Security Incident Handling Guide
