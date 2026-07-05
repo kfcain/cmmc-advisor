@@ -193,7 +193,7 @@
       <tr><td><code>generate_trust_center.py</code></td><td>Public trust center HTML (deny-by-default)</td></tr>
       <tr><td><code>generate_executive_brief.py</code></td><td>C-level executive brief HTML</td></tr>
       <tr><td><code>generate_oscal_ssp.py</code></td><td>OSCAL SSP for FedRAMP/GRC tooling</td></tr>
-      <tr><td><code>generate_diagrams.py</code></td><td>Network/CUI flow SVG and Mermaid from topology section</td></tr>
+      <tr><td><code>generate_diagrams.py</code></td><td>License-safe network/CUI flow SVG + Mermaid from topology; <code>--theme dark</code>; same CLI on Claude, Cursor, Codex</td></tr>
       <tr><td><code>recommend_solutions.py</code></td><td>Gap-driven Marketplace/CIS solution hints (Markdown/JSON)</td></tr>
     </tbody>
   </table>
@@ -356,7 +356,7 @@
 
 <section id="platforms">
   <h2>Multi-platform distribution</h2>
-  <p>One knowledge base; thin adapters under <code>platforms/</code>. Never fork factual content per platform.</p>
+  <p>One knowledge base; thin adapters under <code>platforms/</code>. Never fork factual content per platform. Program toolkit scripts (SSP, dashboard, <strong>diagrams</strong>, evidence, POA&amp;M) run identically on every platform via <code>python3 scripts/...</code>.</p>
   <table>
     <thead><tr><th>Platform</th><th>Install</th><th>Adapter path</th></tr></thead>
     <tbody>

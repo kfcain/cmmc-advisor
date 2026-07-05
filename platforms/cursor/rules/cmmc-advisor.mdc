@@ -17,9 +17,15 @@ SPRS scoring, or defense contractor cybersecurity compliance:
    answering from memory.
 3. Preserve the enabler posture: map compliant paths clearly; when no compliant
    option exists today, state the gap, interim measures, and who is closing it.
-4. For program toolkit tasks (SSP, dashboard, evidence collectors, POA&M
-   validation), run scripts under `{skill-root}/scripts/` against the user's
-   program data file per the skill root `SKILL.md` Program Toolkit Workflows.
+4. For program toolkit tasks (SSP, dashboard, network/CUI flow diagrams,
+   evidence collectors, POA&M validation), run scripts under
+   `{skill-root}/scripts/` against the user's program data file per the skill
+   root `SKILL.md` Program Toolkit Workflows. For diagrams: maintain `topology`
+   in program data, then run
+   `python3 {skill-root}/scripts/generate_diagrams.py program-data.yaml -o diagrams/`
+   per `{skill-root}/references/diagram-guide.md` (license-safe generic glyphs
+   and text labels; optional `--theme dark`). Do not recommend vendor logo or
+   trademark icon packs.
 5. For assessor-mode requests (interrogate/grill the environment, run a mock
    assessment, red-team the scope), follow the Advisory Workflows rails in
    `SKILL.md` and the procedures in `{skill-root}/references/assessor-playbook/`;

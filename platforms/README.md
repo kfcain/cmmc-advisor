@@ -35,3 +35,18 @@ Companion stack (ControlBot, trestle-skills, visual-explainer):
 
 Contributors working in this repository use root `AGENTS.md` (Codex) and
 `CLAUDE.md` (Claude Code). See each platform README for copy-paste commands.
+
+## Program toolkit (all platforms)
+
+The CLI scripts under `scripts/` run the same on **Claude Code, Cursor, and
+Codex**. No platform ships exclusive diagram, SSP, or evidence tooling.
+
+| Task | Command (from skill root) |
+|------|---------------------------|
+| Network + CUI flow diagrams | `python3 scripts/generate_diagrams.py program-data.yaml -o diagrams/` |
+| Program dashboard | `python3 scripts/generate_dashboard.py program-data.yaml -o dashboard.html` |
+| SSP | `python3 scripts/generate_ssp.py program-data.yaml -o ssp.md` |
+
+Diagrams use license-safe generic glyphs and text labels only; see
+`references/diagram-guide.md`. Optional `--theme dark` on `generate_diagrams.py`.
+Each platform adapter above points agents at the same `SKILL.md` workflows.

@@ -30,11 +30,11 @@ expected_recommendation: |
   The toolkit answer to drift: diagrams are data. The topology section
   of the program data file (zones, nodes with asset categories, flows
   typed cui/fci/spd) is the single source; generate_diagrams.py renders
-  both diagrams (SVG plus Mermaid), the dashboard shows them in its
-  Diagrams view, and the SSP references the generated figures. Topology
-  changes are compliance events: regenerate instead of redrawing, and a
-  node or flow that disagrees with the asset inventory surfaces as a
-  data mismatch rather than an assessment-day discovery.
+  both diagrams (license-safe SVG with generic glyphs and text labels,
+  plus styled Mermaid), the dashboard shows them in its Diagrams view,
+  and the SSP references the generated figures. No vendor logos or
+  trademark icon packs ship with the skill. Topology changes are
+  compliance events: regenerate instead of redrawing.
 
 evaluator_notes: |
   Accuracy essentials: both diagrams required with the scope boundary

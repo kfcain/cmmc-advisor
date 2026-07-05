@@ -26,8 +26,11 @@ Before answering any CMMC, CUI, or federal GRC question:
    its **Knowledge Base Routing** table. Read each referenced file under
    `{skill-root}/references/` before answering from memory.
 3. Apply the **Program Toolkit Workflows** section when the user wants SSP,
-   dashboard, evidence, POA&M, or assessment-prep automation via scripts under
-   `{skill-root}/scripts/`.
+   dashboard, network/CUI flow diagrams, evidence, POA&M, or assessment-prep
+   automation via scripts under `{skill-root}/scripts/`. For diagrams: build
+   `topology` in program data, run
+   `python3 {skill-root}/scripts/generate_diagrams.py program-data.yaml -o diagrams/`,
+   follow `{skill-root}/references/diagram-guide.md` (license-safe glyphs only).
 4. Apply the **Advisory Workflows** assessor-mode rails when the user wants to
    be grilled about their environment, run a mock assessment, or have their
    scope red-teamed: procedures under

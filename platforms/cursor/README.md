@@ -43,6 +43,17 @@ ln -sf "$(pwd)/platforms/cursor" ~/.cursor/plugins/local/cmmc-advisor
 Restart Cursor or reload plugins. The bootstrap skill tells the agent to read
 root `SKILL.md` and `references/`.
 
+## Program toolkit (same as Claude Code and Codex)
+
+Cursor runs the same CLI from the skill root. Diagram workflow:
+
+```bash
+python3 scripts/generate_diagrams.py program-data.yaml -o diagrams/
+```
+
+See `references/diagram-guide.md`. No Cursor-only diagram plugin; the rule and
+bootstrap skill point at the shared script.
+
 ## Rule behavior
 
 `rules/cmmc-advisor.mdc` is **Agent Decides** (not always-on). It nudges the
@@ -54,6 +65,10 @@ SSP, or POA&M topics appear.
 Ask: "Which CMMC level for a subcontractor processing CUI?" The agent should
 read the skill-root `SKILL.md` (for example `.cmmc-advisor/SKILL.md`) and at
 least one file under `{skill-root}/references/` before answering.
+
+For diagram toolkit coverage, ask: "Generate our network and CUI flow diagrams
+from program data." The agent should use `references/diagram-guide.md` and
+`scripts/generate_diagrams.py` (same CLI on Cursor, Claude Code, and Codex).
 
 ## Related
 
