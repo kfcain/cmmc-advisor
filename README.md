@@ -35,6 +35,12 @@ Assessor-mode rails: a Lead CCA persona on the OSC's side of the table. Scope di
 
 See [ROADMAP.md](ROADMAP.md) for the staged expansion into multi-framework federal GRC coverage (policy-to-control mapping, 800-53/FedRAMP crosswalks, OSCAL, FedRAMP 20x, evidence automation).
 
+**Companion stack:** optional trestle-skills, ControlBot, and visual-explainer
+repos extend OSCAL validation, IaC POA&M import, and advisory HTML recaps.
+See [references/grc/companion-stack.md](references/grc/companion-stack.md).
+Most evidence collectors emit sample/`live_stub` output until the org wires
+live APIs or external GRC inspector plugins (Meridian covers live GCP ConMon).
+
 **Capability guide:** open [docs/capability-guide.html](docs/capability-guide.html) in a browser for a self-contained map of every feature, script, dataset, platform adapter, and known limitation in this repository.
 
 ## Installation

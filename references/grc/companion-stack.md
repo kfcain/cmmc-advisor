@@ -61,7 +61,13 @@ After grill, mock-assess, or red-team sessions, offer a visual-explainer HTML
 recap when the output exceeds terminal-friendly size (roughly 4+ rows or 3+
 columns in a comparison table).
 
-Install: [`platforms/visual-explainer/README.md`](../../platforms/visual-explainer/README.md).
+Install: [`platforms/visual-explainer/README.md`](../../platforms/visual-explainer/README.md),
+[`platforms/trestle-skills/README.md`](../../platforms/trestle-skills/README.md),
+[`platforms/controlbot/README.md`](../../platforms/controlbot/README.md).
+
+Sample artifacts: `templates/controlbot-poam-seeds.sample.json`,
+`templates/controlbot-evidence-facts.sample.json`,
+`templates/controlbot-profile.sample.yaml`.
 
 ---
 
@@ -164,8 +170,9 @@ The import script:
 - Deduplicates by ControlBot seed id (`[controlbot:<id>]` marker)
 - Records `controlbot_import` metadata on the program data file
 
-Import does **not** auto-set conformity MET. ISSM review, POA&M eligibility
-(32 CFR 170.21), and `validate_poam.py` still apply.
+Import does **not** auto-set conformity MET. Use `--write-conformity` only
+with explicit ISSM consent. ISSM review, POA&M eligibility (32 CFR 170.21),
+and `validate_poam.py` still apply.
 
 ---
 

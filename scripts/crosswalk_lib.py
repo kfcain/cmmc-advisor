@@ -20,11 +20,15 @@ def control_to_cmmc(control_id: str, crosswalk: dict[str, Any]) -> list[str]:
     raw = control_id.strip()
     if not raw or raw.upper() == "UNMAPPED":
         return []
-    candidates = {raw.upper(), raw.lower()}
-    candidates.add(normalize_control_id(raw))
-    for human, entry in idx.items():
-        if human.upper() in candidates or entry.get("oscal_id") in candidates:
-            return entry.get("cmmc_requirements") or []
+
+    for key in (raw, raw.upper(), raw.lower()):
+        if key in idx:
+            return list(idx[key].get("cmmc_requirements") or [])
+
+    norm = normalize_control_id(raw)
+    for entry in idx.values():
+        if entry.get("oscal_id") == norm:
+            return list(entry.get("cmmc_requirements") or [])
     return []
 
 

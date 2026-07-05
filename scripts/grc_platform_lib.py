@@ -9,10 +9,10 @@ from datetime import date
 from pathlib import Path
 from typing import Any
 
-from evidence_lib import merge_collector_result
+from crosswalk_lib import control_to_cmmc, load_crosswalk  # noqa: F401
+from evidence_lib import merge_collector_result  # noqa: E402
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-CROSSWALK_PATH = REPO_ROOT / "references" / "data" / "800-53-crosswalk.json"
 GRC_MANIFEST_PATH = REPO_ROOT / "references" / "data" / "grc-platform-mcp-manifest.json"
 
 CMMC_REQ_RE = re.compile(
@@ -35,17 +35,8 @@ def load_json(path: Path) -> Any:
         return json.load(handle)
 
 
-def load_crosswalk(path: Path | None = None) -> dict[str, Any]:
-    return load_json(path or CROSSWALK_PATH)
-
-
 def load_grc_manifest(path: Path | None = None) -> dict[str, Any]:
     return load_json(path or GRC_MANIFEST_PATH)
-
-
-def normalize_control_id(control: str) -> str:
-    c = control.strip().lower().replace("(", ".").replace(")", "")
-    return c
 
 
 def normalize_cmmc_requirement_id(raw: str, crosswalk: dict[str, Any] | None = None) -> str | None:
@@ -60,16 +51,6 @@ def normalize_cmmc_requirement_id(raw: str, crosswalk: dict[str, Any] | None = N
             if req.get("nist_800_171") == nist_id:
                 return req.get("cmmc_id")
     return None
-
-
-def control_to_cmmc(control_id: str, crosswalk: dict[str, Any]) -> list[str]:
-    idx = crosswalk.get("control_index") or {}
-    raw = control_id.strip()
-    candidates = {raw.upper(), raw.lower(), normalize_control_id(raw)}
-    for human, entry in idx.items():
-        if human.upper() in candidates or entry.get("oscal_id") in candidates:
-            return list(entry.get("cmmc_requirements") or [])
-    return []
 
 
 def resolve_requirement_ids(item: dict[str, Any], crosswalk: dict[str, Any]) -> list[str]:

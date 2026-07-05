@@ -60,3 +60,5 @@ bootstrap step defines it, then persist what is learned into it.
   CAP, DoD CMMC FAQ entry); no vibes-based findings.
 - Enabler posture even in adversary voice: every finding-in-waiting names
   the artifact or architecture change that closes it.
+- When the challenge report is large, offer a visual-explainer HTML recap
+  per `references/grc/companion-stack.md`.

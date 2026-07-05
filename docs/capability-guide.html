@@ -236,6 +236,18 @@
     <li>Regenerate: <code>python3 scripts/generate_dashboard.py program-data.yaml -o dashboard.html</code></li>
     <li>Export SPRS: <code>python3 scripts/export_sprs.py program-data.yaml -o exports/sprs.json --csv exports/sprs.csv</code></li>
   </ol>
+
+  <h3>Companion stack bridges</h3>
+  <p>Optional external repos extend CMMC Advisor without forking content. Full handoff: <code>references/grc/companion-stack.md</code>.</p>
+  <table>
+    <thead><tr><th>Script</th><th>Companion</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td><code>validate_oscal_ssp.sh</code></td><td>compliance-trestle / trestle-skills</td><td>Validate OSCAL after <code>generate_oscal_ssp.py</code></td></tr>
+      <tr><td><code>import_controlbot_seeds.py</code></td><td>ControlBot</td><td>Import IaC POA&amp;M seeds into program data</td></tr>
+      <tr><td>(external skill)</td><td>visual-explainer</td><td>Agent HTML recaps for large advisory tables (working notes, not audit evidence)</td></tr>
+    </tbody>
+  </table>
+  <p>Authoritative program views stay on <code>generate_dashboard.py</code> and <code>generate_diagrams.py</code>. Most collectors emit stub/sample output until live APIs or GRC inspector plugins are wired (Meridian covers live GCP ConMon).</p>
 </section>
 
 <section id="assessor">
@@ -353,6 +365,9 @@
       <tr><td>Cursor</td><td>Symlink repo to <code>.cursor/skills/cmmc-advisor</code> + rule to <code>.cursor/rules/</code></td><td><code>platforms/cursor/</code></td></tr>
       <tr><td>Codex / OpenAI agents</td><td>Merge bootstrap block from <code>platforms/codex/AGENTS.md</code></td><td><code>platforms/codex/</code></td></tr>
       <tr><td>GRC MCP toolkit</td><td>Combined vendor + cmmc-advisor MCP in compliance repo</td><td><code>platforms/toolkit/mcp.json</code></td></tr>
+      <tr><td>visual-explainer (optional)</td><td>Agent HTML recaps</td><td><code>platforms/visual-explainer/</code></td></tr>
+      <tr><td>compliance-trestle-skills (optional)</td><td>OSCAL workspace roundtrip</td><td><code>platforms/trestle-skills/</code></td></tr>
+      <tr><td>ControlBot (optional)</td><td>IaC PR compliance</td><td><code>platforms/controlbot/</code></td></tr>
     </tbody>
   </table>
   <p>See <code>platforms/README.md</code> and root <code>README.md</code> Installation section for copy-paste commands.</p>

@@ -11,9 +11,9 @@ adapters only. Do not fork factual content per platform.
 | Cursor | `platforms/cursor/` | Symlink the whole repo into `.cursor/skills/cmmc-advisor`, symlink the rule into `.cursor/rules/`, or install the local plugin stub |
 | Codex / OpenAI agents | `platforms/codex/` | Submodule the repo and merge `platforms/codex/AGENTS.md` into your project `AGENTS.md` |
 | GRC MCP bridge | `platforms/toolkit/` | Combined `mcp.json` + local cmmc-advisor MCP alongside Vanta/Drata/Secureframe |
-| visual-explainer (optional) | `platforms/visual-explainer/` | Submodule companion for agent HTML recaps; see `references/grc/companion-stack.md` |
-| compliance-trestle-skills (optional) | external | OSCAL validate/roundtrip after `generate_oscal_ssp.py`; see companion-stack doc |
-| ControlBot (optional) | external | IaC PR review; import via `scripts/import_controlbot_seeds.py` |
+| visual-explainer (optional) | `platforms/visual-explainer/` | Agent HTML recaps; see `references/grc/companion-stack.md` |
+| compliance-trestle-skills (optional) | `platforms/trestle-skills/` | OSCAL validate/roundtrip after `generate_oscal_ssp.py` |
+| ControlBot (optional) | `platforms/controlbot/` | IaC PR review; import via `scripts/import_controlbot_seeds.py` |
 
 Recommended consumer layout (any platform):
 

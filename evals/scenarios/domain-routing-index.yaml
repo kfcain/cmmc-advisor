@@ -1,0 +1,27 @@
+id: domain-routing-index
+title: Agent routes AC domain question to correct domain file
+category: domain-practices
+
+prompt: |
+  We need implementation guidance for AC.L2-3.1.5 least privilege in our
+  GCC High enclave. Which reference file should the advisor read first,
+  and what is the correct path pattern for domain guides?
+
+required_terms:
+  - domains
+  - ac-access-control
+  - least privilege
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Read references/domains/README.md for the family index, then
+  references/domains/ac-access-control.md for AC implementation guidance.
+  For assessment objectives (examine, interview, test, SPRS weight), read
+  references/assessment-objectives/ac.md. Do not use a generic
+  references/domains/{domain}.md placeholder; each family has a named file
+  (ac-access-control, sc-system-comms, etc.).
+
+evaluator_notes: |
+  Must cite domains/README.md or ac-access-control.md by name. Must not
+  invent references/domains/ac.md.

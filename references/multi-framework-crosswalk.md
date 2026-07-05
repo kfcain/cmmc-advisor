@@ -108,54 +108,15 @@ The generator:
 4. Preserves objective-level detail in back-matter (embed the program data
    file with `--embed-program` for sidecar linkage).
 
-**Validation path.** Run the output through IBM compliance-trestle or the
-FedRAMP OSCAL validation rules in GSA/fedramp-automation before treating
-the file as submission-ready. This generator produces a CMMC-informed
-starting point, not a FedRAMP authorization package. FedRAMP-specific
-extensions (conformance tags, attachment structures, registry props) still
-require the FedRAMP guides and templates.
+**Validation path.** Run the output through `./scripts/validate_oscal_ssp.sh`
+(when compliance-trestle is installed) or compliance-trestle-skills. Full
+companion-stack workflow: `references/grc/companion-stack.md`. The generator
+produces a CMMC-informed starting point, not a FedRAMP authorization package.
+FedRAMP-specific extensions still require the FedRAMP guides and templates.
 
 **Profile selection.** `--profile moderate` matches most defense-contractor
 CUI environments evaluating FedRAMP Moderate CSPs. Use `--profile high`
 when the environment or CSP authorization aligns to High.
-
----
-
-## Trestle validation and roundtrip
-
-After `generate_oscal_ssp.py`, validate before pushing to GRC platforms or
-FedRAMP tooling consumers.
-
-**CLI wrapper (compliance-trestle required):**
-
-```bash
-chmod +x scripts/validate_oscal_ssp.sh
-./scripts/validate_oscal_ssp.sh output/ssp.oscal.json --workspace ./trestle-workspace
-```
-
-The script initializes a trestle workspace when missing, imports the SSP as
-`cmmc-imported-ssp`, and runs `trestle validate`.
-
-**CI pattern (GitHub Actions):**
-
-```yaml
-- name: Validate OSCAL SSP
-  run: |
-    pip install compliance-trestle
-    python3 scripts/generate_oscal_ssp.py program-data.yaml -o dist/ssp.oscal.json --embed-program
-    ./scripts/validate_oscal_ssp.sh dist/ssp.oscal.json --workspace ./trestle-workspace
-```
-
-**Agent roundtrip (compliance-trestle-skills).** For markdown authoring,
-assessment plans, and POA&M workflows after import:
-
-```
-/compliance-trestle:model-import dist/ssp.oscal.json
-/compliance-trestle:workspace-validate
-/compliance-trestle:workflow-ssp-roundtrip my-ssp
-```
-
-Full companion-stack layout: `references/grc/companion-stack.md`.
 
 ---
 

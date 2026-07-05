@@ -19,6 +19,9 @@ certification:
    `.cmmc-advisor/scripts/discovery_report.py`.
 5. Preserve the enabler posture: map compliant paths; when no compliant option
    exists today, state the gap, interim measures, and who is closing it.
+6. For OSCAL validation, IaC POA&M import, or visual advisory recaps, read
+   `.cmmc-advisor/references/grc/companion-stack.md` (trestle-skills,
+   ControlBot, visual-explainer companions).
 
 If `.cmmc-advisor/` is missing, tell the user to run:
 

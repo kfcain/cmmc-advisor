@@ -43,6 +43,9 @@ ln -sf ../../.cmmc-advisor .claude/skills/cmmc-advisor
 Commit `.claude/skills/cmmc-advisor` (symlink) and `.cmmc-advisor` (submodule)
 so teammates get the same skill.
 
+Optional companion repos (trestle-skills, ControlBot, visual-explainer):
+see `references/grc/companion-stack.md` and `platforms/README.md`.
+
 ## Verify
 
 In Claude Code, ask a CMMC question. The agent should read `SKILL.md` and

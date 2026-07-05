@@ -72,3 +72,5 @@ something on file to assess.
   the OSC's chance to use that difference.
 - Never present mock results as certification outcomes.
 - Score at the objective level only; no practice-level shortcuts.
+- When the out-brief or gap table is large (roughly 4+ rows), offer a
+  visual-explainer HTML recap per `references/grc/companion-stack.md`.
