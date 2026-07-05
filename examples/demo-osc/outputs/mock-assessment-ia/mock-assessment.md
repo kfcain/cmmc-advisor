@@ -7,6 +7,7 @@
 
 - **Open OQ-0002** (Security engineer): Does the MSP NOC's NinjaOne alert console constitute a second, undocumented monitoring path holding Security Protection Data?
 - **Open OQ-0001** (IT lead): What SMTP relay does the Floor-2 MFP scan-to-email path use, and does it transit a commercial mail system?
+- **Open OQ-0003** (Sam Patel): Does the mail-room accumulation shelf (pre-shred staging) meet locked-media control for overnight storage?
 - **Unverified QA-0002** (confidence: reported): Can the Floor-2 MFP scan to email, and if so, to which mail system?
 - **Assumption AS-0001**: No CUI is scanned at the Floor-2 MFP because signage and policy prohibit it. Risk if wrong: An assessor treats policy-only separation as no separation; a CUI scan through a commercial relay recategorizes the MFP as a CUI asset and pulls its network segment into scope.
 

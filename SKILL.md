@@ -74,6 +74,7 @@ from memory alone when a reference exists.
 | Productivity suite overview, vendor selection, tier-level authorization snapshot | `references/modern-it/productivity/README.md` |
 | Microsoft 365 GCC or GCC High | `references/modern-it/productivity/microsoft-365-gcc.md` |
 | GCC High phased implementation mapped to AOs | `references/modern-it/productivity/gcch-implementation-workbook.md` + `references/data/gcch-workbook-manifest.json` |
+| Paper CUI, cover sheets, shredding, chain of custody, hardcopy transport | `references/domains/mp-media-protection.md` (Paper and hardcopy CUI lifecycle) + `references/modern-it/asset-baselines/printers-mfp.md` |
 | Google Workspace compliance | `references/modern-it/productivity/google-workspace.md` |
 | Atlassian, ServiceNow, legacy tools | `references/modern-it/productivity/legacy-dib-tools.md` |
 | AI services overview, decisions, capability crosswalk | `references/modern-it/ai-services/README.md` |

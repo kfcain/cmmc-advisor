@@ -323,6 +323,18 @@ compliance documentation and practitioner publications.
 - **URL:** https://www.archives.gov/cui
 - **Used in:** CUI definition, marking requirements, dissemination-control taxonomy
 
+### NIST SP 800-88 Rev 1 — Guidelines for Media Sanitization
+- **Title:** Guidelines for Media Sanitization
+- **Publisher:** NIST
+- **URL:** https://csrc.nist.gov/publications/detail/sp/800-88/rev-1/final
+- **Used in:** references/domains/mp-media-protection.md (Destroy sanitization for paper and digital media)
+
+### DoD CUI Program (marking resources)
+- **Title:** DoD Controlled Unclassified Information
+- **Publisher:** US Department of Defense
+- **URL:** https://www.dodcui.mil/
+- **Used in:** references/domains/mp-media-protection.md (cover sheets and marking mechanics)
+
 ### FAR 52.204-21 — Basic Safeguarding
 - **Title:** Basic Safeguarding of Covered Contractor Information Systems
 - **Publisher:** Federal Acquisition Regulation

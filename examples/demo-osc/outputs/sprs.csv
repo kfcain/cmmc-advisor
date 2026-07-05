@@ -62,7 +62,7 @@ MA.L2-3.7.3,3.7.3,Equipment Sanitization,met,MET,1,0
 MA.L2-3.7.4,3.7.4,Media Inspection,met,MET,3,0
 MA.L2-3.7.5,3.7.5,Nonlocal Maintenance,met,MET,5,0
 MA.L2-3.7.6,3.7.6,Maintenance Personnel,met,MET,1,0
-MP.L2-3.8.1,3.8.1,Media Protection,met,MET,3,0
+MP.L2-3.8.1,3.8.1,Media Protection,partially-met,NOT MET,3,0
 MP.L2-3.8.2,3.8.2,Media Access,met,MET,3,0
 MP.L2-3.8.3,3.8.3,Media Disposal,met,MET,5,0
 MP.L2-3.8.4,3.8.4,Media Markings,met,MET,1,0

@@ -85,7 +85,7 @@ def main() -> int:
         ("Level 2 scoping / CUI enclave", "references/scoping-and-cui.md", "Tenant boundary, asset categories"),
         ("GCC High tenancy", "references/modern-it/productivity/microsoft-365-gcc.md", "GCC vs GCC High decision"),
         ("Phased rollout", "references/modern-it/productivity/gcch-implementation-workbook.md", "Identity → devices → data → monitoring"),
-        ("CRM inheritance", "references/grc/inherited-controls-mapping.md", "Shared SC-13 / PE rows from GCC High"),
+        ("Paper CUI / hardcopy", "references/domains/mp-media-protection.md", "Cover sheets, shred, transport CoC"),
         ("Graph evidence", "references/modern-it/security-operations/microsoft-graph-evidence.md", "Collector endpoints USGov"),
         ("POA&M rules", "references/poam-management.md", "180-day closeout, banned practices"),
         ("Companion stack", "references/grc/companion-stack.md", "ControlBot → program-data import"),
@@ -108,7 +108,8 @@ def main() -> int:
     eval_rows = [
         ("level-2-scoping-basic.yaml", "SDVOSB SaaS on GovCloud — level and boundary"),
         ("modern-it-gcch-workbook-routing.yaml", "Phased GCC High → AO mapping"),
-        ("domain-ia-mfa-gcch.yaml", "Conditional Access / MFA objectives"),
+        ("domain-mp-paper-cui.yaml", "Paper cover sheets, shredding, chain of custody"),
+        ("domain-mp-media-labels.yaml", "Purview labels vs MP family"),
         ("grc-inherited-controls-crm.yaml", "CRM rows → per-AO inheritance"),
         ("companion-stack-e2e-pipeline.yaml", "ControlBot import through dashboard"),
         ("assessor-grill-kickoff.yaml", "Discovery rail kickoff"),
@@ -245,6 +246,7 @@ def main() -> int:
     <a href="#story">Org story</a>
     <a href="#program-data">Program data</a>
     <a href="#validation">Validation</a>
+    <a href="#paper-cui">Paper CUI</a>
     <a href="#artifacts">Artifacts</a>
     <a href="#preview">Preview</a>
     <a href="#routing">SKILL routing</a>
@@ -287,8 +289,25 @@ def main() -> int:
         <li><strong>IA.L2-3.5.3</strong> — partially met (SMS OTP on one legacy app)</li>
         <li><strong>SC.L2-3.13.11</strong> — shared with GCC High CRM + customer Intune FIPS policy</li>
         <li><strong>ControlBot import</strong> — Terraform Checkov seed on SC-7 mapped via crosswalk</li>
-        <li><strong>Discovery open questions</strong> — MFP scan relay, MSP NinjaOne alert path</li>
+        <li><strong>Discovery open questions</strong> — MFP scan relay, MSP NinjaOne alert path, mail-room accumulation shelf</li>
+        <li><strong>Paper CUI</strong> — cover sheets, cross-cut shred log, NAID vendor cert, FedEx chain of custody; MP.L2-3.8.1 partial (overnight staging)</li>
       </ul>
+    </section>
+
+    <section id="paper-cui">
+      <h2>Paper and hardcopy CUI</h2>
+      <p>APM receives CTI drawings on paper and ships marked hardcopy to the prime. Digital CUI stays in GCC High; paper is a parallel MP track.</p>
+      <table>
+        <tr><th>Control</th><th>Demo implementation</th><th>Requirement / AO</th></tr>
+        <tr><td>CUI cover sheets</td><td>Transmittal on every FedEx pouch and internal routing folder</td><td>MP.L2-3.8.4 — 3.8.4[a–b]</td></tr>
+        <tr><td>Asset stickers</td><td>Orange labels on job boxes, file cabinets, shred console</td><td>MP.L2-3.8.1 — physical control at rest</td></tr>
+        <tr><td>Cross-cut shredding</td><td>HSM-150 in mail room; dual-person witness log</td><td>MP.L2-3.8.3 — Destroy (NIST SP 800-88)</td></tr>
+        <tr><td>Vendor destruction</td><td>NAID AAA quarterly purge with certificate of destruction</td><td>MP.L2-3.8.3</td></tr>
+        <tr><td>Chain of custody</td><td>Signed handoff for FedEx; tamper-evident inner wrap</td><td>MP.L2-3.8.5 — 3.8.5[a–b]</td></tr>
+        <tr><td>Open gap</td><td>Pre-shred accumulation shelf not locked overnight</td><td>MP.L2-3.8.1[b] — POA&amp;M for lockable console</td></tr>
+      </table>
+      <p>Advisor routing: <code>references/domains/mp-media-protection.md</code> (Paper and hardcopy CUI lifecycle).</p>
+      <p>Evidence paths under <code>evidence/mp/paper/</code> (created by <code>bootstrap_demo_osc.py</code>).</p>
     </section>
 
     <section id="program-data">

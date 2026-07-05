@@ -17,7 +17,7 @@ Demo OSC for CMMC Advisor toolkit walkthrough
 
 ## Scope
 
-Atlas Precision Manufacturing (APM) machines vehicle components for an Army prime. CUI (CTI and export-controlled drawings) is processed only in a Microsoft 365 GCC High tenant, twelve Intune-managed Windows laptops, Azure Government file services, and Microsoft Sentinel. Commercial M365, corporate HR/finance, and IGEL thin-client VDI terminals are out of scope with documented separation.
+Atlas Precision Manufacturing (APM) machines vehicle components for an Army prime. CUI (CTI and export-controlled drawings) is processed only in a Microsoft 365 GCC High tenant, twelve Intune-managed Windows laptops, Azure Government file services, and Microsoft Sentinel. Commercial M365, corporate HR/finance, and IGEL thin-client VDI terminals are out of scope with documented separation. Paper CUI (marked CTI hardcopy, traveler drawings, mail pouches) is in scope for the CUI floor mail room, locked job boxes, and cross-cut destruction path; digital CUI remains in GCC High.
 
 ## References
 
@@ -54,12 +54,15 @@ Primary enclave: GCC High (Entra ID USGov, EXO/SPO/Teams), Azure Government (Sen
 |-------|-------------|--------|
 | M365 GCC High tenant (Exchange, SharePoint, Teams) | CUI storage, processing, and transmission | Microsoft |
 | ENG laptops (12, Intune-managed, BitLocker) | CUI processing endpoints |  |
+| CUI mail room (Building A Room 104) | Inbound/outbound hardcopy staging, cover-sheet log, locked shred console |  |
+| Locked CUI job boxes (12, ENG floor) | Orange CUI asset stickers; keys on PE access list |  |
 
 ### Contractor Risk Managed Assets
 
 | Asset | Description | Vendor |
 |-------|-------------|--------|
 | HP MFP Floor-2 |  |  |
+| HSM cross-cut shredder (Model HSM-150) | Destroy sanitization for daily paper CUI; strip-cut prohibited by policy |  |
 
 ### Security Protection Assets
 
@@ -68,6 +71,7 @@ Primary enclave: GCC High (Entra ID USGov, EXO/SPO/Teams), Azure Government (Sen
 | Microsoft Sentinel (Azure Government) | SIEM ingesting enclave logs | Microsoft |
 | FortiGate 100F enclave edge |  | Fortinet |
 | NinjaOne for Government (ENG CUI laptops only) | FedRAMP Moderate RMM; segregated from MSP commercial tenants | NinjaOne |
+| Certified destruction vendor (NAID AAA) | Quarterly bulk purge with certificate of destruction | SecureShred Regional |
 
 ### Specialized Assets
 
@@ -1828,33 +1832,31 @@ Primary enclave: GCC High (Entra ID USGov, EXO/SPO/Teams), Azure Government (Sen
 
 > Protect (i.e., physically control and securely store) system media containing CUI, both paper and digital.
 
-**REQUIREMENT CONFORMITY:** MET
+**REQUIREMENT CONFORMITY:** PARTIALLY MET
 
 **ASSESSMENT OBJECTIVE(S):**
 
 **[a]** paper media containing CUI is physically controlled
 
 - AO CONFORMITY: MET
-- Assessment Objective Conformity Statement: Demo OSC: Media Protection objective a satisfied via documented enclave controls (Atlas Precision Manufacturing).
-- Evidence: Demo evidence — MP.L2-3.8.1 [a] (evidence/demo/MP-L2-3-8-1-a.json)
+- Assessment Objective Conformity Statement: Paper CUI at rest in locked job boxes and locked file cabinets on the CUI floor; orange CUI stickers on each container.
+- Evidence: CUI asset sticker inventory (evidence/mp/paper/cui-asset-sticker-inventory-2026-06.json)
+- Evidence: PE access list for job-box keys (evidence/mp/paper/job-box-key-register-2026-06.csv)
 
 **[b]** digital media containing CUI is physically controlled
 
-- AO CONFORMITY: MET
-- Assessment Objective Conformity Statement: Demo OSC: Media Protection objective b satisfied via documented enclave controls (Atlas Precision Manufacturing).
-- Evidence: Demo evidence — MP.L2-3.8.1 [b] (evidence/demo/MP-L2-3-8-1-b.json)
+- AO CONFORMITY: NOT MET
+- Assessment Objective Conformity Statement: Mail-room pre-shred accumulation shelf is not locked overnight; POA&M tracks lockable console install.
 
 **[c]** paper media containing CUI is securely stored
 
-- AO CONFORMITY: MET
-- Assessment Objective Conformity Statement: Demo OSC: Media Protection objective c satisfied via documented enclave controls (Atlas Precision Manufacturing).
-- Evidence: Demo evidence — MP.L2-3.8.1 [c] (evidence/demo/MP-L2-3-8-1-c.json)
+- AO CONFORMITY: NOT ASSESSED
+- Assessment Objective Conformity Statement: Assessment objective has not been assessed.
 
 **[d]** digital media containing CUI is securely stored
 
-- AO CONFORMITY: MET
-- Assessment Objective Conformity Statement: Demo OSC: Media Protection objective d satisfied via documented enclave controls (Atlas Precision Manufacturing).
-- Evidence: Demo evidence — MP.L2-3.8.1 [d] (evidence/demo/MP-L2-3-8-1-d.json)
+- AO CONFORMITY: NOT ASSESSED
+- Assessment Objective Conformity Statement: Assessment objective has not been assessed.
 
 ### MP.L2-3.8.2: Media Access
 
@@ -1881,14 +1883,15 @@ Primary enclave: GCC High (Entra ID USGov, EXO/SPO/Teams), Azure Government (Sen
 **[a]** system media containing CUI is sanitized or destroyed before disposal
 
 - AO CONFORMITY: MET
-- Assessment Objective Conformity Statement: Demo OSC: Media Disposal objective a satisfied via documented enclave controls (Atlas Precision Manufacturing).
-- Evidence: Demo evidence — MP.L2-3.8.3 [a] (evidence/demo/MP-L2-3-8-3-a.json)
+- Assessment Objective Conformity Statement: Paper CUI destroyed via cross-cut shredding (HSM-150) with dual-person witness log, or NAID AAA vendor with certificate of destruction. No recycling bins for CUI.
+- Evidence: Shred witness log (evidence/mp/paper/shred-witness-log-2026-06.csv)
+- Evidence: NAID destruction certificate Q1 (evidence/mp/paper/naid-destruction-cert-2026-q1.pdf)
+- Evidence: Paper CUI destruction procedure (policies/paper-cui-handling-v1.2.pdf)
 
 **[b]** system media containing CUI is sanitized before it is released for reuse
 
-- AO CONFORMITY: MET
-- Assessment Objective Conformity Statement: Demo OSC: Media Disposal objective b satisfied via documented enclave controls (Atlas Precision Manufacturing).
-- Evidence: Demo evidence — MP.L2-3.8.3 [b] (evidence/demo/MP-L2-3-8-3-b.json)
+- AO CONFORMITY: NOT ASSESSED
+- Assessment Objective Conformity Statement: Assessment objective has not been assessed.
 
 ### MP.L2-3.8.4: Media Markings
 
@@ -1901,14 +1904,15 @@ Primary enclave: GCC High (Entra ID USGov, EXO/SPO/Teams), Azure Government (Sen
 **[a]** media containing CUI is marked with applicable CUI markings
 
 - AO CONFORMITY: MET
-- Assessment Objective Conformity Statement: Demo OSC: Media Markings objective a satisfied via documented enclave controls (Atlas Precision Manufacturing).
-- Evidence: Demo evidence — MP.L2-3.8.4 [a] (evidence/demo/MP-L2-3-8-4-a.json)
+- Assessment Objective Conformity Statement: CTI banner and portion markings applied per 32 CFR 2002; CUI cover sheets on all external transmittals.
+- Evidence: Redacted cover sheet sample (evidence/mp/paper/cui-cover-sheet-sample-redacted.pdf)
+- Evidence: Marking standard excerpt (evidence/mp/paper/cui-marking-standard-excerpt.pdf)
 
 **[b]** media containing CUI is marked with distribution limitations
 
 - AO CONFORMITY: MET
-- Assessment Objective Conformity Statement: Demo OSC: Media Markings objective b satisfied via documented enclave controls (Atlas Precision Manufacturing).
-- Evidence: Demo evidence — MP.L2-3.8.4 [b] (evidence/demo/MP-L2-3-8-4-b.json)
+- Assessment Objective Conformity Statement: Distribution limitations (NOFORN where applicable) on cover sheets and document headers.
+- Evidence: Training roster — paper CUI marking (evidence/mp/paper/marking-training-roster-2026-05.csv)
 
 ### MP.L2-3.8.5: Media Accountability
 
@@ -1921,14 +1925,15 @@ Primary enclave: GCC High (Entra ID USGov, EXO/SPO/Teams), Azure Government (Sen
 **[a]** access to media containing CUI is controlled
 
 - AO CONFORMITY: MET
-- Assessment Objective Conformity Statement: Demo OSC: Media Accountability objective a satisfied via documented enclave controls (Atlas Precision Manufacturing).
-- Evidence: Demo evidence — MP.L2-3.8.5 [a] (evidence/demo/MP-L2-3-8-5-a.json)
+- Assessment Objective Conformity Statement: Only mail-room clerks and ISSM may remove paper CUI from the CUI floor; authorization logged on cover sheet.
+- Evidence: Mail/courier authorization procedure (procedures/cui-mail-courier-v1.pdf)
 
 **[b]** accountability for media containing CUI is maintained during transport outside of controlled areas
 
 - AO CONFORMITY: MET
-- Assessment Objective Conformity Statement: Demo OSC: Media Accountability objective b satisfied via documented enclave controls (Atlas Precision Manufacturing).
-- Evidence: Demo evidence — MP.L2-3.8.5 [b] (evidence/demo/MP-L2-3-8-5-b.json)
+- Assessment Objective Conformity Statement: Chain-of-custody forms for FedEx and internal courier; signature on delivery.
+- Evidence: FedEx chain of custody 2026-06-12 (evidence/mp/paper/chain-of-custody-fedex-2026-06-12.pdf)
+- Evidence: Chain of custody blank template (procedures/shred-chain-of-custody-v1.pdf)
 
 ### MP.L2-3.8.6: Portable Storage Encryption
 
@@ -2947,6 +2952,7 @@ Primary enclave: GCC High (Entra ID USGov, EXO/SPO/Teams), Azure Government (Sen
 | Medium | AC.L2-3.1.22: Close gap on AC.L2-3.1.22 before C3PAO assessment | 2026-09-30 | Document control; Collect assessor evidence; Update conformity |
 | High | AU.L2-3.3.5: Implement Sentinel analytics rules and weekly correlated review for enclave audit records | 2026-09-15 | Deploy Microsoft Sentinel analytics rules for the enclave workspace; Stand up weekly audit review runbook with sign-off log; Backfill 90 days of review evidence before assessment |
 | Medium | CM.L2-3.4.7: Close gap on CM.L2-3.4.7 before C3PAO assessment | 2026-09-30 | Document control; Collect assessor evidence; Update conformity |
+| Medium | MP.L2-3.8.1: Install locked shred console for overnight mail-room accumulation | 2026-08-15 | Procure lockable console; Update mail-room procedure; Photo evidence for assessor |
 | High | SC.L2-3.13.1: S3 bucket ACL allows public access [controlbot:checkov-ckv-aws-019-terraform-aws-s3-bucket-public-acl] | 2026-08-03 | Block public ACLs and restrict bucket policy to the enclave VPC endpoints. |
 
 ## NIST CMVP Certificates

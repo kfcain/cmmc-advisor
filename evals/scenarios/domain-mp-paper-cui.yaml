@@ -1,0 +1,32 @@
+id: domain-mp-paper-cui
+title: Paper CUI cover sheets shredding and chain of custody
+category: domain-practice
+routing_smoke_strict: true
+
+prompt: |
+  We receive paper CUI drawings from our prime and sometimes ship marked
+  hardcopy back. Walk through cover sheets, cross-cut shredding, chain of
+  custody for FedEx, and whether we need CUI stickers on file cabinets.
+
+required_terms:
+  - mp-media-protection
+  - cover sheet
+  - chain of custody
+  - MP.L2-3.8.3
+  - cross-cut
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Route to references/domains/mp-media-protection.md (Paper and hardcopy CUI
+  lifecycle) and references/modern-it/asset-baselines/printers-mfp.md.
+  MP.L2-3.8.4 cover sheets and markings per 32 CFR 2002; MP.L2-3.8.3 Destroy
+  sanitization via cross-cut shred or certified vendor with certificate;
+  MP.L2-3.8.5 chain of custody for transport; MP.L2-3.8.1 locked storage
+  and asset stickers on CUI containers. Cite assessment-objectives/mp.md
+  objectives 3.8.3[a], 3.8.4[a–b], 3.8.5[a–b]. NIST SP 800-88 maps paper to
+  Destroy; do not use recycling bins.
+
+evaluator_notes: |
+  Must mention cover sheets, shred/destruction records, and transport
+  accountability. Enabler: concrete evidence list (logs, certs, samples).

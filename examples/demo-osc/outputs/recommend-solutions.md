@@ -1,6 +1,6 @@
 # CMMC gap-driven solution hints
 
-SPRS points at stake on open gaps: **16**
+SPRS points at stake on open gaps: **19**
 
 Verify every FedRAMP listing at marketplace.fedramp.gov before procurement.
 See `references/grc/solution-selection.md` for Rev5 Class C/D and 20x rules.
@@ -19,6 +19,11 @@ See `references/grc/solution-selection.md` for Rev5 Class C/D and 20x rules.
 
 - **Marketplace:** FedRAMP Moderate MFA/PAM (Duo FedRAMP package, etc.)
 - **On-prem / CIS fallback:** Entra Conditional Access / on-prem MFA with CIS authenticator guidance
+
+## MP: Media protection / DLP
+
+- **Marketplace:** DLP and secure collaboration FedRAMP Moderate listings
+- **On-prem / CIS fallback:** Encrypted removable media policy; M365 DLP in GCC High
 
 ## AC: IAM / PAM / identity governance
 

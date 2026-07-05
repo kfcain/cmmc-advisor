@@ -5,9 +5,9 @@
   "conditional_status_date": null,
   "closeout_deadline": null,
   "days_until_closeout": null,
-  "computed_sprs_score": 96,
+  "computed_sprs_score": 93,
   "ssp_missing": false,
-  "poam_item_count": 4,
+  "poam_item_count": 5,
   "eligible_poam_count": 0,
   "rulings": [
     {
@@ -86,6 +86,31 @@
       }
     },
     {
+      "requirement_id": "MP.L2-3.8.1",
+      "eligible": false,
+      "reasons": [
+        "Practice carries 3 SPRS points; only 1-point practices may defer via POA&M."
+      ],
+      "rule_refs": [
+        "32 CFR 170.21(a)(2)(ii)"
+      ],
+      "conformity": "partially-met",
+      "sprs_value": 3,
+      "poam": {
+        "priority": "Medium",
+        "description": "Install locked shred console for overnight mail-room accumulation",
+        "opened": "2026-07-01",
+        "due": "2026-08-15",
+        "owner": "Sam Patel",
+        "status": "in-progress",
+        "actions": [
+          "Procure lockable console",
+          "Update mail-room procedure",
+          "Photo evidence for assessor"
+        ]
+      }
+    },
+    {
       "requirement_id": "SC.L2-3.13.1",
       "eligible": false,
       "reasons": [
@@ -131,6 +156,14 @@
       "type": "poam_ineligible",
       "requirement_id": "CM.L2-3.4.7",
       "message": "Practice carries 5 SPRS points; only 1-point practices may defer via POA&M.",
+      "rule_refs": [
+        "32 CFR 170.21(a)(2)(ii)"
+      ]
+    },
+    {
+      "type": "poam_ineligible",
+      "requirement_id": "MP.L2-3.8.1",
+      "message": "Practice carries 3 SPRS points; only 1-point practices may defer via POA&M.",
       "rule_refs": [
         "32 CFR 170.21(a)(2)(ii)"
       ]

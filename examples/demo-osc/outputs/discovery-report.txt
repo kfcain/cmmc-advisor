@@ -12,6 +12,6 @@ Discovery report: OK
     data-flows: in-progress
     backup-dr: in-progress
   Untouched phases: specialized-ot
-  Q&A entries: 4
-  Open questions: 2
+  Q&A entries: 6
+  Open questions: 3
   Unretired assumptions: 1

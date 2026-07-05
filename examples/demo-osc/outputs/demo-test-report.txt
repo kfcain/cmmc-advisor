@@ -4,7 +4,7 @@ Generated: 2026-07-05
 ## dashboard
 command: /usr/bin/python3 scripts/generate_dashboard.py /workspace/examples/demo-osc/program-data.yaml -o /workspace/examples/demo-osc/outputs/dashboard.html
 exit: 0
-wrote /workspace/examples/demo-osc/outputs/dashboard.html (310105 bytes, self-contained)
+wrote /workspace/examples/demo-osc/outputs/dashboard.html (312701 bytes, self-contained)
 
 ## ssp
 command: /usr/bin/python3 scripts/generate_ssp.py /workspace/examples/demo-osc/program-data.yaml -o /workspace/examples/demo-osc/outputs/ssp.md
@@ -36,14 +36,14 @@ Wrote /workspace/examples/demo-osc/outputs/oscal-ssp.json (127 implemented 800-5
 ## sprs-json
 command: /usr/bin/python3 scripts/export_sprs.py /workspace/examples/demo-osc/program-data.yaml -o /workspace/examples/demo-osc/outputs/sprs.json
 exit: 0
-wrote /workspace/examples/demo-osc/outputs/sprs.json (summary score 96)
-sprs_submission delta vs export: +4 (last submitted 92)
+wrote /workspace/examples/demo-osc/outputs/sprs.json (summary score 93)
+sprs_submission delta vs export: +1 (last submitted 92)
 
 ## sprs-csv
 command: /usr/bin/python3 scripts/export_sprs.py /workspace/examples/demo-osc/program-data.yaml --csv /workspace/examples/demo-osc/outputs/sprs.csv
 exit: 0
-wrote exports/sprs-scoresheet.json (summary score 96)
-sprs_submission delta vs export: +4 (last submitted 92)
+wrote exports/sprs-scoresheet.json (summary score 93)
+sprs_submission delta vs export: +1 (last submitted 92)
 wrote /workspace/examples/demo-osc/outputs/sprs.csv
 
 ## mock-ia
@@ -101,9 +101,9 @@ exit: 1
   "conditional_status_date": null,
   "closeout_deadline": null,
   "days_until_closeout": null,
-  "computed_sprs_score": 96,
+  "computed_sprs_score": 93,
   "ssp_missing": false,
-  "poam_item_count": 4,
+  "poam_item_count": 5,
   "eligible_poam_count": 0,
   "rulings": [
     {
@@ -182,6 +182,31 @@ exit: 1
       }
     },
     {
+      "requirement_id": "MP.L2-3.8.1",
+      "eligible": false,
+      "reasons": [
+        "Practice carries 3 SPRS points; only 1-point practices may defer via POA&M."
+      ],
+      "rule_refs": [
+        "32 CFR 170.21(a)(2)(ii)"
+      ],
+      "conformity": "partially-met",
+      "sprs_value": 3,
+      "poam": {
+        "priority": "Medium",
+        "description": "Install locked shred console for overnight mail-room accumulation",
+        "opened": "2026-07-01",
+        "due": "2026-08-15",
+        "owner": "Sam Patel",
+        "status": "in-progress",
+        "actions": [
+          "Procure lockable console",
+          "Update mail-room procedure",
+          "Photo evidence for assessor"
+        ]
+      }
+    },
+    {
       "requirement_id": "SC.L2-3.13.1",
       "eligible": false,
       "reasons": [
@@ -233,6 +258,14 @@ exit: 1
     },
     {
       "type": "poam_ineligible",
+      "requirement_id": "MP.L2-3.8.1",
+      "message": "Practice carries 3 SPRS points; only 1-point practices may defer via POA&M.",
+      "rule_refs": [
+        "32 CFR 170.21(a)(2)(ii)"
+      ]
+    },
+    {
+      "type": "poam_ineligible",
       "requirement_id": "SC.L2-3.13.1",
       "message": "Practice carries 5 SPRS points; only 1-point practices may defer via POA&M.; Conformity is met; POA&M is for open gaps, not satisfied practices.",
       "rule_refs": [
@@ -252,7 +285,7 @@ exit: 1
 ## validate-assets
 exit: 0
 {
-  "assets_checked": 5,
+  "assets_checked": 6,
   "issues": [],
   "warnings": [
     {
@@ -269,7 +302,25 @@ exit: 0
     },
     {
       "type": "baseline_profile_missing",
+      "asset": "CUI mail room (Building A Room 104)",
+      "category": "cui",
+      "message": "No baseline_profile assigned; see references/modern-it/asset-baselines/"
+    },
+    {
+      "type": "baseline_profile_missing",
+      "asset": "Locked CUI job boxes (12, ENG floor)",
+      "category": "cui",
+      "message": "No baseline_profile assigned; see references/modern-it/asset-baselines/"
+    },
+    {
+      "type": "baseline_profile_missing",
       "asset": "Microsoft Sentinel (Azure Government)",
+      "category": "security-protection",
+      "message": "No baseline_profile assigned; see references/modern-it/asset-baselines/"
+    },
+    {
+      "type": "baseline_profile_missing",
+      "asset": "Certified destruction vendor (NAID AAA)",
       "category": "security-protection",
       "message": "No baseline_profile assigned; see references/modern-it/asset-baselines/"
     }
@@ -297,7 +348,7 @@ Discovery report: OK
     data-flows: in-progress
     backup-dr: in-progress
   Untouched phases: specialized-ot
-  Q&A entries: 4
-  Open questions: 2
+  Q&A entries: 6
+  Open questions: 3
   Unretired assumptions: 1
 

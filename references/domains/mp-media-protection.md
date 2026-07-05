@@ -469,6 +469,89 @@ scope when the primary suite is the CUI system of record.
 
 ---
 
+## Paper and hardcopy CUI lifecycle
+
+Digital GCC High controls do not remove MP obligations for **paper CUI**,
+controlled printouts, mail pouches, and hardcopy that transits between the
+prime, subcontractors, and the shop floor. Treat paper as **media** under
+MP.L2-3.8.1 through MP.L2-3.8.5 (and sanitization under MP.L2-3.8.3).
+
+### Marking, cover sheets, and asset labels
+
+- **Banner and portion markings** follow 32 CFR Part 2002 and the CUI Registry
+  category (CTI, EXPT, etc.). Every page or cover that introduces CUI carries
+  the required banner; portion markings apply inside multi-section documents.
+- **CUI cover sheets** (transmittal sheets) attach to fax/mail/courier
+  packages and internal routing folders. They record sender, recipient,
+  date, CUI category, and handling instructions without exposing content in
+  the envelope label.
+- **Exterior package labels** identify controlled material for authorized
+  recipients; they do not substitute for interior marking.
+- **Asset stickers** on locked job boxes, shred consoles, CUI file cabinets,
+  and authorized MFPs mark **media storage locations** and reinforce
+  MP.L2-3.8.1 physical-control scope. Stickers alone are not a control;
+  pair them with access lists and key control.
+
+See `references/scoping-and-cui.md` for category selection;
+`references/modern-it/asset-baselines/printers-mfp.md` for MFP egress paths.
+
+### Storage, clean desk, and accumulation points
+
+- **Locked storage:** CUI hardcopy in locked cabinets or job boxes when not
+  under direct individual control. Keys or combinations on the PE access list.
+- **Clean desk / end of shift:** paper CUI not left on work surfaces overnight.
+- **Accumulation points:** locked shred consoles and outbound-mail staging
+  areas are in scope. "We shred eventually" without locked consoles and
+  destruction records is a common assessor finding.
+
+### Sanitization and destruction (MP.L2-3.8.3)
+
+- **NIST SP 800-88 Rev 1** maps paper with CUI to **Destroy** sanitization
+  (shredding, pulping, incineration, or equivalent). Recycling bins are not
+  sanitization.
+- **Cross-cut shredding** is the typical in-house path for routine volumes.
+  Select shredder capability commensurate with residual risk; many contractors
+  use cross-cut (not strip-cut) devices and document the model in the SSP.
+- **Certified destruction vendors** (NAID AAA or equivalent program) issue
+  **certificates of destruction** with dated chain-of-custody. Use for bulk
+  purge, off-site archive boxes, or when in-house shred capacity is insufficient.
+- **Sanitization record per event:** method, operator or vendor, date, volume
+  or asset ID, verification (witness or certificate number).
+
+### Chain of custody and transport (MP.L2-3.8.5)
+
+- **Internal courier:** signed handoff between originator, mail room, and recipient.
+- **External transport:** trackable carrier, signature on delivery, tamper-evident
+  packaging, transport authorization tied to contract need. No overnight storage
+  in personal vehicles without documented safeguards.
+- **Loss or suspected loss** triggers IR.L2-3.6.1 intake immediately.
+
+### Mail, fax, and hybrid flows
+
+- **Inbound CUI mail** from the prime should enter through a controlled path
+  (mail room or ISSM) before scanning into GCC High. Scan-to-email from an MFP
+  to a commercial relay is a scope and MP finding if CUI hardcopy transits
+  unmarked systems.
+- **Outbound hardcopy** to the prime uses cover sheets and logged handoff;
+  digital delivery through GCC High is preferred when the contract allows.
+
+### Assessment objectives to examine
+
+| Requirement | Paper-relevant objectives |
+|-------------|---------------------------|
+| MP.L2-3.8.1 | 3.8.1[a–b] physical control of media at rest |
+| MP.L2-3.8.3 | 3.8.3[a] sanitize/destroy before disposal or release |
+| MP.L2-3.8.4 | 3.8.4[a–b] CUI markings and distribution limitations |
+| MP.L2-3.8.5 | 3.8.5[a–b] access control and accountability in transport |
+| PE.L2-3.10.6 | Alternate work sites: locked storage and shred path at home offices |
+
+**Evidence pack:** marking standard excerpt, sample cover sheet (redacted),
+photos of labeled cabinets/shred consoles, shred log or vendor certificate,
+chain-of-custody form for last courier event, mail-room procedure, training
+record for personnel who mark or destroy CUI.
+
+---
+
 ## Domain Summary
 
 | Practices | Level 1 | Level 2 | Total |

@@ -10,6 +10,9 @@ organization:
     in a Microsoft 365 GCC High tenant, twelve Intune-managed Windows laptops, Azure
     Government file services, and Microsoft Sentinel. Commercial M365, corporate HR/finance,
     and IGEL thin-client VDI terminals are out of scope with documented separation.
+    Paper CUI (marked CTI hardcopy, traveler drawings, mail pouches) is in scope for
+    the CUI floor mail room, locked job boxes, and cross-cut destruction path; digital
+    CUI remains in GCC High.
   roles:
     system_owner:
       name: Jordan Rivera
@@ -103,6 +106,11 @@ assets:
     description: CUI storage, processing, and transmission
   - name: ENG laptops (12, Intune-managed, BitLocker)
     description: CUI processing endpoints
+  - name: CUI mail room (Building A Room 104)
+    description: Inbound/outbound hardcopy staging, cover-sheet log, locked shred
+      console
+  - name: Locked CUI job boxes (12, ENG floor)
+    description: Orange CUI asset stickers; keys on PE access list
   security_protection:
   - name: Microsoft Sentinel (Azure Government)
     vendor: Microsoft
@@ -125,6 +133,9 @@ assets:
       authorization: FedRAMP Moderate Rev5 Class C
       cui_agents: 12
       commercial_tenant_segregated: true
+  - name: Certified destruction vendor (NAID AAA)
+    vendor: SecureShred Regional
+    description: Quarterly bulk purge with certificate of destruction
   contractor_risk_managed:
   - name: HP MFP Floor-2
     location: Building A, adjacent to CUI floor
@@ -140,6 +151,15 @@ assets:
       - vlan_acl
       - admin_mfa
       - no_cui_print
+  - name: HSM cross-cut shredder (Model HSM-150)
+    location: Mail room 104
+    description: Destroy sanitization for daily paper CUI; strip-cut prohibited by
+      policy
+    baseline_profile: printer-mfp
+    baseline_validation:
+      validated: '2026-06-18'
+      cross_cut: true
+      shred_log_maintained: true
   out_of_scope:
   - name: IGEL UD3 thin clients (8)
     vendor: IGEL
@@ -274,6 +294,22 @@ policies:
   requirements:
   - IR.L2-3.6.1
   - IR.L2-3.6.2
+- id: pol-mp-paper
+  title: Paper CUI Marking, Transport, and Destruction
+  version: '1.2'
+  owner: Sam Patel
+  reviewed: '2026-05-20'
+  location: policies/paper-cui-handling-v1.2.pdf
+  procedures:
+  - procedures/cui-cover-sheet-v1.pdf
+  - procedures/shred-chain-of-custody-v1.pdf
+  - procedures/cui-mail-courier-v1.pdf
+  requirements:
+  - MP.L2-3.8.1
+  - MP.L2-3.8.3
+  - MP.L2-3.8.4
+  - MP.L2-3.8.5
+  - PE.L2-3.10.6
 inheritance_sources:
 - id: gcch
   provider: Microsoft
@@ -283,7 +319,7 @@ inheritance_sources:
   boe_reference: vendor-boe/microsoft/2026-03/
   verified: '2026-06-15'
 discovery:
-  updated: '2026-07-02'
+  updated: '2026-07-05'
   phases:
     contracts-cui:
       status: complete
@@ -294,11 +330,10 @@ discovery:
         '
     physical-media:
       status: in-progress
-      last_touched: '2026-07-02'
-      summary: 'Print path mapped; scan-to-email path on the Floor-2 MFP still unverified.
-        Paper CUI handling and mail procedures not yet covered.
-
-        '
+      last_touched: '2026-07-05'
+      summary: Paper CUI cover sheets and cross-cut shred log in place. Mail-room
+        accumulation backlog and MFP scan relay still open. NAID vendor certificates
+        on file for Q1 bulk purge.
     dev-ai:
       status: in-progress
       last_touched: '2026-07-03'
@@ -397,6 +432,30 @@ discovery:
     affects:
     - Microsoft Sentinel (Azure Government)
     - NinjaOne for Government (ENG CUI laptops only)
+  - id: QA-0005
+    date: '2026-07-04'
+    phase: physical-media
+    question: What shred method and particle size apply to paper CUI, and who witnesses
+      destruction?
+    answer: Policy requires cross-cut Destroy per NIST SP 800-88. Daily shred uses
+      HSM-150 in mail room with dual-person witness log. Bulk boxes use NAID AAA vendor
+      with certificate of destruction.
+    answered_by: ISSM
+    confidence: verified
+    affects:
+    - HSM cross-cut shredder (Model HSM-150)
+  - id: QA-0006
+    date: '2026-07-04'
+    phase: physical-media
+    question: How is chain of custody maintained when paper CUI goes to the prime
+      via FedEx?
+    answer: Cover sheet, tamper-evident inner envelope, outer label without content
+      sensitivity, FedEx signature required, handoff log signed by mail-room clerk
+      and ISSM for each shipment.
+    answered_by: Mail room supervisor
+    confidence: verified
+    affects:
+    - CUI mail room (Building A Room 104)
   assumptions:
   - id: AS-0001
     date: '2026-07-02'
@@ -432,6 +491,15 @@ discovery:
 
       '
     owner: IT lead
+    status: open
+  - id: OQ-0003
+    raised: '2026-07-05'
+    phase: physical-media
+    question: Does the mail-room accumulation shelf (pre-shred staging) meet locked-media
+      control for overnight storage?
+    why_it_matters: MP.L2-3.8.1 requires physical control at rest; unlocked staging
+      recategorizes the shelf as a CUI store.
+    owner: Sam Patel
     status: open
   decisions:
   - id: DE-0001
@@ -489,7 +557,7 @@ requirements:
           collector: entra-conditional-access
           source_system: Microsoft Entra Conditional Access
           refresh_bucket: machine
-          sha256: bc1971f54dd54dc97bc133dc85937c8d3237bc0d8e1697ce40ea4545f3f69833
+          sha256: 83f96338612db82566f3b5e0235a5780b147081fee3619b81cc373dfa7fd0c6d
       b:
         conformity: met
         statement: 'Demo OSC: Transaction & Function Control objective b satisfied
@@ -540,7 +608,7 @@ requirements:
           collector: zscaler-policy
           source_system: Zscaler Internet Access
           refresh_bucket: machine
-          sha256: d6eb4b453b7af1787e3a1332c6cdc12fe16317ebd4c4921ed9baf23c149e142b
+          sha256: 9137c6599d5bed08f67232da8940d8d85bcf1625b84d281b03fe80a946852e5c
         - &id003
           name: PAN-OS application control policy sample
           link: evidence/onprem-network/ac/3.1.3/palo_alto_ngfw_onprem.json
@@ -548,7 +616,7 @@ requirements:
           collector: palo-alto-ngfw-onprem
           source_system: Palo Alto PAN-OS (on-premises)
           refresh_bucket: machine
-          sha256: 5876dbf3644bc6ec7b3fadea87756ca0c3f6e06b32d80fcc1f9fa141a53cac3d
+          sha256: 80cc91e903c3c0fa9afdd942ee88e935014012394ce866d3817194c758566779
       c:
         conformity: met
         statement: 'Demo OSC: Control CUI Flow objective c satisfied via documented
@@ -939,7 +1007,7 @@ requirements:
           collector: wlan-controller
           source_system: WLAN controller (on-premises)
           refresh_bucket: machine
-          sha256: 0a173021059aab8cdb165383e65ade251420aa70a230ed84171ddb3877b8507f
+          sha256: 4cced27bc628b729f80b0868ddd423e655b8ca5c75a688acd7058bc6c4bb7f16
       b:
         conformity: met
         statement: 'Demo OSC: Wireless Access Authorization objective b satisfied
@@ -969,7 +1037,7 @@ requirements:
           collector: wlan-controller
           source_system: WLAN controller (on-premises)
           refresh_bucket: machine
-          sha256: 1894b458988807f26608dc76b19ec8755397b57bf774541264c02456518ef76e
+          sha256: aa553abac80cd852ebf20a5af0b3d7d0b949c4cc682c82b9ce5be4a821f96a85
       b:
         conformity: met
         statement: 'Demo OSC: Wireless Access Protection objective b satisfied via
@@ -999,7 +1067,7 @@ requirements:
           collector: intune-compliance
           source_system: Microsoft Intune
           refresh_bucket: machine
-          sha256: a70f3813d7b5d210f85db8529ee303cef9773d77f733034a1439d53e53983957
+          sha256: f5e8473a4f37d7b1fc886b5a38856df5cca025968c3aae802fdada2744de335e
       b:
         conformity: met
         statement: 'Demo OSC: Mobile Device Connection objective b satisfied via documented
@@ -1295,7 +1363,7 @@ requirements:
           collector: sentinel-health
           source_system: Microsoft Sentinel
           refresh_bucket: machine
-          sha256: c8bac4d42b108591a12579c49c9351f9ecb797a5ec8d6680349f30518fa9f07d
+          sha256: d3adb27c08c6786586320d6a867b88e1660df3a9410428d7993dfbb4fcdc95ea
         - &id008
           name: Splunk source/input health
           link: evidence/splunk/au/3.3.1/splunk_ingest_health.json
@@ -1303,7 +1371,7 @@ requirements:
           collector: splunk-ingest-health
           source_system: Splunk Enterprise
           refresh_bucket: machine
-          sha256: 3eb8459352e25bb2bf941272df6bfd5abd2769fb78c712af951f5016c81a9a3f
+          sha256: 1d4cda436f6c634600a1193fbc7ac89fe5868c1bcdb2196b7df2242a95e6b56d
       b:
         conformity: met
         statement: 'Demo OSC: System Auditing objective b satisfied via documented
@@ -1331,14 +1399,14 @@ requirements:
           collector: entra-signins
           source_system: Microsoft Entra ID (GCC High)
           refresh_bucket: machine
-          sha256: 01bf2c0529e7576ef99145aebdccfee154c3134d0f443228fafe71e3050679b2
+          sha256: 0aaa5c30469375530d4a33c2cc75da28220fe2d4609828adfb0f434b2e11c638
         - name: MDE security event sample
           link: evidence/m365-defender-gcch/au/3.3.1/defender_endpoint.json
           collected: '2026-07-05'
           collector: defender-endpoint
           source_system: Microsoft Defender for Endpoint
           refresh_bucket: machine
-          sha256: e3b1876e0537cbc06f223fa18e47d1ac3635152096b7ea4a8250e71e8fd72768
+          sha256: 14ebee2b3b08d85e5d281a9ebe0b6f17072716a39059c3b2975db682ec231512
         - &id010
           name: CloudTrail privileged action sample
           link: evidence/aws-govcloud/au/3.3.1/aws_cloudtrail.json
@@ -1346,7 +1414,7 @@ requirements:
           collector: aws-cloudtrail
           source_system: AWS CloudTrail
           refresh_bucket: machine
-          sha256: ff739eefcfc24891230f53ef0dd4f81f7f2cb1da6d83613cbcf6b5f72966621c
+          sha256: 4542a4b02d7cde289a3c1944787fe2f0e2b402aca12f235cc28bafa6698615cd
       d:
         conformity: met
         statement: 'Demo OSC: System Auditing objective d satisfied via documented
@@ -1395,7 +1463,7 @@ requirements:
           collector: entra-signins
           source_system: Microsoft Entra ID (GCC High)
           refresh_bucket: machine
-          sha256: e602506b21ec59c800b7324cdfcc858565c1c13d745a8f5e96c547c9fae19616
+          sha256: 5a43c7c702872edb5dfa9697aa15c30063dd006be7581a70bab72d971aa5c9dd
         - &id012
           name: CloudTrail user traceability sample
           link: evidence/aws-govcloud/au/3.3.2/aws_cloudtrail.json
@@ -1403,7 +1471,7 @@ requirements:
           collector: aws-cloudtrail
           source_system: AWS CloudTrail
           refresh_bucket: machine
-          sha256: d0f76a7c21f17f6b078269defa3f04c36cf1091a154fa2de1ff97e01e8e00da0
+          sha256: cfd381a377490bbb4003c21978125302ded18924567066a997feee3ae10547c1
       b:
         conformity: met
         statement: 'Demo OSC: User Accountability objective b satisfied via documented
@@ -1493,7 +1561,7 @@ requirements:
           collector: sentinel-health
           source_system: Microsoft Sentinel
           refresh_bucket: machine
-          sha256: 9085f9f915ff651aeaa51aa5b7f400d5257db4ce30872ea169a4a2dd15aa1988
+          sha256: bb2297fa87e49466c48203dd699dd3f21aeb5b927cacf719e57fd31875a3aa5c
         - &id014
           name: Splunk correlated search export
           link: evidence/splunk/au/3.3.5/splunk_ingest_health.json
@@ -1501,7 +1569,7 @@ requirements:
           collector: splunk-ingest-health
           source_system: Splunk Enterprise
           refresh_bucket: machine
-          sha256: 9fb5740449d347a687d129f7b2778e00c3b1b5a22a7a7799c18f2f6a0509f8a2
+          sha256: 8edb3720b47cc8972b228469fc19cbcadd7cef538ff1f899fa009571b57610cb
       b:
         evidence:
         - *id013
@@ -1678,7 +1746,7 @@ requirements:
           collector: intune-compliance
           source_system: Microsoft Intune
           refresh_bucket: machine
-          sha256: c364b0eca0260ca97cadbc7c54c6525be38af73eb0c60a4a70835021506cbe0d
+          sha256: 571adcb222b430c44e38211c276e6e7f46b3167196727aea4c72bea5cb934b37
         - &id016
           name: AWS Config rule compliance summary
           link: evidence/aws-govcloud/cm/3.4.1/aws_config_compliance.json
@@ -1686,7 +1754,7 @@ requirements:
           collector: aws-config-compliance
           source_system: AWS Config
           refresh_bucket: machine
-          sha256: 13e012aeb65147f61c1006f7c5638e53c1756091e82bbc639054eb8c35689129
+          sha256: e17a02b38391b8beedea97970caa124a1293471c82e08e09f0851777e286a114
       b:
         conformity: met
         statement: 'Demo OSC: System Baselining objective b satisfied via documented
@@ -2165,7 +2233,7 @@ requirements:
           collector: duo-auth-logs
           source_system: Cisco Duo
           refresh_bucket: machine
-          sha256: 48d0f6052f5d2e08944dc71477ae3d5161e97a6c7f30ca0fde6f6a0bee77d86e
+          sha256: 02aa7a25c4e0a23230fc5b95fb34e54eddc383201f55939fbd1f12d8e5cf390b
       b:
         conformity: met
         statement: 'Demo OSC: Authentication objective b satisfied via documented
@@ -2203,7 +2271,7 @@ requirements:
           collector: entra-signins
           source_system: Microsoft Entra ID (GCC High)
           refresh_bucket: machine
-          sha256: da890091f3ada16561d332d1e81c78e7ff9e31942b739016accf04baddfbe420
+          sha256: 8b7812d8ca39f8fd0c0233a2d4dbd817dcc654d92e960e4961bbbc10524f435a
         - &id018
           name: Conditional Access policy export
           link: evidence/m365-gcch/ia/3.5.3/entra_conditional_access.json
@@ -2211,7 +2279,7 @@ requirements:
           collector: entra-conditional-access
           source_system: Microsoft Entra Conditional Access
           refresh_bucket: machine
-          sha256: 89bac38b2f0150c3a43a070c93981588bf4bfe5f045b07b760da15e0d5f9d4f8
+          sha256: 0ea2e842bbec2b0dca0daeed39d06dc99901d04ab0bd70ee12d734c514240a06
         - &id019
           name: Duo authentication log sample
           link: evidence/duo/ia/3.5.3/duo_auth_logs.json
@@ -2219,7 +2287,7 @@ requirements:
           collector: duo-auth-logs
           source_system: Cisco Duo
           refresh_bucket: machine
-          sha256: 9592d541ed60db4f2026b32c6ba80fbd858165208c92ce1051edc938c63d933b
+          sha256: edd358458d3b1c466f77fbf5e3cbc2cb1fd83a9e34f40799f43253e920ca36be
       b:
         conformity: met
         statement: 'Demo OSC: Multifactor Authentication objective b satisfied via
@@ -2655,44 +2723,36 @@ requirements:
           collected: '2026-07-05'
           refresh_bucket: document
   MP.L2-3.8.1:
-    conformity: met
+    conformity: partially-met
     objectives:
       a:
         conformity: met
-        statement: 'Demo OSC: Media Protection objective a satisfied via documented
-          enclave controls (Atlas Precision Manufacturing).'
+        statement: Paper CUI at rest in locked job boxes and locked file cabinets
+          on the CUI floor; orange CUI stickers on each container.
         evidence:
-        - name: Demo evidence — MP.L2-3.8.1 [a]
-          link: evidence/demo/MP-L2-3-8-1-a.json
+        - name: CUI asset sticker inventory
+          link: evidence/mp/paper/cui-asset-sticker-inventory-2026-06.json
           collected: '2026-07-05'
-          refresh_bucket: document
+          refresh_bucket: periodic
+        - name: PE access list for job-box keys
+          link: evidence/mp/paper/job-box-key-register-2026-06.csv
+          collected: '2026-07-05'
+          refresh_bucket: periodic
       b:
-        conformity: met
-        statement: 'Demo OSC: Media Protection objective b satisfied via documented
-          enclave controls (Atlas Precision Manufacturing).'
-        evidence:
-        - name: Demo evidence — MP.L2-3.8.1 [b]
-          link: evidence/demo/MP-L2-3-8-1-b.json
-          collected: '2026-07-05'
-          refresh_bucket: document
-      c:
-        conformity: met
-        statement: 'Demo OSC: Media Protection objective c satisfied via documented
-          enclave controls (Atlas Precision Manufacturing).'
-        evidence:
-        - name: Demo evidence — MP.L2-3.8.1 [c]
-          link: evidence/demo/MP-L2-3-8-1-c.json
-          collected: '2026-07-05'
-          refresh_bucket: document
-      d:
-        conformity: met
-        statement: 'Demo OSC: Media Protection objective d satisfied via documented
-          enclave controls (Atlas Precision Manufacturing).'
-        evidence:
-        - name: Demo evidence — MP.L2-3.8.1 [d]
-          link: evidence/demo/MP-L2-3-8-1-d.json
-          collected: '2026-07-05'
-          refresh_bucket: document
+        conformity: not-met
+        statement: Mail-room pre-shred accumulation shelf is not locked overnight;
+          POA&M tracks lockable console install.
+    poam:
+      priority: Medium
+      description: Install locked shred console for overnight mail-room accumulation
+      opened: '2026-07-01'
+      due: '2026-08-15'
+      owner: Sam Patel
+      status: in-progress
+      actions:
+      - Procure lockable console
+      - Update mail-room procedure
+      - Photo evidence for assessor
   MP.L2-3.8.2:
     conformity: met
     objectives:
@@ -2710,20 +2770,20 @@ requirements:
     objectives:
       a:
         conformity: met
-        statement: 'Demo OSC: Media Disposal objective a satisfied via documented
-          enclave controls (Atlas Precision Manufacturing).'
+        statement: Paper CUI destroyed via cross-cut shredding (HSM-150) with dual-person
+          witness log, or NAID AAA vendor with certificate of destruction. No recycling
+          bins for CUI.
         evidence:
-        - name: Demo evidence — MP.L2-3.8.3 [a]
-          link: evidence/demo/MP-L2-3-8-3-a.json
+        - name: Shred witness log
+          link: evidence/mp/paper/shred-witness-log-2026-06.csv
           collected: '2026-07-05'
+          refresh_bucket: periodic
+        - name: NAID destruction certificate Q1
+          link: evidence/mp/paper/naid-destruction-cert-2026-q1.pdf
+          collected: '2026-03-15'
           refresh_bucket: document
-      b:
-        conformity: met
-        statement: 'Demo OSC: Media Disposal objective b satisfied via documented
-          enclave controls (Atlas Precision Manufacturing).'
-        evidence:
-        - name: Demo evidence — MP.L2-3.8.3 [b]
-          link: evidence/demo/MP-L2-3-8-3-b.json
+        - name: Paper CUI destruction procedure
+          link: policies/paper-cui-handling-v1.2.pdf
           collected: '2026-07-05'
           refresh_bucket: document
   MP.L2-3.8.4:
@@ -2731,41 +2791,49 @@ requirements:
     objectives:
       a:
         conformity: met
-        statement: 'Demo OSC: Media Markings objective a satisfied via documented
-          enclave controls (Atlas Precision Manufacturing).'
+        statement: CTI banner and portion markings applied per 32 CFR 2002; CUI cover
+          sheets on all external transmittals.
         evidence:
-        - name: Demo evidence — MP.L2-3.8.4 [a]
-          link: evidence/demo/MP-L2-3-8-4-a.json
+        - name: Redacted cover sheet sample
+          link: evidence/mp/paper/cui-cover-sheet-sample-redacted.pdf
+          collected: '2026-07-05'
+          refresh_bucket: document
+        - name: Marking standard excerpt
+          link: evidence/mp/paper/cui-marking-standard-excerpt.pdf
           collected: '2026-07-05'
           refresh_bucket: document
       b:
         conformity: met
-        statement: 'Demo OSC: Media Markings objective b satisfied via documented
-          enclave controls (Atlas Precision Manufacturing).'
+        statement: Distribution limitations (NOFORN where applicable) on cover sheets
+          and document headers.
         evidence:
-        - name: Demo evidence — MP.L2-3.8.4 [b]
-          link: evidence/demo/MP-L2-3-8-4-b.json
+        - name: Training roster — paper CUI marking
+          link: evidence/mp/paper/marking-training-roster-2026-05.csv
           collected: '2026-07-05'
-          refresh_bucket: document
+          refresh_bucket: periodic
   MP.L2-3.8.5:
     conformity: met
     objectives:
       a:
         conformity: met
-        statement: 'Demo OSC: Media Accountability objective a satisfied via documented
-          enclave controls (Atlas Precision Manufacturing).'
+        statement: Only mail-room clerks and ISSM may remove paper CUI from the CUI
+          floor; authorization logged on cover sheet.
         evidence:
-        - name: Demo evidence — MP.L2-3.8.5 [a]
-          link: evidence/demo/MP-L2-3-8-5-a.json
+        - name: Mail/courier authorization procedure
+          link: procedures/cui-mail-courier-v1.pdf
           collected: '2026-07-05'
           refresh_bucket: document
       b:
         conformity: met
-        statement: 'Demo OSC: Media Accountability objective b satisfied via documented
-          enclave controls (Atlas Precision Manufacturing).'
+        statement: Chain-of-custody forms for FedEx and internal courier; signature
+          on delivery.
         evidence:
-        - name: Demo evidence — MP.L2-3.8.5 [b]
-          link: evidence/demo/MP-L2-3-8-5-b.json
+        - name: FedEx chain of custody 2026-06-12
+          link: evidence/mp/paper/chain-of-custody-fedex-2026-06-12.pdf
+          collected: '2026-06-12'
+          refresh_bucket: periodic
+        - name: Chain of custody blank template
+          link: procedures/shred-chain-of-custody-v1.pdf
           collected: '2026-07-05'
           refresh_bucket: document
   MP.L2-3.8.6:
@@ -2878,7 +2946,7 @@ requirements:
           collector: physical-access-pacs
           source_system: Physical access control system
           refresh_bucket: periodic
-          sha256: 440b5baf5e0faa09b9a9e0ff5455066e6c3155f430b21af44c4b39faa17dba92
+          sha256: bccc7272c1fd5b9a49975701cf826618b4238add847b1a2fef5249a8e7fdefad
       b:
         conformity: inherited
         statement: Physical protection for the GCC High boundary is inherited from
@@ -2988,7 +3056,7 @@ requirements:
           collector: physical-access-pacs
           source_system: Physical access control system
           refresh_bucket: periodic
-          sha256: 2c0cbaf8b015dd67c27a0fe8741b8f79202dd1f4b27490b62c6dded15aca01d1
+          sha256: adf75d731b1b36728551e4ba58c8113875874a2a75cfd70cbd09f40c5ccebc76
       b:
         evidence:
         - *id021
@@ -3012,7 +3080,7 @@ requirements:
           collector: physical-access-pacs
           source_system: Physical access control system
           refresh_bucket: periodic
-          sha256: 23dc17a9bd2fd7db1e182aa619cd572a2122bcbe6bcf984c45ace700f26d0b3c
+          sha256: da07f2a7e0d554afa305df524f2ebbc9e3be25e9e052a967799f2d929647cd38
       b:
         conformity: inherited
         statement: Physical protection for the GCC High boundary is inherited from
@@ -3214,7 +3282,7 @@ requirements:
           collector: aws-security-hub
           source_system: AWS Security Hub
           refresh_bucket: machine
-          sha256: 0c78ce401170168e8a8fab3d190cb4713e1afb65e7141fab95744755f2d3ae13
+          sha256: 43647e76656cbe5d09a85eb259455e13d583220390d2eba1e32edd75774bfe07
       b:
         evidence:
         - *id023
@@ -3341,7 +3409,7 @@ requirements:
           collector: zscaler-policy
           source_system: Zscaler Internet Access
           refresh_bucket: machine
-          sha256: 58d31ad40824d313c2d4a18de1f9a3291af1ea2c7ddb2b9fd4326faa28e9483e
+          sha256: 9484d09f8930dc3794d7a15825236bc701a907b2f852df15fac72e442118aed9
         - &id026
           name: Prisma Access security rules export
           link: evidence/prisma-access/sc/3.13.1/prisma_access_rules.json
@@ -3349,7 +3417,7 @@ requirements:
           collector: prisma-access-rules
           source_system: Palo Alto Strata Cloud Manager
           refresh_bucket: machine
-          sha256: b396fb0b7675110909d95498dedf082ab760374a92112e5b274dd723381e15ec
+          sha256: 23235ffe8c6b1ef404d914fa83116dd0848228218e94fd877abf57ae5f75c476
         - &id025
           name: FortiGate boundary policy export
           link: evidence/onprem-network/sc/3.13.1/fortinet_firewall.json
@@ -3357,7 +3425,7 @@ requirements:
           collector: fortinet-firewall
           source_system: FortiGate (on-premises)
           refresh_bucket: machine
-          sha256: f55a2ec8460645e9abed084489d35446fb998244f95c4742e9a1e5f95015b0f7
+          sha256: 964b950d753153b8d2332245f4f9c9272ecf8a827db2ac61fb83b75936bd3962
         - &id027
           name: PAN-OS security rule export
           link: evidence/onprem-network/sc/3.13.1/palo_alto_ngfw_onprem.json
@@ -3365,14 +3433,14 @@ requirements:
           collector: palo-alto-ngfw-onprem
           source_system: Palo Alto PAN-OS (on-premises)
           refresh_bucket: machine
-          sha256: 4dd8aca7e2553e67f92541c548c4b38b874f23a2b5e0d32ac2164ffb0493d041
+          sha256: 8132b10b8fbeeefe1f62cf4b8733deb7890c55fdffb87f523c4c7b6113006b71
         - name: Guest vs CUI WLAN segmentation mapping
           link: evidence/onprem-network/sc/3.13.1/wlan_controller.json
           collected: '2026-07-05'
           collector: wlan-controller
           source_system: WLAN controller (on-premises)
           refresh_bucket: machine
-          sha256: 824db5a47294aa82de118ffd2ee1c308d2068d7ddae8cc4585819011003a2d75
+          sha256: 9f67fdb4287b50f6374aa3076beb49e73251c3c3f21e123df3b0b2251c56f8c5
       d:
         conformity: met
         statement: 'Demo OSC: Boundary Protection objective d satisfied via documented
@@ -3584,7 +3652,7 @@ requirements:
           collector: prisma-access-rules
           source_system: Palo Alto Strata Cloud Manager
           refresh_bucket: machine
-          sha256: 61f19c42195e035267ef1687e4c090fae8181ed12c2d797ed70f1f9ff656cc3f
+          sha256: 3fab1c192c6f01156ed37cf09cc0566d84531a161fc6ad216a6cb959dafa681b
         - &id029
           name: FortiGate deny-by-default rule sample
           link: evidence/onprem-network/sc/3.13.6/fortinet_firewall.json
@@ -3592,7 +3660,7 @@ requirements:
           collector: fortinet-firewall
           source_system: FortiGate (on-premises)
           refresh_bucket: machine
-          sha256: c9dfb2b6f1a8ee43b36da0dd74bd6c44b75489f09452195e2b62028d329a8381
+          sha256: 9f4dbc607b839d210e44fc0eb36205af9bd94f4032649fda8716de4a6a87a4a2
       b:
         conformity: met
         statement: 'Demo OSC: Network Communication by Exception objective b satisfied
@@ -3637,7 +3705,7 @@ requirements:
           collector: aws-config-compliance
           source_system: AWS Config
           refresh_bucket: machine
-          sha256: 955574f82a977fd35e1138ca8eeabb6a3942aefd45d84062c265fda431d2af7a
+          sha256: d526d8cf03461e85ad94010ee9cae56cce17864741f41c1137a24dc7d599b273
       b:
         conformity: met
         statement: 'Demo OSC: Data in Transit objective b satisfied via documented
@@ -3736,28 +3804,28 @@ requirements:
           collector: intune-compliance
           source_system: Microsoft Intune
           refresh_bucket: machine
-          sha256: e4cc9a4b47f8eaf0339e9cb9ba2cb91f237593fb67f742b8bde7810cd04025bf
+          sha256: d3f12e55a07a39021ae8c81397a6161910e079c11d3eb7726f2fa12369d52797
         - name: AWS KMS/FIPS Config evidence
           link: evidence/aws-govcloud/sc/3.13.11/aws_config_compliance.json
           collected: '2026-07-05'
           collector: aws-config-compliance
           source_system: AWS Config
           refresh_bucket: machine
-          sha256: 3b720efef6125c8ed35f823baa4d247a696370d82156e886f0f9f13f4b88e127
+          sha256: e51dba771cf778efe58ecf125d34275cc4ac1574ad028ddf342e123bf58371b0
         - name: FortiGate FIPS-CC / crypto mode status
           link: evidence/onprem-network/sc/3.13.11/fortinet_firewall.json
           collected: '2026-07-05'
           collector: fortinet-firewall
           source_system: FortiGate (on-premises)
           refresh_bucket: machine
-          sha256: c10d5aa1321dfd932ed1bdd87466b0a2021abed8c48e8b917f750975de0f6fa6
+          sha256: 64849b1ec56c6196f925299c823c1c38ab97896e961ec4f95f3f5ca675bab06c
         - name: PAN-OS FIPS mode / crypto status
           link: evidence/onprem-network/sc/3.13.11/palo_alto_ngfw_onprem.json
           collected: '2026-07-05'
           collector: palo-alto-ngfw-onprem
           source_system: Palo Alto PAN-OS (on-premises)
           refresh_bucket: machine
-          sha256: 7bcce320526b557f5d682a0d1c95a455c44e6114a6174b0260d68ddbeea11c71
+          sha256: 0ef78e09e35595cd527a3979c6b24eef1904ddf5c6de47ed5781353606ab71cc
   SC.L2-3.13.12:
     conformity: met
     objectives:
@@ -3882,14 +3950,14 @@ requirements:
           collector: aws-security-hub
           source_system: AWS Security Hub
           refresh_bucket: machine
-          sha256: 02fe970dd366868d6259642f5d16c64b4a848353aacdc5d9fb2bc28f3ac54a72
+          sha256: 19ae79ca79e509b4865b8374fa06c772dc2f8301d14a54cfb253bbc0ce2f1e0e
         - name: SCC vulnerability findings sample
           link: evidence/gcp-assured/si/3.14.1/gcp_scc_findings.json
           collected: '2026-07-05'
           collector: gcp-scc-findings
           source_system: Google Security Command Center
           refresh_bucket: machine
-          sha256: 8ab575e1273b3f9ae23e24a4e6b93cfff7f3177bb1204e797b75583cc1f49da2
+          sha256: 32b341edca2593eb88ee17930587935dd7ef297ba6b33b91aa3d239f2295bdfb
       c:
         conformity: met
         statement: 'Demo OSC: Flaw Remediation objective c satisfied via documented
@@ -3946,7 +4014,7 @@ requirements:
           collector: defender-endpoint
           source_system: Microsoft Defender for Endpoint
           refresh_bucket: machine
-          sha256: 6065dab134e3ef128265fd6a053280d081e646534a96aaba4519d19c61e726b2
+          sha256: 02a9d84b2767a6c65981a57a8f4456f32bbcbc4e95577c5e997ee86f9d355aa1
         - &id033
           name: Falcon host sensor coverage
           link: evidence/crowdstrike/si/3.14.2/crowdstrike_hosts.json
@@ -3954,7 +4022,7 @@ requirements:
           collector: crowdstrike-hosts
           source_system: CrowdStrike Falcon
           refresh_bucket: machine
-          sha256: 2cab1a5ee82e17450bff35cb3fe4d3a0b16fba56e0c9c4512d62be79d50f3fca
+          sha256: b764dfad932cbadc853acd8269c35591f6d8921356b657c21bab921e044e896b
       b:
         conformity: met
         statement: 'Demo OSC: Malicious Code Protection objective b satisfied via
@@ -4057,7 +4125,7 @@ requirements:
           collector: defender-endpoint
           source_system: Microsoft Defender for Endpoint
           refresh_bucket: machine
-          sha256: 17e9443ba2815fa234240cc825c5f39a669d1672002227ef2420fedb2e8c54a9
+          sha256: 9328795a8dce1eda051ef42ce75679f5af379735f5b3b0898d7d86e5d030801d
         - &id035
           name: SCC high-severity findings
           link: evidence/gcp-assured/si/3.14.6/gcp_scc_findings.json
@@ -4065,7 +4133,7 @@ requirements:
           collector: gcp-scc-findings
           source_system: Google Security Command Center
           refresh_bucket: machine
-          sha256: 8b385ed404a5b70cb3a32e4a98ddd1923f1ceff2cebb225f6aa21e27c586debe
+          sha256: 0c3bace2e285e9c33469667b4a6121119ae3962ad6c5c5d36a3cb23955fc6c18
         - &id036
           name: Falcon detection summary
           link: evidence/crowdstrike/si/3.14.6/crowdstrike_hosts.json
@@ -4073,7 +4141,7 @@ requirements:
           collector: crowdstrike-hosts
           source_system: CrowdStrike Falcon
           refresh_bucket: machine
-          sha256: d2e9239cce8a2eb57a7d968d9d41f233f51bf6e1f195d22f709b76aaf97fdd5c
+          sha256: d4d49025ef62d839fdf9d0ab6ecf78c7388afaf943b46df0fa4300f0077c1b2e
       b:
         conformity: met
         statement: 'Demo OSC: Monitor Communications for Attacks objective b satisfied
@@ -4101,7 +4169,7 @@ requirements:
           collector: sentinel-health
           source_system: Microsoft Sentinel
           refresh_bucket: machine
-          sha256: 50c58ea50e05d274702086f268053bcdda4728258b0d9df728925ae7355e8231
+          sha256: 5d33d35a6eb1ff727db17d06f181cf5ae19ebcedd0127c2f6c664d2503b32470
         - *id035
         - *id036
   SI.L2-3.14.7:

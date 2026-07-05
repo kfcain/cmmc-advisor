@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "export_type": "sprs_basic_assessment",
-  "generated_at": "2026-07-05T04:15:39+00:00",
+  "generated_at": "2026-07-05T04:34:57+00:00",
   "methodology": "DoD Assessment Methodology v1.2.1 (110 practices, -203 floor)",
   "organization": {
     "name": "Atlas Precision Manufacturing LLC",
@@ -15,7 +15,7 @@
     "path": "c3pao",
     "target_date": "2026-11-15"
   },
-  "summary_score": 96,
+  "summary_score": 93,
   "maximum_score": 110,
   "minimum_score": -203,
   "ssp_missing": false,
@@ -37,6 +37,11 @@
     },
     {
       "requirement_id": "IA.L2-3.5.3",
+      "status": "partially-met",
+      "points": 3
+    },
+    {
+      "requirement_id": "MP.L2-3.8.1",
       "status": "partially-met",
       "points": 3
     }
@@ -676,8 +681,8 @@
       "requirement_id": "MP.L2-3.8.1",
       "nist_id": "3.8.1",
       "name": "Media Protection",
-      "conformity": "met",
-      "sprs_assessment_status": "MET",
+      "conformity": "partially-met",
+      "sprs_assessment_status": "NOT MET",
       "sprs_value": 3,
       "sprs_partial_value": 0,
       "points_deducted": 0

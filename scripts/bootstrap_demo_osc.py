@@ -33,6 +33,10 @@ DETAILED_REQS = {
     "IA.L2-3.5.3",
     "CA.L2-3.12.4",
     "CM.L2-3.4.1",
+    "MP.L2-3.8.1",
+    "MP.L2-3.8.3",
+    "MP.L2-3.8.4",
+    "MP.L2-3.8.5",
 }
 NOT_MET_NO_POAM = {"AU.L2-3.3.5"}
 NOT_MET_POAM = {"CM.L2-3.4.7", "AC.L2-3.1.22"}
@@ -114,6 +118,244 @@ def roll_up_conformity(objectives: dict, req_id: str) -> str:
     if "shared" in values or "partially-met" in values:
         return "partially-met"
     return "met"
+
+
+def apply_paper_cui_enrichment(program: dict, reqs: dict) -> None:
+    """Paper CUI: cover sheets, shredding, chain of custody, asset stickers."""
+    today = str(date.today())
+    org = program.setdefault("organization", {})
+    org["scope_narrative"] = (
+        (org.get("scope_narrative") or "")
+        + " Paper CUI (marked CTI hardcopy, traveler drawings, mail pouches) is "
+        "in scope for the CUI floor mail room, locked job boxes, and cross-cut "
+        "destruction path; digital CUI remains in GCC High."
+    )
+    assets = program.setdefault("assets", {})
+    assets.setdefault("cui", []).extend(
+        [
+            {
+                "name": "CUI mail room (Building A Room 104)",
+                "description": "Inbound/outbound hardcopy staging, cover-sheet log, locked shred console",
+            },
+            {
+                "name": "Locked CUI job boxes (12, ENG floor)",
+                "description": "Orange CUI asset stickers; keys on PE access list",
+            },
+        ]
+    )
+    assets.setdefault("contractor_risk_managed", []).append(
+        {
+            "name": "HSM cross-cut shredder (Model HSM-150)",
+            "location": "Mail room 104",
+            "description": "Destroy sanitization for daily paper CUI; strip-cut prohibited by policy",
+            "baseline_profile": "printer-mfp",
+            "baseline_validation": {
+                "validated": "2026-06-18",
+                "cross_cut": True,
+                "shred_log_maintained": True,
+            },
+        }
+    )
+    assets.setdefault("security_protection", []).append(
+        {
+            "name": "Certified destruction vendor (NAID AAA)",
+            "vendor": "SecureShred Regional",
+            "description": "Quarterly bulk purge with certificate of destruction",
+        }
+    )
+
+    policies = program.setdefault("policies", [])
+    policies.append(
+        {
+            "id": "pol-mp-paper",
+            "title": "Paper CUI Marking, Transport, and Destruction",
+            "version": "1.2",
+            "owner": "Sam Patel",
+            "reviewed": "2026-05-20",
+            "location": "policies/paper-cui-handling-v1.2.pdf",
+            "procedures": [
+                "procedures/cui-cover-sheet-v1.pdf",
+                "procedures/shred-chain-of-custody-v1.pdf",
+                "procedures/cui-mail-courier-v1.pdf",
+            ],
+            "requirements": [
+                "MP.L2-3.8.1",
+                "MP.L2-3.8.3",
+                "MP.L2-3.8.4",
+                "MP.L2-3.8.5",
+                "PE.L2-3.10.6",
+            ],
+        }
+    )
+
+    discovery = program.setdefault("discovery", {})
+    discovery["updated"] = today
+    phases = discovery.setdefault("phases", {})
+    phases["physical-media"] = {
+        "status": "in-progress",
+        "last_touched": today,
+        "summary": (
+            "Paper CUI cover sheets and cross-cut shred log in place. Mail-room "
+            "accumulation backlog and MFP scan relay still open. NAID vendor "
+            "certificates on file for Q1 bulk purge."
+        ),
+    }
+    discovery.setdefault("qa_log", []).extend(
+        [
+            {
+                "id": "QA-0005",
+                "date": "2026-07-04",
+                "phase": "physical-media",
+                "question": "What shred method and particle size apply to paper CUI, and who witnesses destruction?",
+                "answer": (
+                    "Policy requires cross-cut Destroy per NIST SP 800-88. Daily "
+                    "shred uses HSM-150 in mail room with dual-person witness log. "
+                    "Bulk boxes use NAID AAA vendor with certificate of destruction."
+                ),
+                "answered_by": "ISSM",
+                "confidence": "verified",
+                "affects": ["HSM cross-cut shredder (Model HSM-150)"],
+            },
+            {
+                "id": "QA-0006",
+                "date": "2026-07-04",
+                "phase": "physical-media",
+                "question": "How is chain of custody maintained when paper CUI goes to the prime via FedEx?",
+                "answer": (
+                    "Cover sheet, tamper-evident inner envelope, outer label without "
+                    "content sensitivity, FedEx signature required, handoff log signed "
+                    "by mail-room clerk and ISSM for each shipment."
+                ),
+                "answered_by": "Mail room supervisor",
+                "confidence": "verified",
+                "affects": ["CUI mail room (Building A Room 104)"],
+            },
+        ]
+    )
+    discovery.setdefault("open_questions", []).append(
+        {
+            "id": "OQ-0003",
+            "raised": today,
+            "phase": "physical-media",
+            "question": "Does the mail-room accumulation shelf (pre-shred staging) meet locked-media control for overnight storage?",
+            "why_it_matters": (
+                "MP.L2-3.8.1 requires physical control at rest; unlocked staging "
+                "recategorizes the shelf as a CUI store."
+            ),
+            "owner": "Sam Patel",
+            "status": "open",
+        }
+    )
+
+    paper_evidence = {
+        "cover_sheet_sample": "evidence/mp/paper/cui-cover-sheet-sample-redacted.pdf",
+        "shred_log": "evidence/mp/paper/shred-witness-log-2026-06.csv",
+        "coc_fedex": "evidence/mp/paper/chain-of-custody-fedex-2026-06-12.pdf",
+        "vendor_cert": "evidence/mp/paper/n aid-destruction-cert-2026-q1.pdf",
+        "asset_stickers": "evidence/mp/paper/cui-asset-sticker-inventory-2026-06.json",
+        "marking_std": "evidence/mp/paper/cui-marking-standard-excerpt.pdf",
+    }
+    # fix typo naid
+    paper_evidence["vendor_cert"] = "evidence/mp/paper/naid-destruction-cert-2026-q1.pdf"
+
+    reqs["MP.L2-3.8.1"] = {
+        "conformity": "partially-met",
+        "objectives": {
+            "a": {
+                "conformity": "met",
+                "statement": (
+                    "Paper CUI at rest in locked job boxes and locked file cabinets "
+                    "on the CUI floor; orange CUI stickers on each container."
+                ),
+                "evidence": [
+                    {"name": "CUI asset sticker inventory", "link": paper_evidence["asset_stickers"], "collected": today, "refresh_bucket": "periodic"},
+                    {"name": "PE access list for job-box keys", "link": "evidence/mp/paper/job-box-key-register-2026-06.csv", "collected": today, "refresh_bucket": "periodic"},
+                ],
+            },
+            "b": {
+                "conformity": "not-met",
+                "statement": (
+                    "Mail-room pre-shred accumulation shelf is not locked overnight; "
+                    "POA&M tracks lockable console install."
+                ),
+            },
+        },
+        "poam": {
+            "priority": "Medium",
+            "description": "Install locked shred console for overnight mail-room accumulation",
+            "opened": "2026-07-01",
+            "due": "2026-08-15",
+            "owner": "Sam Patel",
+            "status": "in-progress",
+            "actions": ["Procure lockable console", "Update mail-room procedure", "Photo evidence for assessor"],
+        },
+    }
+    reqs["MP.L2-3.8.3"] = {
+        "conformity": "met",
+        "objectives": {
+            "a": {
+                "conformity": "met",
+                "statement": (
+                    "Paper CUI destroyed via cross-cut shredding (HSM-150) with dual-person "
+                    "witness log, or NAID AAA vendor with certificate of destruction. "
+                    "No recycling bins for CUI."
+                ),
+                "evidence": [
+                    {"name": "Shred witness log", "link": paper_evidence["shred_log"], "collected": today, "refresh_bucket": "periodic"},
+                    {"name": "NAID destruction certificate Q1", "link": paper_evidence["vendor_cert"], "collected": "2026-03-15", "refresh_bucket": "document"},
+                    {"name": "Paper CUI destruction procedure", "link": "policies/paper-cui-handling-v1.2.pdf", "collected": today, "refresh_bucket": "document"},
+                ],
+            }
+        },
+    }
+    reqs["MP.L2-3.8.4"] = {
+        "conformity": "met",
+        "objectives": {
+            "a": {
+                "conformity": "met",
+                "statement": (
+                    "CTI banner and portion markings applied per 32 CFR 2002; CUI cover "
+                    "sheets on all external transmittals."
+                ),
+                "evidence": [
+                    {"name": "Redacted cover sheet sample", "link": paper_evidence["cover_sheet_sample"], "collected": today, "refresh_bucket": "document"},
+                    {"name": "Marking standard excerpt", "link": paper_evidence["marking_std"], "collected": today, "refresh_bucket": "document"},
+                ],
+            },
+            "b": {
+                "conformity": "met",
+                "statement": "Distribution limitations (NOFORN where applicable) on cover sheets and document headers.",
+                "evidence": [
+                    {"name": "Training roster — paper CUI marking", "link": "evidence/mp/paper/marking-training-roster-2026-05.csv", "collected": today, "refresh_bucket": "periodic"},
+                ],
+            },
+        },
+    }
+    reqs["MP.L2-3.8.5"] = {
+        "conformity": "met",
+        "objectives": {
+            "a": {
+                "conformity": "met",
+                "statement": (
+                    "Only mail-room clerks and ISSM may remove paper CUI from the CUI floor; "
+                    "authorization logged on cover sheet."
+                ),
+                "evidence": [
+                    {"name": "Mail/courier authorization procedure", "link": "procedures/cui-mail-courier-v1.pdf", "collected": today, "refresh_bucket": "document"},
+                ],
+            },
+            "b": {
+                "conformity": "met",
+                "statement": (
+                    "Chain-of-custody forms for FedEx and internal courier; signature on delivery."
+                ),
+                "evidence": [
+                    {"name": "FedEx chain of custody 2026-06-12", "link": paper_evidence["coc_fedex"], "collected": "2026-06-12", "refresh_bucket": "periodic"},
+                    {"name": "Chain of custody blank template", "link": "procedures/shred-chain-of-custody-v1.pdf", "collected": today, "refresh_bucket": "document"},
+                ],
+            },
+        },
+    }
 
 
 def build_program() -> dict:
@@ -262,6 +504,7 @@ def build_program() -> dict:
             }
         reqs[rid] = entry
 
+    apply_paper_cui_enrichment(program, reqs)
     program["requirements"] = reqs
     program["diagrams"] = {
         "network": "outputs/diagrams/network.svg",

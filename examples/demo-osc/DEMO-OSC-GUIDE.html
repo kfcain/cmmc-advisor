@@ -128,6 +128,7 @@
     <a href="#story">Org story</a>
     <a href="#program-data">Program data</a>
     <a href="#validation">Validation</a>
+    <a href="#paper-cui">Paper CUI</a>
     <a href="#artifacts">Artifacts</a>
     <a href="#preview">Preview</a>
     <a href="#routing">SKILL routing</a>
@@ -144,15 +145,15 @@
         <div class="card"><div class="val">CMMC 2</div><div class="lbl">Target level</div></div>
         <div class="card"><div class="val">c3pao</div><div class="lbl">Assessment path</div></div>
         <div class="card"><div class="val">110</div><div class="lbl">Requirements in program data</div></div>
-        <div class="card"><div class="val">8</div><div class="lbl">Inventoried assets</div></div>
+        <div class="card"><div class="val">12</div><div class="lbl">Inventoried assets</div></div>
         <div class="card"><div class="val">—</div><div class="lbl">Computed SPRS</div></div>
-        <div class="card"><div class="val">4 / 2</div><div class="lbl">QA log / open questions</div></div>
+        <div class="card"><div class="val">6 / 3</div><div class="lbl">QA log / open questions</div></div>
       </div>
     </section>
 
     <section id="story">
       <h2>Organization story (test persona)</h2>
-      <p>Atlas Precision Manufacturing (APM) machines vehicle components for an Army prime. CUI (CTI and export-controlled drawings) is processed only in a Microsoft 365 GCC High tenant, twelve Intune-managed Windows laptops, Azure Government file services, and Microsoft Sentinel. Commercial M365, corporate HR/finance, and IGEL thin-client VDI terminals are out of scope with documented separation.</p>
+      <p>Atlas Precision Manufacturing (APM) machines vehicle components for an Army prime. CUI (CTI and export-controlled drawings) is processed only in a Microsoft 365 GCC High tenant, twelve Intune-managed Windows laptops, Azure Government file services, and Microsoft Sentinel. Commercial M365, corporate HR/finance, and IGEL thin-client VDI terminals are out of scope with documented separation. Paper CUI (marked CTI hardcopy, traveler drawings, mail pouches) is in scope for the CUI floor mail room, locked job boxes, and cross-cut destruction path; digital CUI remains in GCC High.</p>
       <p>Primary enclave: GCC High (Entra ID USGov, EXO/SPO/Teams), Azure Government (Sentinel, project file share). Edge: FortiGate 100F. RMM: NinjaOne for Government on CUI laptops only. Engineering uses Azure DevOps Government for IaC; ControlBot gates Terraform PRs.</p>
       <h3>Key roles</h3>
       <table>
@@ -166,8 +167,25 @@
         <li><strong>IA.L2-3.5.3</strong> — partially met (SMS OTP on one legacy app)</li>
         <li><strong>SC.L2-3.13.11</strong> — shared with GCC High CRM + customer Intune FIPS policy</li>
         <li><strong>ControlBot import</strong> — Terraform Checkov seed on SC-7 mapped via crosswalk</li>
-        <li><strong>Discovery open questions</strong> — MFP scan relay, MSP NinjaOne alert path</li>
+        <li><strong>Discovery open questions</strong> — MFP scan relay, MSP NinjaOne alert path, mail-room accumulation shelf</li>
+        <li><strong>Paper CUI</strong> — cover sheets, cross-cut shred log, NAID vendor cert, FedEx chain of custody; MP.L2-3.8.1 partial (overnight staging)</li>
       </ul>
+    </section>
+
+    <section id="paper-cui">
+      <h2>Paper and hardcopy CUI</h2>
+      <p>APM receives CTI drawings on paper and ships marked hardcopy to the prime. Digital CUI stays in GCC High; paper is a parallel MP track.</p>
+      <table>
+        <tr><th>Control</th><th>Demo implementation</th><th>Requirement / AO</th></tr>
+        <tr><td>CUI cover sheets</td><td>Transmittal on every FedEx pouch and internal routing folder</td><td>MP.L2-3.8.4 — 3.8.4[a–b]</td></tr>
+        <tr><td>Asset stickers</td><td>Orange labels on job boxes, file cabinets, shred console</td><td>MP.L2-3.8.1 — physical control at rest</td></tr>
+        <tr><td>Cross-cut shredding</td><td>HSM-150 in mail room; dual-person witness log</td><td>MP.L2-3.8.3 — Destroy (NIST SP 800-88)</td></tr>
+        <tr><td>Vendor destruction</td><td>NAID AAA quarterly purge with certificate of destruction</td><td>MP.L2-3.8.3</td></tr>
+        <tr><td>Chain of custody</td><td>Signed handoff for FedEx; tamper-evident inner wrap</td><td>MP.L2-3.8.5 — 3.8.5[a–b]</td></tr>
+        <tr><td>Open gap</td><td>Pre-shred accumulation shelf not locked overnight</td><td>MP.L2-3.8.1[b] — POA&amp;M for lockable console</td></tr>
+      </table>
+      <p>Advisor routing: <code>references/domains/mp-media-protection.md</code> (Paper and hardcopy CUI lifecycle).</p>
+      <p>Evidence paths under <code>evidence/mp/paper/</code> (created by <code>bootstrap_demo_osc.py</code>).</p>
     </section>
 
     <section id="program-data">
@@ -194,8 +212,8 @@
         <span class="pill pill-bad">
           FAIL
         </span>
-        computed SPRS <strong>96</strong>,
-        POA&amp;M items <strong>4</strong>
+        computed SPRS <strong>93</strong>,
+        POA&amp;M items <strong>5</strong>
       </p>
       <pre>{
   &quot;level&quot;: &quot;2&quot;,
@@ -204,9 +222,9 @@
   &quot;conditional_status_date&quot;: null,
   &quot;closeout_deadline&quot;: null,
   &quot;days_until_closeout&quot;: null,
-  &quot;computed_sprs_score&quot;: 96,
+  &quot;computed_sprs_score&quot;: 93,
   &quot;ssp_missing&quot;: false,
-  &quot;poam_item_count&quot;: 4,
+  &quot;poam_item_count&quot;: 5,
   &quot;eligible_poam_count&quot;: 0,
   &quot;rulings&quot;: [
     {
@@ -285,6 +303,31 @@
       }
     },
     {
+      &quot;requirement_id&quot;: &quot;MP.L2-3.8.1&quot;,
+      &quot;eligible&quot;: false,
+      &quot;reasons&quot;: [
+        &quot;Practice carries 3 SPRS points; only 1-point practices may defer via POA&amp;M.&quot;
+      ],
+      &quot;rule_refs&quot;: [
+        &quot;32 CFR 170.21(a)(2)(ii)&quot;
+      ],
+      &quot;conformity&quot;: &quot;partially-met&quot;,
+      &quot;sprs_value&quot;: 3,
+      &quot;poam&quot;: {
+        &quot;priority&quot;: &quot;Medium&quot;,
+        &quot;description&quot;: &quot;Install locked shred console for overnight mail-room accumulation&quot;,
+        &quot;opened&quot;: &quot;2026-07-01&quot;,
+        &quot;due&quot;: &quot;2026-08-15&quot;,
+        &quot;owner&quot;: &quot;Sam Patel&quot;,
+        &quot;status&quot;: &quot;in-progress&quot;,
+        &quot;actions&quot;: [
+          &quot;Procure lockable console&quot;,
+          &quot;Update mail-room procedure&quot;,
+          &quot;Photo evidence for assessor&quot;
+        ]
+      }
+    },
+    {
       &quot;requirement_id&quot;: &quot;SC.L2-3.13.1&quot;,
       &quot;eligible&quot;: false,
       &quot;reasons&quot;: [
@@ -336,6 +379,14 @@
     },
     {
       &quot;type&quot;: &quot;poam_ineligible&quot;,
+      &quot;requirement_id&quot;: &quot;MP.L2-3.8.1&quot;,
+      &quot;message&quot;: &quot;Practice carries 3 SPRS points; only 1-point practices may defer via POA&amp;M.&quot;,
+      &quot;rule_refs&quot;: [
+        &quot;32 CFR 170.21(a)(2)(ii)&quot;
+      ]
+    },
+    {
+      &quot;type&quot;: &quot;poam_ineligible&quot;,
       &quot;requirement_id&quot;: &quot;SC.L2-3.13.1&quot;,
       &quot;message&quot;: &quot;Practice carries 5 SPRS points; only 1-point practices may defer via POA&amp;M.; Conformity is met; POA&amp;M is for open gaps, not satisfied practices.&quot;,
       &quot;rule_refs&quot;: [
@@ -366,8 +417,8 @@
     data-flows: in-progress
     backup-dr: in-progress
   Untouched phases: specialized-ot
-  Q&amp;A entries: 4
-  Open questions: 2
+  Q&amp;A entries: 6
+  Open questions: 3
   Unretired assumptions: 1
 </pre>
     </section>
@@ -462,7 +513,7 @@
       <h2>SKILL.md routing for this OSC</h2>
       <table>
         <tr><th>Question type</th><th>Read first</th><th>Why</th></tr>
-        <tr><td>Level 2 scoping / CUI enclave</td><td><code>references/scoping-and-cui.md</code></td><td>Tenant boundary, asset categories</td></tr><tr><td>GCC High tenancy</td><td><code>references/modern-it/productivity/microsoft-365-gcc.md</code></td><td>GCC vs GCC High decision</td></tr><tr><td>Phased rollout</td><td><code>references/modern-it/productivity/gcch-implementation-workbook.md</code></td><td>Identity → devices → data → monitoring</td></tr><tr><td>CRM inheritance</td><td><code>references/grc/inherited-controls-mapping.md</code></td><td>Shared SC-13 / PE rows from GCC High</td></tr><tr><td>Graph evidence</td><td><code>references/modern-it/security-operations/microsoft-graph-evidence.md</code></td><td>Collector endpoints USGov</td></tr><tr><td>POA&amp;M rules</td><td><code>references/poam-management.md</code></td><td>180-day closeout, banned practices</td></tr><tr><td>Companion stack</td><td><code>references/grc/companion-stack.md</code></td><td>ControlBot → program-data import</td></tr><tr><td>Assessor discovery</td><td><code>references/assessor-playbook/scope-discovery-question-bank.md</code></td><td>12 discovery phases</td></tr>
+        <tr><td>Level 2 scoping / CUI enclave</td><td><code>references/scoping-and-cui.md</code></td><td>Tenant boundary, asset categories</td></tr><tr><td>GCC High tenancy</td><td><code>references/modern-it/productivity/microsoft-365-gcc.md</code></td><td>GCC vs GCC High decision</td></tr><tr><td>Phased rollout</td><td><code>references/modern-it/productivity/gcch-implementation-workbook.md</code></td><td>Identity → devices → data → monitoring</td></tr><tr><td>Paper CUI / hardcopy</td><td><code>references/domains/mp-media-protection.md</code></td><td>Cover sheets, shred, transport CoC</td></tr><tr><td>Graph evidence</td><td><code>references/modern-it/security-operations/microsoft-graph-evidence.md</code></td><td>Collector endpoints USGov</td></tr><tr><td>POA&amp;M rules</td><td><code>references/poam-management.md</code></td><td>180-day closeout, banned practices</td></tr><tr><td>Companion stack</td><td><code>references/grc/companion-stack.md</code></td><td>ControlBot → program-data import</td></tr><tr><td>Assessor discovery</td><td><code>references/assessor-playbook/scope-discovery-question-bank.md</code></td><td>12 discovery phases</td></tr>
       </table>
     </section>
 
@@ -479,7 +530,7 @@
       <p>Prompt the advisor as Atlas Precision Manufacturing and score against:</p>
       <table>
         <tr><th>Scenario</th><th>Exercises</th></tr>
-        <tr><td><code>evals/scenarios/level-2-scoping-basic.yaml</code></td><td>SDVOSB SaaS on GovCloud — level and boundary</td></tr><tr><td><code>evals/scenarios/modern-it-gcch-workbook-routing.yaml</code></td><td>Phased GCC High → AO mapping</td></tr><tr><td><code>evals/scenarios/domain-ia-mfa-gcch.yaml</code></td><td>Conditional Access / MFA objectives</td></tr><tr><td><code>evals/scenarios/grc-inherited-controls-crm.yaml</code></td><td>CRM rows → per-AO inheritance</td></tr><tr><td><code>evals/scenarios/companion-stack-e2e-pipeline.yaml</code></td><td>ControlBot import through dashboard</td></tr><tr><td><code>evals/scenarios/assessor-grill-kickoff.yaml</code></td><td>Discovery rail kickoff</td></tr><tr><td><code>evals/scenarios/scoring-sprs-conditional.yaml</code></td><td>SPRS -203 floor and conditional path</td></tr>
+        <tr><td><code>evals/scenarios/level-2-scoping-basic.yaml</code></td><td>SDVOSB SaaS on GovCloud — level and boundary</td></tr><tr><td><code>evals/scenarios/modern-it-gcch-workbook-routing.yaml</code></td><td>Phased GCC High → AO mapping</td></tr><tr><td><code>evals/scenarios/domain-mp-paper-cui.yaml</code></td><td>Paper cover sheets, shredding, chain of custody</td></tr><tr><td><code>evals/scenarios/domain-mp-media-labels.yaml</code></td><td>Purview labels vs MP family</td></tr><tr><td><code>evals/scenarios/grc-inherited-controls-crm.yaml</code></td><td>CRM rows → per-AO inheritance</td></tr><tr><td><code>evals/scenarios/companion-stack-e2e-pipeline.yaml</code></td><td>ControlBot import through dashboard</td></tr><tr><td><code>evals/scenarios/assessor-grill-kickoff.yaml</code></td><td>Discovery rail kickoff</td></tr><tr><td><code>evals/scenarios/scoring-sprs-conditional.yaml</code></td><td>SPRS -203 floor and conditional path</td></tr>
       </table>
       <pre class="cmd">python -m evals.runner.runner evals/scenarios/modern-it-gcch-workbook-routing.yaml</pre>
     </section>
