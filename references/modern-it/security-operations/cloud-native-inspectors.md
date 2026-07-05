@@ -89,6 +89,7 @@ for ingest health.
 For Sentinel-native shops, use `sentinel-health` instead.
 
 Marketplace short-list: `references/fedramp-marketplace-guide.md` (SIEM category).
+DIB tool catalog with package IDs: `dib-fedramp-security-tools.md`.
 
 ---
 

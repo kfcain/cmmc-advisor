@@ -82,6 +82,7 @@ from memory alone when a reference exists.
 | Self-hosted AI (Coder, on-prem LLM, air-gapped) | `references/modern-it/ai-services/self-hosted-ai.md` |
 | AI developer tools (Claude Code, Copilot, Cursor, Windsurf, Continue) | `references/modern-it/ai-services/ai-dev-tools.md` |
 | Endpoint fleet overview, capability vs product, practice crosswalk | `references/modern-it/endpoints/README.md` |
+| DIB FedRAMP Rev5 Class C/D security tools (EDR, SIEM, DLP, observability, GovCon ERP) | `references/modern-it/security-operations/dib-fedramp-security-tools.md` + `references/data/fedramp-snapshot.json` |
 | EDR/XDR, SASE/ZTNA, MFA, SIEM evidence collectors and API mapping | `references/modern-it/security-operations/README.md` |
 | Microsoft Graph / Entra / Intune / Defender / Sentinel evidence | `references/modern-it/security-operations/microsoft-graph-evidence.md` |
 | AWS/GCP/CrowdStrike/Zscaler/Duo/Splunk collector mapping | `references/modern-it/security-operations/cloud-native-inspectors.md` |

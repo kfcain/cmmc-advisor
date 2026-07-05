@@ -25,8 +25,8 @@ Method: `references/grc/evidence-automation.md`
 | Capability | Primary CMMC families | Typical platforms | Collector ids |
 |------------|----------------------|-------------------|---------------|
 | **MFA / identity** | IA (3.5.x), AC (3.1.8, 3.1.12–15) | Entra CA, Duo, IAM Identity Center | `entra-conditional-access`, `entra-signins`, `duo-auth-logs` |
-| **EDR / XDR** | SI (3.14.x), partial AU (3.3.1) | Defender for Endpoint, CrowdStrike Falcon | `defender-endpoint`, `crowdstrike-hosts` |
-| **SIEM / correlation** | AU (3.3.x), SI (3.14.6) | Sentinel, Splunk | `sentinel-health`, `splunk-ingest-health` |
+| **EDR / XDR** | SI (3.14.x), partial AU (3.3.1) | Defender, CrowdStrike, SentinelOne | `defender-endpoint`, `crowdstrike-hosts` |
+| **SIEM / correlation** | AU (3.3.x), SI (3.14.6) | Sentinel, Splunk, Datadog Gov | `sentinel-health`, `splunk-ingest-health` |
 | **SASE / ZTNA** | SC (3.13.1, 3.13.6–8), AC (3.1.3) | Zscaler ZIA, Prisma Access, Entra Private Access | `zscaler-policy`, `prisma-access-rules` |
 | **Cloud posture** | CM, SC, AU, SI | AWS Config/Security Hub, Azure, GCP SCC | `aws-config-compliance`, `gcp-scc-findings`, etc. |
 | **Endpoint management** | AC, CM, SC | Intune, Jamf (manual) | `intune-compliance` |
@@ -105,4 +105,5 @@ Set `sprs_submission` in program data to enable dashboard comparison against the
 
 - `references/grc/evidence-automation.md`: operating model
 - `references/fedramp-marketplace-guide.md`: vendor short-lists (EDR, SASE, SIEM)
+- `references/modern-it/security-operations/dib-fedramp-security-tools.md`: DIB-common Rev5 Class C/D catalog (Varonis, Tenable, Duo, Palo Alto, Datadog, etc.)
 - `references/data/800-53-crosswalk.json`: inspector to CMMC mapping

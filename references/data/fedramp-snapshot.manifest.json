@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "scope_note": "Curated vendor list for Phase 5 productivity and AI services in the cmmc-advisor corpus. Authorization fields marked marketplace_live are refreshed from the official FedRAMP Marketplace export; DoD IL, CUI suitability, and practitioner notes remain corpus guidance and must still be verified before SSP citation.",
+  "scope_note": "Curated vendor list for productivity, AI services, and DIB security operations tools in the cmmc-advisor corpus. Authorization fields marked marketplace_live are refreshed from the official FedRAMP Marketplace export; DoD IL, CUI suitability, and practitioner notes remain corpus guidance and must still be verified before SSP citation.",
   "marketplace_data_url": "https://raw.githubusercontent.com/FedRAMP/marketplace-fedramp-gov-data/main/fedramp-products.json",
   "vendors": [
     {
@@ -115,6 +115,171 @@
       "primary_source": "https://cloud.google.com/assured-workloads",
       "corpus_references": ["references/modern-it/ai-services/fedramp-ai-services.md"],
       "notes": "Vertex AI is not a standalone Marketplace package; platform boundary inherits from Google Cloud Platform. Verify per-model Assured Workloads availability before SSP citation."
+    },
+    {
+      "id": "sentinelone-singularity-high",
+      "product": "SentinelOne Singularity Platform High",
+      "vendor": "SentinelOne",
+      "marketplace_package_id": "FR1919071020A",
+      "dod_impact_level": [],
+      "cui_suitability": "Appropriate for CUI endpoints when package scope covers the enclave",
+      "primary_source": "https://marketplace.fedramp.gov; https://www.sentinelone.com/platform/government/",
+      "corpus_references": ["references/modern-it/security-operations/dib-fedramp-security-tools.md"],
+      "notes": "Rev5 Class D (High). Separate Moderate package exists; verify which package is under contract."
+    },
+    {
+      "id": "crowdstrike-falcon-government",
+      "product": "CrowdStrike Falcon Platform for Government",
+      "vendor": "CrowdStrike",
+      "marketplace_package_id": "FR1807853629A",
+      "dod_impact_level": [],
+      "cui_suitability": "Appropriate for CUI endpoints when Falcon Gov package scope matches deployment",
+      "primary_source": "https://marketplace.fedramp.gov; https://www.crowdstrike.com/falcon/falcon-for-government/",
+      "corpus_references": ["references/modern-it/security-operations/dib-fedramp-security-tools.md", "references/modern-it/security-operations/cloud-native-inspectors.md"],
+      "notes": "Rev5 Class D (High). crowdstrike-hosts collector maps to SI family."
+    },
+    {
+      "id": "tenable-government-solutions",
+      "product": "Tenable Government Solutions",
+      "vendor": "Tenable Public Sector (TPS)",
+      "marketplace_package_id": "FR1814276801",
+      "dod_impact_level": [],
+      "cui_suitability": "Appropriate for vulnerability management on CUI systems",
+      "primary_source": "https://marketplace.fedramp.gov; https://www.tenable.com/solutions/federal",
+      "corpus_references": ["references/modern-it/security-operations/dib-fedramp-security-tools.md"],
+      "notes": "Rev5 Class C (Moderate). Tenable.io / Tenable.sc features must match package boundary."
+    },
+    {
+      "id": "duo-federal",
+      "product": "Duo Federal",
+      "vendor": "Duo Security (a Cisco Company)",
+      "marketplace_package_id": "FR1823149273",
+      "dod_impact_level": [],
+      "cui_suitability": "Appropriate for MFA on CUI-access paths",
+      "primary_source": "https://marketplace.fedramp.gov; https://duo.com/docs/fedramp",
+      "corpus_references": ["references/modern-it/security-operations/dib-fedramp-security-tools.md", "references/modern-it/security-operations/cloud-native-inspectors.md"],
+      "notes": "Rev5 Class C (Moderate). duo-auth-logs collector; prefer Entra logs when Duo is EAM."
+    },
+    {
+      "id": "palo-alto-gcs-moderate",
+      "product": "Palo Alto Networks Government Cloud Services",
+      "vendor": "Palo Alto Networks, Inc.",
+      "marketplace_package_id": "FR1913470600",
+      "dod_impact_level": [],
+      "cui_suitability": "Moderate-impact SASE/XDR/cloud security services in package scope",
+      "primary_source": "https://marketplace.fedramp.gov; https://www.paloaltonetworks.com/solutions/fedramp",
+      "corpus_references": ["references/modern-it/security-operations/dib-fedramp-security-tools.md", "references/modern-it/security-operations/cloud-native-inspectors.md"],
+      "notes": "Rev5 Class C (Moderate). Cortex/Prisma modules vary; on-prem PAN-OS is not this package."
+    },
+    {
+      "id": "palo-alto-gcs-high",
+      "product": "Palo Alto Networks GCS High",
+      "vendor": "Palo Alto Networks, Inc.",
+      "marketplace_package_id": "FR2317253567",
+      "dod_impact_level": [],
+      "cui_suitability": "High-impact cloud security services in package scope",
+      "primary_source": "https://marketplace.fedramp.gov",
+      "corpus_references": ["references/modern-it/security-operations/dib-fedramp-security-tools.md"],
+      "notes": "Rev5 Class D (High). Confirm Prisma Access / Cortex SKUs against CRM."
+    },
+    {
+      "id": "varonis-datadvantage-cloud",
+      "product": "Varonis DatAdvantage Cloud",
+      "vendor": "Varonis",
+      "marketplace_package_id": "FR2421252644",
+      "dod_impact_level": [],
+      "cui_suitability": "Data access governance for CUI in authorized repositories",
+      "primary_source": "https://marketplace.fedramp.gov; https://www.varonis.com/solutions/federal",
+      "corpus_references": ["references/modern-it/security-operations/dib-fedramp-security-tools.md"],
+      "notes": "Rev5 Class C (Moderate). Maps to AC/MP practices for file and entitlement monitoring."
+    },
+    {
+      "id": "datadog-for-government",
+      "product": "Datadog for Government",
+      "vendor": "Datadog",
+      "marketplace_package_id": "FR2023864279",
+      "dod_impact_level": [],
+      "cui_suitability": "Observability for CUI workloads when logs/metrics stay in Gov boundary",
+      "primary_source": "https://marketplace.fedramp.gov; https://www.datadoghq.com/solutions/government/",
+      "corpus_references": ["references/modern-it/security-operations/dib-fedramp-security-tools.md"],
+      "notes": "Rev5 Class C (Moderate). High package (FR2023864279A) was In Process at last export."
+    },
+    {
+      "id": "avepoint-aos-ug",
+      "product": "AvePoint Online Services for US Government (AOS-UG)",
+      "vendor": "AvePoint Inc.",
+      "marketplace_package_id": "FR2025827270",
+      "dod_impact_level": [],
+      "cui_suitability": "M365/SharePoint governance and backup for CUI tenancies",
+      "primary_source": "https://marketplace.fedramp.gov; https://www.avepoint.com/solutions/federal",
+      "corpus_references": ["references/modern-it/security-operations/dib-fedramp-security-tools.md"],
+      "notes": "Rev5 Class C (Moderate). High tier package in process at last export."
+    },
+    {
+      "id": "cisco-thousandeyes-government",
+      "product": "Cisco ThousandEyes for Government",
+      "vendor": "Cisco Systems, Inc.",
+      "marketplace_package_id": "FR2523656707",
+      "dod_impact_level": [],
+      "cui_suitability": "Network/SaaS path observability; not a SIEM substitute",
+      "primary_source": "https://marketplace.fedramp.gov; https://www.thousandeyes.com/solutions/federal",
+      "corpus_references": ["references/modern-it/security-operations/dib-fedramp-security-tools.md"],
+      "notes": "Rev5 Class C (Moderate). Supports SC/AU partial evidence for path monitoring."
+    },
+    {
+      "id": "rsa-id-plus-government",
+      "product": "RSA ID Plus for Government",
+      "vendor": "RSA Security LLC",
+      "marketplace_package_id": "FR2102652499",
+      "dod_impact_level": [],
+      "cui_suitability": "Identity and MFA services in package scope",
+      "primary_source": "https://marketplace.fedramp.gov; https://www.rsa.com/products/identity/",
+      "corpus_references": ["references/modern-it/security-operations/dib-fedramp-security-tools.md"],
+      "notes": "Rev5 Class C (Moderate). RSA Archer GRC is not this package; search Marketplace separately."
+    },
+    {
+      "id": "splunk-cloud-high",
+      "product": "Splunk Cloud Platform for FedRAMP High",
+      "vendor": "Splunk",
+      "marketplace_package_id": "FR2314156865",
+      "dod_impact_level": [],
+      "cui_suitability": "Appropriate for high-impact CUI logging and correlation",
+      "primary_source": "https://marketplace.fedramp.gov; https://www.splunk.com/en_us/industries/public-sector/federal-government.html",
+      "corpus_references": ["references/modern-it/security-operations/dib-fedramp-security-tools.md", "references/modern-it/security-operations/cloud-native-inspectors.md"],
+      "notes": "Rev5 Class D (High). Moderate package F1607197917 also available."
+    },
+    {
+      "id": "zscaler-zia-government-high",
+      "product": "Zscaler Internet Access - Government (High)",
+      "vendor": "Zscaler",
+      "marketplace_package_id": "FR2227062482",
+      "dod_impact_level": [],
+      "cui_suitability": "Secure web gateway for CUI user traffic",
+      "primary_source": "https://marketplace.fedramp.gov; https://www.zscaler.com/industries/federal-government",
+      "corpus_references": ["references/modern-it/security-operations/dib-fedramp-security-tools.md", "references/modern-it/security-operations/cloud-native-inspectors.md"],
+      "notes": "Rev5 Class D (High). zscaler-policy collector for policy posture."
+    },
+    {
+      "id": "deltek-costpoint-gccm",
+      "product": "Costpoint GovCon Cloud Moderate (CP GCCM)",
+      "vendor": "Deltek, Inc.",
+      "marketplace_package_id": "FR2405880485",
+      "dod_impact_level": [],
+      "cui_suitability": "Contract/financial CUI in GovCon ERP when Authorized",
+      "primary_source": "https://marketplace.fedramp.gov; https://www.deltek.com/en/government",
+      "corpus_references": ["references/modern-it/security-operations/dib-fedramp-security-tools.md"],
+      "notes": "Status was FRR (not Authorized) at last Marketplace export. Verify before SSP citation."
+    },
+    {
+      "id": "atx-defense-cmmc-space",
+      "product": "CMMC Space",
+      "vendor": "ATX Defense",
+      "marketplace_package_id": "FR2618738935",
+      "dod_impact_level": [],
+      "cui_suitability": "CMMC program workflow platform; not assessment evidence by itself",
+      "primary_source": "https://marketplace.fedramp.gov; https://atxdefense.com/",
+      "corpus_references": ["references/modern-it/security-operations/dib-fedramp-security-tools.md"],
+      "notes": "FedRAMP In Process at last export. Not cite-safe until Authorized."
     }
   ]
 }

@@ -644,6 +644,50 @@ compliance documentation and practitioner publications.
 - **URL:** https://www.splunk.com/en_us/newsroom/press-releases/2024/splunk-cloud-platform-attains-fedramp-high-authorization.html
 - **Used in:** fedramp-marketplace-guide.md SIEM category
 
+### SentinelOne Government Platform
+- **URL:** https://www.sentinelone.com/platform/government/
+- **Used in:** modern-it/security-operations/dib-fedramp-security-tools.md; fedramp-snapshot.manifest.json
+
+### Tenable Federal Solutions
+- **URL:** https://www.tenable.com/solutions/federal
+- **Used in:** modern-it/security-operations/dib-fedramp-security-tools.md
+
+### Duo Security FedRAMP Documentation
+- **URL:** https://duo.com/docs/fedramp
+- **Used in:** modern-it/security-operations/dib-fedramp-security-tools.md; cloud-native-inspectors.md
+
+### Varonis Federal Solutions
+- **URL:** https://www.varonis.com/solutions/federal
+- **Used in:** modern-it/security-operations/dib-fedramp-security-tools.md
+
+### Datadog Government Solutions
+- **URL:** https://www.datadoghq.com/solutions/government/
+- **Used in:** modern-it/security-operations/dib-fedramp-security-tools.md
+
+### AvePoint Federal Solutions
+- **URL:** https://www.avepoint.com/solutions/federal
+- **Used in:** modern-it/security-operations/dib-fedramp-security-tools.md
+
+### Cisco ThousandEyes Federal
+- **URL:** https://www.thousandeyes.com/solutions/federal
+- **Used in:** modern-it/security-operations/dib-fedramp-security-tools.md
+
+### Palo Alto Networks FedRAMP
+- **URL:** https://www.paloaltonetworks.com/solutions/fedramp
+- **Used in:** modern-it/security-operations/dib-fedramp-security-tools.md; fedramp-marketplace-guide.md
+
+### RSA Identity Products
+- **URL:** https://www.rsa.com/products/identity/
+- **Used in:** modern-it/security-operations/dib-fedramp-security-tools.md
+
+### Deltek Government Cloud
+- **URL:** https://www.deltek.com/en/government
+- **Used in:** modern-it/security-operations/dib-fedramp-security-tools.md
+
+### ATX Defense
+- **URL:** https://atxdefense.com/
+- **Used in:** modern-it/security-operations/dib-fedramp-security-tools.md (CMMC Space FedRAMP In Process at last export)
+
 ### Anthropic Trust Center
 - **URL:** https://trust.anthropic.com
 - **Used in:** modern-it/ai-services/ai-dev-tools.md, fedramp-ai-services.md

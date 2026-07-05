@@ -33,6 +33,12 @@ framework, CSP SRG reciprocity, DFARS 7012 equivalence mechanics)
 and `references/contractor-profiles.md` (tooling investment
 sequencing per contractor size).
 
+For **named DIB security tools** (SentinelOne, Tenable, Duo, Palo
+Alto, Varonis, Datadog, AvePoint, ThousandEyes, Deltek, RSA ID Plus,
+ATX Defense CMMC Space) with Rev 5 Class C/D package IDs and CMMC
+practice mapping, read
+`references/modern-it/security-operations/dib-fedramp-security-tools.md`.
+
 **The supply-side reality.** FedRAMP High supply is constrained.
 Per industry reporting through 2025-2026, the pool of FedRAMP
 High authorized vendors across some capability categories is
@@ -238,6 +244,10 @@ platforms; log aggregation and analytics; UEBA.
   Assured Workloads; verify specific FedRAMP package scope.
 - Elastic. FedRAMP authorization via Elastic Cloud on AWS
   GovCloud; verify current package.
+- **Datadog for Government** FR2023864279 (Rev5 Moderate).
+  Metrics/logs/traces observability; not a full SIEM replacement.
+- **Cisco ThousandEyes for Government** FR2523656707 (Rev5
+  Moderate). Network and SaaS path observability.
 - Rapid7 InsightIDR. FedRAMP authorization; verify current
   impact level.
 - LogRhythm. FedRAMP authorization package; verify current
@@ -261,11 +271,12 @@ deployed on CUI-adjacent endpoints.
   government trust documentation; verify current package scope
   (FedRAMP Moderate and High variants exist for different
   products in the Falcon suite).
-- SentinelOne. FedRAMP authorized; verify current package and
-  impact level at marketplace.fedramp.gov.
+- SentinelOne. FedRAMP High package FR1919071020A (Singularity
+  Platform High); verify Moderate package separately if used.
 - Palo Alto Networks Cortex XDR. FedRAMP authorization
   coverage is partial across the Cortex product family;
-  verify per-product scope.
+  Government Cloud Services Moderate (FR1913470600) and High
+  (FR2317253567) packages; verify per-product scope.
 - Trellix (formerly McAfee Enterprise + FireEye). FedRAMP
   authorization on specific products; verify current.
 - Tanium. FedRAMP authorized per vendor documentation;
@@ -283,8 +294,9 @@ network); configuration-drift detection; asset inventory.
 
 **Representative vendors.**
 
-- Tenable (Tenable.io, Tenable.sc). FedRAMP authorization per
-  Tenable government pages; verify current package scope.
+- Tenable (Tenable.io, Tenable.sc). **Tenable Government
+  Solutions** FR1814276801 (Rev5 Moderate); verify current
+  package scope on marketplace.fedramp.gov.
 - Qualys. FedRAMP authorization via Qualys Cloud Platform;
   verify current impact level.
 - Rapid7 (InsightVM, InsightAppSec). FedRAMP authorization
@@ -313,6 +325,11 @@ identity governance.
   vendor page; verify current.
 - CyberArk. FedRAMP authorization on the Privilege Cloud
   product; verify current scope.
+- **Cisco Duo Federal** FR1823149273 (Rev5 Moderate). Common
+  MFA overlay alongside Entra; verify EAM vs standalone deployment.
+- **RSA ID Plus for Government** FR2102652499 (Rev5 Moderate).
+  RSA Archer GRC is a separate procurement; search Marketplace
+  for current Archer packages before citing.
 - BeyondTrust. FedRAMP authorization on multiple products
   including the October 2025 Identity Security Insights
   extension (beyondtrust.com/press/fedramp-identity-security-
@@ -342,6 +359,12 @@ labeling; data governance for CUI-marked content.
 - Forcepoint DLP. FedRAMP authorization; verify current.
 - Symantec / Broadcom DLP. FedRAMP authorization on specific
   products; verify current scope.
+- **Varonis DatAdvantage Cloud** FR2421252644 and **Varonis Data
+  Security Platform** FR2421252636 (Rev5 Moderate). Data access
+  governance overlay for file shares and M365; see
+  dib-fedramp-security-tools.md.
+- **AvePoint Online Services for US Government** FR2025827270
+  (Rev5 Moderate). M365/SharePoint backup and governance overlay.
 - Netskope Cloud Firewall + DLP. FedRAMP authorization via
   Netskope Federal; verify current package.
 
@@ -408,9 +431,15 @@ collection.
 - ServiceNow GRC on ServiceNow GCC. Inherits ServiceNow GCC
   FedRAMP High + IL4 authorization (see
   `references/modern-it/productivity/legacy-dib-tools.md`).
-- RSA Archer. FedRAMP authorization on RSA Archer on the
-  RSA-managed government platform; verify current.
+- RSA Archer. Search marketplace.fedramp.gov for current Archer
+  packages; **RSA ID Plus for Government** FR2102652499 is the
+  common Rev5 Moderate identity package (not full GRC).
 - MetricStream. FedRAMP authorization; verify current scope.
+- **Deltek Costpoint GovCon Cloud Moderate** FR2405880485. GovCon
+  ERP; verify current authorization status (was FRR at 2026-06
+  export, not Authorized).
+- **ATX Defense CMMC Space** FR2618738935. CMMC program platform;
+  In Process at 2026-06 export; not cite-safe until Authorized.
 - Vanta, Drata, Secureframe, Hyperproof. SOC 2 / ISO 27001
   focused platforms with varying FedRAMP authorization
   coverage; verify current status at marketplace.fedramp.gov

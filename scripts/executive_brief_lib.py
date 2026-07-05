@@ -22,7 +22,7 @@ FAMILY_SOLUTIONS: dict[str, dict[str, str]] = {
     },
     "AU": {
         "category": "SIEM / log aggregation",
-        "marketplace": "SIEM category in references/fedramp-marketplace-guide.md (Splunk, Sentinel, etc.)",
+        "marketplace": "Splunk Gov, Datadog for Government, Sentinel; see dib-fedramp-security-tools.md",
         "fallback": "On-prem SIEM with CIS log retention baseline; cloud-native collectors in evidence manifest",
     },
     "CA": {
@@ -37,7 +37,7 @@ FAMILY_SOLUTIONS: dict[str, dict[str, str]] = {
     },
     "IA": {
         "category": "MFA / authenticator management",
-        "marketplace": "FedRAMP Moderate MFA/PAM (Duo FedRAMP package, etc.)",
+        "marketplace": "Duo Federal, RSA ID Plus Gov, Okta GHC; see dib-fedramp-security-tools.md",
         "fallback": "Entra Conditional Access / on-prem MFA with CIS authenticator guidance",
     },
     "IR": {
@@ -47,12 +47,12 @@ FAMILY_SOLUTIONS: dict[str, dict[str, str]] = {
     },
     "MA": {
         "category": "Maintenance / patch / vulnerability",
-        "marketplace": "Vulnerability management FedRAMP packages",
+        "marketplace": "Tenable Government Solutions, Qualys Gov; dib-fedramp-security-tools.md",
         "fallback": "CIS patch SLAs; WSUS/Intune patch reports; CISA KEV tracking",
     },
     "MP": {
         "category": "Media protection / DLP",
-        "marketplace": "DLP and secure collaboration FedRAMP Moderate listings",
+        "marketplace": "Varonis, AvePoint AOS-UG, Forcepoint SSE, Purview; dib-fedramp-security-tools.md",
         "fallback": "Encrypted removable media policy; M365 DLP in GCC High",
     },
     "PE": {
@@ -67,17 +67,17 @@ FAMILY_SOLUTIONS: dict[str, dict[str, str]] = {
     },
     "RA": {
         "category": "Vulnerability scanning / risk assessment",
-        "marketplace": "Vulnerability management category in fedramp-marketplace-guide.md",
+        "marketplace": "Tenable Government Solutions, Qualys Gov, Rapid7 InsightGovCloud; dib-fedramp-security-tools.md",
         "fallback": "CIS scanning cadence; authenticated scan evidence",
     },
     "SC": {
         "category": "Network security / SASE / boundary protection",
-        "marketplace": "SASE/ZTNA and network security FedRAMP Moderate packages",
+        "marketplace": "Zscaler Gov, Palo Alto GCS, ThousandEyes Gov; dib-fedramp-security-tools.md",
         "fallback": "CIS firewall/switch benchmarks; NGFW/WLAN baselines in asset-baselines/",
     },
     "SI": {
         "category": "EDR / malicious code protection",
-        "marketplace": "EDR category in fedramp-marketplace-guide.md (CrowdStrike, Defender, etc.)",
+        "marketplace": "SentinelOne Singularity High, CrowdStrike Falcon Gov, Defender; dib-fedramp-security-tools.md",
         "fallback": "CIS endpoint malware controls; EDR API collectors",
     },
 }

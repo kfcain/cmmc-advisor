@@ -11,7 +11,7 @@ instead of hand-maintaining a static matrix.
 
 | File | In git? | Purpose |
 |------|---------|---------|
-| `fedramp-snapshot.manifest.json` | Yes | Stable vendor list, corpus references, CUI/IL practitioner notes |
+| `fedramp-snapshot.manifest.json` | Yes | Stable vendor list (productivity, AI, DIB security tools), corpus references, CUI/IL practitioner notes |
 | `scripts/build_fedramp_snapshot.py` (repo root) | Yes | Fetches official Marketplace export and merges live fields |
 | `fedramp-snapshot.json` | Yes | Generated output, committed for convenience; re-run the builder to refresh |
 
