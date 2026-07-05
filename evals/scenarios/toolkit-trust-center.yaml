@@ -1,0 +1,28 @@
+id: toolkit-trust-center
+title: Generate public trust center without leaking internal posture
+category: program-toolkit
+routing_smoke_strict: true
+
+prompt: |
+  A prime asked for our security page. We have program-data.yaml with internal
+  SPRS and POA&M data. How do we publish a trust center without exposing
+  assessment gaps?
+
+required_terms:
+  - generate_trust_center
+  - trust-center
+  - program data
+  - deny-by-default
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Populate the trust_center section of program-data.yaml with public
+  attestations, security contact, and approved document URLs only. Run
+  python3 scripts/generate_trust_center.py program-data.yaml -o trust-center.html
+  following references/grc/trust-center.md deny-by-default rules: no POA&M,
+  evidence paths, SPRS scores, or requirement narratives. Use the executive
+  brief or dashboard for internal audiences, not the trust center.
+
+evaluator_notes: |
+  Must distinguish trust center vs dashboard/executive brief. Must name script.

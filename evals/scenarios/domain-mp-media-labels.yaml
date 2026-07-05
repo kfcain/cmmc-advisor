@@ -1,0 +1,27 @@
+id: domain-mp-media-labels
+title: MP family sensitivity labels for CUI in M365
+category: domain-practice
+routing_smoke_strict: true
+
+prompt: |
+  We deploy Purview sensitivity labels on SharePoint and Exchange in GCC High.
+  Which MP requirements do labels satisfy and what objectives need separate
+  evidence?
+
+required_terms:
+  - MP.L2-3.8.1
+  - MP.L2-3.8.2
+  - sensitivity labels
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Read references/domains/mp-media-protection.md,
+  references/assessment-objectives/mp.md, and gcch-implementation-workbook.md
+  Phase 4 Data. Labels support MP.L2-3.8.1 marking and MP.L2-3.8.2 access
+  restriction objectives when encryption and policy enforcement are
+  demonstrated. MP.L2-3.8.3 sanitization and MP.L2-3.8.5 transport still
+  need separate procedures and tests. Export label and DLP policies as evidence.
+
+evaluator_notes: |
+  Must not claim labels alone satisfy entire MP family.

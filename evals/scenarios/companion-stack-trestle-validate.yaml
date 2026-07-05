@@ -1,6 +1,7 @@
 id: companion-stack-trestle-validate
 title: Validate OSCAL SSP with compliance-trestle after generate_oscal_ssp
 category: program-toolkit
+routing_smoke_strict: true
 
 prompt: |
   We generated ssp.oscal.json from program-data.yaml with generate_oscal_ssp.py

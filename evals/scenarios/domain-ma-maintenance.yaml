@@ -1,0 +1,27 @@
+id: domain-ma-maintenance
+title: MA family controlled maintenance for CUI systems
+category: domain-practice
+routing_smoke_strict: true
+
+prompt: |
+  Vendors sometimes maintain our engineering workstations that access CUI
+  via AVD. What MA requirements apply and how do we document maintenance
+  controls?
+
+required_terms:
+  - MA.L2-3.7.2
+  - maintenance
+  - CUI
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Route to references/domains/ma-maintenance.md and
+  references/assessment-objectives/ma.md.   MA.L2-3.7.1 through MA.L2-3.7.6
+  cover controlled maintenance; MA.L2-3.7.2 requires sanitization of equipment
+  removed for off-site maintenance. Document vendor maintenance sessions, escorts, and tool
+  inspection in program-data narratives with dated evidence. AVD admin
+  workstations are in scope when they can affect CUI confidentiality.
+
+evaluator_notes: |
+  Must reference MA domain file. Practical escort/tool evidence guidance.

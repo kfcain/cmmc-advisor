@@ -1,6 +1,7 @@
 id: scoring-sprs-conditional
 title: SPRS scoring rules including -203 floor and conditional path
 category: level-selection
+routing_smoke_strict: true
 
 prompt: |
   We are preparing for a Level 2 C3PAO assessment with several partially
@@ -18,7 +19,7 @@ factual_claims_expected: true
 
 expected_recommendation: |
   SPRS follows the DoD Assessment Methodology from program-data conformity
-  at the assessment-objective level: partial credit applies to IA.L2-3.5.3
+  at the assessment-objective level (assessor-tested assessment objectives): partial credit applies to IA.L2-3.5.3
   and SC.L2-3.13.11 when implemented but not fully assessed; the computed
   score floors at -203; missing SSP (CA.L2-3.12.4 not met) drives a failing
   posture. Conditional certification requires meeting the 80% score ratio

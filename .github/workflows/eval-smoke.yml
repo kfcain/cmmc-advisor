@@ -1,0 +1,34 @@
+name: eval-smoke
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  routing:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Deterministic eval routing smoke
+        run: python3 scripts/eval_routing_smoke.py
+
+  llm-subset:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install eval runner dependencies
+        run: pip install -r evals/runner/requirements.txt
+      - name: Run routing eval subset
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          python -m evals.runner.runner evals/scenarios/platform-routing-bootstrap.yaml
+          python -m evals.runner.runner evals/scenarios/modern-it-gcch-workbook-routing.yaml
+          python -m evals.runner.runner evals/scenarios/companion-stack-e2e-pipeline.yaml

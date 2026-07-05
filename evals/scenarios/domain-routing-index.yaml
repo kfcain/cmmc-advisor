@@ -1,6 +1,7 @@
 id: domain-routing-index
 title: Agent routes AC domain question to correct domain file
 category: domain-practices
+routing_smoke_strict: true
 
 prompt: |
   We need implementation guidance for AC.L2-3.1.5 least privilege in our

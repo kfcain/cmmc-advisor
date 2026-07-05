@@ -1,0 +1,30 @@
+id: domain-sc-boundary-gcch
+title: SC family boundary and encryption in GCC High
+category: domain-practice
+routing_smoke_strict: true
+
+prompt: |
+  Our CUI enclave is entirely in GCC High with Intune FIPS mode and CRM
+  inheritance for service-side crypto. Which SC objectives are shared vs
+  customer-owned?
+
+required_terms:
+  - SC.L2-3.13.11
+  - SC.L2-3.13.1
+  - FIPS
+  - inheritance
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Read references/domains/sc-system-comms.md,
+  references/assessment-objectives/sc.md, and
+  references/grc/inherited-controls-mapping.md. SC.L2-3.13.1 boundary
+  protection and SC.L2-3.13.11 FIPS cryptography often split between CRM
+  inherited/shared rows and customer Intune/endpoint enforcement. Record
+  inheritance blocks with CRM citations in program-data.yaml; run
+  scripts/check_cmvp.py for endpoint modules. SC.L2-3.13.11 allows partial
+  SPRS credit when implemented but not fully assessed.
+
+evaluator_notes: |
+  Must address shared vs inherited and check_cmvp.py for customer FIPS claims.

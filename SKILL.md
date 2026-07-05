@@ -73,6 +73,7 @@ from memory alone when a reference exists.
 | Cloud platform selection | `references/modern-it/cloud-platforms/cloud-selection.md` |
 | Productivity suite overview, vendor selection, tier-level authorization snapshot | `references/modern-it/productivity/README.md` |
 | Microsoft 365 GCC or GCC High | `references/modern-it/productivity/microsoft-365-gcc.md` |
+| GCC High phased implementation mapped to AOs | `references/modern-it/productivity/gcch-implementation-workbook.md` + `references/data/gcch-workbook-manifest.json` |
 | Google Workspace compliance | `references/modern-it/productivity/google-workspace.md` |
 | Atlassian, ServiceNow, legacy tools | `references/modern-it/productivity/legacy-dib-tools.md` |
 | AI services overview, decisions, capability crosswalk | `references/modern-it/ai-services/README.md` |
@@ -222,7 +223,8 @@ starting point, not a complete FedRAMP authorization package.
 **Validate OSCAL and companion handoffs.** After emitting OSCAL, run
 `./scripts/validate_oscal_ssp.sh` when trestle is installed, or follow
 `references/grc/companion-stack.md` for trestle-skills, ControlBot import
-(`import_controlbot_seeds.py`), and visual-explainer recaps. Regenerate OSCAL
+(`import_controlbot_seeds.py`), ControlBot profile export
+(`export_controlbot_profile.py`), and visual-explainer recaps. Regenerate OSCAL
 from program data before each trestle import.
 
 **Build a public trust center.** When the user needs an outward-facing

@@ -1,0 +1,26 @@
+id: domain-ca-security-assessment
+title: CA family SSP and control monitoring before C3PAO
+category: domain-practice
+routing_smoke_strict: true
+
+prompt: |
+  We have a draft SSP and run quarterly control reviews. Which CA requirements
+  apply before our C3PAO assessment, especially CA.L2-3.12.4?
+
+required_terms:
+  - CA.L2-3.12.4
+  - SSP
+  - security assessment
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Route to references/domains/ca-security-assessment.md and
+  references/assessment-objectives/ca.md. CA.L2-3.12.4 (develop and manage
+  SSP) is a hard gate: missing SSP fails SPRS scoring. CA.L2-3.12.1 and
+  CA.L2-3.12.3 cover assessment planning and continuous monitoring. Use
+  scripts/generate_ssp.py on program-data.yaml; validate with templates/
+  ssp-structure.md. Regenerate after every program-data change.
+
+evaluator_notes: |
+  Must mention CA.L2-3.12.4 SSP gate and toolkit generate_ssp.py path.

@@ -159,6 +159,7 @@ flows through `references/data/800-53-crosswalk.json` `control_index`.
 python3 scripts/import_controlbot_seeds.py poam-seeds.json program-data.yaml \
   --evidence evidence-facts.json
 python3 scripts/validate_poam.py program-data.yaml
+python3 scripts/export_controlbot_profile.py program-data.yaml -o .controlbot/profile.yaml
 python3 scripts/generate_dashboard.py program-data.yaml -o dashboard.html
 ```
 

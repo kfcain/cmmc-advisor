@@ -80,6 +80,12 @@ jobs:
           assert len(snap["vendors"]) >= 1
           print("FRMR snapshot ok")
           EOF
+      - name: Eval routing smoke
+        run: python3 scripts/eval_routing_smoke.py
+      - name: ControlBot profile export smoke
+        run: |
+          pip install pyyaml
+          python3 scripts/export_controlbot_profile.py templates/program-data.sample.yaml --stdout | head -5
       - name: ControlBot import smoke
         run: |
           pip install pyyaml

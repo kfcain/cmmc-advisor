@@ -1,0 +1,28 @@
+id: domain-au-audit-logging
+title: AU family audit logging in GCC High Sentinel
+category: domain-practice
+routing_smoke_strict: true
+
+prompt: |
+  We forward GCC High unified audit logs and Defender telemetry to Sentinel.
+  Which AU requirements and objectives does that support, and what is still
+  our responsibility for AU.L2-3.3.5?
+
+required_terms:
+  - AU.L2-3.3.1
+  - AU.L2-3.3.5
+  - Sentinel
+  - assessment objectives
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Read references/domains/au-audit.md and references/assessment-objectives/au.md.
+  Log collection supports AU.L2-3.3.1 event creation and AU.L2-3.3.2 user
+  accountability when fields and retention meet 800-171A. AU.L2-3.3.5 requires
+  correlated review and reporting processes, not ingestion alone; it carries
+  5 SPRS points and is not POA&M-eligible. GCC High workbook Phase 5 maps
+  Sentinel to 3.3.5[a–c] per gcch-implementation-workbook.md.
+
+evaluator_notes: |
+  Must distinguish collection vs review for 3.3.5. Mention POA&M ineligibility.

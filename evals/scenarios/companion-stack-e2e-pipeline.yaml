@@ -1,0 +1,30 @@
+id: companion-stack-e2e-pipeline
+title: End-to-end companion stack from IaC to OSCAL validate
+category: program-toolkit
+routing_smoke_strict: true
+
+prompt: |
+  We run ControlBot on Terraform, maintain program-data.yaml, and need OSCAL
+  for our GRC platform. What is the full pipeline across CMMC Advisor and
+  the companion repos?
+
+required_terms:
+  - import_controlbot_seeds
+  - generate_oscal_ssp
+  - validate_oscal_ssp
+  - companion-stack
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Pipeline per references/grc/companion-stack.md: ControlBot npm run poam
+  on IaC PRs, then python3 scripts/import_controlbot_seeds.py poam-seeds.json
+  program-data.yaml, then python3 scripts/validate_poam.py. Update conformity
+  and evidence in program-data.yaml, regenerate dashboard/SSP, then
+  python3 scripts/generate_oscal_ssp.py program-data.yaml -o dist/ssp.oscal.json
+  --embed-program, then ./scripts/validate_oscal_ssp.sh or compliance-trestle-skills
+  validate. Export ControlBot profile with export_controlbot_profile.py when
+  inheritance changes. Checkov pass does not equal CMMC MET.
+
+evaluator_notes: |
+  Must list scripts in order. Must not skip ISSM review / validate_poam.

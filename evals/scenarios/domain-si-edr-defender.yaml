@@ -1,0 +1,27 @@
+id: domain-si-edr-defender
+title: SI family Defender EDR for CUI endpoints
+category: domain-practice
+routing_smoke_strict: true
+
+prompt: |
+  Defender for Endpoint is deployed to all Intune-managed CUI laptops in GCC
+  High. Which SI requirements does that cover and what test evidence is needed?
+
+required_terms:
+  - SI.L2-3.14.2
+  - SI.L2-3.14.6
+  - Defender
+  - malicious code
+
+factual_claims_expected: true
+
+expected_recommendation: |
+  Route to references/domains/si-system-information-integrity.md and
+  references/assessment-objectives/si.md. Defender supports SI.L2-3.14.2
+  malicious code protection, SI.L2-3.14.4 updates, SI.L2-3.14.5 scanning,
+  and SI.L2-3.14.6 monitoring when policies and onboarding status are
+  current. Assessor tests include sample detection logs and tamper-protection
+  status. Map workbook Phase 3 Defender appendices to objective evidence.
+
+evaluator_notes: |
+  Must cite SI.L2-3.14.2 and test/monitoring objectives, not just licensing.
