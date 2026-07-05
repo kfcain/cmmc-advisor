@@ -557,7 +557,7 @@ requirements:
           collector: entra-conditional-access
           source_system: Microsoft Entra Conditional Access
           refresh_bucket: machine
-          sha256: 83f96338612db82566f3b5e0235a5780b147081fee3619b81cc373dfa7fd0c6d
+          sha256: f5d785ed463ede4913d48394498ded94b5dffd522932cbba5bc38e95ca62bf3c
       b:
         conformity: met
         statement: 'Demo OSC: Transaction & Function Control objective b satisfied
@@ -608,7 +608,7 @@ requirements:
           collector: zscaler-policy
           source_system: Zscaler Internet Access
           refresh_bucket: machine
-          sha256: 9137c6599d5bed08f67232da8940d8d85bcf1625b84d281b03fe80a946852e5c
+          sha256: 754deafb7076b00e75f1395e62e909d0c4ef62b91ac1f88707262862bfd73fa9
         - &id003
           name: PAN-OS application control policy sample
           link: evidence/onprem-network/ac/3.1.3/palo_alto_ngfw_onprem.json
@@ -616,7 +616,7 @@ requirements:
           collector: palo-alto-ngfw-onprem
           source_system: Palo Alto PAN-OS (on-premises)
           refresh_bucket: machine
-          sha256: 80cc91e903c3c0fa9afdd942ee88e935014012394ce866d3817194c758566779
+          sha256: 6294f03212e883aa3a86ea6508a0d8597464960a6512a751d78bf3f489349be1
       c:
         conformity: met
         statement: 'Demo OSC: Control CUI Flow objective c satisfied via documented
@@ -1007,7 +1007,7 @@ requirements:
           collector: wlan-controller
           source_system: WLAN controller (on-premises)
           refresh_bucket: machine
-          sha256: 4cced27bc628b729f80b0868ddd423e655b8ca5c75a688acd7058bc6c4bb7f16
+          sha256: 1e82c1b0ae9c5ae20b10a138991990ce3ededd276a14d5fdd99f89c99587c54b
       b:
         conformity: met
         statement: 'Demo OSC: Wireless Access Authorization objective b satisfied
@@ -1037,7 +1037,7 @@ requirements:
           collector: wlan-controller
           source_system: WLAN controller (on-premises)
           refresh_bucket: machine
-          sha256: aa553abac80cd852ebf20a5af0b3d7d0b949c4cc682c82b9ce5be4a821f96a85
+          sha256: 0243290aeefc023fc3454d18b56d2706043c5756828c94792e7663937e0801d7
       b:
         conformity: met
         statement: 'Demo OSC: Wireless Access Protection objective b satisfied via
@@ -1067,7 +1067,7 @@ requirements:
           collector: intune-compliance
           source_system: Microsoft Intune
           refresh_bucket: machine
-          sha256: f5e8473a4f37d7b1fc886b5a38856df5cca025968c3aae802fdada2744de335e
+          sha256: 6b4fab36c04c6c0b66eee1ea0cbb4f1dd6a8d2cb96b6caf785755a3c2dea503a
       b:
         conformity: met
         statement: 'Demo OSC: Mobile Device Connection objective b satisfied via documented
@@ -1363,7 +1363,7 @@ requirements:
           collector: sentinel-health
           source_system: Microsoft Sentinel
           refresh_bucket: machine
-          sha256: d3adb27c08c6786586320d6a867b88e1660df3a9410428d7993dfbb4fcdc95ea
+          sha256: 6f69438621398248595252ebd98fd41c00de68c01b930d9313f09f3979026b53
         - &id008
           name: Splunk source/input health
           link: evidence/splunk/au/3.3.1/splunk_ingest_health.json
@@ -1371,7 +1371,7 @@ requirements:
           collector: splunk-ingest-health
           source_system: Splunk Enterprise
           refresh_bucket: machine
-          sha256: 1d4cda436f6c634600a1193fbc7ac89fe5868c1bcdb2196b7df2242a95e6b56d
+          sha256: bc0276c430c2c80741dae875cb66ff0f72ac02ed0aab8f0e5959540db2c746b7
       b:
         conformity: met
         statement: 'Demo OSC: System Auditing objective b satisfied via documented
@@ -1399,14 +1399,14 @@ requirements:
           collector: entra-signins
           source_system: Microsoft Entra ID (GCC High)
           refresh_bucket: machine
-          sha256: 0aaa5c30469375530d4a33c2cc75da28220fe2d4609828adfb0f434b2e11c638
+          sha256: 3a516f5fcac3726383760305f06b72414da6cc5385ff57787b2c8a418b1cb42c
         - name: MDE security event sample
           link: evidence/m365-defender-gcch/au/3.3.1/defender_endpoint.json
           collected: '2026-07-05'
           collector: defender-endpoint
           source_system: Microsoft Defender for Endpoint
           refresh_bucket: machine
-          sha256: 14ebee2b3b08d85e5d281a9ebe0b6f17072716a39059c3b2975db682ec231512
+          sha256: 26c199dd7634c554af552261ef35289ab94b015ddf172711eee22b198947adb9
         - &id010
           name: CloudTrail privileged action sample
           link: evidence/aws-govcloud/au/3.3.1/aws_cloudtrail.json
@@ -1414,7 +1414,7 @@ requirements:
           collector: aws-cloudtrail
           source_system: AWS CloudTrail
           refresh_bucket: machine
-          sha256: 4542a4b02d7cde289a3c1944787fe2f0e2b402aca12f235cc28bafa6698615cd
+          sha256: 82d29f1019c843a42d5e8c3f602e13eb80ab15b2d0c4b7c20f9588aca1014a3b
       d:
         conformity: met
         statement: 'Demo OSC: System Auditing objective d satisfied via documented
@@ -1463,7 +1463,7 @@ requirements:
           collector: entra-signins
           source_system: Microsoft Entra ID (GCC High)
           refresh_bucket: machine
-          sha256: 5a43c7c702872edb5dfa9697aa15c30063dd006be7581a70bab72d971aa5c9dd
+          sha256: 40a136000d9746727f4516d9aebd3dbf99b7b4862712d8746931cf55a1fef1f6
         - &id012
           name: CloudTrail user traceability sample
           link: evidence/aws-govcloud/au/3.3.2/aws_cloudtrail.json
@@ -1471,7 +1471,7 @@ requirements:
           collector: aws-cloudtrail
           source_system: AWS CloudTrail
           refresh_bucket: machine
-          sha256: cfd381a377490bbb4003c21978125302ded18924567066a997feee3ae10547c1
+          sha256: 76f85f46c52ec2f447a3c9d45a06d177ee963fbbfaf6ac4c278c48525f4c8fee
       b:
         conformity: met
         statement: 'Demo OSC: User Accountability objective b satisfied via documented
@@ -1561,7 +1561,7 @@ requirements:
           collector: sentinel-health
           source_system: Microsoft Sentinel
           refresh_bucket: machine
-          sha256: bb2297fa87e49466c48203dd699dd3f21aeb5b927cacf719e57fd31875a3aa5c
+          sha256: 47aabf84234110b367a9b8f12de24f115763482a726b6a1b5d0e1674ba7f5c50
         - &id014
           name: Splunk correlated search export
           link: evidence/splunk/au/3.3.5/splunk_ingest_health.json
@@ -1569,7 +1569,7 @@ requirements:
           collector: splunk-ingest-health
           source_system: Splunk Enterprise
           refresh_bucket: machine
-          sha256: 8edb3720b47cc8972b228469fc19cbcadd7cef538ff1f899fa009571b57610cb
+          sha256: aa5afa26b6da774a55e1ffee3b310d25039029256f34cee7721d013e9645a30f
       b:
         evidence:
         - *id013
@@ -1746,7 +1746,7 @@ requirements:
           collector: intune-compliance
           source_system: Microsoft Intune
           refresh_bucket: machine
-          sha256: 571adcb222b430c44e38211c276e6e7f46b3167196727aea4c72bea5cb934b37
+          sha256: daf3d33877bb4196f0152ad08d08ee4e8f5b83b394c74c102900d8c2bf07c293
         - &id016
           name: AWS Config rule compliance summary
           link: evidence/aws-govcloud/cm/3.4.1/aws_config_compliance.json
@@ -1754,7 +1754,7 @@ requirements:
           collector: aws-config-compliance
           source_system: AWS Config
           refresh_bucket: machine
-          sha256: e17a02b38391b8beedea97970caa124a1293471c82e08e09f0851777e286a114
+          sha256: 26300e5b903c10249f7b61b864a4d2577cfa0a8f07afe83156e33096246d0f0d
       b:
         conformity: met
         statement: 'Demo OSC: System Baselining objective b satisfied via documented
@@ -2233,7 +2233,7 @@ requirements:
           collector: duo-auth-logs
           source_system: Cisco Duo
           refresh_bucket: machine
-          sha256: 02aa7a25c4e0a23230fc5b95fb34e54eddc383201f55939fbd1f12d8e5cf390b
+          sha256: 579ffb03c762a4a5444e98492d651558e4ad7ceb44926d12530aa7e658f11aac
       b:
         conformity: met
         statement: 'Demo OSC: Authentication objective b satisfied via documented
@@ -2271,7 +2271,7 @@ requirements:
           collector: entra-signins
           source_system: Microsoft Entra ID (GCC High)
           refresh_bucket: machine
-          sha256: 8b7812d8ca39f8fd0c0233a2d4dbd817dcc654d92e960e4961bbbc10524f435a
+          sha256: 49a4116b3009dfa213b7b97eb70baf1097f18bc0bf29d284d99cbdd63f0f0124
         - &id018
           name: Conditional Access policy export
           link: evidence/m365-gcch/ia/3.5.3/entra_conditional_access.json
@@ -2279,7 +2279,7 @@ requirements:
           collector: entra-conditional-access
           source_system: Microsoft Entra Conditional Access
           refresh_bucket: machine
-          sha256: 0ea2e842bbec2b0dca0daeed39d06dc99901d04ab0bd70ee12d734c514240a06
+          sha256: 40a6f519ef2c994b46ab2edf0436210bdb4280cd1262abf7da5d9f70eed6687a
         - &id019
           name: Duo authentication log sample
           link: evidence/duo/ia/3.5.3/duo_auth_logs.json
@@ -2287,7 +2287,7 @@ requirements:
           collector: duo-auth-logs
           source_system: Cisco Duo
           refresh_bucket: machine
-          sha256: edd358458d3b1c466f77fbf5e3cbc2cb1fd83a9e34f40799f43253e920ca36be
+          sha256: 794172b5f642ab826b17bc7606968adf58cd86a440082c98df12d62d87177ae9
       b:
         conformity: met
         statement: 'Demo OSC: Multifactor Authentication objective b satisfied via
@@ -2946,7 +2946,7 @@ requirements:
           collector: physical-access-pacs
           source_system: Physical access control system
           refresh_bucket: periodic
-          sha256: bccc7272c1fd5b9a49975701cf826618b4238add847b1a2fef5249a8e7fdefad
+          sha256: 2293804a03e6f49c60e0489aead6bddc63a6932e7b2d52021e6a0fdf2c215ed5
       b:
         conformity: inherited
         statement: Physical protection for the GCC High boundary is inherited from
@@ -3056,7 +3056,7 @@ requirements:
           collector: physical-access-pacs
           source_system: Physical access control system
           refresh_bucket: periodic
-          sha256: adf75d731b1b36728551e4ba58c8113875874a2a75cfd70cbd09f40c5ccebc76
+          sha256: 8da8457af72a2a5ada9697b7195193b062e1c6a124416cd03cbd2b4ff8fea146
       b:
         evidence:
         - *id021
@@ -3080,7 +3080,7 @@ requirements:
           collector: physical-access-pacs
           source_system: Physical access control system
           refresh_bucket: periodic
-          sha256: da07f2a7e0d554afa305df524f2ebbc9e3be25e9e052a967799f2d929647cd38
+          sha256: 682863827861bbfe1f54acb06c7019748b251acc4e20b273e8c62932abeaa301
       b:
         conformity: inherited
         statement: Physical protection for the GCC High boundary is inherited from
@@ -3282,7 +3282,7 @@ requirements:
           collector: aws-security-hub
           source_system: AWS Security Hub
           refresh_bucket: machine
-          sha256: 43647e76656cbe5d09a85eb259455e13d583220390d2eba1e32edd75774bfe07
+          sha256: 43783f1123a5cefb27a30ab1a0522b8d4191c97ef8be5197ed278b9b171b5182
       b:
         evidence:
         - *id023
@@ -3409,7 +3409,7 @@ requirements:
           collector: zscaler-policy
           source_system: Zscaler Internet Access
           refresh_bucket: machine
-          sha256: 9484d09f8930dc3794d7a15825236bc701a907b2f852df15fac72e442118aed9
+          sha256: ce424c98f137f792c00f3572aa4eeae699a622e2ef2ab37455d928108297eac1
         - &id026
           name: Prisma Access security rules export
           link: evidence/prisma-access/sc/3.13.1/prisma_access_rules.json
@@ -3417,7 +3417,7 @@ requirements:
           collector: prisma-access-rules
           source_system: Palo Alto Strata Cloud Manager
           refresh_bucket: machine
-          sha256: 23235ffe8c6b1ef404d914fa83116dd0848228218e94fd877abf57ae5f75c476
+          sha256: 687cfe93ae20173ad84a0dbb31c6dbad883d684cd958ef9dcce28bf17060004e
         - &id025
           name: FortiGate boundary policy export
           link: evidence/onprem-network/sc/3.13.1/fortinet_firewall.json
@@ -3425,7 +3425,7 @@ requirements:
           collector: fortinet-firewall
           source_system: FortiGate (on-premises)
           refresh_bucket: machine
-          sha256: 964b950d753153b8d2332245f4f9c9272ecf8a827db2ac61fb83b75936bd3962
+          sha256: 9052a92afb48cf875e0e311460e87849ab315854a65f9eab2b52799ed3398e15
         - &id027
           name: PAN-OS security rule export
           link: evidence/onprem-network/sc/3.13.1/palo_alto_ngfw_onprem.json
@@ -3433,14 +3433,14 @@ requirements:
           collector: palo-alto-ngfw-onprem
           source_system: Palo Alto PAN-OS (on-premises)
           refresh_bucket: machine
-          sha256: 8132b10b8fbeeefe1f62cf4b8733deb7890c55fdffb87f523c4c7b6113006b71
+          sha256: 56bf110fce5f975d2497c51107d1e6206d6aa56856d4acc4dfced75ba77218d8
         - name: Guest vs CUI WLAN segmentation mapping
           link: evidence/onprem-network/sc/3.13.1/wlan_controller.json
           collected: '2026-07-05'
           collector: wlan-controller
           source_system: WLAN controller (on-premises)
           refresh_bucket: machine
-          sha256: 9f67fdb4287b50f6374aa3076beb49e73251c3c3f21e123df3b0b2251c56f8c5
+          sha256: 3836a1ceef00be956a133c6a3d744359f302a14dbcf5cf2a0ea6641cd629d3e0
       d:
         conformity: met
         statement: 'Demo OSC: Boundary Protection objective d satisfied via documented
@@ -3652,7 +3652,7 @@ requirements:
           collector: prisma-access-rules
           source_system: Palo Alto Strata Cloud Manager
           refresh_bucket: machine
-          sha256: 3fab1c192c6f01156ed37cf09cc0566d84531a161fc6ad216a6cb959dafa681b
+          sha256: 73203fc342e311f605fd0cfa42bf3b55dc3984c331c32050f99b2164d45327db
         - &id029
           name: FortiGate deny-by-default rule sample
           link: evidence/onprem-network/sc/3.13.6/fortinet_firewall.json
@@ -3660,7 +3660,7 @@ requirements:
           collector: fortinet-firewall
           source_system: FortiGate (on-premises)
           refresh_bucket: machine
-          sha256: 9f4dbc607b839d210e44fc0eb36205af9bd94f4032649fda8716de4a6a87a4a2
+          sha256: d7066294fb4498137dd0d872f05c9db339de10d6b321ccd1989fe27f0a009e0c
       b:
         conformity: met
         statement: 'Demo OSC: Network Communication by Exception objective b satisfied
@@ -3705,7 +3705,7 @@ requirements:
           collector: aws-config-compliance
           source_system: AWS Config
           refresh_bucket: machine
-          sha256: d526d8cf03461e85ad94010ee9cae56cce17864741f41c1137a24dc7d599b273
+          sha256: c7338a028c794cac556523ce3eb4333b3c9b93ea84c264ce89b09d83c088ceb7
       b:
         conformity: met
         statement: 'Demo OSC: Data in Transit objective b satisfied via documented
@@ -3804,28 +3804,28 @@ requirements:
           collector: intune-compliance
           source_system: Microsoft Intune
           refresh_bucket: machine
-          sha256: d3f12e55a07a39021ae8c81397a6161910e079c11d3eb7726f2fa12369d52797
+          sha256: e79b3c8e5863bccd75dc1beaa1f04cdfe81cdadc93f4d540bf48b87bab2ceec8
         - name: AWS KMS/FIPS Config evidence
           link: evidence/aws-govcloud/sc/3.13.11/aws_config_compliance.json
           collected: '2026-07-05'
           collector: aws-config-compliance
           source_system: AWS Config
           refresh_bucket: machine
-          sha256: e51dba771cf778efe58ecf125d34275cc4ac1574ad028ddf342e123bf58371b0
+          sha256: effd924739f02daff3f6229cae6f1a9d9a4baa9a2cb401b7cf61418f6c54168b
         - name: FortiGate FIPS-CC / crypto mode status
           link: evidence/onprem-network/sc/3.13.11/fortinet_firewall.json
           collected: '2026-07-05'
           collector: fortinet-firewall
           source_system: FortiGate (on-premises)
           refresh_bucket: machine
-          sha256: 64849b1ec56c6196f925299c823c1c38ab97896e961ec4f95f3f5ca675bab06c
+          sha256: fb86a8081d645b200bc94720cf7fe168f3154e1ae594f6131ca0ba4f0a2070c7
         - name: PAN-OS FIPS mode / crypto status
           link: evidence/onprem-network/sc/3.13.11/palo_alto_ngfw_onprem.json
           collected: '2026-07-05'
           collector: palo-alto-ngfw-onprem
           source_system: Palo Alto PAN-OS (on-premises)
           refresh_bucket: machine
-          sha256: 0ef78e09e35595cd527a3979c6b24eef1904ddf5c6de47ed5781353606ab71cc
+          sha256: a11e48293b9175d049105b3837cf741f96da281bab5be5f38f6d71bb72e42deb
   SC.L2-3.13.12:
     conformity: met
     objectives:
@@ -3950,14 +3950,14 @@ requirements:
           collector: aws-security-hub
           source_system: AWS Security Hub
           refresh_bucket: machine
-          sha256: 19ae79ca79e509b4865b8374fa06c772dc2f8301d14a54cfb253bbc0ce2f1e0e
+          sha256: 54cea3e32b4239bb4a4339cc93d500d9b8c88f5065af672f8ae14c01c51e874f
         - name: SCC vulnerability findings sample
           link: evidence/gcp-assured/si/3.14.1/gcp_scc_findings.json
           collected: '2026-07-05'
           collector: gcp-scc-findings
           source_system: Google Security Command Center
           refresh_bucket: machine
-          sha256: 32b341edca2593eb88ee17930587935dd7ef297ba6b33b91aa3d239f2295bdfb
+          sha256: ce3f1effc4814e8f56855d767c9338a308ec1d4f83ee11627110e24eb6549cc1
       c:
         conformity: met
         statement: 'Demo OSC: Flaw Remediation objective c satisfied via documented
@@ -4014,7 +4014,7 @@ requirements:
           collector: defender-endpoint
           source_system: Microsoft Defender for Endpoint
           refresh_bucket: machine
-          sha256: 02a9d84b2767a6c65981a57a8f4456f32bbcbc4e95577c5e997ee86f9d355aa1
+          sha256: d222a5611424c9b4e163f4b52665cea498863dfaba2e42f4bc14120fbef6a5e1
         - &id033
           name: Falcon host sensor coverage
           link: evidence/crowdstrike/si/3.14.2/crowdstrike_hosts.json
@@ -4022,7 +4022,7 @@ requirements:
           collector: crowdstrike-hosts
           source_system: CrowdStrike Falcon
           refresh_bucket: machine
-          sha256: b764dfad932cbadc853acd8269c35591f6d8921356b657c21bab921e044e896b
+          sha256: 6c68ac810d799eb1ef6fcaac763223e9fc8013128054783b62523cba80315aa7
       b:
         conformity: met
         statement: 'Demo OSC: Malicious Code Protection objective b satisfied via
@@ -4125,7 +4125,7 @@ requirements:
           collector: defender-endpoint
           source_system: Microsoft Defender for Endpoint
           refresh_bucket: machine
-          sha256: 9328795a8dce1eda051ef42ce75679f5af379735f5b3b0898d7d86e5d030801d
+          sha256: e7734c9dff1bf4d6b6f81d95936d83a98eb7dfcc168b82b04534a74286a2b3e9
         - &id035
           name: SCC high-severity findings
           link: evidence/gcp-assured/si/3.14.6/gcp_scc_findings.json
@@ -4133,7 +4133,7 @@ requirements:
           collector: gcp-scc-findings
           source_system: Google Security Command Center
           refresh_bucket: machine
-          sha256: 0c3bace2e285e9c33469667b4a6121119ae3962ad6c5c5d36a3cb23955fc6c18
+          sha256: 8737911808e0384ff8c3e7ead1c88f6bd4d0bfdcdeb469b878ea9ae34b76a4ea
         - &id036
           name: Falcon detection summary
           link: evidence/crowdstrike/si/3.14.6/crowdstrike_hosts.json
@@ -4141,7 +4141,7 @@ requirements:
           collector: crowdstrike-hosts
           source_system: CrowdStrike Falcon
           refresh_bucket: machine
-          sha256: d4d49025ef62d839fdf9d0ab6ecf78c7388afaf943b46df0fa4300f0077c1b2e
+          sha256: bbec8fbaf6a6f53055d49530a8dc1781fb4900a75f0de87cdd2d787ce30f3e16
       b:
         conformity: met
         statement: 'Demo OSC: Monitor Communications for Attacks objective b satisfied
@@ -4169,7 +4169,7 @@ requirements:
           collector: sentinel-health
           source_system: Microsoft Sentinel
           refresh_bucket: machine
-          sha256: 5d33d35a6eb1ff727db17d06f181cf5ae19ebcedd0127c2f6c664d2503b32470
+          sha256: 9b0113043cefee4f8700f4ec8f93b348704ab24385a8e063fdfa1d6a83bc8158
         - *id035
         - *id036
   SI.L2-3.14.7:

@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "export_type": "sprs_basic_assessment",
-  "generated_at": "2026-07-05T04:34:57+00:00",
+  "generated_at": "2026-07-05T18:11:06+00:00",
   "methodology": "DoD Assessment Methodology v1.2.1 (110 practices, -203 floor)",
   "organization": {
     "name": "Atlas Precision Manufacturing LLC",

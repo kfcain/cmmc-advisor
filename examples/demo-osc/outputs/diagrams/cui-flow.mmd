@@ -1,17 +1,26 @@
+---
+title: CUI Flow — APM GCC High CUI Enclave
+---
 flowchart LR
-  subgraph enclave["EDS CUI Enclave [CMMC scope]"]
-    laptops("ENG laptops (12, Intune)<br/><i>CUI asset</i>")
+  classDef catCui fill:#e7f6e7,stroke:#0ca30c,stroke-width:2px,color:#0b0b0b
+  classDef catSpa fill:#e8f0fa,stroke:#2f6fb2,stroke-width:2px,color:#0b0b0b
+  classDef catCrma fill:#fdf3dc,stroke:#b28419,stroke-width:2px,color:#0b0b0b
+  classDef catSpec fill:#fdeee7,stroke:#ec835a,stroke-width:2px,color:#0b0b0b
+  classDef catOos fill:#efeeea,stroke:#898781,stroke-width:1px,color:#52514e
+  subgraph enclave["EDS CUI Enclave · CMMC scope"]
+    laptops("ENG laptops (12, Intune)<br/><small>CUI asset · laptop</small>")
   end
-  subgraph gcch["Microsoft GCC High / Azure Gov"]
-    m365[("GCC High tenant (EXO/SPO/Teams)<br/><i>CUI asset</i>")]
-    fileproj[("Project file service (Azure Gov)<br/><i>CUI asset</i>")]
-    sentinel("Microsoft Sentinel<br/><i>Security Protection</i>")
+  subgraph gcch["Microsoft GCC High / Azure Gov · FedRAMP"]
+    m365[("GCC High tenant (EXO/SPO/Teams)<br/><small>CUI asset · store</small>")]
+    fileproj[("Project file service (Azure Gov)<br/><small>CUI asset · store</small>")]
+    sentinel("Microsoft Sentinel<br/><small>Security Protection · shield</small>")
   end
   subgraph ext["External"]
-    prime["Prime contractor<br/><i>Out of scope</i>"]
+    prime[["Prime contractor<br/><small>Out of scope · entity</small>"]]
   end
   prime ==>|"CUI: encrypted email/SPO share"| m365
-  laptops <==>|"CUI: HTTPS 443"| m365
+  laptops <==>|"CUI: HTTPS 443 ↔"| m365
   laptops ==>|"CUI: SMB over P2S VPN"| fileproj
-  laptops -->|"SPD: AMA agent logs"| sentinel
-  m365 -->|"SPD: audit log connector"| sentinel
+  laptops -.->|"SPD: AMA agent logs"| sentinel
+  m365 -.->|"SPD: audit log connector"| sentinel
+  class laptops::catCui,m365::catCui,fileproj::catCui,sentinel::catSpa,prime::catOos

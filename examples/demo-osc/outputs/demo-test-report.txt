@@ -4,7 +4,7 @@ Generated: 2026-07-05
 ## dashboard
 command: /usr/bin/python3 scripts/generate_dashboard.py /workspace/examples/demo-osc/program-data.yaml -o /workspace/examples/demo-osc/outputs/dashboard.html
 exit: 0
-wrote /workspace/examples/demo-osc/outputs/dashboard.html (312701 bytes, self-contained)
+wrote /workspace/examples/demo-osc/outputs/dashboard.html (324217 bytes, self-contained)
 
 ## ssp
 command: /usr/bin/python3 scripts/generate_ssp.py /workspace/examples/demo-osc/program-data.yaml -o /workspace/examples/demo-osc/outputs/ssp.md
@@ -14,9 +14,9 @@ wrote /workspace/examples/demo-osc/outputs/ssp.md (110 requirements, 320 assessm
 ## diagrams
 command: /usr/bin/python3 scripts/generate_diagrams.py /workspace/examples/demo-osc/program-data.yaml -o /workspace/examples/demo-osc/outputs/diagrams
 exit: 0
-wrote /workspace/examples/demo-osc/outputs/diagrams/network.svg and .mmd
-wrote /workspace/examples/demo-osc/outputs/diagrams/cui-flow.svg and .mmd
-Embed the SVGs in the SSP (Figures: network diagram, CUI flow diagram) and keep them synchronized with the asset inventory and boundary prose.
+wrote /workspace/examples/demo-osc/outputs/diagrams/network.svg and .mmd (light theme)
+wrote /workspace/examples/demo-osc/outputs/diagrams/cui-flow.svg and .mmd (light theme)
+Embed the SVGs in the SSP (Figures: network diagram, CUI flow diagram). Product names are text labels only; no vendor logos. Regenerate after topology changes.
 
 ## trust-center
 command: /usr/bin/python3 scripts/generate_trust_center.py /workspace/examples/demo-osc/program-data.yaml -o /workspace/examples/demo-osc/outputs/trust-center.html
