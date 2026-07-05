@@ -30,6 +30,13 @@ Read alongside:
 the official Marketplace export timestamp in `fedramp-snapshot.json`. Re-run the
 builder and confirm at marketplace.fedramp.gov before any SSP citation.
 
+**No product endorsement.** Named vendors and products appear as **examples
+commonly seen in DIB environments** and as Marketplace lookup anchors. This
+skill, its authors, and the U.S. Government **do not endorse, recommend, or
+prefer** any commercial product listed here. Selection remains the contractor's
+responsibility based on architecture, contract requirements, cost, and assessor-
+relevant evidence. Omission of a vendor is not a negative judgment.
+
 ---
 
 ## Rev 5 Class C and Class D (practitioner shorthand)

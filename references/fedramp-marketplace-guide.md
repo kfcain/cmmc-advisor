@@ -24,9 +24,9 @@ guidance:
   drowning in unfiltered listings.
 - **Curated category short-lists.** Representative vendors per
   capability category that are commonly authorized at FedRAMP
-  Moderate or High. This is not a ranking and not an exhaustive
-  catalog; it is a starting point for a contractor building a
-  tool-evaluation short-list.
+  Moderate or High. This is not a ranking, **not an endorsement**,
+  and not an exhaustive catalog; it is a starting point for a
+  contractor building a tool-evaluation short-list.
 
 Read alongside `references/fedramp-gap.md` (FedRAMP program
 framework, CSP SRG reciprocity, DFARS 7012 equivalence mechanics)
@@ -70,6 +70,9 @@ Covered:
 
 Not covered:
 
+- **Product endorsement.** Listing a vendor or package ID does not constitute
+  endorsement, recommendation, or preference by this skill, its maintainers, or
+  the U.S. Government. Contractors must make independent procurement decisions.
 - Specific vendor rankings. This file names representative
   vendors per category without claiming any vendor is the best
   or worst choice. Specific vendor selection depends on

@@ -18,7 +18,8 @@ instead of hand-maintaining a static matrix.
 The committed `fedramp-snapshot.json` is public, non-sensitive data. It carries
 a `generated_at` timestamp and `verification_guidance`, so treat a committed
 copy as a dated snapshot, not as current authorization evidence. Re-run the
-builder before relying on it.
+builder before relying on it. **Vendor names in the manifest are not product
+endorsements.**
 
 ### Generate / refresh
 

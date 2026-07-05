@@ -170,7 +170,8 @@ owners need budget justification (not customer-facing posture), run
 `python3 scripts/generate_executive_brief.py <program-data> -o executive-brief.html`.
 The output summarizes SPRS exposure, top gaps by point value, POA&M risk,
 and Marketplace/CIS solution hints. Pair with `scripts/recommend_solutions.py`
-for Markdown/JSON exports. Use the **trust center** for external audiences;
+for Markdown/JSON exports. **Named vendors in those hints are examples only;
+the skill does not endorse products.** Use the **trust center** for external audiences;
 never publish gap counts or SPRS on the trust center.
 
 **Generate diagrams.** When the user needs the SSP network or CUI flow

@@ -59,6 +59,8 @@ def main() -> int:
             "Verify every FedRAMP listing at marketplace.fedramp.gov before procurement.",
             "See `references/grc/solution-selection.md` for Rev5 Class C/D and 20x rules.",
             "",
+            "**Disclaimer:** Named products are examples only. This output does not endorse any vendor.",
+            "",
         ]
         for h in hints:
             lines.extend(

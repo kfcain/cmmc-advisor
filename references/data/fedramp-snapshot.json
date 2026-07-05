@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
-  "generated_at": "2026-07-05T23:18:48+00:00",
-  "scope_note": "Curated vendor list for productivity, AI services, and DIB security operations tools in the cmmc-advisor corpus. Authorization fields marked marketplace_live are refreshed from the official FedRAMP Marketplace export; DoD IL, CUI suitability, and practitioner notes remain corpus guidance and must still be verified before SSP citation.",
+  "generated_at": "2026-07-05T23:20:59+00:00",
+  "scope_note": "Curated vendor list for productivity, AI services, and DIB security operations tools in the cmmc-advisor corpus. Named products are Marketplace lookup examples only; not endorsements. Authorization fields marked marketplace_live are refreshed from the official FedRAMP Marketplace export; DoD IL, CUI suitability, and practitioner notes remain corpus guidance and must still be verified before SSP citation.",
   "marketplace_data_url": "https://raw.githubusercontent.com/FedRAMP/marketplace-fedramp-gov-data/main/fedramp-products.json",
   "marketplace_export_timestamp": "2026-06-02T19:28:40.831Z",
   "marketplace_total_products": 797,

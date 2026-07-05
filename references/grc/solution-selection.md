@@ -24,6 +24,10 @@ When gaps drive tool or cloud purchases, contractors need a repeatable selection
 Pair with `references/fedramp-marketplace-guide.md` for search patterns and category
 short-lists, and `scripts/recommend_solutions.py` for gap-family hints from program data.
 
+**No product endorsement.** Gap hints and Marketplace examples are **decision
+aids**, not endorsements. The skill does not recommend or prefer any vendor;
+contractors remain responsible for fit, authorization scope, and procurement.
+
 ---
 
 ## FedRAMP Rev 5 vs 20x Class C / Class D
