@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CMMC Executive Brief</title>
+<style>
+  :root {
+    --surface: #fcfcfb; --plane: #f9f9f7; --ink: #0b0b0b; --ink-2: #52514e;
+    --muted: #898781; --grid: #e1e0d9; --good: #0ca30c; --critical: #d03b3b;
+    --serious: #ec835a; --warn: #fab219;
+  }
+  @media (prefers-color-scheme: dark) { :root {
+    --surface: #1a1a19; --plane: #0d0d0d; --ink: #fff; --ink-2: #c3c2b7;
+    --muted: #898781; --grid: #2c2c2a;
+  }}
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--plane); color: var(--ink);
+    font: 16px/1.55 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  header { padding: 28px 32px 16px; border-bottom: 1px solid var(--grid); }
+  header h1 { margin: 0 0 4px; font-size: 1.5rem; }
+  header .sub { color: var(--ink-2); }
+  header .tag { display: inline-block; margin-top: 8px; font-size: 12px; color: var(--muted);
+    text-transform: uppercase; letter-spacing: .06em; }
+  main { max-width: 960px; margin: 0 auto; padding: 24px 32px 48px; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 28px; }
+  .tile { background: var(--surface); border: 1px solid var(--grid); border-radius: 8px; padding: 16px; }
+  .tile .k { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+  .tile .v { font-size: 2rem; font-weight: 650; font-variant-numeric: tabular-nums; }
+  .tile .s { font-size: 13px; color: var(--ink-2); }
+  h2 { font-size: 1.1rem; margin: 28px 0 12px; }
+  table { width: 100%; border-collapse: collapse; background: var(--surface);
+    border: 1px solid var(--grid); border-radius: 8px; overflow: hidden; margin-bottom: 16px; }
+  th, td { text-align: left; padding: 10px 14px; border-top: 1px solid var(--grid); vertical-align: top; }
+  th { font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); border-top: none; }
+  .num { font-variant-numeric: tabular-nums; }
+  .crit { color: var(--critical); font-weight: 600; }
+  .card { background: var(--surface); border: 1px solid var(--grid); border-radius: 8px;
+    padding: 14px 16px; margin-bottom: 10px; }
+  .card h3 { margin: 0 0 6px; font-size: 14px; }
+  .card p { margin: 4px 0; color: var(--ink-2); font-size: 14px; }
+  .note { color: var(--muted); font-size: 13px; margin-top: 24px; padding-top: 16px;
+    border-top: 1px solid var(--grid); }
+  @media print { body { background: #fff; } .tile, table, .card { break-inside: avoid; } }
+</style>
+</head>
+<body>
+<header>
+  <h1 id="title">CMMC Executive Brief</h1>
+  <div class="sub" id="subtitle"></div>
+  <div class="tag">Internal — not for public trust center or certification claims</div>
+</header>
+<main id="main"></main>
+<script type="application/json" id="brief-data">{"organization":{"name":"Atlas Precision Manufacturing LLC","system_name":"APM GCC High CUI Enclave","cage_codes":["8XYZ9"],"revision":"Rev 2","date":"2026-07-05","scope_narrative":"Atlas Precision Manufacturing (APM) machines vehicle components for an Army prime. CUI (CTI and export-controlled drawings) is processed only in a Microsoft 365 GCC High tenant, twelve Intune-managed Windows laptops, Azure Government file services, and Microsoft Sentinel. Commercial M365, corporate HR/finance, and IGEL thin-client VDI terminals are out of scope with documented separation.","roles":{"system_owner":{"name":"Jordan Rivera","title":"Director of Engineering","email":"jrivera@atlasprecision.example"},"affirming_official":{"name":"Casey Morgan","title":"CEO","email":"cmorgan@atlasprecision.example","responsibilities":["Affirm continuing compliance in SPRS"]},"issm":{"name":"Sam Patel","title":"ISSM / IT Security Lead","email":"spatel@atlasprecision.example","responsibilities":["Maintain SSP, POA&M, and program-data.yaml","Run quarterly evidence collection and SPRS updates"]},"engineer_lead":{"name":"Alex Kim","title":"Cloud Engineering Lead","email":"akim@atlasprecision.example","responsibilities":["ControlBot profile and Terraform enclave IaC"]}},"purpose":"Demo OSC for CMMC Advisor toolkit walkthrough","environment_narrative":"Primary enclave: GCC High (Entra ID USGov, EXO/SPO/Teams), Azure Government (Sentinel, project file share). Edge: FortiGate 100F. RMM: NinjaOne for Government on CUI laptops only. Engineering uses Azure DevOps Government for IaC; ControlBot gates Terraform PRs."},"assessment":{"level":"2","path":"c3pao","target_date":"2026-11-15","c3pao":"Demo C3PAO (placeholder)"},"sprs":{"computed_score":96,"ssp_missing":false,"deductions":[{"requirement_id":"AC.L2-3.1.22","status":"not-met","points":1},{"requirement_id":"AU.L2-3.3.5","status":"not-met","points":5},{"requirement_id":"CM.L2-3.4.7","status":"not-met","points":5},{"requirement_id":"IA.L2-3.5.3","status":"partially-met","points":3}]},"sprs_submission":{"score":92,"date":"2026-06-15","submitted_by":"Sam Patel","notes":"Pre-assessment self-score; dashboard computed score reflects open gaps"},"top_gaps":[{"requirement_id":"AU.L2-3.3.5","name":"Audit Correlation","sprs_value":5,"status":"not-met","family":"AU","remediation_plan":"Sentinel workspace exists and ingests all enclave sources. Remaining work is detection content and the operating rhythm. Note: AU.L2-3.3.5 carries 5 SPRS points and is not POA&M-eligible under 32 CFR 170.21(a)(2)(ii); close this gap before assessment or accept the score deduction.\n","poam_open":true},{"requirement_id":"CM.L2-3.4.7","name":"Nonessential Functionality","sprs_value":5,"status":"not-met","family":"CM","remediation_plan":null,"poam_open":true},{"requirement_id":"IA.L2-3.5.3","name":"Multifactor Authentication","sprs_value":5,"status":"partially-met","family":"IA","remediation_plan":null,"poam_open":false},{"requirement_id":"AC.L2-3.1.22","name":"Control Public Information","sprs_value":1,"status":"not-met","family":"AC","remediation_plan":null,"poam_open":true}],"points_at_stake":16,"open_poam_count":110,"poam_overdue_count":0,"families_with_gaps":{"AU":1,"CM":1,"IA":1,"AC":1},"stale_evidence_count":3,"solution_hints":[{"family":"AU","category":"SIEM / log aggregation","marketplace":"SIEM category in references/fedramp-marketplace-guide.md (Splunk, Sentinel, etc.)","fallback":"On-prem SIEM with CIS log retention baseline; cloud-native collectors in evidence manifest"},{"family":"CM","category":"Configuration management / MDM / baselines","marketplace":"MDM/endpoint management FedRAMP packages when management plane touches CUI","fallback":"CIS Benchmarks + DISA STIGs per OS; Intune/GPO exports for evidence"},{"family":"IA","category":"MFA / authenticator management","marketplace":"FedRAMP Moderate MFA/PAM (Duo FedRAMP package, etc.)","fallback":"Entra Conditional Access / on-prem MFA with CIS authenticator guidance"},{"family":"AC","category":"IAM / PAM / identity governance","marketplace":"Search marketplace.fedramp.gov: IAM, PAM, identity governance; Moderate or Rev5 Class C","fallback":"CIS Microsoft/Azure benchmarks for IdP; on-prem: CIS Controls v8 IG1 for access"}],"cost_framework_note":"Planning ranges for Level 2 preparation and tooling appear in references/contractor-profiles.md (CMMC cost framework). Use remediation_plan fields in program data for project-specific estimates.","generated_date":"2026-07-05"}</script>
+<script>
+const brief = JSON.parse(document.getElementById("brief-data").textContent);
+const org = brief.organization || {};
+const asm = brief.assessment || {};
+const esc = s => String(s ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+
+document.getElementById("title").textContent = org.name || "CMMC Executive Brief";
+document.getElementById("subtitle").textContent =
+  (org.system_name || "Information system") + " · Level " + (asm.level || "?") +
+  " · " + (asm.path || "assessment path not set") + " · generated " + esc(brief.generated_date);
+
+const sub = brief.sprs_submission;
+const sprsDiff = sub && sub.score != null ? brief.sprs.computed_score - sub.score : null;
+
+document.getElementById("main").innerHTML = `
+  <div class="tiles">
+    <div class="tile"><div class="k">SPRS score (computed)</div><div class="v">${brief.sprs.computed_score}</div>
+      <div class="s">${sub && sub.score != null ? "Last submission: " + sub.score + (sprsDiff ? " (" + (sprsDiff > 0 ? "+" : "") + sprsDiff + ")" : "") : "No sprs_submission on file"}</div></div>
+    <div class="tile"><div class="k">Points at stake</div><div class="v crit">${brief.points_at_stake}</div>
+      <div class="s">Open not-met / partially-met practices</div></div>
+    <div class="tile"><div class="k">Open POA&amp;M items</div><div class="v">${brief.open_poam_count}</div>
+      <div class="s">${brief.poam_overdue_count ? brief.poam_overdue_count + " overdue" : "Review closeout clocks"}</div></div>
+    <div class="tile"><div class="k">Stale evidence</div><div class="v">${brief.stale_evidence_count}</div>
+      <div class="s">Machine/periodic buckets past freshness</div></div>
+  </div>
+
+  <h2>Top gaps (budget and remediation priority)</h2>
+  <p class="note" style="margin-top:0;border:none;padding:0">Sorted by SPRS point value. Fund remediation and tooling against these first.</p>
+  <table><thead><tr><th>Requirement</th><th>Practice</th><th>Status</th><th class="num">Pts</th><th>Remediation / POA&amp;M</th></tr></thead>
+  <tbody>${(brief.top_gaps || []).map(g => `<tr>
+    <td class="num">${esc(g.requirement_id)}</td>
+    <td>${esc(g.name)}</td>
+    <td>${esc(g.status)}${g.poam_open ? " · POA&amp;M" : ""}</td>
+    <td class="num crit">${g.sprs_value}</td>
+    <td>${esc(g.remediation_plan || "No remediation plan recorded — assign owner and estimate")}</td>
+  </tr>`).join("") || "<tr><td colspan=5>No open gaps in program data</td></tr>"}
+  </tbody></table>
+
+  <h2>Solution direction (Marketplace + on-prem fallbacks)</h2>
+  <p class="note" style="margin-top:0;border:none;padding:0">Verify FedRAMP Rev5 Class C (Moderate) or Class D (High) listings at marketplace.fedramp.gov. FedRAMP 20x does not currently grant CMMC reciprocity — CRM inheritance only. On appliances without FedRAMP, use CIS/STIG baselines.</p>
+  ${(brief.solution_hints || []).map(h => `<div class="card"><h3>${esc(h.family)} — ${esc(h.category)}</h3>
+    <p><strong>Marketplace:</strong> ${esc(h.marketplace)}</p>
+    <p><strong>Fallback:</strong> ${esc(h.fallback)}</p></div>`).join("")}
+
+  <h2>Cost planning</h2>
+  <p>${esc(brief.cost_framework_note)}</p>
+
+  <p class="note"><strong>Three views:</strong> This brief for executives and budget owners; full program dashboard for ISSM operations; public trust center for customers/primes (no gap detail). Not a certification decision. Regenerate after every program-data change.</p>`;
+</script>
+</body>
+</html>

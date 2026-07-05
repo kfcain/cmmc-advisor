@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CMMC Advisor Demo OSC — Atlas Precision Manufacturing</title>
+  <style>
+    :root {
+      --bg: #0f1419;
+      --panel: #1a2332;
+      --border: #2d3a4d;
+      --text: #e6edf3;
+      --muted: #8b9cb3;
+      --accent: #58a6ff;
+      --ok: #3fb950;
+      --warn: #d29922;
+      --bad: #f85149;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    header {
+      padding: 2rem 2rem 1rem;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(135deg, #1a2332 0%, #0f1419 100%);
+    }
+    h1 { margin: 0 0 0.25rem; font-size: 1.75rem; }
+    .subtitle { color: var(--muted); max-width: 60rem; }
+    nav {
+      position: sticky;
+      top: 0;
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+      padding: 0.5rem 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      z-index: 10;
+    }
+    nav a { color: var(--accent); text-decoration: none; font-size: 0.9rem; }
+    nav a:hover { text-decoration: underline; }
+    main { max-width: 72rem; margin: 0 auto; padding: 1.5rem 2rem 4rem; }
+    section { margin-bottom: 2.5rem; }
+    h2 {
+      font-size: 1.25rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.35rem;
+      margin-top: 0;
+    }
+    h3 { font-size: 1rem; color: var(--accent); margin-bottom: 0.5rem; }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+      gap: 0.75rem;
+      margin: 1rem 0;
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.85rem;
+    }
+    .card .val { font-size: 1.5rem; font-weight: 600; }
+    .card .lbl { font-size: 0.8rem; color: var(--muted); }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      margin: 0.75rem 0;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 0.5rem 0.65rem;
+      text-align: left;
+      vertical-align: top;
+    }
+    th { background: var(--panel); color: var(--muted); font-weight: 600; }
+    code, pre {
+      font-family: ui-monospace, monospace;
+      font-size: 0.82rem;
+    }
+    pre {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem;
+      overflow-x: auto;
+      white-space: pre-wrap;
+    }
+    a { color: var(--accent); }
+    .pill {
+      display: inline-block;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .pill-ok { background: #23863633; color: var(--ok); }
+    .pill-warn { background: #9e6a0333; color: var(--warn); }
+    .pill-bad { background: #da363333; color: var(--bad); }
+    iframe {
+      width: 100%;
+      height: 420px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #fff;
+    }
+    .cmd { color: var(--ok); }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Atlas Precision Manufacturing LLC</h1>
+    <p class="subtitle">
+      Demo Organization Seeking Certification (OSC) for exercising the full CMMC Advisor
+      program toolkit. Fictional 45-person machine shop processing CUI in a GCC High enclave
+      with Azure Government, Intune, Sentinel, and ControlBot-gated Terraform IaC.
+      Generated 2026-07-05.
+    </p>
+  </header>
+  <nav>
+    <a href="#snapshot">Snapshot</a>
+    <a href="#story">Org story</a>
+    <a href="#program-data">Program data</a>
+    <a href="#validation">Validation</a>
+    <a href="#artifacts">Artifacts</a>
+    <a href="#preview">Preview</a>
+    <a href="#routing">SKILL routing</a>
+    <a href="#scripts">Scripts</a>
+    <a href="#evals">Evals</a>
+    <a href="#commands">Commands</a>
+  </nav>
+  <main>
+    <section id="snapshot">
+      <h2>OSC snapshot</h2>
+      <div class="cards">
+        <div class="card"><div class="val">Atlas Precision Manufacturing LLC</div><div class="lbl">Organization</div></div>
+        <div class="card"><div class="val">APM GCC High CUI Enclave</div><div class="lbl">System</div></div>
+        <div class="card"><div class="val">CMMC 2</div><div class="lbl">Target level</div></div>
+        <div class="card"><div class="val">c3pao</div><div class="lbl">Assessment path</div></div>
+        <div class="card"><div class="val">110</div><div class="lbl">Requirements in program data</div></div>
+        <div class="card"><div class="val">8</div><div class="lbl">Inventoried assets</div></div>
+        <div class="card"><div class="val">—</div><div class="lbl">Computed SPRS</div></div>
+        <div class="card"><div class="val">4 / 2</div><div class="lbl">QA log / open questions</div></div>
+      </div>
+    </section>
+
+    <section id="story">
+      <h2>Organization story (test persona)</h2>
+      <p>Atlas Precision Manufacturing (APM) machines vehicle components for an Army prime. CUI (CTI and export-controlled drawings) is processed only in a Microsoft 365 GCC High tenant, twelve Intune-managed Windows laptops, Azure Government file services, and Microsoft Sentinel. Commercial M365, corporate HR/finance, and IGEL thin-client VDI terminals are out of scope with documented separation.</p>
+      <p>Primary enclave: GCC High (Entra ID USGov, EXO/SPO/Teams), Azure Government (Sentinel, project file share). Edge: FortiGate 100F. RMM: NinjaOne for Government on CUI laptops only. Engineering uses Azure DevOps Government for IaC; ControlBot gates Terraform PRs.</p>
+      <h3>Key roles</h3>
+      <table>
+        <tr><th>Role</th><th>Name</th><th>Responsibility</th></tr>
+        <tr><td>system_owner</td><td>Jordan Rivera</td><td>Director of Engineering</td></tr><tr><td>affirming_official</td><td>Casey Morgan</td><td>Affirm continuing compliance in SPRS</td></tr><tr><td>issm</td><td>Sam Patel</td><td>Maintain SSP, POA&amp;M, and program-data.yaml, Run quarterly evidence collection and SPRS updates</td></tr><tr><td>engineer_lead</td><td>Alex Kim</td><td>ControlBot profile and Terraform enclave IaC</td></tr>
+      </table>
+      <h3>Representative gaps (for toolkit testing)</h3>
+      <ul>
+        <li><strong>AU.L2-3.3.5</strong> — not met, 5 SPRS points, <em>not</em> POA&amp;M-eligible (must fix or accept score hit)</li>
+        <li><strong>CM.L2-3.4.7 / AC.L2-3.1.22</strong> — open POA&amp;M items on 1-point requirements</li>
+        <li><strong>IA.L2-3.5.3</strong> — partially met (SMS OTP on one legacy app)</li>
+        <li><strong>SC.L2-3.13.11</strong> — shared with GCC High CRM + customer Intune FIPS policy</li>
+        <li><strong>ControlBot import</strong> — Terraform Checkov seed on SC-7 mapped via crosswalk</li>
+        <li><strong>Discovery open questions</strong> — MFP scan relay, MSP NinjaOne alert path</li>
+      </ul>
+    </section>
+
+    <section id="program-data">
+      <h2>Program data tour</h2>
+      <p>Source file: <a href="program-data.yaml"><code>program-data.yaml</code></a>
+      (validates against <code>templates/program-data.schema.json</code>).</p>
+      <table>
+        <tr><th>Section</th><th>Demo content</th></tr>
+        <tr><td><code>organization</code></td><td>APM identity, scope/environment narratives, five roles</td></tr>
+        <tr><td><code>assessment</code></td><td>Level 2, C3PAO path, Nov 2026 target</td></tr>
+        <tr><td><code>assets</code></td><td>All five 32 CFR 170.19(c) buckets with baseline profiles</td></tr>
+        <tr><td><code>topology</code></td><td>Zones, nodes, CUI/SPD flows for diagram generators</td></tr>
+        <tr><td><code>inheritance_sources</code></td><td>GCC High CRM/BoE reference (<code>id: gcch</code>)</td></tr>
+        <tr><td><code>discovery</code></td><td>8+ phases touched, QA log, assumptions, open questions, decisions</td></tr>
+        <tr><td><code>requirements</code></td><td>All 110 requirements — met / partial / inherited / POA&amp;M / not-met mix</td></tr>
+        <tr><td><code>trust_center</code></td><td>Published attestations without internal paths</td></tr>
+        <tr><td><code>controlbot_import</code></td><td>Stamp after <code>import_controlbot_seeds.py</code> run</td></tr>
+      </table>
+    </section>
+
+    <section id="validation">
+      <h2>Validation report</h2>
+      <p>POA&amp;M validator:
+        <span class="pill pill-bad">
+          FAIL
+        </span>
+        computed SPRS <strong>96</strong>,
+        POA&amp;M items <strong>4</strong>
+      </p>
+      <pre>{
+  &quot;level&quot;: &quot;2&quot;,
+  &quot;path&quot;: &quot;c3pao&quot;,
+  &quot;closeout_actor&quot;: &quot;authorized or accredited C3PAO&quot;,
+  &quot;conditional_status_date&quot;: null,
+  &quot;closeout_deadline&quot;: null,
+  &quot;days_until_closeout&quot;: null,
+  &quot;computed_sprs_score&quot;: 96,
+  &quot;ssp_missing&quot;: false,
+  &quot;poam_item_count&quot;: 4,
+  &quot;eligible_poam_count&quot;: 0,
+  &quot;rulings&quot;: [
+    {
+      &quot;requirement_id&quot;: &quot;AC.L2-3.1.22&quot;,
+      &quot;eligible&quot;: false,
+      &quot;reasons&quot;: [
+        &quot;AC.L2-3.1.22 (Control Public Information) is never POA&amp;M-eligible at Level 2.&quot;
+      ],
+      &quot;rule_refs&quot;: [
+        &quot;32 CFR 170.21(a)(2)(iii)&quot;
+      ],
+      &quot;conformity&quot;: &quot;not-met&quot;,
+      &quot;sprs_value&quot;: 1,
+      &quot;poam&quot;: {
+        &quot;priority&quot;: &quot;Medium&quot;,
+        &quot;description&quot;: &quot;Close gap on AC.L2-3.1.22 before C3PAO assessment&quot;,
+        &quot;opened&quot;: &quot;2026-06-01&quot;,
+        &quot;due&quot;: &quot;2026-09-30&quot;,
+        &quot;owner&quot;: &quot;Sam Patel&quot;,
+        &quot;status&quot;: &quot;open&quot;,
+        &quot;actions&quot;: [
+          &quot;Document control&quot;,
+          &quot;Collect assessor evidence&quot;,
+          &quot;Update conformity&quot;
+        ]
+      }
+    },
+    {
+      &quot;requirement_id&quot;: &quot;AU.L2-3.3.5&quot;,
+      &quot;eligible&quot;: false,
+      &quot;reasons&quot;: [
+        &quot;Practice carries 5 SPRS points; only 1-point practices may defer via POA&amp;M.&quot;
+      ],
+      &quot;rule_refs&quot;: [
+        &quot;32 CFR 170.21(a)(2)(ii)&quot;
+      ],
+      &quot;conformity&quot;: &quot;not-met&quot;,
+      &quot;sprs_value&quot;: 5,
+      &quot;poam&quot;: {
+        &quot;priority&quot;: &quot;High&quot;,
+        &quot;description&quot;: &quot;Implement Sentinel analytics rules and weekly correlated review for enclave audit records&quot;,
+        &quot;opened&quot;: &quot;2026-06-22&quot;,
+        &quot;due&quot;: &quot;2026-09-15&quot;,
+        &quot;owner&quot;: &quot;Sam Patel&quot;,
+        &quot;status&quot;: &quot;in-progress&quot;,
+        &quot;actions&quot;: [
+          &quot;Deploy Microsoft Sentinel analytics rules for the enclave workspace&quot;,
+          &quot;Stand up weekly audit review runbook with sign-off log&quot;,
+          &quot;Backfill 90 days of review evidence before assessment&quot;
+        ]
+      }
+    },
+    {
+      &quot;requirement_id&quot;: &quot;CM.L2-3.4.7&quot;,
+      &quot;eligible&quot;: false,
+      &quot;reasons&quot;: [
+        &quot;Practice carries 5 SPRS points; only 1-point practices may defer via POA&amp;M.&quot;
+      ],
+      &quot;rule_refs&quot;: [
+        &quot;32 CFR 170.21(a)(2)(ii)&quot;
+      ],
+      &quot;conformity&quot;: &quot;not-met&quot;,
+      &quot;sprs_value&quot;: 5,
+      &quot;poam&quot;: {
+        &quot;priority&quot;: &quot;Medium&quot;,
+        &quot;description&quot;: &quot;Close gap on CM.L2-3.4.7 before C3PAO assessment&quot;,
+        &quot;opened&quot;: &quot;2026-06-01&quot;,
+        &quot;due&quot;: &quot;2026-09-30&quot;,
+        &quot;owner&quot;: &quot;Sam Patel&quot;,
+        &quot;status&quot;: &quot;open&quot;,
+        &quot;actions&quot;: [
+          &quot;Document control&quot;,
+          &quot;Collect assessor evidence&quot;,
+          &quot;Update conformity&quot;
+        ]
+      }
+    },
+    {
+      &quot;requirement_id&quot;: &quot;SC.L2-3.13.1&quot;,
+      &quot;eligible&quot;: false,
+      &quot;reasons&quot;: [
+        &quot;Practice carries 5 SPRS points; only 1-point practices may defer via POA&amp;M.&quot;,
+        &quot;Conformity is met; POA&amp;M is for open gaps, not satisfied practices.&quot;
+      ],
+      &quot;rule_refs&quot;: [
+        &quot;32 CFR 170.21(a)(2)(ii)&quot;
+      ],
+      &quot;conformity&quot;: &quot;met&quot;,
+      &quot;sprs_value&quot;: 5,
+      &quot;poam&quot;: {
+        &quot;priority&quot;: &quot;High&quot;,
+        &quot;description&quot;: &quot;S3 bucket ACL allows public access [controlbot:checkov-ckv-aws-019-terraform-aws-s3-bucket-public-acl]&quot;,
+        &quot;opened&quot;: &quot;2026-07-04&quot;,
+        &quot;due&quot;: &quot;2026-08-03&quot;,
+        &quot;owner&quot;: &quot;TBD&quot;,
+        &quot;status&quot;: &quot;open&quot;,
+        &quot;actions&quot;: [
+          &quot;Block public ACLs and restrict bucket policy to the enclave VPC endpoints.&quot;
+        ]
+      }
+    }
+  ],
+  &quot;issues&quot;: [
+    {
+      &quot;type&quot;: &quot;poam_ineligible&quot;,
+      &quot;requirement_id&quot;: &quot;AC.L2-3.1.22&quot;,
+      &quot;message&quot;: &quot;AC.L2-3.1.22 (Control Public Information) is never POA&amp;M-eligible at Level 2.&quot;,
+      &quot;rule_refs&quot;: [
+        &quot;32 CFR 170.21(a)(2)(iii)&quot;
+      ]
+    },
+    {
+      &quot;type&quot;: &quot;poam_ineligible&quot;,
+      &quot;requirement_id&quot;: &quot;AU.L2-3.3.5&quot;,
+      &quot;message&quot;: &quot;Practice carries 5 SPRS points; only 1-point practices may defer via POA&amp;M.&quot;,
+      &quot;rule_refs&quot;: [
+        &quot;32 CFR 170.21(a)(2)(ii)&quot;
+      ]
+    },
+    {
+      &quot;type&quot;: &quot;poam_ineligible&quot;,
+      &quot;requirement_id&quot;: &quot;CM.L2-3.4.7&quot;,
+      &quot;message&quot;: &quot;Practice carries 5 SPRS points; only 1-point practices may defer via POA&amp;M.&quot;,
+      &quot;rule_refs&quot;: [
+        &quot;32 CFR 170.21(a)(2)(ii)&quot;
+      ]
+    },
+    {
+      &quot;type&quot;: &quot;poam_ineligible&quot;,
+      &quot;requirement_id&quot;: &quot;SC.L2-3.13.1&quot;,
+      &quot;message&quot;: &quot;Practice carries 5 SPRS points; only 1-point practices may defer via POA&amp;M.; Conformity is met; POA&amp;M is for open gaps, not satisfied practices.&quot;,
+      &quot;rule_refs&quot;: [
+        &quot;32 CFR 170.21(a)(2)(ii)&quot;
+      ]
+    }
+  ],
+  &quot;warnings&quot;: [
+    {
+      &quot;type&quot;: &quot;conditional_date_missing&quot;,
+      &quot;message&quot;: &quot;Open POA&amp;M items exist but conditional_status_date is unset; 180-day closeout clocks cannot be computed.&quot;
+    }
+  ],
+  &quot;valid&quot;: false
+}</pre>
+      <h3>Discovery report</h3>
+      <pre>Discovery report: OK
+  Phases complete: 5/12
+    contracts-cui: complete
+    people: complete
+    locations: complete
+    platforms-tenants: complete
+    endpoints: complete
+    dev-ai: in-progress
+    physical-media: in-progress
+    esps-access-paths: in-progress
+    audit-siem: in-progress
+    data-flows: in-progress
+    backup-dr: in-progress
+  Untouched phases: specialized-ot
+  Q&amp;A entries: 4
+  Open questions: 2
+  Unretired assumptions: 1
+</pre>
+    </section>
+
+    <section id="artifacts">
+      <h2>Generated artifacts</h2>
+      <table>
+        <tr><th>Artifact</th><th>Path</th><th>Purpose</th></tr>
+        
+    <tr>
+      <td><a href="outputs/dashboard.html">Program dashboard</a></td>
+      <td><code>outputs/dashboard.html</code></td>
+      <td>Internal ISSM view: SPRS, POA&amp;M, all 320 AOs</td>
+    </tr>
+    <tr>
+      <td><a href="outputs/ssp.md">System Security Plan</a></td>
+      <td><code>outputs/ssp.md</code></td>
+      <td>AO-level SSP markdown from program data</td>
+    </tr>
+    <tr>
+      <td><a href="outputs/trust-center.html">Trust center</a></td>
+      <td><code>outputs/trust-center.html</code></td>
+      <td>Public deny-by-default page</td>
+    </tr>
+    <tr>
+      <td><a href="outputs/executive-brief.html">Executive brief</a></td>
+      <td><code>outputs/executive-brief.html</code></td>
+      <td>C-level gap and selection summary</td>
+    </tr>
+    <tr>
+      <td><a href="outputs/diagrams/network.svg">Network diagram</a></td>
+      <td><code>outputs/diagrams/network.svg</code></td>
+      <td>Topology from program-data zones/nodes</td>
+    </tr>
+    <tr>
+      <td><a href="outputs/diagrams/cui-flow.svg">CUI flow diagram</a></td>
+      <td><code>outputs/diagrams/cui-flow.svg</code></td>
+      <td>CUI/FCI/SPD flows only</td>
+    </tr>
+    <tr>
+      <td><a href="outputs/oscal-ssp.json">OSCAL SSP</a></td>
+      <td><code>outputs/oscal-ssp.json</code></td>
+      <td>FedRAMP/GRC tooling interchange</td>
+    </tr>
+    <tr>
+      <td><a href="outputs/sprs.json">SPRS scoresheet</a></td>
+      <td><code>outputs/sprs.json</code></td>
+      <td>Computed score with methodology notes</td>
+    </tr>
+    <tr>
+      <td><a href="outputs/mock-assessment-ia/mock-assessment.md">Mock assessment (IA)</a></td>
+      <td><code>outputs/mock-assessment-ia/mock-assessment.md</code></td>
+      <td>Assessor interview/evidence pack</td>
+    </tr>
+    <tr>
+      <td><a href="outputs/responsibility-matrix/responsibility-matrix.md">Responsibility matrix</a></td>
+      <td><code>outputs/responsibility-matrix/responsibility-matrix.md</code></td>
+      <td>Internal RACI export</td>
+    </tr>
+    <tr>
+      <td><a href="outputs/recommend-solutions.md">Solution recommendations</a></td>
+      <td><code>outputs/recommend-solutions.md</code></td>
+      <td>Gap-driven Marketplace hints</td>
+    </tr>
+    <tr>
+      <td><a href="outputs/controlbot-profile.yaml">ControlBot profile</a></td>
+      <td><code>outputs/controlbot-profile.yaml</code></td>
+      <td>IaC inherited-control export</td>
+    </tr>
+    <tr>
+      <td><a href="outputs/demo-test-report.txt">Test report</a></td>
+      <td><code>outputs/demo-test-report.txt</code></td>
+      <td>All generator/validator command output</td>
+    </tr>
+    <tr>
+      <td><a href="program-data.yaml">Program data</a></td>
+      <td><code>program-data.yaml</code></td>
+      <td>Source of truth for the demo OSC</td>
+    </tr>
+      </table>
+    </section>
+
+    <section id="preview">
+      <h2>Live preview</h2>
+      <p>Internal dashboard (open <a href="outputs/dashboard.html">outputs/dashboard.html</a> for full screen):</p>
+      <iframe src="outputs/dashboard.html" title="Demo dashboard"></iframe>
+      <p>Public trust center:</p>
+      <iframe src="outputs/trust-center.html" title="Demo trust center"></iframe>
+    </section>
+
+    <section id="routing">
+      <h2>SKILL.md routing for this OSC</h2>
+      <table>
+        <tr><th>Question type</th><th>Read first</th><th>Why</th></tr>
+        <tr><td>Level 2 scoping / CUI enclave</td><td><code>references/scoping-and-cui.md</code></td><td>Tenant boundary, asset categories</td></tr><tr><td>GCC High tenancy</td><td><code>references/modern-it/productivity/microsoft-365-gcc.md</code></td><td>GCC vs GCC High decision</td></tr><tr><td>Phased rollout</td><td><code>references/modern-it/productivity/gcch-implementation-workbook.md</code></td><td>Identity → devices → data → monitoring</td></tr><tr><td>CRM inheritance</td><td><code>references/grc/inherited-controls-mapping.md</code></td><td>Shared SC-13 / PE rows from GCC High</td></tr><tr><td>Graph evidence</td><td><code>references/modern-it/security-operations/microsoft-graph-evidence.md</code></td><td>Collector endpoints USGov</td></tr><tr><td>POA&amp;M rules</td><td><code>references/poam-management.md</code></td><td>180-day closeout, banned practices</td></tr><tr><td>Companion stack</td><td><code>references/grc/companion-stack.md</code></td><td>ControlBot → program-data import</td></tr><tr><td>Assessor discovery</td><td><code>references/assessor-playbook/scope-discovery-question-bank.md</code></td><td>12 discovery phases</td></tr>
+      </table>
+    </section>
+
+    <section id="scripts">
+      <h2>Toolkit scripts exercised</h2>
+      <table>
+        <tr><th>Script</th><th>Role in demo</th></tr>
+        <tr><td><code>bootstrap_demo_osc.py</code></td><td>Create/regenerate this entire demo package</td></tr><tr><td><code>generate_dashboard.py</code></td><td>Self-contained HTML program dashboard</td></tr><tr><td><code>generate_ssp.py</code></td><td>AO-level SSP markdown/DOCX</td></tr><tr><td><code>generate_diagrams.py</code></td><td>Network + CUI flow SVG/Mermaid</td></tr><tr><td><code>generate_trust_center.py</code></td><td>Public trust page (strict deny-by-default)</td></tr><tr><td><code>collect_evidence.py</code></td><td>Run collectors; --dry-run for pipeline test</td></tr><tr><td><code>validate_poam.py</code></td><td>32 CFR 170.21 eligibility and SPRS gates</td></tr><tr><td><code>discovery_report.py</code></td><td>Discovery memory coverage and ID integrity</td></tr><tr><td><code>import_controlbot_seeds.py</code></td><td>Terraform Checkov POA&amp;M → program data</td></tr><tr><td><code>eval_routing_smoke.py</code></td><td>Deterministic eval scenario path checks</td></tr>
+      </table>
+    </section>
+
+    <section id="evals">
+      <h2>Eval scenarios to run with this persona</h2>
+      <p>Prompt the advisor as Atlas Precision Manufacturing and score against:</p>
+      <table>
+        <tr><th>Scenario</th><th>Exercises</th></tr>
+        <tr><td><code>evals/scenarios/level-2-scoping-basic.yaml</code></td><td>SDVOSB SaaS on GovCloud — level and boundary</td></tr><tr><td><code>evals/scenarios/modern-it-gcch-workbook-routing.yaml</code></td><td>Phased GCC High → AO mapping</td></tr><tr><td><code>evals/scenarios/domain-ia-mfa-gcch.yaml</code></td><td>Conditional Access / MFA objectives</td></tr><tr><td><code>evals/scenarios/grc-inherited-controls-crm.yaml</code></td><td>CRM rows → per-AO inheritance</td></tr><tr><td><code>evals/scenarios/companion-stack-e2e-pipeline.yaml</code></td><td>ControlBot import through dashboard</td></tr><tr><td><code>evals/scenarios/assessor-grill-kickoff.yaml</code></td><td>Discovery rail kickoff</td></tr><tr><td><code>evals/scenarios/scoring-sprs-conditional.yaml</code></td><td>SPRS -203 floor and conditional path</td></tr>
+      </table>
+      <pre class="cmd">python -m evals.runner.runner evals/scenarios/modern-it-gcch-workbook-routing.yaml</pre>
+    </section>
+
+    <section id="commands">
+      <h2>Regenerate everything</h2>
+      <pre class="cmd">python3 scripts/bootstrap_demo_osc.py</pre>
+      <pre class="cmd">python3 scripts/discovery_report.py examples/demo-osc/program-data.yaml
+python3 scripts/validate_poam.py examples/demo-osc/program-data.yaml
+python3 scripts/collect_evidence.py examples/demo-osc/program-data.yaml --list
+python3 scripts/eval_routing_smoke.py</pre>
+    </section>
+  </main>
+</body>
+</html>

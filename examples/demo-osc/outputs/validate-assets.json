@@ -1,0 +1,25 @@
+{
+  "assets_checked": 5,
+  "issues": [],
+  "warnings": [
+    {
+      "type": "baseline_profile_missing",
+      "asset": "M365 GCC High tenant (Exchange, SharePoint, Teams)",
+      "category": "cui",
+      "message": "No baseline_profile assigned; see references/modern-it/asset-baselines/"
+    },
+    {
+      "type": "baseline_profile_missing",
+      "asset": "ENG laptops (12, Intune-managed, BitLocker)",
+      "category": "cui",
+      "message": "No baseline_profile assigned; see references/modern-it/asset-baselines/"
+    },
+    {
+      "type": "baseline_profile_missing",
+      "asset": "Microsoft Sentinel (Azure Government)",
+      "category": "security-protection",
+      "message": "No baseline_profile assigned; see references/modern-it/asset-baselines/"
+    }
+  ],
+  "valid": true
+}

@@ -1,0 +1,1153 @@
+{
+  "schema_version": "1.0",
+  "export_type": "sprs_basic_assessment",
+  "generated_at": "2026-07-05T04:15:39+00:00",
+  "methodology": "DoD Assessment Methodology v1.2.1 (110 practices, -203 floor)",
+  "organization": {
+    "name": "Atlas Precision Manufacturing LLC",
+    "system_name": "APM GCC High CUI Enclave",
+    "cage_codes": [
+      "8XYZ9"
+    ]
+  },
+  "assessment": {
+    "level": "2",
+    "path": "c3pao",
+    "target_date": "2026-11-15"
+  },
+  "summary_score": 96,
+  "maximum_score": 110,
+  "minimum_score": -203,
+  "ssp_missing": false,
+  "deductions": [
+    {
+      "requirement_id": "AC.L2-3.1.22",
+      "status": "not-met",
+      "points": 1
+    },
+    {
+      "requirement_id": "AU.L2-3.3.5",
+      "status": "not-met",
+      "points": 5
+    },
+    {
+      "requirement_id": "CM.L2-3.4.7",
+      "status": "not-met",
+      "points": 5
+    },
+    {
+      "requirement_id": "IA.L2-3.5.3",
+      "status": "partially-met",
+      "points": 3
+    }
+  ],
+  "requirements": [
+    {
+      "requirement_id": "AC.L2-3.1.1",
+      "nist_id": "3.1.1",
+      "name": "Authorized Access Control",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "AC.L2-3.1.2",
+      "nist_id": "3.1.2",
+      "name": "Transaction & Function Control",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "AC.L2-3.1.3",
+      "nist_id": "3.1.3",
+      "name": "Control CUI Flow",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "AC.L2-3.1.4",
+      "nist_id": "3.1.4",
+      "name": "Separation of Duties",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "AC.L2-3.1.5",
+      "nist_id": "3.1.5",
+      "name": "Least Privilege",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 3,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "AC.L2-3.1.6",
+      "nist_id": "3.1.6",
+      "name": "Non-Privileged Account Use",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "AC.L2-3.1.7",
+      "nist_id": "3.1.7",
+      "name": "Privileged Functions",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "AC.L2-3.1.8",
+      "nist_id": "3.1.8",
+      "name": "Unsuccessful Logon Attempts",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "AC.L2-3.1.9",
+      "nist_id": "3.1.9",
+      "name": "Privacy & Security Notices",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "AC.L2-3.1.10",
+      "nist_id": "3.1.10",
+      "name": "Session Lock",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "AC.L2-3.1.11",
+      "nist_id": "3.1.11",
+      "name": "Session Termination",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "AC.L2-3.1.12",
+      "nist_id": "3.1.12",
+      "name": "Control Remote Access",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "AC.L2-3.1.13",
+      "nist_id": "3.1.13",
+      "name": "Remote Access Confidentiality",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "AC.L2-3.1.14",
+      "nist_id": "3.1.14",
+      "name": "Remote Access Routing",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "AC.L2-3.1.15",
+      "nist_id": "3.1.15",
+      "name": "Privileged Remote Access",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "AC.L2-3.1.16",
+      "nist_id": "3.1.16",
+      "name": "Wireless Access Authorization",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "AC.L2-3.1.17",
+      "nist_id": "3.1.17",
+      "name": "Wireless Access Protection",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "AC.L2-3.1.18",
+      "nist_id": "3.1.18",
+      "name": "Mobile Device Connection",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "AC.L2-3.1.19",
+      "nist_id": "3.1.19",
+      "name": "Encrypt CUI on Mobile",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 3,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "AC.L2-3.1.20",
+      "nist_id": "3.1.20",
+      "name": "External Connections",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "AC.L2-3.1.21",
+      "nist_id": "3.1.21",
+      "name": "Portable Storage Use",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "AC.L2-3.1.22",
+      "nist_id": "3.1.22",
+      "name": "Control Public Information",
+      "conformity": "not-met",
+      "sprs_assessment_status": "NOT MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 1
+    },
+    {
+      "requirement_id": "AT.L2-3.2.1",
+      "nist_id": "3.2.1",
+      "name": "Role-Based Risk Awareness",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "AT.L2-3.2.2",
+      "nist_id": "3.2.2",
+      "name": "Role-Based Training",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "AT.L2-3.2.3",
+      "nist_id": "3.2.3",
+      "name": "Insider Threat Awareness",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "AU.L2-3.3.1",
+      "nist_id": "3.3.1",
+      "name": "System Auditing",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "AU.L2-3.3.2",
+      "nist_id": "3.3.2",
+      "name": "User Accountability",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 3,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "AU.L2-3.3.3",
+      "nist_id": "3.3.3",
+      "name": "Event Review",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "AU.L2-3.3.4",
+      "nist_id": "3.3.4",
+      "name": "Audit Failure Alerting",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "AU.L2-3.3.5",
+      "nist_id": "3.3.5",
+      "name": "Audit Correlation",
+      "conformity": "not-met",
+      "sprs_assessment_status": "NOT MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 5
+    },
+    {
+      "requirement_id": "AU.L2-3.3.6",
+      "nist_id": "3.3.6",
+      "name": "Reduction & Reporting",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "AU.L2-3.3.7",
+      "nist_id": "3.3.7",
+      "name": "Authoritative Time Source",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "AU.L2-3.3.8",
+      "nist_id": "3.3.8",
+      "name": "Audit Protection",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "AU.L2-3.3.9",
+      "nist_id": "3.3.9",
+      "name": "Audit Management",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "CM.L2-3.4.1",
+      "nist_id": "3.4.1",
+      "name": "System Baselining",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "CM.L2-3.4.2",
+      "nist_id": "3.4.2",
+      "name": "Security Configuration Enforcement",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "CM.L2-3.4.3",
+      "nist_id": "3.4.3",
+      "name": "System Change Management",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "CM.L2-3.4.4",
+      "nist_id": "3.4.4",
+      "name": "Security Impact Analysis",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "CM.L2-3.4.5",
+      "nist_id": "3.4.5",
+      "name": "Access Restrictions for Change",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "CM.L2-3.4.6",
+      "nist_id": "3.4.6",
+      "name": "Least Functionality",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "CM.L2-3.4.7",
+      "nist_id": "3.4.7",
+      "name": "Nonessential Functionality",
+      "conformity": "not-met",
+      "sprs_assessment_status": "NOT MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 5
+    },
+    {
+      "requirement_id": "CM.L2-3.4.8",
+      "nist_id": "3.4.8",
+      "name": "Application Execution Policy",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "CM.L2-3.4.9",
+      "nist_id": "3.4.9",
+      "name": "User-Installed Software",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "IA.L2-3.5.1",
+      "nist_id": "3.5.1",
+      "name": "Identification",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "IA.L2-3.5.2",
+      "nist_id": "3.5.2",
+      "name": "Authentication",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "IA.L2-3.5.3",
+      "nist_id": "3.5.3",
+      "name": "Multifactor Authentication",
+      "conformity": "partially-met",
+      "sprs_assessment_status": "NOT MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 3,
+      "points_deducted": 3
+    },
+    {
+      "requirement_id": "IA.L2-3.5.4",
+      "nist_id": "3.5.4",
+      "name": "Replay-Resistant Authentication",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "IA.L2-3.5.5",
+      "nist_id": "3.5.5",
+      "name": "Identifier Reuse",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "IA.L2-3.5.6",
+      "nist_id": "3.5.6",
+      "name": "Identifier Handling",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "IA.L2-3.5.7",
+      "nist_id": "3.5.7",
+      "name": "Password Complexity",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "IA.L2-3.5.8",
+      "nist_id": "3.5.8",
+      "name": "Password Reuse",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "IA.L2-3.5.9",
+      "nist_id": "3.5.9",
+      "name": "Temporary Passwords",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "IA.L2-3.5.10",
+      "nist_id": "3.5.10",
+      "name": "Cryptographically-Protected Passwords",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "IA.L2-3.5.11",
+      "nist_id": "3.5.11",
+      "name": "Obscure Feedback",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "IR.L2-3.6.1",
+      "nist_id": "3.6.1",
+      "name": "Incident Handling",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "IR.L2-3.6.2",
+      "nist_id": "3.6.2",
+      "name": "Incident Reporting",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "IR.L2-3.6.3",
+      "nist_id": "3.6.3",
+      "name": "Incident Response Testing",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "MA.L2-3.7.1",
+      "nist_id": "3.7.1",
+      "name": "Perform Maintenance",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 3,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "MA.L2-3.7.2",
+      "nist_id": "3.7.2",
+      "name": "System Maintenance Control",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "MA.L2-3.7.3",
+      "nist_id": "3.7.3",
+      "name": "Equipment Sanitization",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "MA.L2-3.7.4",
+      "nist_id": "3.7.4",
+      "name": "Media Inspection",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 3,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "MA.L2-3.7.5",
+      "nist_id": "3.7.5",
+      "name": "Nonlocal Maintenance",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "MA.L2-3.7.6",
+      "nist_id": "3.7.6",
+      "name": "Maintenance Personnel",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "MP.L2-3.8.1",
+      "nist_id": "3.8.1",
+      "name": "Media Protection",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 3,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "MP.L2-3.8.2",
+      "nist_id": "3.8.2",
+      "name": "Media Access",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 3,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "MP.L2-3.8.3",
+      "nist_id": "3.8.3",
+      "name": "Media Disposal",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "MP.L2-3.8.4",
+      "nist_id": "3.8.4",
+      "name": "Media Markings",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "MP.L2-3.8.5",
+      "nist_id": "3.8.5",
+      "name": "Media Accountability",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "MP.L2-3.8.6",
+      "nist_id": "3.8.6",
+      "name": "Portable Storage Encryption",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "MP.L2-3.8.7",
+      "nist_id": "3.8.7",
+      "name": "Removeable Media",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "MP.L2-3.8.8",
+      "nist_id": "3.8.8",
+      "name": "Shared Media",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 3,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "MP.L2-3.8.9",
+      "nist_id": "3.8.9",
+      "name": "Protect Backups",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "PS.L2-3.9.1",
+      "nist_id": "3.9.1",
+      "name": "Screen Individuals",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 3,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "PS.L2-3.9.2",
+      "nist_id": "3.9.2",
+      "name": "Personnel Actions",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "PE.L2-3.10.1",
+      "nist_id": "3.10.1",
+      "name": "Limit Physical Access",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "PE.L2-3.10.2",
+      "nist_id": "3.10.2",
+      "name": "Monitor Facility",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "PE.L2-3.10.3",
+      "nist_id": "3.10.3",
+      "name": "Escort Visitors",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "PE.L2-3.10.4",
+      "nist_id": "3.10.4",
+      "name": "Physical Access Logs",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "PE.L2-3.10.5",
+      "nist_id": "3.10.5",
+      "name": "Manage Physical Access",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "PE.L2-3.10.6",
+      "nist_id": "3.10.6",
+      "name": "Alternative Work Sites",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "RA.L2-3.11.1",
+      "nist_id": "3.11.1",
+      "name": "RIsk Assessments",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 3,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "RA.L2-3.11.2",
+      "nist_id": "3.11.2",
+      "name": "Vulnerability Scan",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "RA.L2-3.11.3",
+      "nist_id": "3.11.3",
+      "name": "Vulnerability Remediation",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "CA.L2-3.12.1",
+      "nist_id": "3.12.1",
+      "name": "Security Control Assessment",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "CA.L2-3.12.2",
+      "nist_id": "3.12.2",
+      "name": "operational Plan of Action",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 3,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "CA.L2-3.12.3",
+      "nist_id": "3.12.3",
+      "name": "Security Control Monitoring",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "CA.L2-3.12.4",
+      "nist_id": "3.12.4",
+      "name": "System Security Plan",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 0,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "SC.L2-3.13.1",
+      "nist_id": "3.13.1",
+      "name": "Boundary Protection",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "SC.L2-3.13.2",
+      "nist_id": "3.13.2",
+      "name": "Security Engineering",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "SC.L2-3.13.3",
+      "nist_id": "3.13.3",
+      "name": "Role Separation",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "SC.L2-3.13.4",
+      "nist_id": "3.13.4",
+      "name": "Shared Resource Control",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "SC.L2-3.13.5",
+      "nist_id": "3.13.5",
+      "name": "Public-Access System Separation",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "SC.L2-3.13.6",
+      "nist_id": "3.13.6",
+      "name": "Network Communication by Exception",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "SC.L2-3.13.7",
+      "nist_id": "3.13.7",
+      "name": "Split Tunneling",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "SC.L2-3.13.8",
+      "nist_id": "3.13.8",
+      "name": "Data in Transit",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 3,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "SC.L2-3.13.9",
+      "nist_id": "3.13.9",
+      "name": "Connections Termination",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "SC.L2-3.13.10",
+      "nist_id": "3.13.10",
+      "name": "Key Management",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "SC.L2-3.13.11",
+      "nist_id": "3.13.11",
+      "name": "CUI Encryption",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 3,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "SC.L2-3.13.12",
+      "nist_id": "3.13.12",
+      "name": "Collaborative Device Control",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "SC.L2-3.13.13",
+      "nist_id": "3.13.13",
+      "name": "Mobile Code",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "SC.L2-3.13.14",
+      "nist_id": "3.13.14",
+      "name": "Voice over Internet Protocol",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "SC.L2-3.13.15",
+      "nist_id": "3.13.15",
+      "name": "Communications Authenticity",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "SC.L2-3.13.16",
+      "nist_id": "3.13.16",
+      "name": "Data at Rest",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 1,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "SI.L2-3.14.1",
+      "nist_id": "3.14.1",
+      "name": "Flaw Remediation",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "SI.L2-3.14.2",
+      "nist_id": "3.14.2",
+      "name": "Malicious Code Protection",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "SI.L2-3.14.3",
+      "nist_id": "3.14.3",
+      "name": "Security Alerts & Advisories",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "SI.L2-3.14.4",
+      "nist_id": "3.14.4",
+      "name": "Update Malicious Code Protection",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "SI.L2-3.14.5",
+      "nist_id": "3.14.5",
+      "name": "System & File Scanning",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 3,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "SI.L2-3.14.6",
+      "nist_id": "3.14.6",
+      "name": "Monitor Communications for Attacks",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 5,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    },
+    {
+      "requirement_id": "SI.L2-3.14.7",
+      "nist_id": "3.14.7",
+      "name": "Identify Unauthorized Use",
+      "conformity": "met",
+      "sprs_assessment_status": "MET",
+      "sprs_value": 3,
+      "sprs_partial_value": 0,
+      "points_deducted": 0
+    }
+  ],
+  "sprs_submission": {
+    "score": 92,
+    "date": "2026-06-15",
+    "submitted_by": "Sam Patel",
+    "notes": "Pre-assessment self-score; dashboard computed score reflects open gaps"
+  },
+  "submission_notes": "Import this scoresheet into your SPRS workflow. SPRS portal entry is manual; retain this file as the reproducible basis of the submitted score per references/grc/continuous-monitoring.md."
+}

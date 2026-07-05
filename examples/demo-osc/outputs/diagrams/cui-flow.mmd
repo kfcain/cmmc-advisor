@@ -1,0 +1,17 @@
+flowchart LR
+  subgraph enclave["EDS CUI Enclave [CMMC scope]"]
+    laptops("ENG laptops (12, Intune)<br/><i>CUI asset</i>")
+  end
+  subgraph gcch["Microsoft GCC High / Azure Gov"]
+    m365[("GCC High tenant (EXO/SPO/Teams)<br/><i>CUI asset</i>")]
+    fileproj[("Project file service (Azure Gov)<br/><i>CUI asset</i>")]
+    sentinel("Microsoft Sentinel<br/><i>Security Protection</i>")
+  end
+  subgraph ext["External"]
+    prime["Prime contractor<br/><i>Out of scope</i>"]
+  end
+  prime ==>|"CUI: encrypted email/SPO share"| m365
+  laptops <==>|"CUI: HTTPS 443"| m365
+  laptops ==>|"CUI: SMB over P2S VPN"| fileproj
+  laptops -->|"SPD: AMA agent logs"| sentinel
+  m365 -->|"SPD: audit log connector"| sentinel

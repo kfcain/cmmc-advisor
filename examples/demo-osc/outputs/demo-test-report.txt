@@ -1,0 +1,303 @@
+# Atlas Precision Manufacturing — Demo OSC Test Report
+Generated: 2026-07-05
+
+## dashboard
+command: /usr/bin/python3 scripts/generate_dashboard.py /workspace/examples/demo-osc/program-data.yaml -o /workspace/examples/demo-osc/outputs/dashboard.html
+exit: 0
+wrote /workspace/examples/demo-osc/outputs/dashboard.html (310105 bytes, self-contained)
+
+## ssp
+command: /usr/bin/python3 scripts/generate_ssp.py /workspace/examples/demo-osc/program-data.yaml -o /workspace/examples/demo-osc/outputs/ssp.md
+exit: 0
+wrote /workspace/examples/demo-osc/outputs/ssp.md (110 requirements, 320 assessment objectives)
+
+## diagrams
+command: /usr/bin/python3 scripts/generate_diagrams.py /workspace/examples/demo-osc/program-data.yaml -o /workspace/examples/demo-osc/outputs/diagrams
+exit: 0
+wrote /workspace/examples/demo-osc/outputs/diagrams/network.svg and .mmd
+wrote /workspace/examples/demo-osc/outputs/diagrams/cui-flow.svg and .mmd
+Embed the SVGs in the SSP (Figures: network diagram, CUI flow diagram) and keep them synchronized with the asset inventory and boundary prose.
+
+## trust-center
+command: /usr/bin/python3 scripts/generate_trust_center.py /workspace/examples/demo-osc/program-data.yaml -o /workspace/examples/demo-osc/outputs/trust-center.html
+exit: 0
+Wrote /workspace/examples/demo-osc/outputs/trust-center.html (public trust center for Atlas Precision Manufacturing LLC)
+
+## executive-brief
+command: /usr/bin/python3 scripts/generate_executive_brief.py /workspace/examples/demo-osc/program-data.yaml -o /workspace/examples/demo-osc/outputs/executive-brief.html
+exit: 0
+wrote /workspace/examples/demo-osc/outputs/executive-brief.html
+
+## oscal
+command: /usr/bin/python3 scripts/generate_oscal_ssp.py /workspace/examples/demo-osc/program-data.yaml -o /workspace/examples/demo-osc/outputs/oscal-ssp.json
+exit: 0
+Wrote /workspace/examples/demo-osc/outputs/oscal-ssp.json (127 implemented 800-53 controls, 2 components)
+
+## sprs-json
+command: /usr/bin/python3 scripts/export_sprs.py /workspace/examples/demo-osc/program-data.yaml -o /workspace/examples/demo-osc/outputs/sprs.json
+exit: 0
+wrote /workspace/examples/demo-osc/outputs/sprs.json (summary score 96)
+sprs_submission delta vs export: +4 (last submitted 92)
+
+## sprs-csv
+command: /usr/bin/python3 scripts/export_sprs.py /workspace/examples/demo-osc/program-data.yaml --csv /workspace/examples/demo-osc/outputs/sprs.csv
+exit: 0
+wrote exports/sprs-scoresheet.json (summary score 96)
+sprs_submission delta vs export: +4 (last submitted 92)
+wrote /workspace/examples/demo-osc/outputs/sprs.csv
+
+## mock-ia
+command: /usr/bin/python3 scripts/generate_mock_assessment.py /workspace/examples/demo-osc/program-data.yaml --family IA -o /workspace/examples/demo-osc/outputs/mock-assessment-ia --format markdown
+exit: 0
+wrote /workspace/examples/demo-osc/outputs/mock-assessment-ia/mock-assessment.md
+mock assessment pack: 1 families, 11 requirements
+
+## raci
+command: /usr/bin/python3 scripts/generate_responsibility_matrix.py /workspace/examples/demo-osc/program-data.yaml -o /workspace/examples/demo-osc/outputs/responsibility-matrix --format markdown
+exit: 0
+wrote /workspace/examples/demo-osc/outputs/responsibility-matrix/responsibility-matrix.md
+entries: 3
+
+## recommend
+command: /usr/bin/python3 scripts/recommend_solutions.py /workspace/examples/demo-osc/program-data.yaml -o /workspace/examples/demo-osc/outputs/recommend-solutions.md --format md
+exit: 0
+wrote /workspace/examples/demo-osc/outputs/recommend-solutions.md
+
+## controlbot-profile
+command: /usr/bin/python3 scripts/export_controlbot_profile.py /workspace/examples/demo-osc/program-data.yaml -o /workspace/examples/demo-osc/outputs/controlbot-profile.yaml
+exit: 0
+wrote /workspace/examples/demo-osc/outputs/controlbot-profile.yaml (6 inherited controls)
+
+## collect-dry
+command: /usr/bin/python3 scripts/collect_evidence.py /workspace/examples/demo-osc/program-data.yaml --dry-run --evidence-root /workspace/examples/demo-osc/evidence
+exit: 0
+collector entra-signins: 3 artifacts
+collector entra-conditional-access: 2 artifacts
+collector intune-compliance: 3 artifacts
+collector defender-endpoint: 3 artifacts
+collector sentinel-health: 3 artifacts
+collector aws-config-compliance: 3 artifacts
+collector aws-cloudtrail: 2 artifacts
+collector aws-security-hub: 2 artifacts
+collector gcp-scc-findings: 2 artifacts
+collector crowdstrike-hosts: 2 artifacts
+collector zscaler-policy: 2 artifacts
+collector prisma-access-rules: 2 artifacts
+collector duo-auth-logs: 2 artifacts
+collector splunk-ingest-health: 2 artifacts
+collector fortinet-firewall: 3 artifacts
+collector palo-alto-ngfw-onprem: 3 artifacts
+collector wlan-controller: 3 artifacts
+collector physical-access-pacs: 3 artifacts
+updated /workspace/examples/demo-osc/program-data.yaml
+wrote /workspace/examples/demo-osc/evidence/collect-run.json
+
+## validate-poam
+exit: 1
+{
+  "level": "2",
+  "path": "c3pao",
+  "closeout_actor": "authorized or accredited C3PAO",
+  "conditional_status_date": null,
+  "closeout_deadline": null,
+  "days_until_closeout": null,
+  "computed_sprs_score": 96,
+  "ssp_missing": false,
+  "poam_item_count": 4,
+  "eligible_poam_count": 0,
+  "rulings": [
+    {
+      "requirement_id": "AC.L2-3.1.22",
+      "eligible": false,
+      "reasons": [
+        "AC.L2-3.1.22 (Control Public Information) is never POA&M-eligible at Level 2."
+      ],
+      "rule_refs": [
+        "32 CFR 170.21(a)(2)(iii)"
+      ],
+      "conformity": "not-met",
+      "sprs_value": 1,
+      "poam": {
+        "priority": "Medium",
+        "description": "Close gap on AC.L2-3.1.22 before C3PAO assessment",
+        "opened": "2026-06-01",
+        "due": "2026-09-30",
+        "owner": "Sam Patel",
+        "status": "open",
+        "actions": [
+          "Document control",
+          "Collect assessor evidence",
+          "Update conformity"
+        ]
+      }
+    },
+    {
+      "requirement_id": "AU.L2-3.3.5",
+      "eligible": false,
+      "reasons": [
+        "Practice carries 5 SPRS points; only 1-point practices may defer via POA&M."
+      ],
+      "rule_refs": [
+        "32 CFR 170.21(a)(2)(ii)"
+      ],
+      "conformity": "not-met",
+      "sprs_value": 5,
+      "poam": {
+        "priority": "High",
+        "description": "Implement Sentinel analytics rules and weekly correlated review for enclave audit records",
+        "opened": "2026-06-22",
+        "due": "2026-09-15",
+        "owner": "Sam Patel",
+        "status": "in-progress",
+        "actions": [
+          "Deploy Microsoft Sentinel analytics rules for the enclave workspace",
+          "Stand up weekly audit review runbook with sign-off log",
+          "Backfill 90 days of review evidence before assessment"
+        ]
+      }
+    },
+    {
+      "requirement_id": "CM.L2-3.4.7",
+      "eligible": false,
+      "reasons": [
+        "Practice carries 5 SPRS points; only 1-point practices may defer via POA&M."
+      ],
+      "rule_refs": [
+        "32 CFR 170.21(a)(2)(ii)"
+      ],
+      "conformity": "not-met",
+      "sprs_value": 5,
+      "poam": {
+        "priority": "Medium",
+        "description": "Close gap on CM.L2-3.4.7 before C3PAO assessment",
+        "opened": "2026-06-01",
+        "due": "2026-09-30",
+        "owner": "Sam Patel",
+        "status": "open",
+        "actions": [
+          "Document control",
+          "Collect assessor evidence",
+          "Update conformity"
+        ]
+      }
+    },
+    {
+      "requirement_id": "SC.L2-3.13.1",
+      "eligible": false,
+      "reasons": [
+        "Practice carries 5 SPRS points; only 1-point practices may defer via POA&M.",
+        "Conformity is met; POA&M is for open gaps, not satisfied practices."
+      ],
+      "rule_refs": [
+        "32 CFR 170.21(a)(2)(ii)"
+      ],
+      "conformity": "met",
+      "sprs_value": 5,
+      "poam": {
+        "priority": "High",
+        "description": "S3 bucket ACL allows public access [controlbot:checkov-ckv-aws-019-terraform-aws-s3-bucket-public-acl]",
+        "opened": "2026-07-04",
+        "due": "2026-08-03",
+        "owner": "TBD",
+        "status": "open",
+        "actions": [
+          "Block public ACLs and restrict bucket policy to the enclave VPC endpoints."
+        ]
+      }
+    }
+  ],
+  "issues": [
+    {
+      "type": "poam_ineligible",
+      "requirement_id": "AC.L2-3.1.22",
+      "message": "AC.L2-3.1.22 (Control Public Information) is never POA&M-eligible at Level 2.",
+      "rule_refs": [
+        "32 CFR 170.21(a)(2)(iii)"
+      ]
+    },
+    {
+      "type": "poam_ineligible",
+      "requirement_id": "AU.L2-3.3.5",
+      "message": "Practice carries 5 SPRS points; only 1-point practices may defer via POA&M.",
+      "rule_refs": [
+        "32 CFR 170.21(a)(2)(ii)"
+      ]
+    },
+    {
+      "type": "poam_ineligible",
+      "requirement_id": "CM.L2-3.4.7",
+      "message": "Practice carries 5 SPRS points; only 1-point practices may defer via POA&M.",
+      "rule_refs": [
+        "32 CFR 170.21(a)(2)(ii)"
+      ]
+    },
+    {
+      "type": "poam_ineligible",
+      "requirement_id": "SC.L2-3.13.1",
+      "message": "Practice carries 5 SPRS points; only 1-point practices may defer via POA&M.; Conformity is met; POA&M is for open gaps, not satisfied practices.",
+      "rule_refs": [
+        "32 CFR 170.21(a)(2)(ii)"
+      ]
+    }
+  ],
+  "warnings": [
+    {
+      "type": "conditional_date_missing",
+      "message": "Open POA&M items exist but conditional_status_date is unset; 180-day closeout clocks cannot be computed."
+    }
+  ],
+  "valid": false
+}
+
+## validate-assets
+exit: 0
+{
+  "assets_checked": 5,
+  "issues": [],
+  "warnings": [
+    {
+      "type": "baseline_profile_missing",
+      "asset": "M365 GCC High tenant (Exchange, SharePoint, Teams)",
+      "category": "cui",
+      "message": "No baseline_profile assigned; see references/modern-it/asset-baselines/"
+    },
+    {
+      "type": "baseline_profile_missing",
+      "asset": "ENG laptops (12, Intune-managed, BitLocker)",
+      "category": "cui",
+      "message": "No baseline_profile assigned; see references/modern-it/asset-baselines/"
+    },
+    {
+      "type": "baseline_profile_missing",
+      "asset": "Microsoft Sentinel (Azure Government)",
+      "category": "security-protection",
+      "message": "No baseline_profile assigned; see references/modern-it/asset-baselines/"
+    }
+  ],
+  "valid": true
+}
+
+## validate-evidence
+exit: 1
+wrote /workspace/examples/demo-osc/outputs/validate-evidence.json
+
+## discovery
+exit: 0
+Discovery report: OK
+  Phases complete: 5/12
+    contracts-cui: complete
+    people: complete
+    locations: complete
+    platforms-tenants: complete
+    endpoints: complete
+    dev-ai: in-progress
+    physical-media: in-progress
+    esps-access-paths: in-progress
+    audit-siem: in-progress
+    data-flows: in-progress
+    backup-dr: in-progress
+  Untouched phases: specialized-ot
+  Q&A entries: 4
+  Open questions: 2
+  Unretired assumptions: 1
+

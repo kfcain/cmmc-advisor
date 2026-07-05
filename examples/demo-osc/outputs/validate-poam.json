@@ -1,0 +1,154 @@
+{
+  "level": "2",
+  "path": "c3pao",
+  "closeout_actor": "authorized or accredited C3PAO",
+  "conditional_status_date": null,
+  "closeout_deadline": null,
+  "days_until_closeout": null,
+  "computed_sprs_score": 96,
+  "ssp_missing": false,
+  "poam_item_count": 4,
+  "eligible_poam_count": 0,
+  "rulings": [
+    {
+      "requirement_id": "AC.L2-3.1.22",
+      "eligible": false,
+      "reasons": [
+        "AC.L2-3.1.22 (Control Public Information) is never POA&M-eligible at Level 2."
+      ],
+      "rule_refs": [
+        "32 CFR 170.21(a)(2)(iii)"
+      ],
+      "conformity": "not-met",
+      "sprs_value": 1,
+      "poam": {
+        "priority": "Medium",
+        "description": "Close gap on AC.L2-3.1.22 before C3PAO assessment",
+        "opened": "2026-06-01",
+        "due": "2026-09-30",
+        "owner": "Sam Patel",
+        "status": "open",
+        "actions": [
+          "Document control",
+          "Collect assessor evidence",
+          "Update conformity"
+        ]
+      }
+    },
+    {
+      "requirement_id": "AU.L2-3.3.5",
+      "eligible": false,
+      "reasons": [
+        "Practice carries 5 SPRS points; only 1-point practices may defer via POA&M."
+      ],
+      "rule_refs": [
+        "32 CFR 170.21(a)(2)(ii)"
+      ],
+      "conformity": "not-met",
+      "sprs_value": 5,
+      "poam": {
+        "priority": "High",
+        "description": "Implement Sentinel analytics rules and weekly correlated review for enclave audit records",
+        "opened": "2026-06-22",
+        "due": "2026-09-15",
+        "owner": "Sam Patel",
+        "status": "in-progress",
+        "actions": [
+          "Deploy Microsoft Sentinel analytics rules for the enclave workspace",
+          "Stand up weekly audit review runbook with sign-off log",
+          "Backfill 90 days of review evidence before assessment"
+        ]
+      }
+    },
+    {
+      "requirement_id": "CM.L2-3.4.7",
+      "eligible": false,
+      "reasons": [
+        "Practice carries 5 SPRS points; only 1-point practices may defer via POA&M."
+      ],
+      "rule_refs": [
+        "32 CFR 170.21(a)(2)(ii)"
+      ],
+      "conformity": "not-met",
+      "sprs_value": 5,
+      "poam": {
+        "priority": "Medium",
+        "description": "Close gap on CM.L2-3.4.7 before C3PAO assessment",
+        "opened": "2026-06-01",
+        "due": "2026-09-30",
+        "owner": "Sam Patel",
+        "status": "open",
+        "actions": [
+          "Document control",
+          "Collect assessor evidence",
+          "Update conformity"
+        ]
+      }
+    },
+    {
+      "requirement_id": "SC.L2-3.13.1",
+      "eligible": false,
+      "reasons": [
+        "Practice carries 5 SPRS points; only 1-point practices may defer via POA&M.",
+        "Conformity is met; POA&M is for open gaps, not satisfied practices."
+      ],
+      "rule_refs": [
+        "32 CFR 170.21(a)(2)(ii)"
+      ],
+      "conformity": "met",
+      "sprs_value": 5,
+      "poam": {
+        "priority": "High",
+        "description": "S3 bucket ACL allows public access [controlbot:checkov-ckv-aws-019-terraform-aws-s3-bucket-public-acl]",
+        "opened": "2026-07-04",
+        "due": "2026-08-03",
+        "owner": "TBD",
+        "status": "open",
+        "actions": [
+          "Block public ACLs and restrict bucket policy to the enclave VPC endpoints."
+        ]
+      }
+    }
+  ],
+  "issues": [
+    {
+      "type": "poam_ineligible",
+      "requirement_id": "AC.L2-3.1.22",
+      "message": "AC.L2-3.1.22 (Control Public Information) is never POA&M-eligible at Level 2.",
+      "rule_refs": [
+        "32 CFR 170.21(a)(2)(iii)"
+      ]
+    },
+    {
+      "type": "poam_ineligible",
+      "requirement_id": "AU.L2-3.3.5",
+      "message": "Practice carries 5 SPRS points; only 1-point practices may defer via POA&M.",
+      "rule_refs": [
+        "32 CFR 170.21(a)(2)(ii)"
+      ]
+    },
+    {
+      "type": "poam_ineligible",
+      "requirement_id": "CM.L2-3.4.7",
+      "message": "Practice carries 5 SPRS points; only 1-point practices may defer via POA&M.",
+      "rule_refs": [
+        "32 CFR 170.21(a)(2)(ii)"
+      ]
+    },
+    {
+      "type": "poam_ineligible",
+      "requirement_id": "SC.L2-3.13.1",
+      "message": "Practice carries 5 SPRS points; only 1-point practices may defer via POA&M.; Conformity is met; POA&M is for open gaps, not satisfied practices.",
+      "rule_refs": [
+        "32 CFR 170.21(a)(2)(ii)"
+      ]
+    }
+  ],
+  "warnings": [
+    {
+      "type": "conditional_date_missing",
+      "message": "Open POA&M items exist but conditional_status_date is unset; 180-day closeout clocks cannot be computed."
+    }
+  ],
+  "valid": false
+}

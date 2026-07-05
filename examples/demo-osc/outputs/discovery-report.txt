@@ -1,0 +1,17 @@
+Discovery report: OK
+  Phases complete: 5/12
+    contracts-cui: complete
+    people: complete
+    locations: complete
+    platforms-tenants: complete
+    endpoints: complete
+    dev-ai: in-progress
+    physical-media: in-progress
+    esps-access-paths: in-progress
+    audit-siem: in-progress
+    data-flows: in-progress
+    backup-dr: in-progress
+  Untouched phases: specialized-ot
+  Q&A entries: 4
+  Open questions: 2
+  Unretired assumptions: 1

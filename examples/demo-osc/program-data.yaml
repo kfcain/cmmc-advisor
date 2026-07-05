@@ -1,0 +1,4143 @@
+organization:
+  name: Atlas Precision Manufacturing LLC
+  system_name: APM GCC High CUI Enclave
+  cage_codes:
+  - 8XYZ9
+  revision: Rev 2
+  date: '2026-07-05'
+  scope_narrative: Atlas Precision Manufacturing (APM) machines vehicle components
+    for an Army prime. CUI (CTI and export-controlled drawings) is processed only
+    in a Microsoft 365 GCC High tenant, twelve Intune-managed Windows laptops, Azure
+    Government file services, and Microsoft Sentinel. Commercial M365, corporate HR/finance,
+    and IGEL thin-client VDI terminals are out of scope with documented separation.
+  roles:
+    system_owner:
+      name: Jordan Rivera
+      title: Director of Engineering
+      email: jrivera@atlasprecision.example
+    affirming_official:
+      name: Casey Morgan
+      title: CEO
+      email: cmorgan@atlasprecision.example
+      responsibilities:
+      - Affirm continuing compliance in SPRS
+    issm:
+      name: Sam Patel
+      title: ISSM / IT Security Lead
+      email: spatel@atlasprecision.example
+      responsibilities:
+      - Maintain SSP, POA&M, and program-data.yaml
+      - Run quarterly evidence collection and SPRS updates
+    engineer_lead:
+      name: Alex Kim
+      title: Cloud Engineering Lead
+      email: akim@atlasprecision.example
+      responsibilities:
+      - ControlBot profile and Terraform enclave IaC
+  purpose: Demo OSC for CMMC Advisor toolkit walkthrough
+  environment_narrative: 'Primary enclave: GCC High (Entra ID USGov, EXO/SPO/Teams),
+    Azure Government (Sentinel, project file share). Edge: FortiGate 100F. RMM: NinjaOne
+    for Government on CUI laptops only. Engineering uses Azure DevOps Government for
+    IaC; ControlBot gates Terraform PRs.'
+responsibility_matrix:
+  updated: '2026-07-01'
+  notes: Internal RACI; FedRAMP CRM rows live under inheritance_sources for GCC High
+  entries:
+  - scope: AC
+    scope_label: Access Control (family)
+    accountable: issm
+    responsible:
+    - issm
+    informed:
+    - affirming_official
+    evidence_owner: issm
+  - scope: PE
+    scope_label: Physical Protection (family)
+    accountable: issm
+    responsible:
+    - issm
+    - system_owner
+    evidence_owner: issm
+    notes: Badge exports via physical-access-pacs collector
+  - scope: SC.L2-3.13.11
+    scope_label: FIPS-validated cryptography
+    accountable: issm
+    responsible:
+    - issm
+    evidence_owner: issm
+    notes: Windows endpoints + FortiGate FIPS-cc; CMVP table in program data
+assessment:
+  level: '2'
+  path: c3pao
+  target_date: '2026-11-15'
+  c3pao: Demo C3PAO (placeholder)
+conditional_status_date: null
+sprs_submission:
+  score: 92
+  date: '2026-06-15'
+  submitted_by: Sam Patel
+  notes: Pre-assessment self-score; dashboard computed score reflects open gaps
+trust_center:
+  published: true
+  last_reviewed: '2026-07-01'
+  security_contact: security@example.com
+  disclaimer: 'This trust center summarizes security posture for customers and partners.
+    It is not a CMMC certificate, C3PAO assessment result, or FedRAMP authorization.
+
+    '
+  attestations:
+  - framework: CMMC
+    level: '2'
+    status: In progress
+    status_date: '2026-06-01'
+    affirmation_current: false
+  public_documents:
+  - title: Microsoft GCC High CRM (customer NDA)
+    type: vendor-crm
+    url: https://learn.microsoft.com/en-us/compliance/us-government/gov-cmmc
+    updated: '2026-03-01'
+assets:
+  cui:
+  - name: M365 GCC High tenant (Exchange, SharePoint, Teams)
+    vendor: Microsoft
+    description: CUI storage, processing, and transmission
+  - name: ENG laptops (12, Intune-managed, BitLocker)
+    description: CUI processing endpoints
+  security_protection:
+  - name: Microsoft Sentinel (Azure Government)
+    vendor: Microsoft
+    description: SIEM ingesting enclave logs
+  - name: FortiGate 100F enclave edge
+    vendor: Fortinet
+    location: Building A MDF
+    baseline_profile: network-firewall-onprem
+    baseline_validation:
+      validated: '2026-06-20'
+      fips_cc_mode: true
+      cmvp_certificate: see vendor datasheet for deployed firmware
+  - name: NinjaOne for Government (ENG CUI laptops only)
+    vendor: NinjaOne
+    description: FedRAMP Moderate RMM; segregated from MSP commercial tenants
+    baseline_profile: msp-rmm-platform
+    baseline_validation:
+      validated: '2026-07-01'
+      fedramp_package_id: FR2430847803
+      authorization: FedRAMP Moderate Rev5 Class C
+      cui_agents: 12
+      commercial_tenant_segregated: true
+  contractor_risk_managed:
+  - name: HP MFP Floor-2
+    location: Building A, adjacent to CUI floor
+    baseline_profile: printer-mfp
+    notes: Scan-to-email path unverified; CRMA claim rests on VLAN ACL plus no-CUI-print
+      policy
+    discovery_refs:
+    - QA-0002
+    - OQ-0001
+    baseline_validation:
+      validated: '2026-06-15'
+      controls:
+      - vlan_acl
+      - admin_mfa
+      - no_cui_print
+  out_of_scope:
+  - name: IGEL UD3 thin clients (8)
+    vendor: IGEL
+    description: VDI terminals; CUI session only in Azure Virtual Desktop
+    baseline_profile: vdi-thin-client-igel
+    baseline_validation:
+      validated: '2026-06-28'
+      checklist_id: igel-out-of-scope
+      clipboard_blocked: true
+      printing_blocked: true
+      usb_storage_blocked: true
+      no_local_cui_storage: true
+  specialized:
+  - name: CNC-07 controller
+    description: OT device on isolated VLAN, documented in SSP
+    baseline_profile: specialized-ot
+    baseline_validation:
+      validated: '2026-06-10'
+      notes: Isolated VLAN; no CUI storage on HMI
+diagrams:
+  network: outputs/diagrams/network.svg
+  cui_flow: outputs/diagrams/cui-flow.svg
+cmvp_certificates:
+- certificate: '4536'
+  vendor: Microsoft
+  module: Windows Cryptographic Primitives Library
+  standard: FIPS 140-3
+  status: Active
+  sunset: '2030-03-01'
+  security_policy: https://csrc.nist.gov/projects/cryptographic-module-validation-program
+topology:
+  zones:
+  - id: enclave
+    label: EDS CUI Enclave
+    kind: enclave
+    boundary: cmmc-scope
+  - id: gcch
+    label: Microsoft GCC High / Azure Gov
+    kind: csp
+    boundary: fedramp
+  - id: corp
+    label: Corporate IT (commercial M365)
+    kind: corporate
+    boundary: none
+  - id: ext
+    label: External
+    kind: external
+    boundary: none
+  nodes:
+  - id: laptops
+    label: ENG laptops (12, Intune)
+    zone: enclave
+    category: cui
+    role: process
+  - id: cnc
+    label: CNC-07 (isolated VLAN)
+    zone: enclave
+    category: specialized
+    role: process
+  - id: m365
+    label: GCC High tenant (EXO/SPO/Teams)
+    zone: gcch
+    category: cui
+    role: store
+  - id: fileproj
+    label: Project file service (Azure Gov)
+    zone: gcch
+    category: cui
+    role: store
+  - id: sentinel
+    label: Microsoft Sentinel
+    zone: gcch
+    category: security-protection
+    role: process
+  - id: corpmail
+    label: Corporate M365 (no CUI)
+    zone: corp
+    category: out-of-scope
+    role: process
+  - id: prime
+    label: Prime contractor
+    zone: ext
+    category: out-of-scope
+    role: entity
+  flows:
+  - from: prime
+    to: m365
+    data: cui
+    label: encrypted email/SPO share
+  - from: laptops
+    to: m365
+    data: cui
+    label: HTTPS 443
+    bidirectional: true
+  - from: laptops
+    to: fileproj
+    data: cui
+    label: SMB over P2S VPN
+  - from: laptops
+    to: sentinel
+    data: spd
+    label: AMA agent logs
+  - from: m365
+    to: sentinel
+    data: spd
+    label: audit log connector
+  - from: corpmail
+    to: laptops
+    data: other
+    label: calendar only
+    bidirectional: true
+policies:
+- id: pol-ac
+  title: Access Control and Identity Policy
+  version: '3.1'
+  owner: Sam Patel
+  reviewed: '2026-05-01'
+  location: policies/access-control-v3.1.pdf
+  procedures:
+  - procedures/access-request-procedure-v3.pdf
+  requirements:
+  - AC.L2-3.1.1
+  - AC.L2-3.1.2
+  - IA.L2-3.5.1
+  - IA.L2-3.5.2
+- id: pol-ir
+  title: Incident Response Policy
+  version: '2.0'
+  owner: Sam Patel
+  reviewed: '2025-04-15'
+  location: policies/incident-response-v2.pdf
+  requirements:
+  - IR.L2-3.6.1
+  - IR.L2-3.6.2
+inheritance_sources:
+- id: gcch
+  provider: Microsoft
+  cso: Microsoft 365 GCC High
+  fedramp_status: FedRAMP High (DISA IL5 PA)
+  crm_document: Microsoft 365 GCC High CIS/CRM Appendix J, 2026-03 edition
+  boe_reference: vendor-boe/microsoft/2026-03/
+  verified: '2026-06-15'
+discovery:
+  updated: '2026-07-02'
+  phases:
+    contracts-cui:
+      status: complete
+      last_touched: '2026-06-24'
+      summary: 'Two active DoD contracts with 252.204-7012 and 252.204-7021; CUI types
+        are CTI and export-controlled drawings. No DoD SAFE flows.
+
+        '
+    physical-media:
+      status: in-progress
+      last_touched: '2026-07-02'
+      summary: 'Print path mapped; scan-to-email path on the Floor-2 MFP still unverified.
+        Paper CUI handling and mail procedures not yet covered.
+
+        '
+    dev-ai:
+      status: in-progress
+      last_touched: '2026-07-03'
+      summary: 'Two engineers use Copilot on a commercial GitHub org; sanctioned-AI
+        decision not yet made. SSO catalog sweep found a personal ChatGPT Plus subscription
+        expensed in May.
+
+        '
+    audit-siem:
+      status: in-progress
+      last_touched: '2026-07-03'
+      summary: 'Sentinel is OSC-tenant (Azure Government) with documented log sources,
+        but the MSP''s NOC also receives NinjaOne alerts in their own console; that
+        path is not yet in the log-source inventory.
+
+        '
+    people:
+      status: complete
+      last_touched: '2026-07-05'
+      summary: 42 in-scope users; screening records in HRIS
+    locations:
+      status: complete
+      last_touched: '2026-07-05'
+      summary: Single HQ; CUI floor badge-controlled
+    platforms-tenants:
+      status: complete
+      last_touched: '2026-07-05'
+      summary: GCC High tenant isolated from commercial M365
+    endpoints:
+      status: complete
+      last_touched: '2026-07-05'
+      summary: 12 Intune laptops; AVD for remote engineers
+    data-flows:
+      status: in-progress
+      last_touched: '2026-07-05'
+      summary: DFD updated; MFP scan path still open
+    backup-dr:
+      status: in-progress
+      last_touched: '2026-07-05'
+      summary: Azure backup for file share; restore test due Q3
+    esps-access-paths:
+      status: in-progress
+      last_touched: '2026-07-05'
+      summary: MSP NinjaOne console path under review
+  qa_log:
+  - id: QA-0001
+    date: '2026-06-24'
+    phase: contracts-cui
+    question: Which contract clauses obligate CUI safeguarding, and what CUI types
+      flow under them?
+    answer: 'Both active contracts carry 252.204-7012 and 252.204-7021. CUI is CTI
+      plus export-controlled drawings received through GCC High email.
+
+      '
+    answered_by: Contracts manager
+    confidence: verified
+    affects:
+    - M365 GCC High tenant (Exchange, SharePoint, Teams)
+  - id: QA-0002
+    date: '2026-07-02'
+    phase: physical-media
+    question: Can the Floor-2 MFP scan to email, and if so, to which mail system?
+    answer: 'Scan-to-email is enabled. The relay target was not known in the session;
+      IT believes it points at the commercial smart host used before the GCC High
+      migration.
+
+      '
+    answered_by: IT lead
+    confidence: reported
+    affects:
+    - HP MFP Floor-2
+  - id: QA-0003
+    date: '2026-07-03'
+    phase: dev-ai
+    question: From an ENG CUI laptop, what technically stops a request to chatgpt.com?
+    answer: 'Defender for Cloud Apps blocks the generative-AI category on managed
+      devices; rule export produced. Off-network behavior not yet tested.
+
+      '
+    answered_by: Security engineer
+    confidence: verified
+    affects:
+    - ENG laptops (12, Intune-managed, BitLocker)
+  - id: QA-0004
+    date: '2026-07-03'
+    phase: audit-siem
+    question: Whose tenant is the SIEM, and which analysts can reach it?
+    answer: 'Microsoft Sentinel in the OSC''s own Azure Government subscription; two
+      named internal engineers have Log Analytics access. The MSP NOC sees NinjaOne
+      alerts in the MSP''s multi-tenant console, which is a second alert path outside
+      the documented log-source inventory.
+
+      '
+    answered_by: Security engineer
+    confidence: verified
+    affects:
+    - Microsoft Sentinel (Azure Government)
+    - NinjaOne for Government (ENG CUI laptops only)
+  assumptions:
+  - id: AS-0001
+    date: '2026-07-02'
+    statement: No CUI is scanned at the Floor-2 MFP because signage and policy prohibit
+      it.
+    basis: Policy statement only; no technical control on the scan path was described.
+    risk_if_wrong: 'An assessor treats policy-only separation as no separation; a
+      CUI scan through a commercial relay recategorizes the MFP as a CUI asset and
+      pulls its network segment into scope.
+
+      '
+    status: open
+  open_questions:
+  - id: OQ-0002
+    raised: '2026-07-03'
+    phase: audit-siem
+    question: Does the MSP NOC's NinjaOne alert console constitute a second, undocumented
+      monitoring path holding Security Protection Data?
+    why_it_matters: 'An alert path outside the log-source inventory is an unaudited
+      SPD flow into a multi-tenant provider console; an assessor follows it to the
+      MSP''s environment and the CRM.
+
+      '
+    owner: Security engineer
+    status: open
+  - id: OQ-0001
+    raised: '2026-07-02'
+    phase: physical-media
+    question: What SMTP relay does the Floor-2 MFP scan-to-email path use, and does
+      it transit a commercial mail system?
+    why_it_matters: 'A commercial relay in a CUI scan path is an unassessed CSP in
+      the data flow; the assessor follows the flow, not the policy.
+
+      '
+    owner: IT lead
+    status: open
+  decisions:
+  - id: DE-0001
+    date: '2026-06-24'
+    decision: Keep the IGEL thin clients out of scope on the KVM-only VDI pattern.
+    rationale: 'Clipboard, drive mapping, printing, and local storage are blocked
+      and validated per the vdi-thin-client-igel baseline checklist; revisit if any
+      redirection setting changes.
+
+      '
+    decided_by: ISSM
+requirements:
+  AC.L2-3.1.1:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Authorized users are identified in Entra ID Government. The engineering
+          security group ENG-CUI is the single authorization source for enclave access;
+          membership requires a signed access request approved by the system owner.
+
+          '
+        evidence:
+        - name: ENG-CUI group membership export
+          link: evidence/ac/3.1.1/group-export-2026-06.csv
+          collected: '2026-06-20'
+        - name: Access request procedure
+          link: evidence/ac/3.1.1/access-request-procedure-v3.pdf
+      d:
+        conformity: met
+        statement: 'Conditional Access policy CA-01 blocks all access to the tenant
+          except from compliant, Intune-enrolled devices by ENG-CUI members with phishing-resistant
+          MFA.
+
+          '
+        evidence:
+        - name: CA-01 policy export
+          link: evidence/ac/3.1.1/ca-01-export.json
+  AC.L2-3.1.2:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Transaction & Function Control objective a satisfied
+          via documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.2 [a]
+          link: evidence/demo/AC-L2-3-1-2-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+        - &id001
+          name: Conditional Access transaction controls
+          link: evidence/m365-gcch/ac/3.1.2/entra_conditional_access.json
+          collected: '2026-07-05'
+          collector: entra-conditional-access
+          source_system: Microsoft Entra Conditional Access
+          refresh_bucket: machine
+          sha256: bc1971f54dd54dc97bc133dc85937c8d3237bc0d8e1697ce40ea4545f3f69833
+      b:
+        conformity: met
+        statement: 'Demo OSC: Transaction & Function Control objective b satisfied
+          via documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.2 [b]
+          link: evidence/demo/AC-L2-3-1-2-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+        - *id001
+  AC.L2-3.1.3:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Control CUI Flow objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.3 [a]
+          link: evidence/demo/AC-L2-3-1-3-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+        - name: Bucket ACL or policy exposes object reads to the internet.
+          link: terraform/storage.tf:12
+          collected: '2026-07-04'
+          collector: controlbot-checkov-6e19b16a8055
+          source_system: ControlBot
+          refresh_bucket: machine
+        - name: Bucket policy allows public read access.
+          link: terraform/storage.tf:12
+          collected: '2026-07-04'
+          collector: controlbot-terraform-316462f1fc64
+          source_system: ControlBot
+          refresh_bucket: machine
+      b:
+        conformity: met
+        statement: 'Demo OSC: Control CUI Flow objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.3 [b]
+          link: evidence/demo/AC-L2-3-1-3-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+        - &id002
+          name: ZIA URL filtering policy export
+          link: evidence/zscaler/ac/3.1.3/zscaler_policy.json
+          collected: '2026-07-05'
+          collector: zscaler-policy
+          source_system: Zscaler Internet Access
+          refresh_bucket: machine
+          sha256: d6eb4b453b7af1787e3a1332c6cdc12fe16317ebd4c4921ed9baf23c149e142b
+        - &id003
+          name: PAN-OS application control policy sample
+          link: evidence/onprem-network/ac/3.1.3/palo_alto_ngfw_onprem.json
+          collected: '2026-07-05'
+          collector: palo-alto-ngfw-onprem
+          source_system: Palo Alto PAN-OS (on-premises)
+          refresh_bucket: machine
+          sha256: 5876dbf3644bc6ec7b3fadea87756ca0c3f6e06b32d80fcc1f9fa141a53cac3d
+      c:
+        conformity: met
+        statement: 'Demo OSC: Control CUI Flow objective c satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.3 [c]
+          link: evidence/demo/AC-L2-3-1-3-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      d:
+        conformity: met
+        statement: 'Demo OSC: Control CUI Flow objective d satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.3 [d]
+          link: evidence/demo/AC-L2-3-1-3-d.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      e:
+        conformity: met
+        statement: 'Demo OSC: Control CUI Flow objective e satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.3 [e]
+          link: evidence/demo/AC-L2-3-1-3-e.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+        - *id002
+        - *id003
+  AC.L2-3.1.4:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Separation of Duties objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.4 [a]
+          link: evidence/demo/AC-L2-3-1-4-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Separation of Duties objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.4 [b]
+          link: evidence/demo/AC-L2-3-1-4-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      c:
+        conformity: met
+        statement: 'Demo OSC: Separation of Duties objective c satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.4 [c]
+          link: evidence/demo/AC-L2-3-1-4-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  AC.L2-3.1.5:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Least Privilege objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.5 [a]
+          link: evidence/demo/AC-L2-3-1-5-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Least Privilege objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.5 [b]
+          link: evidence/demo/AC-L2-3-1-5-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      c:
+        conformity: met
+        statement: 'Demo OSC: Least Privilege objective c satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.5 [c]
+          link: evidence/demo/AC-L2-3-1-5-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      d:
+        conformity: met
+        statement: 'Demo OSC: Least Privilege objective d satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.5 [d]
+          link: evidence/demo/AC-L2-3-1-5-d.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  AC.L2-3.1.6:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Non-Privileged Account Use objective a satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.6 [a]
+          link: evidence/demo/AC-L2-3-1-6-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Non-Privileged Account Use objective b satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.6 [b]
+          link: evidence/demo/AC-L2-3-1-6-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  AC.L2-3.1.7:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Privileged Functions objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.7 [a]
+          link: evidence/demo/AC-L2-3-1-7-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Privileged Functions objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.7 [b]
+          link: evidence/demo/AC-L2-3-1-7-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      c:
+        conformity: met
+        statement: 'Demo OSC: Privileged Functions objective c satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.7 [c]
+          link: evidence/demo/AC-L2-3-1-7-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      d:
+        conformity: met
+        statement: 'Demo OSC: Privileged Functions objective d satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.7 [d]
+          link: evidence/demo/AC-L2-3-1-7-d.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  AC.L2-3.1.8:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Unsuccessful Logon Attempts objective a satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.8 [a]
+          link: evidence/demo/AC-L2-3-1-8-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Unsuccessful Logon Attempts objective b satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.8 [b]
+          link: evidence/demo/AC-L2-3-1-8-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  AC.L2-3.1.9:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Privacy & Security Notices objective a satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.9 [a]
+          link: evidence/demo/AC-L2-3-1-9-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Privacy & Security Notices objective b satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.9 [b]
+          link: evidence/demo/AC-L2-3-1-9-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  AC.L2-3.1.10:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Session Lock objective a satisfied via documented enclave
+          controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.10 [a]
+          link: evidence/demo/AC-L2-3-1-10-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Session Lock objective b satisfied via documented enclave
+          controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.10 [b]
+          link: evidence/demo/AC-L2-3-1-10-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      c:
+        conformity: met
+        statement: 'Demo OSC: Session Lock objective c satisfied via documented enclave
+          controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.10 [c]
+          link: evidence/demo/AC-L2-3-1-10-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  AC.L2-3.1.11:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Session Termination objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.11 [a]
+          link: evidence/demo/AC-L2-3-1-11-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Session Termination objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.11 [b]
+          link: evidence/demo/AC-L2-3-1-11-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  AC.L2-3.1.12:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Control Remote Access objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.12 [a]
+          link: evidence/demo/AC-L2-3-1-12-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Control Remote Access objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.12 [b]
+          link: evidence/demo/AC-L2-3-1-12-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      c:
+        conformity: met
+        statement: 'Demo OSC: Control Remote Access objective c satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.12 [c]
+          link: evidence/demo/AC-L2-3-1-12-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      d:
+        conformity: met
+        statement: 'Demo OSC: Control Remote Access objective d satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.12 [d]
+          link: evidence/demo/AC-L2-3-1-12-d.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  AC.L2-3.1.13:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Remote Access Confidentiality objective a satisfied
+          via documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.13 [a]
+          link: evidence/demo/AC-L2-3-1-13-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Remote Access Confidentiality objective b satisfied
+          via documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.13 [b]
+          link: evidence/demo/AC-L2-3-1-13-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  AC.L2-3.1.14:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Remote Access Routing objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.14 [a]
+          link: evidence/demo/AC-L2-3-1-14-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Remote Access Routing objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.14 [b]
+          link: evidence/demo/AC-L2-3-1-14-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  AC.L2-3.1.15:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Privileged Remote Access objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.15 [a]
+          link: evidence/demo/AC-L2-3-1-15-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Privileged Remote Access objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.15 [b]
+          link: evidence/demo/AC-L2-3-1-15-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      c:
+        conformity: met
+        statement: 'Demo OSC: Privileged Remote Access objective c satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.15 [c]
+          link: evidence/demo/AC-L2-3-1-15-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      d:
+        conformity: met
+        statement: 'Demo OSC: Privileged Remote Access objective d satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.15 [d]
+          link: evidence/demo/AC-L2-3-1-15-d.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  AC.L2-3.1.16:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Wireless Access Authorization objective a satisfied
+          via documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.16 [a]
+          link: evidence/demo/AC-L2-3-1-16-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+        - &id004
+          name: Authorized SSID and AP inventory export
+          link: evidence/onprem-network/ac/3.1.16/wlan_controller.json
+          collected: '2026-07-05'
+          collector: wlan-controller
+          source_system: WLAN controller (on-premises)
+          refresh_bucket: machine
+          sha256: 0a173021059aab8cdb165383e65ade251420aa70a230ed84171ddb3877b8507f
+      b:
+        conformity: met
+        statement: 'Demo OSC: Wireless Access Authorization objective b satisfied
+          via documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.16 [b]
+          link: evidence/demo/AC-L2-3-1-16-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+        - *id004
+  AC.L2-3.1.17:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Wireless Access Protection objective a satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.17 [a]
+          link: evidence/demo/AC-L2-3-1-17-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+        - &id005
+          name: WPA-Enterprise / encryption profile export
+          link: evidence/onprem-network/ac/3.1.17/wlan_controller.json
+          collected: '2026-07-05'
+          collector: wlan-controller
+          source_system: WLAN controller (on-premises)
+          refresh_bucket: machine
+          sha256: 1894b458988807f26608dc76b19ec8755397b57bf774541264c02456518ef76e
+      b:
+        conformity: met
+        statement: 'Demo OSC: Wireless Access Protection objective b satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.17 [b]
+          link: evidence/demo/AC-L2-3-1-17-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+        - *id005
+  AC.L2-3.1.18:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Mobile Device Connection objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.18 [a]
+          link: evidence/demo/AC-L2-3-1-18-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+        - &id006
+          name: Intune managed device compliance export
+          link: evidence/m365-gcch/ac/3.1.18/intune_compliance.json
+          collected: '2026-07-05'
+          collector: intune-compliance
+          source_system: Microsoft Intune
+          refresh_bucket: machine
+          sha256: a70f3813d7b5d210f85db8529ee303cef9773d77f733034a1439d53e53983957
+      b:
+        conformity: met
+        statement: 'Demo OSC: Mobile Device Connection objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.18 [b]
+          link: evidence/demo/AC-L2-3-1-18-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+        - *id006
+      c:
+        conformity: met
+        statement: 'Demo OSC: Mobile Device Connection objective c satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.18 [c]
+          link: evidence/demo/AC-L2-3-1-18-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  AC.L2-3.1.19:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Encrypt CUI on Mobile objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.19 [a]
+          link: evidence/demo/AC-L2-3-1-19-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Encrypt CUI on Mobile objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.19 [b]
+          link: evidence/demo/AC-L2-3-1-19-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  AC.L2-3.1.20:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: External Connections objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.20 [a]
+          link: evidence/demo/AC-L2-3-1-20-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: External Connections objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.20 [b]
+          link: evidence/demo/AC-L2-3-1-20-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      c:
+        conformity: met
+        statement: 'Demo OSC: External Connections objective c satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.20 [c]
+          link: evidence/demo/AC-L2-3-1-20-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      d:
+        conformity: met
+        statement: 'Demo OSC: External Connections objective d satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.20 [d]
+          link: evidence/demo/AC-L2-3-1-20-d.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      e:
+        conformity: met
+        statement: 'Demo OSC: External Connections objective e satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.20 [e]
+          link: evidence/demo/AC-L2-3-1-20-e.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      f:
+        conformity: met
+        statement: 'Demo OSC: External Connections objective f satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.20 [f]
+          link: evidence/demo/AC-L2-3-1-20-f.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  AC.L2-3.1.21:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Portable Storage Use objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.21 [a]
+          link: evidence/demo/AC-L2-3-1-21-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Portable Storage Use objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.21 [b]
+          link: evidence/demo/AC-L2-3-1-21-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      c:
+        conformity: met
+        statement: 'Demo OSC: Portable Storage Use objective c satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.21 [c]
+          link: evidence/demo/AC-L2-3-1-21-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  AC.L2-3.1.22:
+    conformity: not-met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Control Public Information objective a satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.22 [a]
+          link: evidence/demo/AC-L2-3-1-22-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Control Public Information objective b satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.22 [b]
+          link: evidence/demo/AC-L2-3-1-22-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      c:
+        conformity: met
+        statement: 'Demo OSC: Control Public Information objective c satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.22 [c]
+          link: evidence/demo/AC-L2-3-1-22-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      d:
+        conformity: met
+        statement: 'Demo OSC: Control Public Information objective d satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.22 [d]
+          link: evidence/demo/AC-L2-3-1-22-d.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      e:
+        conformity: met
+        statement: 'Demo OSC: Control Public Information objective e satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AC.L2-3.1.22 [e]
+          link: evidence/demo/AC-L2-3-1-22-e.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+    poam:
+      priority: Medium
+      description: Close gap on AC.L2-3.1.22 before C3PAO assessment
+      opened: '2026-06-01'
+      due: '2026-09-30'
+      owner: Sam Patel
+      status: open
+      actions:
+      - Document control
+      - Collect assessor evidence
+      - Update conformity
+  AT.L2-3.2.1:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Role-Based Risk Awareness objective a satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AT.L2-3.2.1 [a]
+          link: evidence/demo/AT-L2-3-2-1-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Role-Based Risk Awareness objective b satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AT.L2-3.2.1 [b]
+          link: evidence/demo/AT-L2-3-2-1-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      c:
+        conformity: met
+        statement: 'Demo OSC: Role-Based Risk Awareness objective c satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AT.L2-3.2.1 [c]
+          link: evidence/demo/AT-L2-3-2-1-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      d:
+        conformity: met
+        statement: 'Demo OSC: Role-Based Risk Awareness objective d satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AT.L2-3.2.1 [d]
+          link: evidence/demo/AT-L2-3-2-1-d.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  AT.L2-3.2.2:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Role-Based Training objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AT.L2-3.2.2 [a]
+          link: evidence/demo/AT-L2-3-2-2-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Role-Based Training objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AT.L2-3.2.2 [b]
+          link: evidence/demo/AT-L2-3-2-2-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      c:
+        conformity: met
+        statement: 'Demo OSC: Role-Based Training objective c satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AT.L2-3.2.2 [c]
+          link: evidence/demo/AT-L2-3-2-2-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  AT.L2-3.2.3:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Insider Threat Awareness objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AT.L2-3.2.3 [a]
+          link: evidence/demo/AT-L2-3-2-3-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Insider Threat Awareness objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AT.L2-3.2.3 [b]
+          link: evidence/demo/AT-L2-3-2-3-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  AU.L2-3.3.1:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: System Auditing objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AU.L2-3.3.1 [a]
+          link: evidence/demo/AU-L2-3-3-1-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+        - &id007
+          name: Sentinel connector health
+          link: evidence/azure-sentinel-gov/au/3.3.1/sentinel_health.json
+          collected: '2026-07-05'
+          collector: sentinel-health
+          source_system: Microsoft Sentinel
+          refresh_bucket: machine
+          sha256: c8bac4d42b108591a12579c49c9351f9ecb797a5ec8d6680349f30518fa9f07d
+        - &id008
+          name: Splunk source/input health
+          link: evidence/splunk/au/3.3.1/splunk_ingest_health.json
+          collected: '2026-07-05'
+          collector: splunk-ingest-health
+          source_system: Splunk Enterprise
+          refresh_bucket: machine
+          sha256: 3eb8459352e25bb2bf941272df6bfd5abd2769fb78c712af951f5016c81a9a3f
+      b:
+        conformity: met
+        statement: 'Demo OSC: System Auditing objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AU.L2-3.3.1 [b]
+          link: evidence/demo/AU-L2-3-3-1-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+        - *id007
+        - *id008
+      c:
+        conformity: met
+        statement: 'Demo OSC: System Auditing objective c satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AU.L2-3.3.1 [c]
+          link: evidence/demo/AU-L2-3-3-1-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+        - &id009
+          name: Entra sign-in audit creation sample
+          link: evidence/m365-gcch/au/3.3.1/entra_signins.json
+          collected: '2026-07-05'
+          collector: entra-signins
+          source_system: Microsoft Entra ID (GCC High)
+          refresh_bucket: machine
+          sha256: 01bf2c0529e7576ef99145aebdccfee154c3134d0f443228fafe71e3050679b2
+        - name: MDE security event sample
+          link: evidence/m365-defender-gcch/au/3.3.1/defender_endpoint.json
+          collected: '2026-07-05'
+          collector: defender-endpoint
+          source_system: Microsoft Defender for Endpoint
+          refresh_bucket: machine
+          sha256: e3b1876e0537cbc06f223fa18e47d1ac3635152096b7ea4a8250e71e8fd72768
+        - &id010
+          name: CloudTrail privileged action sample
+          link: evidence/aws-govcloud/au/3.3.1/aws_cloudtrail.json
+          collected: '2026-07-05'
+          collector: aws-cloudtrail
+          source_system: AWS CloudTrail
+          refresh_bucket: machine
+          sha256: ff739eefcfc24891230f53ef0dd4f81f7f2cb1da6d83613cbcf6b5f72966621c
+      d:
+        conformity: met
+        statement: 'Demo OSC: System Auditing objective d satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AU.L2-3.3.1 [d]
+          link: evidence/demo/AU-L2-3-3-1-d.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+        - *id009
+        - *id010
+      e:
+        conformity: met
+        statement: 'Demo OSC: System Auditing objective e satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AU.L2-3.3.1 [e]
+          link: evidence/demo/AU-L2-3-3-1-e.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      f:
+        conformity: met
+        statement: 'Demo OSC: System Auditing objective f satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AU.L2-3.3.1 [f]
+          link: evidence/demo/AU-L2-3-3-1-f.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  AU.L2-3.3.2:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: User Accountability objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AU.L2-3.3.2 [a]
+          link: evidence/demo/AU-L2-3-3-2-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+        - &id011
+          name: Entra sign-in user traceability sample
+          link: evidence/m365-gcch/au/3.3.2/entra_signins.json
+          collected: '2026-07-05'
+          collector: entra-signins
+          source_system: Microsoft Entra ID (GCC High)
+          refresh_bucket: machine
+          sha256: e602506b21ec59c800b7324cdfcc858565c1c13d745a8f5e96c547c9fae19616
+        - &id012
+          name: CloudTrail user traceability sample
+          link: evidence/aws-govcloud/au/3.3.2/aws_cloudtrail.json
+          collected: '2026-07-05'
+          collector: aws-cloudtrail
+          source_system: AWS CloudTrail
+          refresh_bucket: machine
+          sha256: d0f76a7c21f17f6b078269defa3f04c36cf1091a154fa2de1ff97e01e8e00da0
+      b:
+        conformity: met
+        statement: 'Demo OSC: User Accountability objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AU.L2-3.3.2 [b]
+          link: evidence/demo/AU-L2-3-3-2-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+        - *id011
+        - *id012
+  AU.L2-3.3.3:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Event Review objective a satisfied via documented enclave
+          controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AU.L2-3.3.3 [a]
+          link: evidence/demo/AU-L2-3-3-3-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Event Review objective b satisfied via documented enclave
+          controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AU.L2-3.3.3 [b]
+          link: evidence/demo/AU-L2-3-3-3-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      c:
+        conformity: met
+        statement: 'Demo OSC: Event Review objective c satisfied via documented enclave
+          controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AU.L2-3.3.3 [c]
+          link: evidence/demo/AU-L2-3-3-3-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  AU.L2-3.3.4:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Audit Failure Alerting objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AU.L2-3.3.4 [a]
+          link: evidence/demo/AU-L2-3-3-4-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Audit Failure Alerting objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AU.L2-3.3.4 [b]
+          link: evidence/demo/AU-L2-3-3-4-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      c:
+        conformity: met
+        statement: 'Demo OSC: Audit Failure Alerting objective c satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AU.L2-3.3.4 [c]
+          link: evidence/demo/AU-L2-3-3-4-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  AU.L2-3.3.5:
+    conformity: not-met
+    objectives:
+      a:
+        conformity: not-met
+        statement: 'Audit record review processes are not yet correlated across sources.
+          Sentinel collects enclave logs but correlation rules and the weekly review
+          runbook are not implemented.
+
+          '
+        evidence:
+        - &id013
+          name: Sentinel correlation rules export
+          link: evidence/azure-sentinel-gov/au/3.3.5/sentinel_health.json
+          collected: '2026-07-05'
+          collector: sentinel-health
+          source_system: Microsoft Sentinel
+          refresh_bucket: machine
+          sha256: 9085f9f915ff651aeaa51aa5b7f400d5257db4ce30872ea169a4a2dd15aa1988
+        - &id014
+          name: Splunk correlated search export
+          link: evidence/splunk/au/3.3.5/splunk_ingest_health.json
+          collected: '2026-07-05'
+          collector: splunk-ingest-health
+          source_system: Splunk Enterprise
+          refresh_bucket: machine
+          sha256: 9fb5740449d347a687d129f7b2778e00c3b1b5a22a7a7799c18f2f6a0509f8a2
+      b:
+        evidence:
+        - *id013
+        - *id014
+    poam:
+      priority: High
+      description: Implement Sentinel analytics rules and weekly correlated review
+        for enclave audit records
+      opened: '2026-06-22'
+      due: '2026-09-15'
+      owner: Sam Patel
+      status: in-progress
+      actions:
+      - Deploy Microsoft Sentinel analytics rules for the enclave workspace
+      - Stand up weekly audit review runbook with sign-off log
+      - Backfill 90 days of review evidence before assessment
+    remediation_plan: 'Sentinel workspace exists and ingests all enclave sources.
+      Remaining work is detection content and the operating rhythm. Note: AU.L2-3.3.5
+      carries 5 SPRS points and is not POA&M-eligible under 32 CFR 170.21(a)(2)(ii);
+      close this gap before assessment or accept the score deduction.
+
+      '
+  AU.L2-3.3.6:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Reduction & Reporting objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AU.L2-3.3.6 [a]
+          link: evidence/demo/AU-L2-3-3-6-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Reduction & Reporting objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AU.L2-3.3.6 [b]
+          link: evidence/demo/AU-L2-3-3-6-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  AU.L2-3.3.7:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Authoritative Time Source objective a satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AU.L2-3.3.7 [a]
+          link: evidence/demo/AU-L2-3-3-7-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Authoritative Time Source objective b satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AU.L2-3.3.7 [b]
+          link: evidence/demo/AU-L2-3-3-7-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      c:
+        conformity: met
+        statement: 'Demo OSC: Authoritative Time Source objective c satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AU.L2-3.3.7 [c]
+          link: evidence/demo/AU-L2-3-3-7-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  AU.L2-3.3.8:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Audit Protection objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AU.L2-3.3.8 [a]
+          link: evidence/demo/AU-L2-3-3-8-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Audit Protection objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AU.L2-3.3.8 [b]
+          link: evidence/demo/AU-L2-3-3-8-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      c:
+        conformity: met
+        statement: 'Demo OSC: Audit Protection objective c satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AU.L2-3.3.8 [c]
+          link: evidence/demo/AU-L2-3-3-8-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      d:
+        conformity: met
+        statement: 'Demo OSC: Audit Protection objective d satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AU.L2-3.3.8 [d]
+          link: evidence/demo/AU-L2-3-3-8-d.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      e:
+        conformity: met
+        statement: 'Demo OSC: Audit Protection objective e satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AU.L2-3.3.8 [e]
+          link: evidence/demo/AU-L2-3-3-8-e.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      f:
+        conformity: met
+        statement: 'Demo OSC: Audit Protection objective f satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AU.L2-3.3.8 [f]
+          link: evidence/demo/AU-L2-3-3-8-f.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  AU.L2-3.3.9:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Audit Management objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AU.L2-3.3.9 [a]
+          link: evidence/demo/AU-L2-3-3-9-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Audit Management objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — AU.L2-3.3.9 [b]
+          link: evidence/demo/AU-L2-3-3-9-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  CM.L2-3.4.1:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: System Baselining objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.1 [a]
+          link: evidence/demo/CM-L2-3-4-1-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+        - name: Terraform declares aws_s3_bucket.cui_exports.
+          link: terraform/storage.tf:12
+          collected: '2026-07-04'
+          collector: controlbot-terraform-eda740cea425
+          source_system: ControlBot
+          refresh_bucket: machine
+        - &id015
+          name: Intune baseline compliance report
+          link: evidence/m365-gcch/cm/3.4.1/intune_compliance.json
+          collected: '2026-07-05'
+          collector: intune-compliance
+          source_system: Microsoft Intune
+          refresh_bucket: machine
+          sha256: c364b0eca0260ca97cadbc7c54c6525be38af73eb0c60a4a70835021506cbe0d
+        - &id016
+          name: AWS Config rule compliance summary
+          link: evidence/aws-govcloud/cm/3.4.1/aws_config_compliance.json
+          collected: '2026-07-05'
+          collector: aws-config-compliance
+          source_system: AWS Config
+          refresh_bucket: machine
+          sha256: 13e012aeb65147f61c1006f7c5638e53c1756091e82bbc639054eb8c35689129
+      b:
+        conformity: met
+        statement: 'Demo OSC: System Baselining objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.1 [b]
+          link: evidence/demo/CM-L2-3-4-1-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+        - *id015
+        - *id016
+      c:
+        conformity: met
+        statement: 'Demo OSC: System Baselining objective c satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.1 [c]
+          link: evidence/demo/CM-L2-3-4-1-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      d:
+        conformity: met
+        statement: 'Demo OSC: System Baselining objective d satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.1 [d]
+          link: evidence/demo/CM-L2-3-4-1-d.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      e:
+        conformity: met
+        statement: 'Demo OSC: System Baselining objective e satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.1 [e]
+          link: evidence/demo/CM-L2-3-4-1-e.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      f:
+        conformity: met
+        statement: 'Demo OSC: System Baselining objective f satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.1 [f]
+          link: evidence/demo/CM-L2-3-4-1-f.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  CM.L2-3.4.2:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Security Configuration Enforcement objective a satisfied
+          via documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.2 [a]
+          link: evidence/demo/CM-L2-3-4-2-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+        - name: Terraform declares aws_s3_bucket.cui_exports.
+          link: terraform/storage.tf:12
+          collected: '2026-07-04'
+          collector: controlbot-terraform-eda740cea425
+          source_system: ControlBot
+          refresh_bucket: machine
+      b:
+        conformity: met
+        statement: 'Demo OSC: Security Configuration Enforcement objective b satisfied
+          via documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.2 [b]
+          link: evidence/demo/CM-L2-3-4-2-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  CM.L2-3.4.3:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: System Change Management objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.3 [a]
+          link: evidence/demo/CM-L2-3-4-3-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: System Change Management objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.3 [b]
+          link: evidence/demo/CM-L2-3-4-3-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      c:
+        conformity: met
+        statement: 'Demo OSC: System Change Management objective c satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.3 [c]
+          link: evidence/demo/CM-L2-3-4-3-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      d:
+        conformity: met
+        statement: 'Demo OSC: System Change Management objective d satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.3 [d]
+          link: evidence/demo/CM-L2-3-4-3-d.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  CM.L2-3.4.4:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Security Impact Analysis objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.4 [a]
+          link: evidence/demo/CM-L2-3-4-4-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  CM.L2-3.4.5:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Access Restrictions for Change objective a satisfied
+          via documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.5 [a]
+          link: evidence/demo/CM-L2-3-4-5-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Access Restrictions for Change objective b satisfied
+          via documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.5 [b]
+          link: evidence/demo/CM-L2-3-4-5-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      c:
+        conformity: met
+        statement: 'Demo OSC: Access Restrictions for Change objective c satisfied
+          via documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.5 [c]
+          link: evidence/demo/CM-L2-3-4-5-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      d:
+        conformity: met
+        statement: 'Demo OSC: Access Restrictions for Change objective d satisfied
+          via documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.5 [d]
+          link: evidence/demo/CM-L2-3-4-5-d.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      e:
+        conformity: met
+        statement: 'Demo OSC: Access Restrictions for Change objective e satisfied
+          via documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.5 [e]
+          link: evidence/demo/CM-L2-3-4-5-e.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      f:
+        conformity: met
+        statement: 'Demo OSC: Access Restrictions for Change objective f satisfied
+          via documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.5 [f]
+          link: evidence/demo/CM-L2-3-4-5-f.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      g:
+        conformity: met
+        statement: 'Demo OSC: Access Restrictions for Change objective g satisfied
+          via documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.5 [g]
+          link: evidence/demo/CM-L2-3-4-5-g.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      h:
+        conformity: met
+        statement: 'Demo OSC: Access Restrictions for Change objective h satisfied
+          via documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.5 [h]
+          link: evidence/demo/CM-L2-3-4-5-h.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  CM.L2-3.4.6:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Least Functionality objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.6 [a]
+          link: evidence/demo/CM-L2-3-4-6-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Least Functionality objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.6 [b]
+          link: evidence/demo/CM-L2-3-4-6-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  CM.L2-3.4.7:
+    conformity: not-met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Nonessential Functionality objective a satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.7 [a]
+          link: evidence/demo/CM-L2-3-4-7-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Nonessential Functionality objective b satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.7 [b]
+          link: evidence/demo/CM-L2-3-4-7-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      c:
+        conformity: met
+        statement: 'Demo OSC: Nonessential Functionality objective c satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.7 [c]
+          link: evidence/demo/CM-L2-3-4-7-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      d:
+        conformity: met
+        statement: 'Demo OSC: Nonessential Functionality objective d satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.7 [d]
+          link: evidence/demo/CM-L2-3-4-7-d.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      e:
+        conformity: met
+        statement: 'Demo OSC: Nonessential Functionality objective e satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.7 [e]
+          link: evidence/demo/CM-L2-3-4-7-e.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      f:
+        conformity: met
+        statement: 'Demo OSC: Nonessential Functionality objective f satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.7 [f]
+          link: evidence/demo/CM-L2-3-4-7-f.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      g:
+        conformity: met
+        statement: 'Demo OSC: Nonessential Functionality objective g satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.7 [g]
+          link: evidence/demo/CM-L2-3-4-7-g.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      h:
+        conformity: met
+        statement: 'Demo OSC: Nonessential Functionality objective h satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.7 [h]
+          link: evidence/demo/CM-L2-3-4-7-h.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      i:
+        conformity: met
+        statement: 'Demo OSC: Nonessential Functionality objective i satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.7 [i]
+          link: evidence/demo/CM-L2-3-4-7-i.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      j:
+        conformity: met
+        statement: 'Demo OSC: Nonessential Functionality objective j satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.7 [j]
+          link: evidence/demo/CM-L2-3-4-7-j.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      k:
+        conformity: met
+        statement: 'Demo OSC: Nonessential Functionality objective k satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.7 [k]
+          link: evidence/demo/CM-L2-3-4-7-k.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      l:
+        conformity: met
+        statement: 'Demo OSC: Nonessential Functionality objective l satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.7 [l]
+          link: evidence/demo/CM-L2-3-4-7-l.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      m:
+        conformity: met
+        statement: 'Demo OSC: Nonessential Functionality objective m satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.7 [m]
+          link: evidence/demo/CM-L2-3-4-7-m.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      n:
+        conformity: met
+        statement: 'Demo OSC: Nonessential Functionality objective n satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.7 [n]
+          link: evidence/demo/CM-L2-3-4-7-n.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      o:
+        conformity: met
+        statement: 'Demo OSC: Nonessential Functionality objective o satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.7 [o]
+          link: evidence/demo/CM-L2-3-4-7-o.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+    poam:
+      priority: Medium
+      description: Close gap on CM.L2-3.4.7 before C3PAO assessment
+      opened: '2026-06-01'
+      due: '2026-09-30'
+      owner: Sam Patel
+      status: open
+      actions:
+      - Document control
+      - Collect assessor evidence
+      - Update conformity
+  CM.L2-3.4.8:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Application Execution Policy objective a satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.8 [a]
+          link: evidence/demo/CM-L2-3-4-8-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Application Execution Policy objective b satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.8 [b]
+          link: evidence/demo/CM-L2-3-4-8-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      c:
+        conformity: met
+        statement: 'Demo OSC: Application Execution Policy objective c satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.8 [c]
+          link: evidence/demo/CM-L2-3-4-8-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  CM.L2-3.4.9:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: User-Installed Software objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.9 [a]
+          link: evidence/demo/CM-L2-3-4-9-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: User-Installed Software objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.9 [b]
+          link: evidence/demo/CM-L2-3-4-9-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      c:
+        conformity: met
+        statement: 'Demo OSC: User-Installed Software objective c satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CM.L2-3.4.9 [c]
+          link: evidence/demo/CM-L2-3-4-9-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  IA.L2-3.5.1:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Identification objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — IA.L2-3.5.1 [a]
+          link: evidence/demo/IA-L2-3-5-1-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Identification objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — IA.L2-3.5.1 [b]
+          link: evidence/demo/IA-L2-3-5-1-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      c:
+        conformity: met
+        statement: 'Demo OSC: Identification objective c satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — IA.L2-3.5.1 [c]
+          link: evidence/demo/IA-L2-3-5-1-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  IA.L2-3.5.2:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Authentication objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — IA.L2-3.5.2 [a]
+          link: evidence/demo/IA-L2-3-5-2-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+        - name: Duo MFA verification trail
+          link: evidence/duo/ia/3.5.2/duo_auth_logs.json
+          collected: '2026-07-05'
+          collector: duo-auth-logs
+          source_system: Cisco Duo
+          refresh_bucket: machine
+          sha256: 48d0f6052f5d2e08944dc71477ae3d5161e97a6c7f30ca0fde6f6a0bee77d86e
+      b:
+        conformity: met
+        statement: 'Demo OSC: Authentication objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — IA.L2-3.5.2 [b]
+          link: evidence/demo/IA-L2-3-5-2-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      c:
+        conformity: met
+        statement: 'Demo OSC: Authentication objective c satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — IA.L2-3.5.2 [c]
+          link: evidence/demo/IA-L2-3-5-2-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  IA.L2-3.5.3:
+    conformity: partially-met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Multifactor Authentication objective a satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — IA.L2-3.5.3 [a]
+          link: evidence/demo/IA-L2-3-5-3-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+        - &id017
+          name: Entra sign-in MFA sample
+          link: evidence/m365-gcch/ia/3.5.3/entra_signins.json
+          collected: '2026-07-05'
+          collector: entra-signins
+          source_system: Microsoft Entra ID (GCC High)
+          refresh_bucket: machine
+          sha256: da890091f3ada16561d332d1e81c78e7ff9e31942b739016accf04baddfbe420
+        - &id018
+          name: Conditional Access policy export
+          link: evidence/m365-gcch/ia/3.5.3/entra_conditional_access.json
+          collected: '2026-07-05'
+          collector: entra-conditional-access
+          source_system: Microsoft Entra Conditional Access
+          refresh_bucket: machine
+          sha256: 89bac38b2f0150c3a43a070c93981588bf4bfe5f045b07b760da15e0d5f9d4f8
+        - &id019
+          name: Duo authentication log sample
+          link: evidence/duo/ia/3.5.3/duo_auth_logs.json
+          collected: '2026-07-05'
+          collector: duo-auth-logs
+          source_system: Cisco Duo
+          refresh_bucket: machine
+          sha256: 9592d541ed60db4f2026b32c6ba80fbd858165208c92ce1051edc938c63d933b
+      b:
+        conformity: met
+        statement: 'Demo OSC: Multifactor Authentication objective b satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — IA.L2-3.5.3 [b]
+          link: evidence/demo/IA-L2-3-5-3-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+        - *id017
+        - *id018
+        - *id019
+      c:
+        conformity: met
+        statement: 'Demo OSC: Multifactor Authentication objective c satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — IA.L2-3.5.3 [c]
+          link: evidence/demo/IA-L2-3-5-3-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      d:
+        conformity: not-met
+        statement: 'Demo OSC: Multifactor Authentication objective d satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — IA.L2-3.5.3 [d]
+          link: evidence/demo/IA-L2-3-5-3-d.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+    statement: Phishing-resistant MFA enforced via CA; one legacy app still on SMS
+      OTP.
+  IA.L2-3.5.4:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Replay-Resistant Authentication objective a satisfied
+          via documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — IA.L2-3.5.4 [a]
+          link: evidence/demo/IA-L2-3-5-4-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  IA.L2-3.5.5:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Identifier Reuse objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — IA.L2-3.5.5 [a]
+          link: evidence/demo/IA-L2-3-5-5-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Identifier Reuse objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — IA.L2-3.5.5 [b]
+          link: evidence/demo/IA-L2-3-5-5-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  IA.L2-3.5.6:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Identifier Handling objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — IA.L2-3.5.6 [a]
+          link: evidence/demo/IA-L2-3-5-6-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Identifier Handling objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — IA.L2-3.5.6 [b]
+          link: evidence/demo/IA-L2-3-5-6-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  IA.L2-3.5.7:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Password Complexity objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — IA.L2-3.5.7 [a]
+          link: evidence/demo/IA-L2-3-5-7-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Password Complexity objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — IA.L2-3.5.7 [b]
+          link: evidence/demo/IA-L2-3-5-7-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      c:
+        conformity: met
+        statement: 'Demo OSC: Password Complexity objective c satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — IA.L2-3.5.7 [c]
+          link: evidence/demo/IA-L2-3-5-7-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      d:
+        conformity: met
+        statement: 'Demo OSC: Password Complexity objective d satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — IA.L2-3.5.7 [d]
+          link: evidence/demo/IA-L2-3-5-7-d.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  IA.L2-3.5.8:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Password Reuse objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — IA.L2-3.5.8 [a]
+          link: evidence/demo/IA-L2-3-5-8-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Password Reuse objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — IA.L2-3.5.8 [b]
+          link: evidence/demo/IA-L2-3-5-8-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  IA.L2-3.5.9:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Temporary Passwords objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — IA.L2-3.5.9 [a]
+          link: evidence/demo/IA-L2-3-5-9-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  IA.L2-3.5.10:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Cryptographically-Protected Passwords objective a satisfied
+          via documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — IA.L2-3.5.10 [a]
+          link: evidence/demo/IA-L2-3-5-10-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Cryptographically-Protected Passwords objective b satisfied
+          via documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — IA.L2-3.5.10 [b]
+          link: evidence/demo/IA-L2-3-5-10-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  IA.L2-3.5.11:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Obscure Feedback objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — IA.L2-3.5.11 [a]
+          link: evidence/demo/IA-L2-3-5-11-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  IR.L2-3.6.1:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Incident Handling objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — IR.L2-3.6.1 [a]
+          link: evidence/demo/IR-L2-3-6-1-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Incident Handling objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — IR.L2-3.6.1 [b]
+          link: evidence/demo/IR-L2-3-6-1-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      c:
+        conformity: met
+        statement: 'Demo OSC: Incident Handling objective c satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — IR.L2-3.6.1 [c]
+          link: evidence/demo/IR-L2-3-6-1-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      d:
+        conformity: met
+        statement: 'Demo OSC: Incident Handling objective d satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — IR.L2-3.6.1 [d]
+          link: evidence/demo/IR-L2-3-6-1-d.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      e:
+        conformity: met
+        statement: 'Demo OSC: Incident Handling objective e satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — IR.L2-3.6.1 [e]
+          link: evidence/demo/IR-L2-3-6-1-e.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      f:
+        conformity: met
+        statement: 'Demo OSC: Incident Handling objective f satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — IR.L2-3.6.1 [f]
+          link: evidence/demo/IR-L2-3-6-1-f.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      g:
+        conformity: met
+        statement: 'Demo OSC: Incident Handling objective g satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — IR.L2-3.6.1 [g]
+          link: evidence/demo/IR-L2-3-6-1-g.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  IR.L2-3.6.2:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Incident Reporting objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — IR.L2-3.6.2 [a]
+          link: evidence/demo/IR-L2-3-6-2-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Incident Reporting objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — IR.L2-3.6.2 [b]
+          link: evidence/demo/IR-L2-3-6-2-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      c:
+        conformity: met
+        statement: 'Demo OSC: Incident Reporting objective c satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — IR.L2-3.6.2 [c]
+          link: evidence/demo/IR-L2-3-6-2-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      d:
+        conformity: met
+        statement: 'Demo OSC: Incident Reporting objective d satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — IR.L2-3.6.2 [d]
+          link: evidence/demo/IR-L2-3-6-2-d.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      e:
+        conformity: met
+        statement: 'Demo OSC: Incident Reporting objective e satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — IR.L2-3.6.2 [e]
+          link: evidence/demo/IR-L2-3-6-2-e.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      f:
+        conformity: met
+        statement: 'Demo OSC: Incident Reporting objective f satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — IR.L2-3.6.2 [f]
+          link: evidence/demo/IR-L2-3-6-2-f.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  IR.L2-3.6.3:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Incident Response Testing objective a satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — IR.L2-3.6.3 [a]
+          link: evidence/demo/IR-L2-3-6-3-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  MA.L2-3.7.1:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Perform Maintenance objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — MA.L2-3.7.1 [a]
+          link: evidence/demo/MA-L2-3-7-1-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  MA.L2-3.7.2:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: System Maintenance Control objective a satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — MA.L2-3.7.2 [a]
+          link: evidence/demo/MA-L2-3-7-2-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: System Maintenance Control objective b satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — MA.L2-3.7.2 [b]
+          link: evidence/demo/MA-L2-3-7-2-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      c:
+        conformity: met
+        statement: 'Demo OSC: System Maintenance Control objective c satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — MA.L2-3.7.2 [c]
+          link: evidence/demo/MA-L2-3-7-2-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      d:
+        conformity: met
+        statement: 'Demo OSC: System Maintenance Control objective d satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — MA.L2-3.7.2 [d]
+          link: evidence/demo/MA-L2-3-7-2-d.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  MA.L2-3.7.3:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Equipment Sanitization objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — MA.L2-3.7.3 [a]
+          link: evidence/demo/MA-L2-3-7-3-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  MA.L2-3.7.4:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Media Inspection objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — MA.L2-3.7.4 [a]
+          link: evidence/demo/MA-L2-3-7-4-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  MA.L2-3.7.5:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Nonlocal Maintenance objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — MA.L2-3.7.5 [a]
+          link: evidence/demo/MA-L2-3-7-5-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Nonlocal Maintenance objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — MA.L2-3.7.5 [b]
+          link: evidence/demo/MA-L2-3-7-5-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  MA.L2-3.7.6:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Maintenance Personnel objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — MA.L2-3.7.6 [a]
+          link: evidence/demo/MA-L2-3-7-6-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  MP.L2-3.8.1:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Media Protection objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — MP.L2-3.8.1 [a]
+          link: evidence/demo/MP-L2-3-8-1-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Media Protection objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — MP.L2-3.8.1 [b]
+          link: evidence/demo/MP-L2-3-8-1-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      c:
+        conformity: met
+        statement: 'Demo OSC: Media Protection objective c satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — MP.L2-3.8.1 [c]
+          link: evidence/demo/MP-L2-3-8-1-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      d:
+        conformity: met
+        statement: 'Demo OSC: Media Protection objective d satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — MP.L2-3.8.1 [d]
+          link: evidence/demo/MP-L2-3-8-1-d.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  MP.L2-3.8.2:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Media Access objective a satisfied via documented enclave
+          controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — MP.L2-3.8.2 [a]
+          link: evidence/demo/MP-L2-3-8-2-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  MP.L2-3.8.3:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Media Disposal objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — MP.L2-3.8.3 [a]
+          link: evidence/demo/MP-L2-3-8-3-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Media Disposal objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — MP.L2-3.8.3 [b]
+          link: evidence/demo/MP-L2-3-8-3-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  MP.L2-3.8.4:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Media Markings objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — MP.L2-3.8.4 [a]
+          link: evidence/demo/MP-L2-3-8-4-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Media Markings objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — MP.L2-3.8.4 [b]
+          link: evidence/demo/MP-L2-3-8-4-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  MP.L2-3.8.5:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Media Accountability objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — MP.L2-3.8.5 [a]
+          link: evidence/demo/MP-L2-3-8-5-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Media Accountability objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — MP.L2-3.8.5 [b]
+          link: evidence/demo/MP-L2-3-8-5-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  MP.L2-3.8.6:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Portable Storage Encryption objective a satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — MP.L2-3.8.6 [a]
+          link: evidence/demo/MP-L2-3-8-6-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  MP.L2-3.8.7:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Removeable Media objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — MP.L2-3.8.7 [a]
+          link: evidence/demo/MP-L2-3-8-7-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  MP.L2-3.8.8:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Shared Media objective a satisfied via documented enclave
+          controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — MP.L2-3.8.8 [a]
+          link: evidence/demo/MP-L2-3-8-8-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  MP.L2-3.8.9:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Protect Backups objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — MP.L2-3.8.9 [a]
+          link: evidence/demo/MP-L2-3-8-9-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  PS.L2-3.9.1:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Screen Individuals objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — PS.L2-3.9.1 [a]
+          link: evidence/demo/PS-L2-3-9-1-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  PS.L2-3.9.2:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Personnel Actions objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — PS.L2-3.9.2 [a]
+          link: evidence/demo/PS-L2-3-9-2-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Personnel Actions objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — PS.L2-3.9.2 [b]
+          link: evidence/demo/PS-L2-3-9-2-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      c:
+        conformity: met
+        statement: 'Demo OSC: Personnel Actions objective c satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — PS.L2-3.9.2 [c]
+          link: evidence/demo/PS-L2-3-9-2-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  PE.L2-3.10.1:
+    conformity: met
+    objectives:
+      a:
+        conformity: inherited
+        statement: Physical protection for the GCC High boundary is inherited from
+          Microsoft 365 GCC High per CRM Appendix J; no customer-operated datacenter
+          for this enclave.
+        inheritance:
+          source: gcch
+          type: inherited
+          crm_ref: PE family rows (Appendix J)
+        evidence:
+        - &id020
+          name: CUI door and reader inventory
+          link: evidence/onprem-physical/pe/3.10.1/physical_access_pacs.json
+          collected: '2026-07-05'
+          collector: physical-access-pacs
+          source_system: Physical access control system
+          refresh_bucket: periodic
+          sha256: 440b5baf5e0faa09b9a9e0ff5455066e6c3155f430b21af44c4b39faa17dba92
+      b:
+        conformity: inherited
+        statement: Physical protection for the GCC High boundary is inherited from
+          Microsoft 365 GCC High per CRM Appendix J; no customer-operated datacenter
+          for this enclave.
+        inheritance:
+          source: gcch
+          type: inherited
+          crm_ref: PE family rows (Appendix J)
+        evidence:
+        - *id020
+      c:
+        conformity: inherited
+        statement: Physical protection for the GCC High boundary is inherited from
+          Microsoft 365 GCC High per CRM Appendix J; no customer-operated datacenter
+          for this enclave.
+        inheritance:
+          source: gcch
+          type: inherited
+          crm_ref: PE family rows (Appendix J)
+      d:
+        conformity: inherited
+        statement: Physical protection for the GCC High boundary is inherited from
+          Microsoft 365 GCC High per CRM Appendix J; no customer-operated datacenter
+          for this enclave.
+        inheritance:
+          source: gcch
+          type: inherited
+          crm_ref: PE family rows (Appendix J)
+  PE.L2-3.10.2:
+    conformity: met
+    objectives:
+      a:
+        conformity: inherited
+        statement: Physical protection for the GCC High boundary is inherited from
+          Microsoft 365 GCC High per CRM Appendix J; no customer-operated datacenter
+          for this enclave.
+        inheritance:
+          source: gcch
+          type: inherited
+          crm_ref: PE family rows (Appendix J)
+      b:
+        conformity: inherited
+        statement: Physical protection for the GCC High boundary is inherited from
+          Microsoft 365 GCC High per CRM Appendix J; no customer-operated datacenter
+          for this enclave.
+        inheritance:
+          source: gcch
+          type: inherited
+          crm_ref: PE family rows (Appendix J)
+      c:
+        conformity: inherited
+        statement: Physical protection for the GCC High boundary is inherited from
+          Microsoft 365 GCC High per CRM Appendix J; no customer-operated datacenter
+          for this enclave.
+        inheritance:
+          source: gcch
+          type: inherited
+          crm_ref: PE family rows (Appendix J)
+      d:
+        conformity: inherited
+        statement: Physical protection for the GCC High boundary is inherited from
+          Microsoft 365 GCC High per CRM Appendix J; no customer-operated datacenter
+          for this enclave.
+        inheritance:
+          source: gcch
+          type: inherited
+          crm_ref: PE family rows (Appendix J)
+  PE.L2-3.10.3:
+    conformity: met
+    objectives:
+      a:
+        conformity: inherited
+        statement: Physical protection for the GCC High boundary is inherited from
+          Microsoft 365 GCC High per CRM Appendix J; no customer-operated datacenter
+          for this enclave.
+        inheritance:
+          source: gcch
+          type: inherited
+          crm_ref: PE family rows (Appendix J)
+      b:
+        conformity: inherited
+        statement: Physical protection for the GCC High boundary is inherited from
+          Microsoft 365 GCC High per CRM Appendix J; no customer-operated datacenter
+          for this enclave.
+        inheritance:
+          source: gcch
+          type: inherited
+          crm_ref: PE family rows (Appendix J)
+  PE.L2-3.10.4:
+    conformity: met
+    objectives:
+      a:
+        conformity: inherited
+        statement: Physical protection for the GCC High boundary is inherited from
+          Microsoft 365 GCC High per CRM Appendix J; no customer-operated datacenter
+          for this enclave.
+        inheritance:
+          source: gcch
+          type: inherited
+          crm_ref: PE family rows (Appendix J)
+        evidence:
+        - &id021
+          name: Badge read event sample (redacted)
+          link: evidence/onprem-physical/pe/3.10.4/physical_access_pacs.json
+          collected: '2026-07-05'
+          collector: physical-access-pacs
+          source_system: Physical access control system
+          refresh_bucket: periodic
+          sha256: 2c0cbaf8b015dd67c27a0fe8741b8f79202dd1f4b27490b62c6dded15aca01d1
+      b:
+        evidence:
+        - *id021
+  PE.L2-3.10.5:
+    conformity: met
+    objectives:
+      a:
+        conformity: inherited
+        statement: Physical protection for the GCC High boundary is inherited from
+          Microsoft 365 GCC High per CRM Appendix J; no customer-operated datacenter
+          for this enclave.
+        inheritance:
+          source: gcch
+          type: inherited
+          crm_ref: PE family rows (Appendix J)
+        evidence:
+        - &id022
+          name: Active credential / badge count export
+          link: evidence/onprem-physical/pe/3.10.5/physical_access_pacs.json
+          collected: '2026-07-05'
+          collector: physical-access-pacs
+          source_system: Physical access control system
+          refresh_bucket: periodic
+          sha256: 23dc17a9bd2fd7db1e182aa619cd572a2122bcbe6bcf984c45ace700f26d0b3c
+      b:
+        conformity: inherited
+        statement: Physical protection for the GCC High boundary is inherited from
+          Microsoft 365 GCC High per CRM Appendix J; no customer-operated datacenter
+          for this enclave.
+        inheritance:
+          source: gcch
+          type: inherited
+          crm_ref: PE family rows (Appendix J)
+        evidence:
+        - *id022
+      c:
+        conformity: inherited
+        statement: Physical protection for the GCC High boundary is inherited from
+          Microsoft 365 GCC High per CRM Appendix J; no customer-operated datacenter
+          for this enclave.
+        inheritance:
+          source: gcch
+          type: inherited
+          crm_ref: PE family rows (Appendix J)
+  PE.L2-3.10.6:
+    conformity: met
+    objectives:
+      a:
+        conformity: inherited
+        statement: Physical protection for the GCC High boundary is inherited from
+          Microsoft 365 GCC High per CRM Appendix J; no customer-operated datacenter
+          for this enclave.
+        inheritance:
+          source: gcch
+          type: inherited
+          crm_ref: PE family rows (Appendix J)
+      b:
+        conformity: inherited
+        statement: Physical protection for the GCC High boundary is inherited from
+          Microsoft 365 GCC High per CRM Appendix J; no customer-operated datacenter
+          for this enclave.
+        inheritance:
+          source: gcch
+          type: inherited
+          crm_ref: PE family rows (Appendix J)
+  RA.L2-3.11.1:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: RIsk Assessments objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — RA.L2-3.11.1 [a]
+          link: evidence/demo/RA-L2-3-11-1-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: RIsk Assessments objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — RA.L2-3.11.1 [b]
+          link: evidence/demo/RA-L2-3-11-1-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  RA.L2-3.11.2:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Vulnerability Scan objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — RA.L2-3.11.2 [a]
+          link: evidence/demo/RA-L2-3-11-2-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Vulnerability Scan objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — RA.L2-3.11.2 [b]
+          link: evidence/demo/RA-L2-3-11-2-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      c:
+        conformity: met
+        statement: 'Demo OSC: Vulnerability Scan objective c satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — RA.L2-3.11.2 [c]
+          link: evidence/demo/RA-L2-3-11-2-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      d:
+        conformity: met
+        statement: 'Demo OSC: Vulnerability Scan objective d satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — RA.L2-3.11.2 [d]
+          link: evidence/demo/RA-L2-3-11-2-d.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      e:
+        conformity: met
+        statement: 'Demo OSC: Vulnerability Scan objective e satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — RA.L2-3.11.2 [e]
+          link: evidence/demo/RA-L2-3-11-2-e.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  RA.L2-3.11.3:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Vulnerability Remediation objective a satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — RA.L2-3.11.3 [a]
+          link: evidence/demo/RA-L2-3-11-3-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Vulnerability Remediation objective b satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — RA.L2-3.11.3 [b]
+          link: evidence/demo/RA-L2-3-11-3-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  CA.L2-3.12.1:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Security Control Assessment objective a satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CA.L2-3.12.1 [a]
+          link: evidence/demo/CA-L2-3-12-1-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Security Control Assessment objective b satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CA.L2-3.12.1 [b]
+          link: evidence/demo/CA-L2-3-12-1-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  CA.L2-3.12.2:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: operational Plan of Action objective a satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CA.L2-3.12.2 [a]
+          link: evidence/demo/CA-L2-3-12-2-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: operational Plan of Action objective b satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CA.L2-3.12.2 [b]
+          link: evidence/demo/CA-L2-3-12-2-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      c:
+        conformity: met
+        statement: 'Demo OSC: operational Plan of Action objective c satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CA.L2-3.12.2 [c]
+          link: evidence/demo/CA-L2-3-12-2-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  CA.L2-3.12.3:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Security Control Monitoring objective a satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CA.L2-3.12.3 [a]
+          link: evidence/demo/CA-L2-3-12-3-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+        - &id023
+          name: Security Hub continuous monitoring posture
+          link: evidence/aws-govcloud/ca/3.12.3/aws_security_hub.json
+          collected: '2026-07-05'
+          collector: aws-security-hub
+          source_system: AWS Security Hub
+          refresh_bucket: machine
+          sha256: 0c78ce401170168e8a8fab3d190cb4713e1afb65e7141fab95744755f2d3ae13
+      b:
+        evidence:
+        - *id023
+  CA.L2-3.12.4:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: System Security Plan maintained at Rev 2; generated from program-data.yaml.
+        evidence:
+        - name: SSP Rev 2 (generated)
+          link: outputs/ssp.md
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: System Security Plan objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CA.L2-3.12.4 [b]
+          link: evidence/demo/CA-L2-3-12-4-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      c:
+        conformity: met
+        statement: 'Demo OSC: System Security Plan objective c satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CA.L2-3.12.4 [c]
+          link: evidence/demo/CA-L2-3-12-4-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      d:
+        conformity: met
+        statement: 'Demo OSC: System Security Plan objective d satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CA.L2-3.12.4 [d]
+          link: evidence/demo/CA-L2-3-12-4-d.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      e:
+        conformity: met
+        statement: 'Demo OSC: System Security Plan objective e satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CA.L2-3.12.4 [e]
+          link: evidence/demo/CA-L2-3-12-4-e.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      f:
+        conformity: met
+        statement: 'Demo OSC: System Security Plan objective f satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CA.L2-3.12.4 [f]
+          link: evidence/demo/CA-L2-3-12-4-f.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      g:
+        conformity: met
+        statement: 'Demo OSC: System Security Plan objective g satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CA.L2-3.12.4 [g]
+          link: evidence/demo/CA-L2-3-12-4-g.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      h:
+        conformity: met
+        statement: 'Demo OSC: System Security Plan objective h satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — CA.L2-3.12.4 [h]
+          link: evidence/demo/CA-L2-3-12-4-h.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  SC.L2-3.13.1:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Boundary Protection objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SC.L2-3.13.1 [a]
+          link: evidence/demo/SC-L2-3-13-1-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+        - name: Bucket ACL or policy exposes object reads to the internet.
+          link: terraform/storage.tf:12
+          collected: '2026-07-04'
+          collector: controlbot-checkov-6e19b16a8055
+          source_system: ControlBot
+          refresh_bucket: machine
+        - name: Bucket policy allows public read access.
+          link: terraform/storage.tf:12
+          collected: '2026-07-04'
+          collector: controlbot-terraform-316462f1fc64
+          source_system: ControlBot
+          refresh_bucket: machine
+      b:
+        conformity: met
+        statement: 'Demo OSC: Boundary Protection objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SC.L2-3.13.1 [b]
+          link: evidence/demo/SC-L2-3-13-1-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      c:
+        conformity: met
+        statement: 'Demo OSC: Boundary Protection objective c satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SC.L2-3.13.1 [c]
+          link: evidence/demo/SC-L2-3-13-1-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+        - &id024
+          name: ZIA firewall policy export
+          link: evidence/zscaler/sc/3.13.1/zscaler_policy.json
+          collected: '2026-07-05'
+          collector: zscaler-policy
+          source_system: Zscaler Internet Access
+          refresh_bucket: machine
+          sha256: 58d31ad40824d313c2d4a18de1f9a3291af1ea2c7ddb2b9fd4326faa28e9483e
+        - &id026
+          name: Prisma Access security rules export
+          link: evidence/prisma-access/sc/3.13.1/prisma_access_rules.json
+          collected: '2026-07-05'
+          collector: prisma-access-rules
+          source_system: Palo Alto Strata Cloud Manager
+          refresh_bucket: machine
+          sha256: b396fb0b7675110909d95498dedf082ab760374a92112e5b274dd723381e15ec
+        - &id025
+          name: FortiGate boundary policy export
+          link: evidence/onprem-network/sc/3.13.1/fortinet_firewall.json
+          collected: '2026-07-05'
+          collector: fortinet-firewall
+          source_system: FortiGate (on-premises)
+          refresh_bucket: machine
+          sha256: f55a2ec8460645e9abed084489d35446fb998244f95c4742e9a1e5f95015b0f7
+        - &id027
+          name: PAN-OS security rule export
+          link: evidence/onprem-network/sc/3.13.1/palo_alto_ngfw_onprem.json
+          collected: '2026-07-05'
+          collector: palo-alto-ngfw-onprem
+          source_system: Palo Alto PAN-OS (on-premises)
+          refresh_bucket: machine
+          sha256: 4dd8aca7e2553e67f92541c548c4b38b874f23a2b5e0d32ac2164ffb0493d041
+        - name: Guest vs CUI WLAN segmentation mapping
+          link: evidence/onprem-network/sc/3.13.1/wlan_controller.json
+          collected: '2026-07-05'
+          collector: wlan-controller
+          source_system: WLAN controller (on-premises)
+          refresh_bucket: machine
+          sha256: 824db5a47294aa82de118ffd2ee1c308d2068d7ddae8cc4585819011003a2d75
+      d:
+        conformity: met
+        statement: 'Demo OSC: Boundary Protection objective d satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SC.L2-3.13.1 [d]
+          link: evidence/demo/SC-L2-3-13-1-d.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      e:
+        conformity: met
+        statement: 'Demo OSC: Boundary Protection objective e satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SC.L2-3.13.1 [e]
+          link: evidence/demo/SC-L2-3-13-1-e.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+        - *id024
+        - *id025
+      f:
+        conformity: met
+        statement: 'Demo OSC: Boundary Protection objective f satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SC.L2-3.13.1 [f]
+          link: evidence/demo/SC-L2-3-13-1-f.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      g:
+        conformity: met
+        statement: 'Demo OSC: Boundary Protection objective g satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SC.L2-3.13.1 [g]
+          link: evidence/demo/SC-L2-3-13-1-g.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      h:
+        conformity: met
+        statement: 'Demo OSC: Boundary Protection objective h satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SC.L2-3.13.1 [h]
+          link: evidence/demo/SC-L2-3-13-1-h.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+        - *id026
+        - *id027
+    poam:
+      priority: High
+      description: S3 bucket ACL allows public access [controlbot:checkov-ckv-aws-019-terraform-aws-s3-bucket-public-acl]
+      opened: '2026-07-04'
+      due: '2026-08-03'
+      owner: TBD
+      status: open
+      actions:
+      - Block public ACLs and restrict bucket policy to the enclave VPC endpoints.
+    remediation_plan: 'Block public ACLs and restrict bucket policy to the enclave
+      VPC endpoints. Source: ControlBot checkov Merge-blocking in IaC pipeline.'
+  SC.L2-3.13.2:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Security Engineering objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SC.L2-3.13.2 [a]
+          link: evidence/demo/SC-L2-3-13-2-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Security Engineering objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SC.L2-3.13.2 [b]
+          link: evidence/demo/SC-L2-3-13-2-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      c:
+        conformity: met
+        statement: 'Demo OSC: Security Engineering objective c satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SC.L2-3.13.2 [c]
+          link: evidence/demo/SC-L2-3-13-2-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      d:
+        conformity: met
+        statement: 'Demo OSC: Security Engineering objective d satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SC.L2-3.13.2 [d]
+          link: evidence/demo/SC-L2-3-13-2-d.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      e:
+        conformity: met
+        statement: 'Demo OSC: Security Engineering objective e satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SC.L2-3.13.2 [e]
+          link: evidence/demo/SC-L2-3-13-2-e.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      f:
+        conformity: met
+        statement: 'Demo OSC: Security Engineering objective f satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SC.L2-3.13.2 [f]
+          link: evidence/demo/SC-L2-3-13-2-f.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  SC.L2-3.13.3:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Role Separation objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SC.L2-3.13.3 [a]
+          link: evidence/demo/SC-L2-3-13-3-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Role Separation objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SC.L2-3.13.3 [b]
+          link: evidence/demo/SC-L2-3-13-3-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      c:
+        conformity: met
+        statement: 'Demo OSC: Role Separation objective c satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SC.L2-3.13.3 [c]
+          link: evidence/demo/SC-L2-3-13-3-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  SC.L2-3.13.4:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Shared Resource Control objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SC.L2-3.13.4 [a]
+          link: evidence/demo/SC-L2-3-13-4-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  SC.L2-3.13.5:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Public-Access System Separation objective a satisfied
+          via documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SC.L2-3.13.5 [a]
+          link: evidence/demo/SC-L2-3-13-5-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+        - name: Bucket ACL or policy exposes object reads to the internet.
+          link: terraform/storage.tf:12
+          collected: '2026-07-04'
+          collector: controlbot-checkov-6e19b16a8055
+          source_system: ControlBot
+          refresh_bucket: machine
+        - name: Bucket policy allows public read access.
+          link: terraform/storage.tf:12
+          collected: '2026-07-04'
+          collector: controlbot-terraform-316462f1fc64
+          source_system: ControlBot
+          refresh_bucket: machine
+      b:
+        conformity: met
+        statement: 'Demo OSC: Public-Access System Separation objective b satisfied
+          via documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SC.L2-3.13.5 [b]
+          link: evidence/demo/SC-L2-3-13-5-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  SC.L2-3.13.6:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Network Communication by Exception objective a satisfied
+          via documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SC.L2-3.13.6 [a]
+          link: evidence/demo/SC-L2-3-13-6-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+        - &id028
+          name: Prisma remote access boundary rules
+          link: evidence/prisma-access/sc/3.13.6/prisma_access_rules.json
+          collected: '2026-07-05'
+          collector: prisma-access-rules
+          source_system: Palo Alto Strata Cloud Manager
+          refresh_bucket: machine
+          sha256: 61f19c42195e035267ef1687e4c090fae8181ed12c2d797ed70f1f9ff656cc3f
+        - &id029
+          name: FortiGate deny-by-default rule sample
+          link: evidence/onprem-network/sc/3.13.6/fortinet_firewall.json
+          collected: '2026-07-05'
+          collector: fortinet-firewall
+          source_system: FortiGate (on-premises)
+          refresh_bucket: machine
+          sha256: c9dfb2b6f1a8ee43b36da0dd74bd6c44b75489f09452195e2b62028d329a8381
+      b:
+        conformity: met
+        statement: 'Demo OSC: Network Communication by Exception objective b satisfied
+          via documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SC.L2-3.13.6 [b]
+          link: evidence/demo/SC-L2-3-13-6-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      d:
+        evidence:
+        - *id028
+        - *id029
+  SC.L2-3.13.7:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Split Tunneling objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SC.L2-3.13.7 [a]
+          link: evidence/demo/SC-L2-3-13-7-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  SC.L2-3.13.8:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Data in Transit objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SC.L2-3.13.8 [a]
+          link: evidence/demo/SC-L2-3-13-8-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+        - &id030
+          name: AWS encryption-in-transit Config evidence
+          link: evidence/aws-govcloud/sc/3.13.8/aws_config_compliance.json
+          collected: '2026-07-05'
+          collector: aws-config-compliance
+          source_system: AWS Config
+          refresh_bucket: machine
+          sha256: 955574f82a977fd35e1138ca8eeabb6a3942aefd45d84062c265fda431d2af7a
+      b:
+        conformity: met
+        statement: 'Demo OSC: Data in Transit objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SC.L2-3.13.8 [b]
+          link: evidence/demo/SC-L2-3-13-8-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      c:
+        conformity: met
+        statement: 'Demo OSC: Data in Transit objective c satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SC.L2-3.13.8 [c]
+          link: evidence/demo/SC-L2-3-13-8-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      d:
+        evidence:
+        - *id030
+  SC.L2-3.13.9:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Connections Termination objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SC.L2-3.13.9 [a]
+          link: evidence/demo/SC-L2-3-13-9-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Connections Termination objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SC.L2-3.13.9 [b]
+          link: evidence/demo/SC-L2-3-13-9-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      c:
+        conformity: met
+        statement: 'Demo OSC: Connections Termination objective c satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SC.L2-3.13.9 [c]
+          link: evidence/demo/SC-L2-3-13-9-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  SC.L2-3.13.10:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Key Management objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SC.L2-3.13.10 [a]
+          link: evidence/demo/SC-L2-3-13-10-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Key Management objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SC.L2-3.13.10 [b]
+          link: evidence/demo/SC-L2-3-13-10-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  SC.L2-3.13.11:
+    conformity: met
+    objectives:
+      a:
+        conformity: shared
+        statement: 'FIPS-validated cryptography is employed for CUI at rest and in
+          transit. Service-side cryptography is inherited from the GCC High boundary
+          per the Microsoft CRM; customer-side, BitLocker runs in FIPS mode (CMVP
+          certificate 4536) enforced by Intune policy EDS-FIPS-01.
+
+          '
+        inheritance:
+          source: gcch
+          type: shared
+          crm_ref: SC-13 rows 3-7
+          customer_note: Customer enforces FIPS mode on endpoints and manages Intune
+            policy
+        evidence:
+        - name: Intune EDS-FIPS-01 policy export
+          link: evidence/sc/3.13.11/intune-fips-policy.json
+        - name: Intune FIPS/encryption compliance sample
+          link: evidence/m365-gcch/sc/3.13.11/intune_compliance.json
+          collected: '2026-07-05'
+          collector: intune-compliance
+          source_system: Microsoft Intune
+          refresh_bucket: machine
+          sha256: e4cc9a4b47f8eaf0339e9cb9ba2cb91f237593fb67f742b8bde7810cd04025bf
+        - name: AWS KMS/FIPS Config evidence
+          link: evidence/aws-govcloud/sc/3.13.11/aws_config_compliance.json
+          collected: '2026-07-05'
+          collector: aws-config-compliance
+          source_system: AWS Config
+          refresh_bucket: machine
+          sha256: 3b720efef6125c8ed35f823baa4d247a696370d82156e886f0f9f13f4b88e127
+        - name: FortiGate FIPS-CC / crypto mode status
+          link: evidence/onprem-network/sc/3.13.11/fortinet_firewall.json
+          collected: '2026-07-05'
+          collector: fortinet-firewall
+          source_system: FortiGate (on-premises)
+          refresh_bucket: machine
+          sha256: c10d5aa1321dfd932ed1bdd87466b0a2021abed8c48e8b917f750975de0f6fa6
+        - name: PAN-OS FIPS mode / crypto status
+          link: evidence/onprem-network/sc/3.13.11/palo_alto_ngfw_onprem.json
+          collected: '2026-07-05'
+          collector: palo-alto-ngfw-onprem
+          source_system: Palo Alto PAN-OS (on-premises)
+          refresh_bucket: machine
+          sha256: 7bcce320526b557f5d682a0d1c95a455c44e6114a6174b0260d68ddbeea11c71
+  SC.L2-3.13.12:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Collaborative Device Control objective a satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SC.L2-3.13.12 [a]
+          link: evidence/demo/SC-L2-3-13-12-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Collaborative Device Control objective b satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SC.L2-3.13.12 [b]
+          link: evidence/demo/SC-L2-3-13-12-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      c:
+        conformity: met
+        statement: 'Demo OSC: Collaborative Device Control objective c satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SC.L2-3.13.12 [c]
+          link: evidence/demo/SC-L2-3-13-12-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  SC.L2-3.13.13:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Mobile Code objective a satisfied via documented enclave
+          controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SC.L2-3.13.13 [a]
+          link: evidence/demo/SC-L2-3-13-13-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Mobile Code objective b satisfied via documented enclave
+          controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SC.L2-3.13.13 [b]
+          link: evidence/demo/SC-L2-3-13-13-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  SC.L2-3.13.14:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Voice over Internet Protocol objective a satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SC.L2-3.13.14 [a]
+          link: evidence/demo/SC-L2-3-13-14-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Voice over Internet Protocol objective b satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SC.L2-3.13.14 [b]
+          link: evidence/demo/SC-L2-3-13-14-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  SC.L2-3.13.15:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Communications Authenticity objective a satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SC.L2-3.13.15 [a]
+          link: evidence/demo/SC-L2-3-13-15-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  SC.L2-3.13.16:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Data at Rest objective a satisfied via documented enclave
+          controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SC.L2-3.13.16 [a]
+          link: evidence/demo/SC-L2-3-13-16-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  SI.L2-3.14.1:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Flaw Remediation objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SI.L2-3.14.1 [a]
+          link: evidence/demo/SI-L2-3-14-1-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Flaw Remediation objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SI.L2-3.14.1 [b]
+          link: evidence/demo/SI-L2-3-14-1-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+        - &id031
+          name: Security Hub findings summary
+          link: evidence/aws-govcloud/si/3.14.1/aws_security_hub.json
+          collected: '2026-07-05'
+          collector: aws-security-hub
+          source_system: AWS Security Hub
+          refresh_bucket: machine
+          sha256: 02fe970dd366868d6259642f5d16c64b4a848353aacdc5d9fb2bc28f3ac54a72
+        - name: SCC vulnerability findings sample
+          link: evidence/gcp-assured/si/3.14.1/gcp_scc_findings.json
+          collected: '2026-07-05'
+          collector: gcp-scc-findings
+          source_system: Google Security Command Center
+          refresh_bucket: machine
+          sha256: 8ab575e1273b3f9ae23e24a4e6b93cfff7f3177bb1204e797b75583cc1f49da2
+      c:
+        conformity: met
+        statement: 'Demo OSC: Flaw Remediation objective c satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SI.L2-3.14.1 [c]
+          link: evidence/demo/SI-L2-3-14-1-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      d:
+        conformity: met
+        statement: 'Demo OSC: Flaw Remediation objective d satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SI.L2-3.14.1 [d]
+          link: evidence/demo/SI-L2-3-14-1-d.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+        - *id031
+      e:
+        conformity: met
+        statement: 'Demo OSC: Flaw Remediation objective e satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SI.L2-3.14.1 [e]
+          link: evidence/demo/SI-L2-3-14-1-e.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      f:
+        conformity: met
+        statement: 'Demo OSC: Flaw Remediation objective f satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SI.L2-3.14.1 [f]
+          link: evidence/demo/SI-L2-3-14-1-f.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  SI.L2-3.14.2:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Malicious Code Protection objective a satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SI.L2-3.14.2 [a]
+          link: evidence/demo/SI-L2-3-14-2-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+        - &id032
+          name: MDE onboarding and AV status
+          link: evidence/m365-defender-gcch/si/3.14.2/defender_endpoint.json
+          collected: '2026-07-05'
+          collector: defender-endpoint
+          source_system: Microsoft Defender for Endpoint
+          refresh_bucket: machine
+          sha256: 6065dab134e3ef128265fd6a053280d081e646534a96aaba4519d19c61e726b2
+        - &id033
+          name: Falcon host sensor coverage
+          link: evidence/crowdstrike/si/3.14.2/crowdstrike_hosts.json
+          collected: '2026-07-05'
+          collector: crowdstrike-hosts
+          source_system: CrowdStrike Falcon
+          refresh_bucket: machine
+          sha256: 2cab1a5ee82e17450bff35cb3fe4d3a0b16fba56e0c9c4512d62be79d50f3fca
+      b:
+        conformity: met
+        statement: 'Demo OSC: Malicious Code Protection objective b satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SI.L2-3.14.2 [b]
+          link: evidence/demo/SI-L2-3-14-2-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+        - *id032
+        - *id033
+  SI.L2-3.14.3:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Security Alerts & Advisories objective a satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SI.L2-3.14.3 [a]
+          link: evidence/demo/SI-L2-3-14-3-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Security Alerts & Advisories objective b satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SI.L2-3.14.3 [b]
+          link: evidence/demo/SI-L2-3-14-3-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      c:
+        conformity: met
+        statement: 'Demo OSC: Security Alerts & Advisories objective c satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SI.L2-3.14.3 [c]
+          link: evidence/demo/SI-L2-3-14-3-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  SI.L2-3.14.4:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Update Malicious Code Protection objective a satisfied
+          via documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SI.L2-3.14.4 [a]
+          link: evidence/demo/SI-L2-3-14-4-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  SI.L2-3.14.5:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: System & File Scanning objective a satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SI.L2-3.14.5 [a]
+          link: evidence/demo/SI-L2-3-14-5-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: System & File Scanning objective b satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SI.L2-3.14.5 [b]
+          link: evidence/demo/SI-L2-3-14-5-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      c:
+        conformity: met
+        statement: 'Demo OSC: System & File Scanning objective c satisfied via documented
+          enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SI.L2-3.14.5 [c]
+          link: evidence/demo/SI-L2-3-14-5-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+  SI.L2-3.14.6:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Monitor Communications for Attacks objective a satisfied
+          via documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SI.L2-3.14.6 [a]
+          link: evidence/demo/SI-L2-3-14-6-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+        - &id034
+          name: MDE alert summary
+          link: evidence/m365-defender-gcch/si/3.14.6/defender_endpoint.json
+          collected: '2026-07-05'
+          collector: defender-endpoint
+          source_system: Microsoft Defender for Endpoint
+          refresh_bucket: machine
+          sha256: 17e9443ba2815fa234240cc825c5f39a669d1672002227ef2420fedb2e8c54a9
+        - &id035
+          name: SCC high-severity findings
+          link: evidence/gcp-assured/si/3.14.6/gcp_scc_findings.json
+          collected: '2026-07-05'
+          collector: gcp-scc-findings
+          source_system: Google Security Command Center
+          refresh_bucket: machine
+          sha256: 8b385ed404a5b70cb3a32e4a98ddd1923f1ceff2cebb225f6aa21e27c586debe
+        - &id036
+          name: Falcon detection summary
+          link: evidence/crowdstrike/si/3.14.6/crowdstrike_hosts.json
+          collected: '2026-07-05'
+          collector: crowdstrike-hosts
+          source_system: CrowdStrike Falcon
+          refresh_bucket: machine
+          sha256: d2e9239cce8a2eb57a7d968d9d41f233f51bf6e1f195d22f709b76aaf97fdd5c
+      b:
+        conformity: met
+        statement: 'Demo OSC: Monitor Communications for Attacks objective b satisfied
+          via documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SI.L2-3.14.6 [b]
+          link: evidence/demo/SI-L2-3-14-6-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      c:
+        conformity: met
+        statement: 'Demo OSC: Monitor Communications for Attacks objective c satisfied
+          via documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SI.L2-3.14.6 [c]
+          link: evidence/demo/SI-L2-3-14-6-c.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      d:
+        evidence:
+        - *id034
+        - name: Sentinel incident roll-up
+          link: evidence/azure-sentinel-gov/si/3.14.6/sentinel_health.json
+          collected: '2026-07-05'
+          collector: sentinel-health
+          source_system: Microsoft Sentinel
+          refresh_bucket: machine
+          sha256: 50c58ea50e05d274702086f268053bcdda4728258b0d9df728925ae7355e8231
+        - *id035
+        - *id036
+  SI.L2-3.14.7:
+    conformity: met
+    objectives:
+      a:
+        conformity: met
+        statement: 'Demo OSC: Identify Unauthorized Use objective a satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SI.L2-3.14.7 [a]
+          link: evidence/demo/SI-L2-3-14-7-a.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+      b:
+        conformity: met
+        statement: 'Demo OSC: Identify Unauthorized Use objective b satisfied via
+          documented enclave controls (Atlas Precision Manufacturing).'
+        evidence:
+        - name: Demo evidence — SI.L2-3.14.7 [b]
+          link: evidence/demo/SI-L2-3-14-7-b.json
+          collected: '2026-07-05'
+          refresh_bucket: document
+grc_integrations:
+  demo-placeholder:
+    last_sync: '2026-07-05'
+    last_snapshot: templates/grc-snapshot.sample.json
+    requirements_linked: 0
+    unmapped_count: 110
+    workspace_id: demo-workspace
+controlbot_import:
+  last_imported: '2026-07-05'
+  baseline: fedramp-moderate
+  seeds_total: 1
+  poam_applied: 1
+  requirements_touched: 1
+  evidence_links_added: 8
+  unmapped_seed_count: 0
+  source_digest: 89298a9e0efb20d4

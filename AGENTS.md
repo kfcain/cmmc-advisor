@@ -27,6 +27,7 @@ pip install -r evals/runner/requirements.txt
 python -m evals.runner.runner evals/scenarios/level-2-scoping-basic.yaml
 
 # Program toolkit examples
+python3 scripts/bootstrap_demo_osc.py   # full demo OSC + HTML guide under examples/demo-osc/
 python3 scripts/validate_poam.py templates/program-data.sample.yaml
 python3 scripts/validate_asset_baselines.py templates/program-data.sample.yaml
 python3 scripts/collect_evidence.py --list
